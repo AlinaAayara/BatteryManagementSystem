@@ -1,0 +1,276 @@
+<body class="jumping">
+
+
+    <div id="root" class="root mn--max sb--unite sb--pinned hd--expanded">
+  
+  
+      <section id="content" class="content">
+        <div class="content__header content__boxed" style="min-height: 0px !important;">
+          <div class="content__wrap">
+  
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="../index.html">Layouts</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Unite Sidebar</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+        <div class="content__boxed">
+          <div class="content__wrap">
+            <div class="card text-center mb-4 col-xl-8 offset-xl-2">
+              <div class="card-header">Header</div>
+              <div class="card-body">
+                <h5 class="card-title">Card Title Here</h5>
+                <p class="mb-5">Start putting content on grids or panels, you can also use different combinations of
+                  grids.
+                  <br>Please check out the dashboard and other pages.
+                </p>
+                <button class="nav-toggler btn btn-warning">Toggle Navigation</button>
+                <button class="btn btn-primary" onclick="changeContentHeader()">Overlapping</button>
+                <script>
+                  function changeContentHeader() {
+                    document.querySelector("#content > .content__header").classList.toggle("overlapping");
+                  }
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <footer class="mt-auto">
+          <div class="content__boxed">
+            <div class="content__wrap py-3 py-md-1 d-flex flex-column flex-md-row align-items-md-center">
+              <div class="text-nowrap mb-4 mb-md-0">Copyright &copy; 2022 <a href="#" class="ms-1 btn-link fw-bold">My
+                  Company</a></div>
+              <nav class="nav flex-column gap-1 flex-md-row gap-md-3 ms-md-auto" style="row-gap: 0 !important;">
+                <a class="nav-link px-0" href="#">Policy Privacy</a>
+                <a class="nav-link px-0" href="#">Terms and conditions</a>
+                <a class="nav-link px-0" href="#">Contact Us</a>
+              </nav>
+            </div>
+          </div>
+        </footer>
+  
+      </section>
+  
+  
+  
+  
+      <header class="header">
+        <div class="header__inner">
+  
+          <div class="header__brand">
+            <div class="brand-wrap">
+              <a href="../../index.html" class="brand-img stretched-link">
+                <img src="../../assets/img/logo.svg" alt="Nifty Logo" class="Nifty logo" width="40" height="40">
+              </a>
+              <div class="brand-title">Milk Made</div>
+            </div>
+          </div>
+  
+          <div class="header__content">
+            <div class="header__content-start">
+            </div>
+            <div class="header__content-end">
+            </div>
+          </div>
+        </div>
+      </header>
+  
+  
+  
+  
+  
+      <aside class="sidebar">
+        <div class="sidebar__inner scrollable-content">
+          <div class="sidebar__stuck align-item-center mb-3 px-4">
+            <p class="m-0 text-danger">Close the sidebar =></p>
+            <button type="button" class="sidebar-toggler btn-close btn-lg rounded-circle ms-auto"
+              aria-label="Close"></button>
+          </div>
+  
+          <div class="sidebar__wrap">
+            <nav class="px-3">
+              <div class="nav nav-callout nav-fill flex-nowrap" id="nav-tab" role="tablist">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-chat" type="button" role="tab"
+                  aria-controls="nav-chat" aria-selected="true">
+                  <i class="d-block demo-pli-speech-bubble-5 fs-3 mb-2"></i>
+                  <span>Master</span>
+                </button>
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-reports" type="button" role="tab"
+                  aria-controls="nav-reports" aria-selected="false">
+                  <i class="d-block demo-pli-information fs-3 mb-2"></i>
+                  <span>Reports</span>
+                </button>
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-settings" type="button" role="tab"
+                  aria-controls="nav-settings" aria-selected="false">
+                  <i class="d-block demo-pli-wrench fs-3 mb-2"></i>
+                  <span>Settings</span>
+                </button>
+              </div>
+            </nav>
+          </div>
+  
+  
+          <div class="tab-content sidebar__wrap" id="nav-tabContent">
+  
+            <div id="nav-chat" class="tab-pane fade py-4 show active" role="tabpanel" aria-labelledby="nav-chat-tab">
+  
+              <h5 class="px-3">Family</h5>
+              <div class="list-group list-group-borderless">
+                <div class="list-group-item list-group-item-action d-flex align-items-start mb-2">
+                  <div class="flex-shrink-0 me-3">
+                    <img class="img-xs rounded-circle" src="../../assets/img/profile-photos/2.png" alt="Profile Picture"
+                      loading="lazy">
+                  </div>
+                  <div class="flex-grow-1 ">
+                    <a href="#" class="h6 d-block mb-0 stretched-link text-decoration-none">Stephen Tran</a>
+                    <small class="text-muted">Available</small>
+                  </div>
+                </div>
+                <div class="list-group-item list-group-item-action d-flex align-items-start mb-2">
+                  <div class="flex-shrink-0 me-3">
+                    <img class="img-xs rounded-circle" src="../../assets/img/profile-photos/8.png" alt="Profile Picture"
+                      loading="lazy">
+                  </div>
+                  <div class="flex-grow-1 ">
+                    <a href="#" class="h6 d-block mb-0 stretched-link text-decoration-none">Betty Murphy</a>
+                    <small class="text-muted">Iddle</small>
+                  </div>
+                </div>
+                <div class="list-group-item list-group-item-action d-flex align-items-start mb-2">
+                  <div class="flex-shrink-0 me-3">
+                    <img class="img-xs rounded-circle" src="../../assets/img/profile-photos/7.png" alt="Profile Picture"
+                      loading="lazy">
+                  </div>
+                  <div class="flex-grow-1 ">
+                    <a href="#" class="h6 d-block mb-0 stretched-link text-decoration-none">Brittany Meyer</a>
+                    <small class="text-muted">I think so!</small>
+                  </div>
+                </div>
+                <div class="list-group-item list-group-item-action d-flex align-items-start mb-2">
+                  <div class="flex-shrink-0 me-3">
+                    <img class="img-xs rounded-circle" src="../../assets/img/profile-photos/4.png" alt="Profile Picture"
+                      loading="lazy">
+                  </div>
+                  <div class="flex-grow-1 ">
+                    <a href="#" class="h6 d-block mb-0 stretched-link text-decoration-none">Jack George</a>
+                    <small class="text-muted">Last seen 2 hours ago</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+  
+            <div id="nav-reports" class="tab-pane fade py-4" role="tabpanel" aria-labelledby="nav-reports-tab">
+  
+              <h5 class="px-3">Family</h5>
+              <div class="list-group list-group-borderless">
+                <div class="list-group-item list-group-item-action d-flex align-items-start mb-2">
+                  <div class="flex-shrink-0 me-3">
+                    <img class="img-xs rounded-circle" src="../../assets/img/profile-photos/2.png" alt="Profile Picture"
+                      loading="lazy">
+                  </div>
+                  <div class="flex-grow-1 ">
+                    <a href="#" class="h6 d-block mb-0 stretched-link text-decoration-none">Stephen Tran</a>
+                    <small class="text-muted">Available</small>
+                  </div>
+                </div>
+                <div class="list-group-item list-group-item-action d-flex align-items-start mb-2">
+                  <div class="flex-shrink-0 me-3">
+                    <img class="img-xs rounded-circle" src="../../assets/img/profile-photos/8.png" alt="Profile Picture"
+                      loading="lazy">
+                  </div>
+                  <div class="flex-grow-1 ">
+                    <a href="#" class="h6 d-block mb-0 stretched-link text-decoration-none">Betty Murphy</a>
+                    <small class="text-muted">Iddle</small>
+                  </div>
+                </div>
+                <div class="list-group-item list-group-item-action d-flex align-items-start mb-2">
+                  <div class="flex-shrink-0 me-3">
+                    <img class="img-xs rounded-circle" src="../../assets/img/profile-photos/7.png" alt="Profile Picture"
+                      loading="lazy">
+                  </div>
+                  <div class="flex-grow-1 ">
+                    <a href="#" class="h6 d-block mb-0 stretched-link text-decoration-none">Brittany Meyer</a>
+                    <small class="text-muted">I think so!</small>
+                  </div>
+                </div>
+                <div class="list-group-item list-group-item-action d-flex align-items-start mb-2">
+                  <div class="flex-shrink-0 me-3">
+                    <img class="img-xs rounded-circle" src="../../assets/img/profile-photos/4.png" alt="Profile Picture"
+                      loading="lazy">
+                  </div>
+                  <div class="flex-grow-1 ">
+                    <a href="#" class="h6 d-block mb-0 stretched-link text-decoration-none">Jack George</a>
+                    <small class="text-muted">Last seen 2 hours ago</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+  
+            <div id="nav-settings" class="tab-pane fade py-4" role="tabpanel" aria-labelledby="nav-settings-tab">
+              <h5 class="px-3">Family</h5>
+              <div class="list-group list-group-borderless">
+                <div class="list-group-item list-group-item-action d-flex align-items-start mb-2">
+                  <div class="flex-shrink-0 me-3">
+                    <img class="img-xs rounded-circle" src="../../assets/img/profile-photos/2.png" alt="Profile Picture"
+                      loading="lazy">
+                  </div>
+                  <div class="flex-grow-1 ">
+                    <a href="#" class="h6 d-block mb-0 stretched-link text-decoration-none">Stephen Tran</a>
+                    <small class="text-muted">Available</small>
+                  </div>
+                </div>
+                <div class="list-group-item list-group-item-action d-flex align-items-start mb-2">
+                  <div class="flex-shrink-0 me-3">
+                    <img class="img-xs rounded-circle" src="../../assets/img/profile-photos/8.png" alt="Profile Picture"
+                      loading="lazy">
+                  </div>
+                  <div class="flex-grow-1 ">
+                    <a href="#" class="h6 d-block mb-0 stretched-link text-decoration-none">Betty Murphy</a>
+                    <small class="text-muted">Iddle</small>
+                  </div>
+                </div>
+                <div class="list-group-item list-group-item-action d-flex align-items-start mb-2">
+                  <div class="flex-shrink-0 me-3">
+                    <img class="img-xs rounded-circle" src="../../assets/img/profile-photos/7.png" alt="Profile Picture"
+                      loading="lazy">
+                  </div>
+                  <div class="flex-grow-1 ">
+                    <a href="#" class="h6 d-block mb-0 stretched-link text-decoration-none">Brittany Meyer</a>
+                    <small class="text-muted">I think so!</small>
+                  </div>
+                </div>
+                <div class="list-group-item list-group-item-action d-flex align-items-start mb-2">
+                  <div class="flex-shrink-0 me-3">
+                    <img class="img-xs rounded-circle" src="../../assets/img/profile-photos/4.png" alt="Profile Picture"
+                      loading="lazy">
+                  </div>
+                  <div class="flex-grow-1 ">
+                    <a href="#" class="h6 d-block mb-0 stretched-link text-decoration-none">Jack George</a>
+                    <small class="text-muted">Last seen 2 hours ago</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+  
+        </div>
+      </aside>
+  
+  
+    </div>
+  
+  
+  
+    <div class="scroll-container">
+      <a href="#root" class="scroll-page rounded-circle ratio ratio-1x1" aria-label="Scroll button"></a>
+    </div>
+  
+    <app-slide-in>
+    </app-slide-in>

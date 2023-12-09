@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Icons/Digital/Cancel</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M18.6425455,17.5603636 L17.5363636,18.6665455 L12,13.1301818 L6.46363636,18.6665455 L5.35745455,17.5603636 L10.9178182,12 L5.35745455,6.43963636 L6.46363636,5.33345455 L12,10.8698182 L17.5363636,5.33345455 L18.6425455,6.43963636 L13.0821818,12 L18.6425455,17.5603636 Z M12,0 C5.37272727,0 0,5.37272727 0,12 C0,18.6272727 5.37272727,24 12,24 C18.6272727,24 24,18.6272727 24,12 C24,5.37272727 18.6272727,0 12,0 L12,0 Z" id="path-1"></path>
+    </defs>
+    <g id="Icons/Digital/Cancel" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Fill-1" fill="#000000" xlink:href="#path-1"></use>
+        <rect id="Rectangle" fill="#333333" mask="url(#mask-2)" x="0" y="0" width="20" height="20"></rect>
+        <g id="Color/RhapsodyBlue" mask="url(#mask-2)" fill="#949494">
+            <rect id="Rectangle" x="0" y="0" width="24" height="24"></rect>
+        </g>
+    </g>
+</svg>

@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'BatteryManagementSystem'`, () => {
+  it(`should have as title 'milk-made'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('BatteryManagementSystem');
+    expect(app.title).toEqual('milk-made');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('BatteryManagementSystem app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('milk-made app is running!');
   });
 });

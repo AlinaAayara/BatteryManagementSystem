@@ -1,0 +1,40 @@
+<div>
+    <div class="label d-flex pe-2 pb-1 label-font-16 label-font-18">
+      <div *ngIf="error || (form?.errors && form?.touched) || hideError" class=" align-middle"
+        >
+      </div>
+      <div class="flex-grow-1 line-height-1 line-height-3 text-nowrap" [ngClass]="{'error-label': ((form?.errors && form?.touched && !hideError) || (showErrorMessage && errorMessage) || error || preAuthRequired),
+        'disable-text':disableLabel , 'font-18': labelFont18px}">
+        {{label}} <span *ngIf="phone" class="font-13 optional line-height-1 ms-1"> (last 7 digits)</span>
+        <span *ngIf="account" class="font-13 optional line-height-1 ms-1"> (As appears on the account)</span>
+      </div>
+  
+      <div *ngIf="optional" class="font-13 optional ms-4 line-height-1">(Optional)</div>
+      <div *ngIf="required" class="font-13 optional line-height-1">(Required)</div>
+    </div>
+    <!-- <div class="label-container">
+      <span class="alert-icon alert-icon-textbox align-middle" [hidden]="!(form?.errors && form?.touched)"></span>
+      <label class="title-label" for="textInput"
+        [ngClass]="{'invalid-label':(form?.errors && form?.touched)}">{{label}}</label>
+    </div> -->
+  
+    <div class="input-group text-box"  [ngClass]="{'input-focus':focus && !((form?.errors && form?.touched && !hideError) || (showErrorMessage && errorMessage) || error || preAuthRequired),
+    'input-unfocus': !focus && !((form?.errors && form?.touched && !hideError) || (showErrorMessage && errorMessage) || error || preAuthRequired),'invalid-input':((form?.errors && form?.touched && !hideError && validationError) || (showErrorMessage && errorMessage && validationError) || error && validationError || preAuthRequired && validationError )
+      ,'input-disabled':disable}">
+      <input type="{{inputType}}"
+        class="form-control input-text-placeholder desktp-min-height font-18 mob-min-height text-box-input"
+        placeholder="{{placeholder}}" (focus)="setFocus($event)" pattern="pattern" (blur)="onBlur()"
+        maxlength="{{maxLength > 0 ? maxLength : null}}" minlength="{{minLength > 0 ? minLength : null}}"
+        (focusout)="setFocus($event)" autocomplete="off" [(ngModel)]="inputValue" (focus)="OnFocusEvent()"
+        [ngClass]="{'invalid-placeholder':((form?.errors && form?.touched && !hideError) || (showErrorMessage && errorMessage) || error || preAuthRequired),
+        'text-uppercase':textUpperCase, 'arrow-hide': arrowHide,'avail-css':availCarrierHt,'desktp-min-height-control-set':isManageControlSet}" #textbox [disabled]="disable">
+      <div class="input-group-append" [hidden]="!focus" tabindex="-1" [attr.type]="'CLEAR_FIELD'">
+        <button class="text-field-button pt-2" type="button" aria-label="Close" tabindex="-1" [attr.type]="'CLEAR_FIELD'">
+          <span class='icon close-icon' aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+    <div class="error-text"
+      *ngIf="((form?.errors && form?.touched && !hideError) || (showErrorMessage && errorMessage))">
+      {{errorMessage}}</div>
+  </div>
