@@ -20,6 +20,7 @@ import { AuthGuardGuard } from './guards/auth-guard.guard';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { FirmInfoComponent } from './module/admin/forms/firm-info/firm-info.component';
 import { SideBarComponent } from './module/admin/forms/side-bar/side-bar.component';
+import { BasicCategoryComponent } from './module/admin/forms/basic-category/basic-category.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +35,8 @@ import { SideBarComponent } from './module/admin/forms/side-bar/side-bar.compone
     DashboardComponent,
     SimpleTextBoxComponent,
     FirmInfoComponent,
-    SideBarComponent
+    SideBarComponent,
+    BasicCategoryComponent
   ],
   imports: [
     BrowserModule,
