@@ -1,33 +1,7 @@
 <body class="jumping">
   <div id="root" #root class="root mn--slide hd--expanded" [class.mn--show] = "isSideBarActive" (click)="setSideBarActive(false)">
     <section id="content" class="content">
-      <div class="content__boxed">
-        <div class="content__wrap">
-          <div class="card text-center mb-4 col-xl-8 offset-xl-2">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-              <h5 class="card-title">Card Title Here</h5>
-              <p class="mb-5">Start putting content on grids or panels, you can also use different combinations of
-                grids.
-                <br>Please check out the dashboard and other pages.
-              </p>
-              <button class="nav-toggler btn btn-warning btn-lg mb-3">Toggle Navigation</button>
-              <button class="sidebar-toggler btn btn-danger btn-lg mb-3">Toggle Sidebar</button><br>
-              <button class="btn btn-light" onclick="disableRoundedHeader()">Rounded header</button>
-              <button class="btn btn-primary" onclick="changeContentHeader()">Overlapping</button>
-              <script>
-                function changeContentHeader() {
-                  document.querySelector("#content > .content__header").classList.toggle("overlapping");
-                }
-
-                function disableRoundedHeader() {
-                  document.querySelector("#content > .content__header").classList.toggle("rounded-0");
-                }
-              </script>
-            </div>
-          </div>
-        </div>
-      </div>
+      <router-outlet></router-outlet>
 
       <footer class="mt-auto">
         <div class="content__boxed">
@@ -395,7 +369,7 @@
 
 
 
-    <app-side-bar></app-side-bar>
+    <app-side-bar [currentUser]="currentUser"></app-side-bar>
 
 
 
@@ -1361,5 +1335,5 @@
   </div>
 </body>
 
-<app-slide-in>
-</app-slide-in>
+<!-- <app-slide-in>
+</app-slide-in> -->

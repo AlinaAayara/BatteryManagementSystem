@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { HttpService } from 'src/app/Services/Http/http.service';
 import { HomeService } from 'src/app/Services/home/home.service';
 import { SharedDataService } from 'src/app/Services/shared-data.service';
+import { CurrentUser } from 'src/app/core/models/current-user';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,6 +14,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public isSideBarActive: boolean = false;
   public isFirstTimeClicked: boolean = false;
   @ViewChild('root') rootDiv: ElementRef;
+  public currentUser: CurrentUser;
   constructor(
     private _httpService: HttpService,
     private _homeService: HomeService,
@@ -24,12 +26,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   }
   ngOnInit(): void {
-    this._homeService.getCurrentUser().subscribe((data) => {
-      this._sharedDataService.currentUser = data;
-    });
     this._homeService.getCurrentUser().subscribe({
       next: data => {
         this._sharedDataService.currentUser = data;
+        this.currentUser = this._sharedDataService.currentUser;
       },
       error: error => {
         Swal.fire({
@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   setSideBarActive(isBtnClick: boolean) {
-    let classList = this.rootDiv.nativeElement.className;
+    //let classList = this.rootDiv.nativeElement.className;
     this.isFirstTimeClicked = isBtnClick ? isBtnClick : this.isFirstTimeClicked;
     this.isSideBarActive = isBtnClick ? !this.isSideBarActive : (!isBtnClick && this.isSideBarActive && !this.isFirstTimeClicked) ? false : this.isSideBarActive;
     setTimeout(() => {
