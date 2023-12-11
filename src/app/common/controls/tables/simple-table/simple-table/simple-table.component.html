@@ -1,0 +1,45 @@
+<div class="card h-100">
+    <div class="card-body">
+        <h5 class="card-title">{{searchFormName}}</h5>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <ng-container *ngFor="let item of SearchResult ; let i = index;let first = first;">
+                        <tr *ngIf="first">
+                            <th>Delete</th>
+                            <th>Edit</th>
+                            <!-- <th *ngFor="let (key, val) of item" *ngIf="key!=ColumnName">{{key}}</th> -->
+                            <ng-container *ngFor="let key of Object.keys(item) ; let i = index;let firstKey = first;">
+                                <th *ngIf="!firstKey">{{key}}</th>
+                            </ng-container>
+                        </tr>
+                    </ng-container>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of SearchResult">
+                        <ng-container *ngFor="let key of Object.keys(item); let i = index;let first = first;">
+                            <td *ngIf="first">
+                                <input type="button" class="btn btn-danger" value="Delete" (click)="deleteItem(item)" />
+                            </td>
+                        </ng-container>
+                        <ng-container *ngFor="let key of Object.keys(item); let i = index;let first = first;">
+                            <td *ngIf="first">
+                                <input type="button" class="btn btn-primary" value="EDIT" (click)="editItem(item)" />
+                            </td>
+                        </ng-container>
+                        <ng-container *ngFor="let key of Object.keys(item) ; let i = index;let firstKey = first;">
+                            <td *ngIf="!firstKey">{{item[key]}}</td>
+                        </ng-container>
+
+                        <!-- <td *ngIf="$first" *ngFor="let (key, val) of item" *ngIf="key=ColumnName" *ngIf="isDelete">
+                            <input type="button" class="btn btn-danger" value="Delete" (click)="delete(val)" /></td>
+                        <td *ngIf="$first" *ngFor="let (key, val) of item" *ngIf="key=ColumnName" *ngIf="IsUpdate">
+                            <input type="button" class="btn btn-primary" value="EDIT" (click)="edit(val)" /></td>
+                        <td *ngFor="let (key, val) of item" *ngIf="key!=ColumnName">{{val}}</td> -->
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

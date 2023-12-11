@@ -1,0 +1,45 @@
+<div class="content__wrap">
+    <h2 class="mb-3">{{formName}}</h2>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <!-- <h5 class="card-title">Block styled form</h5> -->
+
+                    <form [formGroup]="SmartForm" (ngSubmit)="Submit()" class="row g-3">
+                        <div class="col-12" *ngFor="let field of formField">
+                            <ng-container *ngIf="field.isVisible">
+                                <label for="_dm-inputAddress" class="form-label" [class.text-danger]="((SmartForm.get(field.fieldName)?.touched ||
+                                SmartForm.get(field.fieldName)?.dirty) &&
+                                SmartForm.get(field.fieldName)?.errors)" [class.text-success]="(SmartForm.get(field.fieldName)?.touched &&
+                                !SmartForm.get(field.fieldName)?.errors)">{{field.label}}</label>
+                                <input id="_dm-inputAddress" type="text" [formControlName]="field.fieldName"
+                                    [class.is-invalid]="((SmartForm.get(field.fieldName)?.touched ||
+                                SmartForm.get(field.fieldName)?.dirty) &&
+                                SmartForm.get(field.fieldName)?.errors)" [class.is-valid]="(SmartForm.get(field.fieldName)?.touched &&
+                                !SmartForm.get(field.fieldName)?.errors)" class="form-control"
+                                    placeholder={{field.placeholder}}>
+                                <span style="color:red" class="help-block" *ngIf="((SmartForm.get(field.fieldName)?.touched ||
+                                    SmartForm.get(field.fieldName)?.dirty) &&
+                                    SmartForm.get(field.fieldName)?.errors)">
+                                    {{field.placeholder}} is required.
+                                </span>
+                            </ng-container>
+                        </div>
+                        <div class="mt-4 d-grid gap-2 d-md-block">
+                            <button type="submit" [disabled]="SmartForm.invalid"
+                                class="btn btn-primary">{{isAdd?'Save':'Update'}}</button>
+                            |
+                            <button type="button" class="btn btn-danger" (click)="clearField()">Clear</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 mb-3">
+            <app-simple-table [SearchResult]="listData" [searchFormName]="searchFormName" (delete)="delete($event)"
+                (edit)="edit($event)"></app-simple-table>
+        </div>
+    </div>
+</div>

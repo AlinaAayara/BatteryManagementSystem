@@ -21,6 +21,8 @@ import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { FirmInfoComponent } from './module/admin/forms/firm-info/firm-info.component';
 import { SideBarComponent } from './module/admin/forms/side-bar/side-bar.component';
 import { BasicCategoryComponent } from './module/admin/forms/basic-category/basic-category.component';
+import { SmartFormComponent } from './common/smart-form/smart-form.component';
+import { SimpleTableComponent } from './common/controls/tables/simple-table/simple-table/simple-table.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +38,9 @@ import { BasicCategoryComponent } from './module/admin/forms/basic-category/basi
     SimpleTextBoxComponent,
     FirmInfoComponent,
     SideBarComponent,
-    BasicCategoryComponent
+    BasicCategoryComponent,
+    SmartFormComponent,
+    SimpleTableComponent
   ],
   imports: [
     BrowserModule,
