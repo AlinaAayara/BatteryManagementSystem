@@ -6,6 +6,7 @@ import { AppUrl } from '../config/api';
 import { DeviceTypes } from '../config/constants';
 import Swal from 'sweetalert2';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { CurrentUser } from '../core/models/current-user';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class SharedDataService {
   public isTablet = false;
   public isLargeScreen = false;
   public isMediumScreen = false;
+  public currentUser: CurrentUser;
 
   constructor(
     private _httpClient: HttpClient,

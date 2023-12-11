@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+declare const require: any;
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/Services/login.service';
@@ -9,7 +10,7 @@ import Swal from 'sweetalert2';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   FormLogin: FormGroup;
   constructor(private _FormBuilder: FormBuilder,
     private _Router: Router,
@@ -25,7 +26,6 @@ export class LoginComponent {
     });
 
   }
-
   Login(): any {
     this._loginService.GetLoginInfo(this.LoginObj()).subscribe({
       next: data => {
@@ -46,8 +46,8 @@ export class LoginComponent {
   public LoginObj() {
     return {
       FormData: {
-        Mode: "4",
-        ContactNo: this.FormLogin.get("UserName")?.value,
+        Mode: "3",
+        UserName: this.FormLogin.get("UserName")?.value,
         Password: this.FormLogin.get("Password")?.value
       },
       MethodName: "InUp_BasicUser"

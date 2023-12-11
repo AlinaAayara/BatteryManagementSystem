@@ -1,10 +1,12 @@
 export class AppUrl {
     public static URL = {};
-    public static baseURL = "https://localhost:7006/api/";
+    public static baseURL = "https://localhost:7147/api/";
     //public static baseURL = "http://RanzunzarWebApi.betech.in/api/";
+    public static firmInfoURL = "FirmInfo/";
+    public static basicUserURL = "BasicUser/"
     public static API = {
-        Login: AppUrl.baseURL + "BasicUser/authentication",
-        get_current_user: AppUrl.baseURL + "BasicUser/CurrentUser",
+        Login: AppUrl.baseURL + AppUrl.basicUserURL + "authentication",
+        get_current_user: AppUrl.baseURL + AppUrl.basicUserURL + "GetCurrentUser",
         AddGroup: AppUrl.baseURL + "BasicGroupAndFeature/AddGroup",
         GetGroupList: AppUrl.baseURL + "BasicGroupAndFeature/GetGroupList",
         add_member: AppUrl.baseURL + "MemberInfo/AddMember",
@@ -21,5 +23,7 @@ export class AppUrl {
         get_emi_member_list: AppUrl.baseURL + "MemberInfo/GetEMIMemberList",
         get_emi_remaining_member_list: AppUrl.baseURL + "MemberInfo/GetEMIRemainingMemberList",
         get_loan_member_list: AppUrl.baseURL + "MemberInfo/GetLaonMemberList",
+        add_firm_info: AppUrl.baseURL + AppUrl.firmInfoURL + "AddFirm",
+        get_firm_info: AppUrl.baseURL + AppUrl.firmInfoURL + "GetFirm"
     };
 }

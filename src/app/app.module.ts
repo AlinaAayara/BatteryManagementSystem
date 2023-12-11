@@ -18,6 +18,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpInterceptInterceptor } from './config/http-intercept.interceptor';
 import { AuthGuardGuard } from './guards/auth-guard.guard';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import { FirmInfoComponent } from './module/admin/forms/firm-info/firm-info.component';
+import { SideBarComponent } from './module/admin/forms/side-bar/side-bar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +32,9 @@ import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
     LoginComponent,
     HomeComponent,
     DashboardComponent,
-    SimpleTextBoxComponent
+    SimpleTextBoxComponent,
+    FirmInfoComponent,
+    SideBarComponent
   ],
   imports: [
     BrowserModule,

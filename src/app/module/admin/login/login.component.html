@@ -1,6 +1,4 @@
 <div id="root" class="root front-container">
-
-
     <section id="content" class="content">
         <div class="content__boxed w-100 min-vh-100 d-flex flex-column align-items-center justify-content-center">
             <div class="content__wrap">
@@ -13,15 +11,17 @@
                         </div>
                         <form class="mt-4" [formGroup]="FormLogin" (ngSubmit)="Login()" novalidate>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Username" autofocus formControlName="UserName">
+                                <input type="text" class="form-control" placeholder="Username" autofocus
+                                    formControlName="UserName">
                             </div>
                             <div class="mb-3">
-                                <input type="password" class="form-control" placeholder="Password" formControlName="Password">
-                                <span  style="color:red" class="help-block" *ngIf="((FormLogin.get('Password')?.touched ||
+                                <input type="password" class="form-control" placeholder="Password"
+                                    formControlName="Password">
+                                <span style="color:red" class="help-block" *ngIf="((FormLogin.get('Password')?.touched ||
                                     FormLogin.get('Password')?.dirty) &&
                                     FormLogin.get('Password')?.errors)">
                                     Password is required.
-                                    </span>
+                                </span>
                             </div>
                             <div class="d-grid mt-5">
                                 <button class="btn btn-primary btn-lg" type="submit">Sign In</button>
@@ -30,7 +30,7 @@
                         <div class="d-flex justify-content-between mt-4">
                             <a class="btn-link text-decoration-none">Forgot
                                 password ?</a>
-                            <a class="btn-link text-decoration-none">Create a new
+                            <a [routerLink] = "['/FirmInfo']" class="btn-link text-decoration-none">Create a new
                                 account</a>
                         </div>
                     </div>

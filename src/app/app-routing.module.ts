@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './module/admin/forms/home/home.component';
 import { DashboardComponent } from './module/admin/forms/dashboard/dashboard.component';
 import { AuthGuardGuard } from './guards/auth-guard.guard';
+import { FirmInfoComponent } from './module/admin/forms/firm-info/firm-info.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,9 @@ const routes: Routes = [
             path: 'Dashboard', component: DashboardComponent
           }
         ]
+      },
+      {
+        path: 'FirmInfo', component: FirmInfoComponent
       }
     ]
   }
