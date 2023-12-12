@@ -1,6 +1,6 @@
 import { Validators } from "@angular/forms";
 import { AppUrl } from "src/app/config/api";
-import { controlType } from "src/app/config/constants";
+import { controlType, directiveList } from "src/app/config/constants";
 
 export const fields = [
     {
@@ -21,7 +21,8 @@ export const fields = [
         label: "Branch Name",
         isVisible: true,
         bootstrapFormGroup: 12,
-        controlType: controlType.Textbox
+        controlType: controlType.Textbox,
+        directiveName: directiveList.AlphaOnly
     },
     {
         fieldName: "Address",

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BasicCategoryService } from 'src/app/Services/BasicCategory/basic-category.service';
 import { SharedDataService } from 'src/app/Services/shared-data.service';
+import { directiveList } from 'src/app/config/constants';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -26,7 +27,8 @@ export class BasicCategoryComponent implements OnInit {
         validation: [Validators.required],
         placeholder: "Category Name",
         label: "Category Name",
-        isVisible: true
+        isVisible: true,
+        directiveName: directiveList.AlphaOnly
       },
       {
         fieldName: "CategoryID",

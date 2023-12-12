@@ -24,7 +24,7 @@ export const fields = [
             defaultValue: "",
             defaultSelectedText: "Select Category"
         },
-        directiveName:null
+        directiveName: null
     },
     {
         fieldName: "ProductID",
@@ -35,7 +35,7 @@ export const fields = [
         isVisible: false,
         bootstrapFormGroup: 12,
         controlType: null,
-        directiveName:null
+        directiveName: null
     },
     {
         fieldName: "ProductName",
@@ -46,7 +46,7 @@ export const fields = [
         isVisible: true,
         bootstrapFormGroup: 6,
         controlType: controlType.Textbox,
-        directiveName:directiveList.AlphaOnly
+        directiveName: directiveList.AlphaOnly
     },
     {
         fieldName: "Amp",
@@ -57,7 +57,7 @@ export const fields = [
         isVisible: true,
         bootstrapFormGroup: 6,
         controlType: controlType.Textbox,
-        directiveName:directiveList.NumberOnly
+        directiveName: directiveList.NumberOnly
     },
     {
         fieldName: "BTBPrice",
@@ -68,7 +68,7 @@ export const fields = [
         isVisible: true,
         bootstrapFormGroup: 3,
         controlType: controlType.Textbox,
-        directiveName:directiveList.appDecimaNumber
+        directiveName: directiveList.appDecimaNumber
     },
     {
         fieldName: "BTCPrice",
@@ -79,7 +79,7 @@ export const fields = [
         isVisible: true,
         bootstrapFormGroup: 3,
         controlType: controlType.Textbox,
-        directiveName:directiveList.appDecimaNumber
+        directiveName: directiveList.appDecimaNumber
     },
     {
         fieldName: "BTMPrice",
@@ -90,7 +90,7 @@ export const fields = [
         isVisible: true,
         bootstrapFormGroup: 3,
         controlType: controlType.Textbox,
-        directiveName:directiveList.appDecimaNumber
+        directiveName: directiveList.appDecimaNumber
     },
     {
         fieldName: "OldBatteryPrice",
@@ -101,7 +101,7 @@ export const fields = [
         isVisible: true,
         bootstrapFormGroup: 3,
         controlType: controlType.Textbox,
-        directiveName:directiveList.appDecimaNumber
+        directiveName: directiveList.appDecimaNumber
     },
     {
         fieldName: "WarrantyPeriod",
@@ -112,7 +112,7 @@ export const fields = [
         isVisible: true,
         bootstrapFormGroup: 4,
         controlType: controlType.Textbox,
-        directiveName:directiveList.NumberOnly
+        directiveName: directiveList.NumberOnly
     },
     {
         fieldName: "GuaranteePeriod",
@@ -123,7 +123,7 @@ export const fields = [
         isVisible: true,
         bootstrapFormGroup: 4,
         controlType: controlType.Textbox,
-        directiveName:directiveList.NumberOnly
+        directiveName: directiveList.NumberOnly
     },
     {
         fieldName: "SchemePoint",
@@ -134,7 +134,7 @@ export const fields = [
         isVisible: true,
         bootstrapFormGroup: 4,
         controlType: controlType.Textbox,
-        directiveName:directiveList.NumberOnly
+        directiveName: directiveList.NumberOnly
     }
 
 ]
