@@ -6,7 +6,8 @@ export class AppUrl {
     public static basicUserURL = "BasicUser/";
     public static basicCategoryURL = "BasicCategory/";
     public static commonURL = "Common/";
-    public static productInfoURL ="ProductInfo/"
+    public static productInfoURL = "ProductInfo/";
+    public static partyInfoURL = "PartyInfo/";
 
     public static API = {
         Login: AppUrl.baseURL + AppUrl.basicUserURL + "authentication",
@@ -16,12 +17,15 @@ export class AppUrl {
         get_firm_info: AppUrl.baseURL + AppUrl.firmInfoURL + "GetFirm",
 
         add_basic_category: AppUrl.baseURL + AppUrl.basicCategoryURL + "AddCategory",
-        get_basic_category : AppUrl.baseURL + AppUrl.basicCategoryURL + "GetCategory",
+        get_basic_category: AppUrl.baseURL + AppUrl.basicCategoryURL + "GetCategory",
 
-        delete_record : AppUrl.baseURL + AppUrl.commonURL + "DeleteRecord",
+        delete_record: AppUrl.baseURL + AppUrl.commonURL + "DeleteRecord",
 
         add_product_info: AppUrl.baseURL + AppUrl.productInfoURL + "AddProduct",
-        get_product_info : AppUrl.baseURL + AppUrl.productInfoURL + "GetProduct",
+        get_product_info: AppUrl.baseURL + AppUrl.productInfoURL + "GetProduct",
+
+        add_party_info: AppUrl.baseURL + AppUrl.partyInfoURL + "AddParty",
+        get_party_info: AppUrl.baseURL + AppUrl.partyInfoURL + "GetParty",
 
 
     };

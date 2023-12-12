@@ -24,6 +24,7 @@ import { BasicCategoryComponent } from './module/admin/forms/basic-category/basi
 import { SmartFormComponent } from './common/smart-form/smart-form.component';
 import { SimpleTableComponent } from './common/controls/tables/simple-table/simple-table/simple-table.component';
 import { ProductInfoComponent } from './module/admin/forms/product-info/product-info.component';
+import { PartyInfoComponent } from './module/admin/forms/party-info/party-info.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,8 @@ import { ProductInfoComponent } from './module/admin/forms/product-info/product-
     BasicCategoryComponent,
     SmartFormComponent,
     SimpleTableComponent,
-    ProductInfoComponent
+    ProductInfoComponent,
+    PartyInfoComponent
   ],
   imports: [
     BrowserModule,

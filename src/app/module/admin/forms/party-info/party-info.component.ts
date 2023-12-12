@@ -1,20 +1,19 @@
 import { Component, OnInit } from "@angular/core";
-import { Validators } from "@angular/forms";
-import { ProductInfoService } from "src/app/Services/ProductInfo/product-info.service";
 import { SharedDataService } from "src/app/Services/shared-data.service";
 import { fields } from "./fields";
+import { PartyInfoService } from "src/app/Services/PartyInfo/party-info.service";
 
 @Component({
-  selector: 'app-product-info',
-  templateUrl: './product-info.component.html',
-  styleUrls: ['./product-info.component.css']
+  selector: 'app-party-info',
+  templateUrl: './party-info.component.html',
+  styleUrls: ['./party-info.component.css']
 })
-export class ProductInfoComponent implements OnInit {
+export class PartyInfoComponent implements OnInit {
   formField: any;
   public manuallyClearField: boolean = false;
-  public productList;
+  public partyList;
   constructor(
-    private _productInfoService: ProductInfoService,
+    private _partyInfoService: PartyInfoService,
     private _sharedDataService: SharedDataService
   ) {
 
@@ -25,10 +24,10 @@ export class ProductInfoComponent implements OnInit {
   }
   submit(Data) {
     this.manuallyClearField = false;
-    Data.MethodName = "InUp_ProductInfo";
-    this._productInfoService.AddProduct(Data).subscribe({
+    Data.MethodName = "InUp_PartyInfo";
+    this._partyInfoService.AddParty(Data).subscribe({
       next: data => {
-        this._sharedDataService.success("Product saved successfully !");
+        this._sharedDataService.success("Party saved successfully !");
         this.manuallyClearField = true;
         this.getList();
       },
@@ -39,9 +38,9 @@ export class ProductInfoComponent implements OnInit {
   }
 
   getList() {
-    this._productInfoService.GetProduct(this.getRequestBody()).subscribe({
+    this._partyInfoService.GetParty(this.getRequestBody()).subscribe({
       next: data => {
-        this.productList = data;
+        this.partyList = data;
       },
       error: error => {
         //this._sharedDataService.error(error);
@@ -52,7 +51,7 @@ export class ProductInfoComponent implements OnInit {
     return {
       FormData: {
       },
-      MethodName: "Search_ProductInfo"
+      MethodName: "Search_PartyInfo"
     }
   }
 
