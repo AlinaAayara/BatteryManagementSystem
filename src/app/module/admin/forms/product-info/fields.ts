@@ -1,6 +1,6 @@
 import { Validators } from "@angular/forms";
 import { AppUrl } from "src/app/config/api";
-import { controlType } from "src/app/config/constants";
+import { controlType, directiveList } from "src/app/config/constants";
 
 export const fields = [
     {
@@ -23,7 +23,8 @@ export const fields = [
             valueField: "CategoryID",
             defaultValue: "",
             defaultSelectedText: "Select Category"
-        }
+        },
+        directiveName:null
     },
     {
         fieldName: "ProductID",
@@ -33,7 +34,8 @@ export const fields = [
         label: "ProductID",
         isVisible: false,
         bootstrapFormGroup: 12,
-        controlType: null
+        controlType: null,
+        directiveName:null
     },
     {
         fieldName: "ProductName",
@@ -43,7 +45,8 @@ export const fields = [
         label: "Product Name",
         isVisible: true,
         bootstrapFormGroup: 6,
-        controlType: controlType.Textbox
+        controlType: controlType.Textbox,
+        directiveName:directiveList.AlphaOnly
     },
     {
         fieldName: "Amp",
@@ -53,7 +56,8 @@ export const fields = [
         label: "Amp",
         isVisible: true,
         bootstrapFormGroup: 6,
-        controlType: controlType.Textbox
+        controlType: controlType.Textbox,
+        directiveName:directiveList.NumberOnly
     },
     {
         fieldName: "BTBPrice",
@@ -63,7 +67,8 @@ export const fields = [
         label: "B2B Price",
         isVisible: true,
         bootstrapFormGroup: 3,
-        controlType: controlType.Textbox
+        controlType: controlType.Textbox,
+        directiveName:directiveList.appDecimaNumber
     },
     {
         fieldName: "BTCPrice",
@@ -73,7 +78,8 @@ export const fields = [
         label: "B2C Price",
         isVisible: true,
         bootstrapFormGroup: 3,
-        controlType: controlType.Textbox
+        controlType: controlType.Textbox,
+        directiveName:directiveList.appDecimaNumber
     },
     {
         fieldName: "BTMPrice",
@@ -83,7 +89,8 @@ export const fields = [
         label: "B2M Price",
         isVisible: true,
         bootstrapFormGroup: 3,
-        controlType: controlType.Textbox
+        controlType: controlType.Textbox,
+        directiveName:directiveList.appDecimaNumber
     },
     {
         fieldName: "OldBatteryPrice",
@@ -93,7 +100,8 @@ export const fields = [
         label: "Old Battery",
         isVisible: true,
         bootstrapFormGroup: 3,
-        controlType: controlType.Textbox
+        controlType: controlType.Textbox,
+        directiveName:directiveList.appDecimaNumber
     },
     {
         fieldName: "WarrantyPeriod",
@@ -103,7 +111,8 @@ export const fields = [
         label: "Warranty Period",
         isVisible: true,
         bootstrapFormGroup: 4,
-        controlType: controlType.Textbox
+        controlType: controlType.Textbox,
+        directiveName:directiveList.NumberOnly
     },
     {
         fieldName: "GuaranteePeriod",
@@ -113,7 +122,8 @@ export const fields = [
         label: "Guarantee Period",
         isVisible: true,
         bootstrapFormGroup: 4,
-        controlType: controlType.Textbox
+        controlType: controlType.Textbox,
+        directiveName:directiveList.NumberOnly
     },
     {
         fieldName: "SchemePoint",
@@ -123,7 +133,8 @@ export const fields = [
         label: "Scheme Point",
         isVisible: true,
         bootstrapFormGroup: 4,
-        controlType: controlType.Textbox
+        controlType: controlType.Textbox,
+        directiveName:directiveList.NumberOnly
     }
 
 ]

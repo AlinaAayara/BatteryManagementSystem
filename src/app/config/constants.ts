@@ -34,5 +34,16 @@ export const Constant = {
 }
 export enum controlType {
     Textbox = "Textbox",
-    Dropdown ="Dropdown"
+    Dropdown = "Dropdown"
+}
+
+export enum directiveList {
+    NumberOnly = "NumberOnly",
+    AlphaNumeric = "AlphaNumeric",
+    AlphaOnly = "AlphaOnly",
+    AlphaOnlyspace = "AlphaOnlyspace",
+    appAutofocus = "appAutofocus",
+    appDecimaNumber = "appDecimaNumber",
+    inputValidator = "inputValidator",
+    appTrapFocus = "appTrapFocus"
 }

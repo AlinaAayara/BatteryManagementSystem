@@ -23,7 +23,8 @@
                                     SmartForm.get(field.fieldName)?.dirty) &&
                                     SmartForm.get(field.fieldName)?.errors)" [class.is-valid]="(SmartForm.get(field.fieldName)?.touched &&
                                     !SmartForm.get(field.fieldName)?.errors)" class="form-control"
-                                        placeholder={{field.placeholder}}>
+                                        placeholder={{field.placeholder}}
+                                        NumberOnly [directiveName]="field?.directiveName == undefined ? null : field?.directiveName">
                                     <span style="color:red" class="help-block" *ngIf="((SmartForm.get(field.fieldName)?.touched ||
                                         SmartForm.get(field.fieldName)?.dirty) &&
                                         SmartForm.get(field.fieldName)?.errors)">

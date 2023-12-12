@@ -26,6 +26,11 @@ import { SimpleTableComponent } from './common/controls/tables/simple-table/simp
 import { ProductInfoComponent } from './module/admin/forms/product-info/product-info.component';
 import { PartyInfoComponent } from './module/admin/forms/party-info/party-info.component';
 import { BasicBranchComponent } from './module/admin/forms/basic-branch/basic-branch.component';
+import { AlphaNumericDirective } from './core/directives/alpha-numeric.directive';
+import { AlphaOnlyDirective } from './core/directives/alpha-only.directive';
+import { AlphaSpaceOnlyDirective } from './core/directives/alpha-space-only.directive';
+import { AutofocusDirective } from './core/directives/autofocus.directive';
+import { NumberOnlyDirective } from './core/directives/number-only.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +51,11 @@ import { BasicBranchComponent } from './module/admin/forms/basic-branch/basic-br
     SimpleTableComponent,
     ProductInfoComponent,
     PartyInfoComponent,
-    BasicBranchComponent
+    BasicBranchComponent,
+
+    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective
+
+    
   ],
   imports: [
     BrowserModule,
