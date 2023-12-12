@@ -25,6 +25,7 @@ import { SmartFormComponent } from './common/smart-form/smart-form.component';
 import { SimpleTableComponent } from './common/controls/tables/simple-table/simple-table/simple-table.component';
 import { ProductInfoComponent } from './module/admin/forms/product-info/product-info.component';
 import { PartyInfoComponent } from './module/admin/forms/party-info/party-info.component';
+import { BasicBranchComponent } from './module/admin/forms/basic-branch/basic-branch.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,8 @@ import { PartyInfoComponent } from './module/admin/forms/party-info/party-info.c
     SmartFormComponent,
     SimpleTableComponent,
     ProductInfoComponent,
-    PartyInfoComponent
+    PartyInfoComponent,
+    BasicBranchComponent
   ],
   imports: [
     BrowserModule,

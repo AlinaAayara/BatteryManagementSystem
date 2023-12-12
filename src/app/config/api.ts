@@ -8,6 +8,7 @@ export class AppUrl {
     public static commonURL = "Common/";
     public static productInfoURL = "ProductInfo/";
     public static partyInfoURL = "PartyInfo/";
+    public static basicBranchURL = "BasicBranch/";
 
     public static API = {
         Login: AppUrl.baseURL + AppUrl.basicUserURL + "authentication",
@@ -26,6 +27,9 @@ export class AppUrl {
 
         add_party_info: AppUrl.baseURL + AppUrl.partyInfoURL + "AddParty",
         get_party_info: AppUrl.baseURL + AppUrl.partyInfoURL + "GetParty",
+
+        add_basic_branch: AppUrl.baseURL + AppUrl.basicBranchURL + "AddBranch",
+        get_basic_branch: AppUrl.baseURL + AppUrl.basicBranchURL + "GetBranch",
 
 
     };
