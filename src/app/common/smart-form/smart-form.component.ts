@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { SmartFormService } from 'src/app/Services/SmartForm/smart-form.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,6 +20,7 @@ export class SmartFormComponent implements OnInit, OnChanges {
 
   constructor(
     private _FormBuilder: FormBuilder,
+    private _smartFormService: SmartFormService
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -31,18 +33,21 @@ export class SmartFormComponent implements OnInit, OnChanges {
 
     if (changes?.['listData']) {
       this.listData = changes['listData']?.currentValue;
-      console.log("this.listData", this.listData);
     }
 
   }
 
   ngOnInit(): void {
     this.SmartForm = this._FormBuilder.group(this.formFields());
+
+    /* fetch list data to render in dropdown */
+
+    this.getListDataForDropdown();
   }
   public formFields() {
     var control = {};
     for (let field of this.formField) {
-      control[field?.fieldName] = ["", field?.validation]
+      control[field?.fieldName] = [field?.defaultValue, field?.validation]
     }
     return control;
   }
@@ -51,9 +56,17 @@ export class SmartFormComponent implements OnInit, OnChanges {
   }
   clearField() {
     this.SmartForm.reset();
+    this.setDefaultVaueAfterClear();
     this.isAdd = true;
   }
 
+  setDefaultVaueAfterClear(){
+    var fieldData = {};
+    for (let field of this.formField) {
+      fieldData[field.fieldName] = field?.defaultValue == undefined ? "" : field?.defaultValue
+    }
+    this.SmartForm.setValue(fieldData);
+  }
   generateSubmittedFormData() {
     var fieldData = {};
     fieldData["Mode"] = this.isAdd ? "0" : "1";
@@ -82,5 +95,22 @@ export class SmartFormComponent implements OnInit, OnChanges {
   /* search list delete  */
   delete(item) {
 
+  }
+
+  /* fetch list data to render in dropdown */
+
+  getListDataForDropdown() {
+    this.formField.filter((field) => {
+      if (field?.listData?.fetchURL) {
+        console.log("field?.listData?.fetchURL", field?.listData?.fetchURL);
+        this._smartFormService.GetDropdownList(field?.listData?.requestBody, field?.listData?.fetchURL).subscribe({
+          next: data => {
+            this[field.fieldName + 'List'] = data;
+          },
+          error: error => {
+          }
+        });
+      }
+    })
   }
 }

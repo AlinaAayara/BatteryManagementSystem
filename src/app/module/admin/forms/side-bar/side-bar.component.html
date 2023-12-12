@@ -43,7 +43,9 @@
                 <ul class="mainnav__menu nav flex-column">
 
                     <li class="nav-item has-sub" *ngFor="let subMenu of menu.subMenu">
-                        <a [routerLink]="[''+subMenu.subMenuURL+'']" class="mininav-toggle nav-link collapsed"><i
+                        <a [routerLink]="[''+subMenu.subMenuURL+'']"
+                        [queryParams]="{id: subMenu.subMenuID}"
+                        class="mininav-toggle nav-link collapsed"><i
                                 class="demo-pli-home fs-5 me-2"></i>
                             <span class="nav-label ms-1">{{subMenu.subMenuName}}</span>
                         </a>

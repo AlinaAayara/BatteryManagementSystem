@@ -6,11 +6,11 @@
                 <thead>
                     <ng-container *ngFor="let item of SearchResult ; let i = index;let first = first;">
                         <tr *ngIf="first">
-                            <th>Delete</th>
-                            <th>Edit</th>
+                            <th *ngIf="isDelete">Delete</th>
+                            <th *ngIf="isWrite">Edit</th>
                             <!-- <th *ngFor="let (key, val) of item" *ngIf="key!=ColumnName">{{key}}</th> -->
                             <ng-container *ngFor="let key of Object.keys(item) ; let i = index;let firstKey = first;">
-                                <th *ngIf="!firstKey">{{key}}</th>
+                                <th *ngIf="key?.substr((key?.length ?? 0) - 2)?.toLowerCase()!= 'id'">{{key}}</th>
                             </ng-container>
                         </tr>
                     </ng-container>
@@ -18,17 +18,17 @@
                 <tbody>
                     <tr *ngFor="let item of SearchResult">
                         <ng-container *ngFor="let key of Object.keys(item); let i = index;let first = first;">
-                            <td *ngIf="first">
+                            <td *ngIf="first && isDelete">
                                 <input type="button" class="btn btn-danger" value="Delete" (click)="deleteItem(item)" />
                             </td>
                         </ng-container>
                         <ng-container *ngFor="let key of Object.keys(item); let i = index;let first = first;">
-                            <td *ngIf="first">
+                            <td *ngIf="first && isWrite">
                                 <input type="button" class="btn btn-primary" value="EDIT" (click)="editItem(item)" />
                             </td>
                         </ng-container>
                         <ng-container *ngFor="let key of Object.keys(item) ; let i = index;let firstKey = first;">
-                            <td *ngIf="!firstKey">{{item[key]}}</td>
+                            <td *ngIf="key?.substr((key?.length ?? 0) - 2)?.toLowerCase()!= 'id'">{{item[key]}}</td>
                         </ng-container>
 
                         <!-- <td *ngIf="$first" *ngFor="let (key, val) of item" *ngIf="key=ColumnName" *ngIf="isDelete">

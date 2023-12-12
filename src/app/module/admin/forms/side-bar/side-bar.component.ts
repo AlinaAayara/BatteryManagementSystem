@@ -21,6 +21,5 @@ export class SideBarComponent implements OnInit, OnChanges {
   }
   ngOnInit(): void {
     this.currentUser = this?._sharedDataService?.currentUser;
-    console.log("currentUser", this.currentUser)
   }
 }

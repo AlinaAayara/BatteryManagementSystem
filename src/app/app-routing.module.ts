@@ -7,6 +7,7 @@ import { DashboardComponent } from './module/admin/forms/dashboard/dashboard.com
 import { AuthGuardGuard } from './guards/auth-guard.guard';
 import { FirmInfoComponent } from './module/admin/forms/firm-info/firm-info.component';
 import { BasicCategoryComponent } from './module/admin/forms/basic-category/basic-category.component';
+import { ProductInfoComponent } from './module/admin/forms/product-info/product-info.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,9 @@ const routes: Routes = [
           },
           {
             path: 'BasicCategory', component: BasicCategoryComponent
+          },
+          {
+            path: 'ProductInfo', component: ProductInfoComponent
           }
         ]
       },

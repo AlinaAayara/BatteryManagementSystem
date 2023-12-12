@@ -52,4 +52,37 @@ export class SharedDataService {
   isTokenExpired() {
     return this.jwtHelper.isTokenExpired(this.getToken())
   }
+
+  success(msg) {
+    Swal.fire({
+      title: "Done!",
+      text: msg,
+      icon: "success"
+    });
+  }
+
+  error(error) {
+    Swal.fire({
+      title: 'Error!',
+      text: error.error,
+      icon: 'error',
+      confirmButtonText: 'ok'
+    })
+  }
+
+  checkWriteDeleteAccess(id, access): boolean {
+    let filterSubMenu;
+    this.currentUser?.menu?.forEach((m) => {
+      filterSubMenu = m?.subMenu?.filter((sub) => 
+        sub?.subMenuID == id && sub[access]
+       )
+    });
+    return filterSubMenu?.length>0
+  }
+
+  deleteRecord(Data: any): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.delete_record, Data, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
 }

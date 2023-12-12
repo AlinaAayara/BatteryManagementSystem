@@ -7,25 +7,55 @@
                     <!-- <h5 class="card-title">Block styled form</h5> -->
 
                     <form [formGroup]="SmartForm" (ngSubmit)="Submit()" class="row g-3">
-                        <div class="col-12" *ngFor="let field of formField">
+                        <ng-container *ngFor="let field of formField">
                             <ng-container *ngIf="field.isVisible">
-                                <label for="_dm-inputAddress" class="form-label" [class.text-danger]="((SmartForm.get(field.fieldName)?.touched ||
-                                SmartForm.get(field.fieldName)?.dirty) &&
-                                SmartForm.get(field.fieldName)?.errors)" [class.text-success]="(SmartForm.get(field.fieldName)?.touched &&
-                                !SmartForm.get(field.fieldName)?.errors)">{{field.label}}</label>
-                                <input id="_dm-inputAddress" type="text" [formControlName]="field.fieldName"
-                                    [class.is-invalid]="((SmartForm.get(field.fieldName)?.touched ||
-                                SmartForm.get(field.fieldName)?.dirty) &&
-                                SmartForm.get(field.fieldName)?.errors)" [class.is-valid]="(SmartForm.get(field.fieldName)?.touched &&
-                                !SmartForm.get(field.fieldName)?.errors)" class="form-control"
-                                    placeholder={{field.placeholder}}>
-                                <span style="color:red" class="help-block" *ngIf="((SmartForm.get(field.fieldName)?.touched ||
+                                <div
+                                    class="col-{{field?.bootstrapFormGroup == undefined ? 12 : field?.bootstrapFormGroup}}">
+
+                                    
+                                    <ng-container *ngIf="(field?.controlType) == undefined ? 'Textbox' : (field?.controlType) === 'Textbox'">
+                                    <label for="_dm-inputAddress" class="form-label" [class.text-danger]="((SmartForm.get(field.fieldName)?.touched ||
                                     SmartForm.get(field.fieldName)?.dirty) &&
-                                    SmartForm.get(field.fieldName)?.errors)">
-                                    {{field.placeholder}} is required.
-                                </span>
+                                    SmartForm.get(field.fieldName)?.errors)" [class.text-success]="(SmartForm.get(field.fieldName)?.touched &&
+                                    !SmartForm.get(field.fieldName)?.errors)">{{field.label}}</label>
+                                    <input id="_dm-inputAddress" type="text" [formControlName]="field.fieldName"
+                                        [class.is-invalid]="((SmartForm.get(field.fieldName)?.touched ||
+                                    SmartForm.get(field.fieldName)?.dirty) &&
+                                    SmartForm.get(field.fieldName)?.errors)" [class.is-valid]="(SmartForm.get(field.fieldName)?.touched &&
+                                    !SmartForm.get(field.fieldName)?.errors)" class="form-control"
+                                        placeholder={{field.placeholder}}>
+                                    <span style="color:red" class="help-block" *ngIf="((SmartForm.get(field.fieldName)?.touched ||
+                                        SmartForm.get(field.fieldName)?.dirty) &&
+                                        SmartForm.get(field.fieldName)?.errors)">
+                                        {{field.placeholder}} is required.
+                                    </span>
+                                </ng-container>
+
+                                <ng-container *ngIf="(field?.controlType) === 'Dropdown'">
+                                    <label for="_dm-inputAddress" class="form-label" [class.text-danger]="((SmartForm.get(field.fieldName)?.touched ||
+                                    SmartForm.get(field.fieldName)?.dirty) &&
+                                    SmartForm.get(field.fieldName)?.errors)" [class.text-success]="(SmartForm.get(field.fieldName)?.touched &&
+                                    !SmartForm.get(field.fieldName)?.errors)">{{field.label}}</label>
+                                    <select class="form-select" aria-label="select transition timing" [formControlName]="field.fieldName"
+                                        [class.is-invalid]="((SmartForm.get(field.fieldName)?.touched ||
+                                    SmartForm.get(field.fieldName)?.dirty) &&
+                                    SmartForm.get(field.fieldName)?.errors)" [class.is-valid]="(SmartForm.get(field.fieldName)?.touched &&
+                                    !SmartForm.get(field.fieldName)?.errors)">
+                                        <option value=""> -- {{field?.listData?.defaultSelectedText}} --</option>
+                                        <option *ngFor="let item of this[field.fieldName + 'List']" [value]="item[field?.listData?.valueField]">
+                                            {{item[field?.listData?.textField]}}
+                                        </option>
+                                    </select>
+                                    <span style="color:red" class="help-block" *ngIf="((SmartForm.get(field.fieldName)?.touched ||
+                                        SmartForm.get(field.fieldName)?.dirty) &&
+                                        SmartForm.get(field.fieldName)?.errors)">
+                                        {{field.placeholder}} is required.
+                                    </span>
+                                </ng-container>
+                                    
+                                </div>
                             </ng-container>
-                        </div>
+                        </ng-container>
                         <div class="mt-4 d-grid gap-2 d-md-block">
                             <button type="submit" [disabled]="SmartForm.invalid"
                                 class="btn btn-primary">{{isAdd?'Save':'Update'}}</button>

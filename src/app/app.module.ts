@@ -23,6 +23,7 @@ import { SideBarComponent } from './module/admin/forms/side-bar/side-bar.compone
 import { BasicCategoryComponent } from './module/admin/forms/basic-category/basic-category.component';
 import { SmartFormComponent } from './common/smart-form/smart-form.component';
 import { SimpleTableComponent } from './common/controls/tables/simple-table/simple-table/simple-table.component';
+import { ProductInfoComponent } from './module/admin/forms/product-info/product-info.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,8 @@ import { SimpleTableComponent } from './common/controls/tables/simple-table/simp
     SideBarComponent,
     BasicCategoryComponent,
     SmartFormComponent,
-    SimpleTableComponent
+    SimpleTableComponent,
+    ProductInfoComponent
   ],
   imports: [
     BrowserModule,

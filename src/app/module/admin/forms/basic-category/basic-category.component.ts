@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BasicCategoryService } from 'src/app/Services/BasicCategory/basic-category.service';
+import { SharedDataService } from 'src/app/Services/shared-data.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,7 +14,8 @@ export class BasicCategoryComponent implements OnInit {
   public manuallyClearField: boolean = false;
   public categoryList;
   constructor(
-    private _basicCategoryService: BasicCategoryService
+    private _basicCategoryService: BasicCategoryService,
+    private _sharedDataService: SharedDataService
   ) {
 
   }
@@ -41,21 +43,12 @@ export class BasicCategoryComponent implements OnInit {
     Data.MethodName = "InUp_BasicCategory";
     this._basicCategoryService.AddCategory(Data).subscribe({
       next: data => {
-        Swal.fire({
-          title: "Done!",
-          text: "Firm registered successfully!",
-          icon: "success"
-        });
+        this._sharedDataService.success("Category saved successfully !");
         this.manuallyClearField = true;
         this.getList();
       },
       error: error => {
-        Swal.fire({
-          title: 'Error!',
-          text: error.error,
-          icon: 'error',
-          confirmButtonText: 'ok'
-        })
+        this._sharedDataService.error(error);
       }
     });
   }
@@ -66,12 +59,7 @@ export class BasicCategoryComponent implements OnInit {
         this.categoryList = data;
       },
       error: error => {
-        Swal.fire({
-          title: 'Error!',
-          text: error.error,
-          icon: 'error',
-          confirmButtonText: 'ok'
-        })
+        this._sharedDataService.error(error);
       }
     });
   }

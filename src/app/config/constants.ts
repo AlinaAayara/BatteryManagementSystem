@@ -9,6 +9,8 @@ export enum DeviceTypes {
     "UNKNOWN" = "",
 }
 export const Constant = {
+    ISWRITE: "isWrite",
+    ISDELETE: "isDelete",
     NOTIFICATION_TIME: 5000,
     NOTIFICATION_TIMEOUT: 2000,
     Months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
@@ -27,161 +29,10 @@ export const Constant = {
         ZERO_NUMRIC: /^[0]+$/,
         CREDIT_CATE_DATE: /^(0[1-9]|1[0-2])\/([0-9]{2})$/,
         ALPHA_NUMERIC_PRE_AUTH_CODE: /[a-zA-Z0-9]/g,
-        DECIMAL:/[^0-9.]/
-    },
-    HUBPAGEBUTTONLIST: [
-        {
-            id: 1,
-            btnText: "सभासद अॅड करणे ",
-            showCount: false,
-            count: 0,
-            isSelected: true
-        },
-        {
-            id: 2,
-            btnText: "बिशी ",
-            showCount: false,
-            count: 0,
-            isSelected: false
-        },
-        {
-            id: 3,
-            btnText: "Loan ",
-            showCount: false,
-            count: 0,
-            isSelected: false
-        },
-        {
-            id: 4,
-            btnText: "FD ",
-            showCount: false,
-            count: 0,
-            isSelected: false
-        }
-    ],
-    EMITabList: [
-        {
-            id: 1,
-            btnText: "Current",
-            showCount: false,
-            count: 0,
-            isSelected: true,
-            disable: false
-        },
-        {
-            id: 2,
-            btnText: "Remaining",
-            showCount: false,
-            count: 0,
-            isSelected: false,
-            disable: false
-        },
-        {
-            id: 3,
-            btnText: "All ",
-            showCount: false,
-            count: 0,
-            isSelected: false,
-            disable: false
-        }
-    ],
-    LoanTabList: [
-        {
-            id: 1,
-            btnText: "Active",
-            showCount: false,
-            count: 0,
-            isSelected: true,
-            disable: false
-        },
-        {
-            id: 2,
-            btnText: "Closed",
-            showCount: false,
-            count: 0,
-            isSelected: false,
-            disable: false
-        }
-    ],
-    FDTabList: [
-        {
-            id: 1,
-            btnText: "Active",
-            showCount: false,
-            count: 0,
-            isSelected: true,
-            disable: false
-        },
-        {
-            id: 2,
-            btnText: "Closed",
-            showCount: false,
-            count: 0,
-            isSelected: false,
-            disable: false
-        }
-    ],
-    DashboardAllDetailsTabList: [
-        {
-            id: 1,
-            btnText: "बिशी",
-            showCount: false,
-            count: 0,
-            isSelected: true,
-            disable: false
-        },
-        {
-            id: 2,
-            btnText: "Laon",
-            showCount: false,
-            count: 0,
-            isSelected: false,
-            disable: false
-        }
-        ,
-        {
-            id: 3,
-            btnText: "FD",
-            showCount: false,
-            count: 0,
-            isSelected: false,
-            disable: false
-        }
-    ],
-    DashboardAllMemberDetailsTabList: [
-      {
-        id: 1,
-        btnText: "सभासद",
-        showCount: false,
-        count: 0,
-        isSelected: true,
-        disable: false
-    },
-      {
-          id: 2,
-          btnText: "बिशी",
-          showCount: false,
-          count: 0,
-          isSelected: true,
-          disable: false
-      },
-      {
-          id: 3,
-          btnText: "Laon",
-          showCount: false,
-          count: 0,
-          isSelected: false,
-          disable: false
-      }
-      ,
-      {
-          id: 4,
-          btnText: "FD",
-          showCount: false,
-          count: 0,
-          isSelected: false,
-          disable: false
-      }
-  ],
-
+        DECIMAL: /[^0-9.]/
+    }
+}
+export enum controlType {
+    Textbox = "Textbox",
+    Dropdown ="Dropdown"
 }
