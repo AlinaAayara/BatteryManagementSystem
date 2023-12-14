@@ -50,8 +50,6 @@ export class ProductInfoComponent implements OnInit {
   }
   public getRequestBody() {
     return {
-      FormData: {
-      },
       MethodName: "Search_ProductInfo"
     }
   }

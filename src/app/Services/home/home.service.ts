@@ -18,12 +18,10 @@ export class HomeService {
     });
   }
 
-  
+
   public currentUserBody() {
     return {
-      FormData: {
-        Mode: "0"
-      },
+      Mode: "0",
       MethodName: "Sel_CurrentUser"
     }
   }

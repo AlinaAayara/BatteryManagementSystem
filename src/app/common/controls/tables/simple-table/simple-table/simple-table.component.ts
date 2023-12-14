@@ -53,11 +53,8 @@ export class SimpleTableComponent implements OnInit, OnChanges {
   /* delete request body */
   deleteBody(id) {
     return {
-      FormData: {
-        SubMenuID: this.id,
-        PrimaryValue: id
-
-      },
+      SubMenuID: this.id,
+      PrimaryValue: id,
       MethodName: "deleteRecord"
     }
   }

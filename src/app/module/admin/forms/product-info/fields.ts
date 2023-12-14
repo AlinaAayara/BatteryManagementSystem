@@ -15,8 +15,6 @@ export const fields = [
         listData: {
             fetchURL: AppUrl.API.get_basic_category,
             requestBody: {
-                FormData: {
-                },
                 MethodName: "Search_BasicCategory"
             },
             textField: "CategoryName",
@@ -46,7 +44,7 @@ export const fields = [
         isVisible: true,
         bootstrapFormGroup: 6,
         controlType: controlType.Textbox,
-        directiveName: directiveList.AlphaOnly
+        directiveName: directiveList.AlphaNumeric
     },
     {
         fieldName: "Amp",

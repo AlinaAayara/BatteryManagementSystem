@@ -9,6 +9,7 @@ export class AppUrl {
     public static productInfoURL = "ProductInfo/";
     public static partyInfoURL = "PartyInfo/";
     public static basicBranchURL = "BasicBranch/";
+    public static purchaseInfoURL = "PurchaseInfo/";
 
     public static API = {
         Login: AppUrl.baseURL + AppUrl.basicUserURL + "authentication",
@@ -30,6 +31,9 @@ export class AppUrl {
 
         add_basic_branch: AppUrl.baseURL + AppUrl.basicBranchURL + "AddBranch",
         get_basic_branch: AppUrl.baseURL + AppUrl.basicBranchURL + "GetBranch",
+
+        add_purchaseInfo: AppUrl.baseURL + AppUrl.purchaseInfoURL + "AddPurchase",
+        get_purchaseInfo: AppUrl.baseURL + AppUrl.purchaseInfoURL + "GetPurchase",
 
 
     };

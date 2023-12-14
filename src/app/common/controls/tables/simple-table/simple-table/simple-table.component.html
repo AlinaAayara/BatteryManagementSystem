@@ -19,6 +19,7 @@
                     <tr *ngFor="let item of SearchResult">
                         <ng-container *ngFor="let key of Object.keys(item); let i = index;let first = first;">
                             <td *ngIf="first && isDelete">
+                                <a href="#" class="btn btn-icon btn-sm btn-light"><i class="demo-pli-trash fs-5"></i></a>
                                 <input type="button" class="btn btn-danger" value="Delete" (click)="deleteItem(item)" />
                             </td>
                         </ng-container>

@@ -49,8 +49,6 @@ export class PartyInfoComponent implements OnInit {
   }
   public getRequestBody() {
     return {
-      FormData: {
-      },
       MethodName: "Search_PartyInfo"
     }
   }

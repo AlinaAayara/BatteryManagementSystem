@@ -76,21 +76,17 @@ export class FirmInfoComponent {
 
   public RequestBody() {
     return {
-      FormData: {
-        Mode: "0",
-        FirmName: this.FirmInfoForm.get("FirmName")?.value,
-        FirmAddress: this.FirmInfoForm.get("FirmAddress")?.value,
-        ActivationDate: this.FirmInfoForm.get("ActivationDate")?.value,
-        ExpiryDate: this.FirmInfoForm.get("ExpiryDate")?.value
-      },
+      Mode: "0",
+      FirmName: this.FirmInfoForm.get("FirmName")?.value,
+      FirmAddress: this.FirmInfoForm.get("FirmAddress")?.value,
+      ActivationDate: this.FirmInfoForm.get("ActivationDate")?.value,
+      ExpiryDate: this.FirmInfoForm.get("ExpiryDate")?.value,
       MethodName: "InUp_FirmInfo"
     }
   }
   public getRequestBody() {
     return {
-      FormData: {
-        Mode: "3"
-      },
+      Mode: "3",
       MethodName: "InUp_FirmInfo"
     }
   }

@@ -50,8 +50,6 @@ export class BasicBranchComponent implements OnInit {
   }
   public getRequestBody() {
     return {
-      FormData: {
-      },
       MethodName: "Search_BasicBranch"
     }
   }

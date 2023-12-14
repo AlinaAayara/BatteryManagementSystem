@@ -10,6 +10,7 @@ import { BasicCategoryComponent } from './module/admin/forms/basic-category/basi
 import { ProductInfoComponent } from './module/admin/forms/product-info/product-info.component';
 import { PartyInfoComponent } from './module/admin/forms/party-info/party-info.component';
 import { BasicBranchComponent } from './module/admin/forms/basic-branch/basic-branch.component';
+import { PurchaseInfoComponent } from './module/admin/forms/purchase-info/purchase-info.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,9 @@ const routes: Routes = [
           },
           {
             path: 'BasicBranch', component: BasicBranchComponent
+          },
+          {
+            path: 'PurchaseInfo', component: PurchaseInfoComponent
           }
         ]
       },

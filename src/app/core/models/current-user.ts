@@ -4,12 +4,14 @@ export class CurrentUser {
     public groupName = "";
     public name = "";
     public userName = "";
+    public todaysDate = "";
     public menu = Array<Menu>();
 
     constructor(currentUserInfo: any = {}) {
         this.userID = currentUserInfo?.userID || "";
         this.groupID = currentUserInfo?.groupID || "";
         this.groupName = currentUserInfo?.groupName || "";
+        this.todaysDate = currentUserInfo?.todaysDate || "";
         this.name = currentUserInfo?.name || "";
 
         if (currentUserInfo && currentUserInfo?.menu && currentUserInfo?.menu?.length) {

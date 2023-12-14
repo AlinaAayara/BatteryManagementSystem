@@ -73,10 +73,7 @@ export class SmartFormComponent implements OnInit, OnChanges {
     for (let field of this.formField) {
       fieldData[field.fieldName] = this.SmartForm.get(field.fieldName)?.value
     }
-    return {
-      FormData: fieldData,
-      MethodName: ""
-    }
+    return fieldData
   }
 
   public setFormValue(data) {
@@ -102,7 +99,6 @@ export class SmartFormComponent implements OnInit, OnChanges {
   getListDataForDropdown() {
     this.formField.filter((field) => {
       if (field?.listData?.fetchURL) {
-        console.log("field?.listData?.fetchURL", field?.listData?.fetchURL);
         this._smartFormService.GetDropdownList(field?.listData?.requestBody, field?.listData?.fetchURL).subscribe({
           next: data => {
             this[field.fieldName + 'List'] = data;

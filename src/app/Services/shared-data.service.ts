@@ -7,6 +7,8 @@ import { DeviceTypes } from '../config/constants';
 import Swal from 'sweetalert2';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { CurrentUser } from '../core/models/current-user';
+import notie from 'notie';
+
 
 @Injectable({
   providedIn: 'root'
@@ -84,5 +86,13 @@ export class SharedDataService {
     return this._httpClient.post<any[]>(AppUrl.API.delete_record, Data, {
       headers: { 'content-type': 'application/json' }
     });
+  }
+
+  NotieSuccess(msg) {
+    notie.alert({ type: 'success', text: msg, time: 2 });
+  }
+
+  NotieError(msg) {
+    notie.alert({ type: 'error', text: msg });
   }
 }
