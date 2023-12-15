@@ -18,6 +18,7 @@ export class SmartFormComponent implements OnInit, OnChanges {
   @Input() public searchFormName: string;
   public isAdd: boolean = true;
   @Input() public showLoader: boolean = false;
+  @Input() public showDefaultListTable: boolean = true;
 
   constructor(
     private _FormBuilder: FormBuilder,
@@ -37,6 +38,9 @@ export class SmartFormComponent implements OnInit, OnChanges {
     }
     if (changes?.['showLoader']) {
       this.showLoader = changes['showLoader']?.currentValue;
+    }
+    if (changes?.['showDefaultListTable']) {
+      this.showDefaultListTable = changes['showDefaultListTable']?.currentValue;
     }
   }
 

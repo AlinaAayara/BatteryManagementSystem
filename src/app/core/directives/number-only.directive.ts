@@ -44,7 +44,7 @@ export class NumberOnlyDirective implements AfterViewInit{
 
     if (this.directiveName === directiveList.AlphaNumeric) {
       if (input.value) {
-        const truncated = input.value.replace(/[^0-9a-zA-Z]*/g, "");
+        const truncated = input.value.replace(/[^0-9a-zA-Z^\s]*/g, "");
         /* istanbul ignore else */
         if (truncated !== input.value) {
           if (this.control.valueAccessor) {
@@ -60,7 +60,7 @@ export class NumberOnlyDirective implements AfterViewInit{
 
     if (this.directiveName === directiveList.AlphaOnly) {
       if (input.value) {
-        const truncated = input.value.replace(/[^a-zA-Z]/g, "");
+        const truncated = input.value.replace(/[^a-zA-Z^\s]/g, "");
         /* istanbul ignore else */
         if (truncated !== input.value) {
           if (this.control.valueAccessor) {

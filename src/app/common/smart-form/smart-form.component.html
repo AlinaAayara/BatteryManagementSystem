@@ -78,8 +78,9 @@
             </div>
         </div>
         <div class="col-md-8 mb-3">
-            <app-simple-table [SearchResult]="listData" [searchFormName]="searchFormName" (delete)="delete($event)"
+            <app-simple-table *ngIf="showDefaultListTable" [SearchResult]="listData" [searchFormName]="searchFormName" (delete)="delete($event)"
                 (edit)="edit($event)"></app-simple-table>
+                <ng-content></ng-content>
         </div>
     </div>
 </div>

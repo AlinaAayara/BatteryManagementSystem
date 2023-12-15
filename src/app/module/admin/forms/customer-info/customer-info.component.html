@@ -1,0 +1,12 @@
+<app-smart-form 
+[formName] ="'Add Customer'" 
+[formField]="formField"
+(formData)="submit($event)"
+[manuallyClearField]="manuallyClearField"
+[listData]="customerList"
+[searchFormName]="'Customer List'"
+[showLoader] ="showLoader"
+[showDefaultListTable]="false"
+>
+<app-customer-search></app-customer-search>
+</app-smart-form>

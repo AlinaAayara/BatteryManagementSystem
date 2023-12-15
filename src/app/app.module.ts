@@ -32,6 +32,8 @@ import { AlphaSpaceOnlyDirective } from './core/directives/alpha-space-only.dire
 import { AutofocusDirective } from './core/directives/autofocus.directive';
 import { NumberOnlyDirective } from './core/directives/number-only.directive';
 import { PurchaseInfoComponent } from './module/admin/forms/purchase-info/purchase-info.component';
+import { CustomerInfoComponent } from './module/admin/forms/customer-info/customer-info.component';
+import { CustomerSearchComponent } from './module/admin/forms/customer-info/customer-search/customer-search.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +56,7 @@ import { PurchaseInfoComponent } from './module/admin/forms/purchase-info/purcha
     PartyInfoComponent,
     BasicBranchComponent,
 
-    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent
+    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent
 
     
   ],
