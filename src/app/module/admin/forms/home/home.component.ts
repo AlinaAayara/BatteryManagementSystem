@@ -53,5 +53,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   }
 
+  logout(){
+    this._sharedDataService.logout();
+  }
 }
 

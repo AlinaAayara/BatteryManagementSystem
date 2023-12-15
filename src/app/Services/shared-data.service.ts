@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { CurrentUser } from '../core/models/current-user';
 import notie from 'notie';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -27,7 +28,8 @@ export class SharedDataService {
   constructor(
     private _httpClient: HttpClient,
     private deviceService: DeviceDetectorService,
-    private jwtHelper: JwtHelperService
+    private jwtHelper: JwtHelperService,
+    public _router: Router
   ) {
     let currentUser = localStorage.getItem("currentUser");
     if (this.currentUser == undefined && currentUser != undefined) {
@@ -101,5 +103,10 @@ export class SharedDataService {
 
   clearThingsOnLogout() {
     localStorage.clear();
+  }
+
+  logout(){
+    this.clearThingsOnLogout();
+    this._router.navigate(["Login"]);
   }
 }

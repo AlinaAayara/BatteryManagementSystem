@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Router } from '@angular/router';
 import { SharedDataService } from 'src/app/Services/shared-data.service';
 import { CurrentUser, Menu } from 'src/app/core/models/current-user';
 
@@ -11,8 +10,7 @@ import { CurrentUser, Menu } from 'src/app/core/models/current-user';
 export class SideBarComponent implements OnInit, OnChanges {
   @Input() public currentUser: CurrentUser;
   constructor(
-    private _sharedDataService: SharedDataService,
-    public _router: Router
+    private _sharedDataService: SharedDataService
   ) {
 
   }
@@ -25,7 +23,6 @@ export class SideBarComponent implements OnInit, OnChanges {
     this.currentUser = this?._sharedDataService?.currentUser;
   }
   logout(){
-    this._sharedDataService.clearThingsOnLogout();
-    this._router.navigate(["Login"]);
+    this._sharedDataService.logout();
   }
 }

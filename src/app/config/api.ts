@@ -1,7 +1,7 @@
 export class AppUrl {
     public static URL = {};
     public static baseURL = "https://localhost:7147/api/";
-    //public static baseURL = "http://RanzunzarWebApi.betech.in/api/";
+    //public static baseURL = "http://gbh.WebAPI.betech.in/";
     public static firmInfoURL = "FirmInfo/";
     public static basicUserURL = "BasicUser/";
     public static basicCategoryURL = "BasicCategory/";
