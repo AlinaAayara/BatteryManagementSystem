@@ -17,6 +17,7 @@ export class SmartFormComponent implements OnInit, OnChanges {
   @Input() listData;
   @Input() public searchFormName: string;
   public isAdd: boolean = true;
+  @Input() public showLoader: boolean = false;
 
   constructor(
     private _FormBuilder: FormBuilder,
@@ -34,7 +35,9 @@ export class SmartFormComponent implements OnInit, OnChanges {
     if (changes?.['listData']) {
       this.listData = changes['listData']?.currentValue;
     }
-
+    if (changes?.['showLoader']) {
+      this.showLoader = changes['showLoader']?.currentValue;
+    }
   }
 
   ngOnInit(): void {
@@ -60,7 +63,7 @@ export class SmartFormComponent implements OnInit, OnChanges {
     this.isAdd = true;
   }
 
-  setDefaultVaueAfterClear(){
+  setDefaultVaueAfterClear() {
     var fieldData = {};
     for (let field of this.formField) {
       fieldData[field.fieldName] = field?.defaultValue == undefined ? "" : field?.defaultValue

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Observable, Subject } from 'rxjs';
 import { AppUrl } from '../config/api';
@@ -29,9 +29,9 @@ export class SharedDataService {
     private deviceService: DeviceDetectorService,
     private jwtHelper: JwtHelperService
   ) {
-    if (!this.UserID && sessionStorage.getItem("UserCredential")) {
-      // this.loggedUser = new BasicUser(JSON.parse(sessionStorage.getItem("UserCredential") || '{}'));
-      // this.UserID = this.loggedUser?.["UserID"];
+    let currentUser = localStorage.getItem("currentUser");
+    if (this.currentUser == undefined && currentUser != undefined) {
+      this.currentUser = new CurrentUser(JSON.parse(currentUser || '{}'));
     }
 
     this.deviceType = this.deviceService.isMobile() ? DeviceTypes.MOBILE :
@@ -73,13 +73,16 @@ export class SharedDataService {
   }
 
   checkWriteDeleteAccess(id, access): boolean {
-    let filterSubMenu;
+    let filterSubMenu = false;
     this.currentUser?.menu?.forEach((m) => {
-      filterSubMenu = m?.subMenu?.filter((sub) => 
-        sub?.subMenuID == id && sub[access]
-       )
+      m?.subMenu?.forEach((sub) => {
+        if (sub?.subMenuID == id && sub[access] === "1") {
+          filterSubMenu = true;
+        }
+      }
+      )
     });
-    return filterSubMenu?.length>0
+    return filterSubMenu;
   }
 
   deleteRecord(Data: any): Observable<any> {
@@ -94,5 +97,9 @@ export class SharedDataService {
 
   NotieError(msg) {
     notie.alert({ type: 'error', text: msg });
+  }
+
+  clearThingsOnLogout() {
+    localStorage.clear();
   }
 }

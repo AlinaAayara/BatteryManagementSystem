@@ -14,6 +14,7 @@ export class BasicCategoryComponent implements OnInit {
   formField: any;
   public manuallyClearField: boolean = false;
   public categoryList;
+  public showLoader: boolean = false;
   constructor(
     private _basicCategoryService: BasicCategoryService,
     private _sharedDataService: SharedDataService
@@ -42,14 +43,17 @@ export class BasicCategoryComponent implements OnInit {
     this.getList();
   }
   submit(Data) {
+    this.showLoader = true;
     Data.MethodName = "InUp_BasicCategory";
     this._basicCategoryService.AddCategory(Data).subscribe({
       next: data => {
         this._sharedDataService.success("Category saved successfully !");
         this.manuallyClearField = true;
         this.getList();
+        this.showLoader = false;
       },
       error: error => {
+        this.showLoader = false;
         this._sharedDataService.error(error);
       }
     });

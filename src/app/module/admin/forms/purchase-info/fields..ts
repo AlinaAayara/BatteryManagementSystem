@@ -46,6 +46,34 @@ export interface IPurchaseProductObject {
     Price: 0,
     Quantity: 0,
     Total: 0,
-    SerialNoList:[]
+    SerialNoList: []
+}
 
+export function generatePostRequestBody(data: any) {
+    let body: any = {};
+    body.PurchaseID = data?.PurchaseID;
+    body.PartyID = data?.PartyID;
+    body.PurchaseDate = data?.PurchaseDate;
+    body.BillNo = data?.BillNo;
+    body.TotalQuantity = data?.TotalQuantity;
+    body.TotalAmount = data?.TotalAmount;
+    body.TotalPaidAmount = data?.TotalPaidAmount;
+    body.PurchaseProductList = Array();
+    body.Mode = "0";
+    body.MethodName = "InUp_PurchaseInfo";
+    data?.PurchaseProductList?.forEach(product => {
+        product?.SerialNoList?.forEach(srno => {
+            let obj = {
+                ProductID: product?.ProductID,
+                SerialNo: srno,
+                Price: product?.Price / product?.Quantity,
+                Mode: "0",
+                MethodName: "InUp_PurchaseProductInfo",
+                PurchaseID:""
+            }
+            body.PurchaseProductList.push(obj);
+        })
+    });
+
+    return body;
 }

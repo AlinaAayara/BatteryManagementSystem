@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ProductInfoService } from "src/app/Services/ProductInfo/product-info.service";
 import { SharedDataService } from "src/app/Services/shared-data.service";
 import { PurchaseInfoService } from "src/app/Services/PurchaseInfo/purchase-info.service";
-import { IPurchaseProductObject } from "./fields.";
+import { IPurchaseProductObject, generatePostRequestBody } from "./fields.";
 
 @Component({
   selector: 'app-purchase-info',
@@ -13,12 +13,13 @@ import { IPurchaseProductObject } from "./fields.";
 export class PurchaseInfoComponent implements OnInit {
   PurchaseInfoForm: FormGroup;
   PurchaseProductInfoForm: FormGroup;
-  public purchaseProductList: IPurchaseProductObject[] = new Array();
+  public purchaseProductList: any = new Array();
   public serialNoList: any = new Array();
   public partyList: any;
   public categoryList: any;
   public productList: any;
   public isAdd: boolean = true;
+  public showLoader: boolean = false;
 
   constructor(
     private _FormBuilder: FormBuilder,
@@ -53,7 +54,7 @@ export class PurchaseInfoComponent implements OnInit {
           Quantity: [{ value: 0, disabled: true }]
         }
       ),
-      purchaseProductList: [Validators.required]
+      PurchaseProductList: [Validators.required]
     });
   }
 
@@ -96,47 +97,43 @@ export class PurchaseInfoComponent implements OnInit {
       }
     });
   }
-
+  /* request body for product list dropdown api call */
   public getProductListRequestBody(CategoryID) {
     return {
       CategoryID: CategoryID,
       MethodName: "Sel_ProductInfo_ByID"
     }
   }
-
+  /* request body for category list dropdown api call */
   public getCategoryListRequestBody() {
     return {
       MethodName: "Search_BasicCategory"
     }
   }
-
+  /* request body for party list dropdown api call */
   public getPartyListRequestBody() {
     return {
       MethodName: "Search_PartyInfo"
     }
   }
 
-
+  /* This will trigger On final save button  */
   Submit(e) {
-    console.log("submit click ", this.PurchaseInfoForm.value);
-
-    this._purchaseInfoService.AddPurchase(this.RequestBody()).subscribe({
+    this.showLoader = true;
+    this._purchaseInfoService.AddPurchase(generatePostRequestBody(this.PurchaseInfoForm.value)).subscribe({
       next: data => {
+        this.showLoader = false;
         this._sharedDataService.success("Purchase saved successfully !");
         this.clearPurchase();
       },
       error: error => {
+        this.showLoader = false;
         this._sharedDataService.error(error);
       }
     });
 
   }
-  public RequestBody() {
-    let data = this.PurchaseInfoForm.value;
-    data["MethodName"] = "InUp_PurchaseInfo"
-    return data;
-  }
-
+  /* This will trigger On Add Product button. It will insert into Array */
   SubmitPurchaseProduct() {
     let purchaseProductInfoData = this.PurchaseInfoForm.get("purchaseProductInfo")?.value;
     const isValid = this.checkPurchaseProductInfoValidation(purchaseProductInfoData);
@@ -144,7 +141,7 @@ export class PurchaseInfoComponent implements OnInit {
       this.AddPurchaseProduct(purchaseProductInfoData);
     }
   }
-
+  /* This will create array based on Serial no input string, in which you have comma seperated serial no */
   separateSerialNo() {
     let serialNo = this.PurchaseInfoForm.get("purchaseProductInfo")?.value?.SerialNo;
     if (serialNo?.length > 0) {
@@ -152,16 +149,18 @@ export class PurchaseInfoComponent implements OnInit {
       this.PurchaseInfoForm.get("purchaseProductInfo")?.get("Quantity")?.setValue(this.serialNoList?.length);
     }
   }
+  /* This will add product object into array and clear the product from controls (child) */
   AddPurchaseProduct(purchaseProductInfoData) {
     purchaseProductInfoData.ProductName = this.productList?.filter(prod => prod?.ProductID == this.PurchaseInfoForm?.get("purchaseProductInfo")?.value?.ProductID)?.[0]?.ProductName;
     purchaseProductInfoData.Quantity = this.serialNoList?.length;
     purchaseProductInfoData.SerialNoList = this.serialNoList;
     this.purchaseProductList.push(purchaseProductInfoData);
-    this.PurchaseInfoForm.get("purchaseProductList")?.setValue(this.purchaseProductList);
+    this.PurchaseInfoForm.get("PurchaseProductList")?.setValue(this.purchaseProductList);
     this.clearPurchaseProduct();
     this.updateTotalValues();
   }
 
+  /* Manual validation on add button click(child) */
   checkPurchaseProductInfoValidation(data) {
     if (["", null, undefined].includes(data.CategoryID)) {
       this._sharedDataService.NotieError("Please select category");
@@ -187,7 +186,7 @@ export class PurchaseInfoComponent implements OnInit {
     let PendingAmount = 0;
 
     TotalQuantity = this.purchaseProductList?.reduce((n, { Quantity }) => n + Quantity, 0);
-    TotalAmount = this.purchaseProductList?.reduce((n, { Price }) => n + Price, 0);
+    TotalAmount = this.purchaseProductList?.reduce((n, { Price }) => (n) + parseFloat(Price), 0);
     TotalPaidAmount = this.PurchaseInfoForm.get("TotalPaidAmount")?.value || 0;
     PendingAmount = TotalAmount - TotalPaidAmount;
 
@@ -202,7 +201,7 @@ export class PurchaseInfoComponent implements OnInit {
   /* remove item from list it will trigger from front end purchase product table upon click on delete button */
   removePurchaseProduct(item) {
     this.purchaseProductList = this.purchaseProductList?.filter((itm) => item != itm);
-    this.PurchaseInfoForm.get("purchaseProductList")?.setValue(this.purchaseProductList);
+    this.PurchaseInfoForm.get("PurchaseProductList")?.setValue(this.purchaseProductList);
     this.clearPurchaseProduct();
     this.updateTotalValues();
   }
@@ -221,5 +220,6 @@ export class PurchaseInfoComponent implements OnInit {
     this.clearPurchaseProduct();
     this.purchaseProductList = [];
     this.isAdd = true;
+    this.showLoader = false;
   }
 }

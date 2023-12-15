@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       next: data => {
         this._sharedDataService.currentUser = data;
         this.currentUser = this._sharedDataService.currentUser;
+        localStorage.setItem("currentUser", JSON.stringify(data));
       },
       error: error => {
         Swal.fire({

@@ -190,7 +190,8 @@
                                             <label for="TotalPaidAmount" class="col-sm-4 form-label">Paid Amount</label>
                                             <div class="col-sm-8">
                                                 <input id="TotalPaidAmount" formControlName="TotalPaidAmount"
-                                                    type="text" class="form-control" placeholder="Paid Amount">
+                                                    type="text" class="form-control" placeholder="Paid Amount"
+                                                    (blur)="updateTotalValues()">
                                             </div>
                                         </div>
                                     </div>
@@ -198,8 +199,8 @@
                                         <div class="row mb-3">
                                             <label for="Pending" class="col-sm-4 col-form-label">Pending Amount</label>
                                             <div class="col-sm-8">
-                                                <input id="Pending" type="text" class="form-control" formControlName="PendingAmount"
-                                                    placeholder="Pending" (blur)="updateTotalValues()">
+                                                <input id="Pending" type="text" class="form-control"
+                                                    formControlName="PendingAmount" placeholder="Pending">
                                             </div>
                                         </div>
                                     </div>
@@ -207,9 +208,19 @@
                                 </div>
                                 <div class="mt-4 d-grid gap-2 d-md-block">
                                     <button type="submit" class="btn btn-primary"
-                                        [disabled]="PurchaseInfoForm.invalid || purchaseProductList.length==0">{{isAdd?'Save':'Update'}}</button>
+                                        [disabled]="PurchaseInfoForm.invalid || purchaseProductList.length==0 || showLoader">
+                                        <ng-container *ngIf="showLoader">
+                                            <span class="spinner-border spinner-border-sm"></span>
+                                            Loading..
+                                        </ng-container>
+                                        <ng-container *ngIf="!showLoader">
+                                            {{isAdd?'Save':'Update'}}
+                                        </ng-container>
+
+                                    </button>
                                     |
-                                    <button type="button" class="btn btn-danger" (click)="clearPurchase()">Clear</button>
+                                    <button type="button" class="btn btn-danger"
+                                        (click)="clearPurchase()">Clear</button>
                                 </div>
                             </div>
                         </div>
