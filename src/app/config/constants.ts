@@ -11,6 +11,20 @@ export enum DeviceTypes {
 export const Constant = {
     ISWRITE: "isWrite",
     ISDELETE: "isDelete",
+    CUSTOMER_TYPE: [
+        {
+            Value: "B",
+            Text: "B2B"
+        },
+        {
+            Value: "C",
+            Text: "B2C"
+        },
+        {
+            Value: "M",
+            Text: "B2M"
+        }
+    ],
     NOTIFICATION_TIME: 5000,
     NOTIFICATION_TIMEOUT: 2000,
     Months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",

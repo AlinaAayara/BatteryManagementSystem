@@ -1,5 +1,5 @@
 import { Validators } from "@angular/forms";
-import { controlType, directiveList } from "src/app/config/constants";
+import { Constant, controlType, directiveList } from "src/app/config/constants";
 export const fields = [
     {
         fieldName: "CustomerID",
@@ -29,20 +29,7 @@ export const fields = [
         isVisible: true,
         bootstrapFormGroup: 12,
         controlType: controlType.Radio,
-        radioGroup: [
-            {
-                Value: "B",
-                Text: "B2B"
-            },
-            {
-                Value : "C",
-                Text: "B2C"
-            },
-            {
-                Value : "M",
-                Text: "B2M"
-            }
-        ],
+        radioGroup: Constant.CUSTOMER_TYPE,
         directiveName: directiveList.AlphaNumeric
     },
     {

@@ -10,11 +10,11 @@
                         <ng-container *ngFor="let field of formField">
                             <ng-container *ngIf="field.isVisible">
                                 <div
-                                    class="col-{{field?.bootstrapFormGroup == undefined ? 12 : field?.bootstrapFormGroup}}">
+                                    class="col-sm-12 col-md-{{field?.bootstrapFormGroup == undefined ? 12 : field?.bootstrapFormGroup}}">
 
                                     <ng-container
                                         *ngIf="(field?.controlType) == undefined ? 'Textbox' : (field?.controlType) === 'Radio'">
-                                        <div class="mt-4 d-flex flex-wrap justify-content-center gap-2">
+                                        <div class="d-flex flex-wrap justify-content-center gap-2">
                                             <div class="btn-group" role="group"
                                                 aria-label="Basic radio toggle button group">
                                                 <ng-container *ngFor="let group of field.radioGroup">

@@ -17,6 +17,8 @@ export class CustomerSearchComponent implements OnInit {
   public isWrite: boolean = false;
   public isDelete: boolean = false;
   Object = Object;
+  public CustomerTypes = Constant.CUSTOMER_TYPE;
+  public CustomerTypeID = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +40,7 @@ export class CustomerSearchComponent implements OnInit {
         this.CustomerList = data;
       },
       error: error => {
+        this.CustomerList = [];
         //this._sharedDataService.error(error);
       }
     });
@@ -45,7 +48,8 @@ export class CustomerSearchComponent implements OnInit {
   public getRequestBody() {
     return {
       MethodName: "Search_CustomerInfo",
-      CustomerName: [null, undefined, ""].includes(this.CustomerName) ? "" : this.CustomerName
+      CustomerName: [null, undefined, ""].includes(this.CustomerName) ? "" : this.CustomerName,
+      CustomerTypeID: [null, undefined, ""].includes(this.CustomerTypeID) ? "" : this.CustomerTypeID
     }
   }
   deleteItem(item) {
