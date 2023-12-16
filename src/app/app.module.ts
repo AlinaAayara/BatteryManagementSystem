@@ -34,6 +34,10 @@ import { NumberOnlyDirective } from './core/directives/number-only.directive';
 import { PurchaseInfoComponent } from './module/admin/forms/purchase-info/purchase-info.component';
 import { CustomerInfoComponent } from './module/admin/forms/customer-info/customer-info.component';
 import { CustomerSearchComponent } from './module/admin/forms/customer-info/customer-search/customer-search.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,16 +62,19 @@ import { CustomerSearchComponent } from './module/admin/forms/customer-info/cust
 
     AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent
 
-    
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule 
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptInterceptor, multi: true },{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, AuthGuardGuard, JwtHelperService],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptInterceptor, multi: true }, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, AuthGuardGuard, JwtHelperService,MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
