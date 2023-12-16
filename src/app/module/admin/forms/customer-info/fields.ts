@@ -20,6 +20,30 @@ export const fields = [
         isVisible: false,
         bootstrapFormGroup: 12,
         controlType: null
+    }, {
+        fieldName: "CustomerTypeID",
+        validation: [Validators.required],
+        defaultValue: "C",
+        placeholder: "CustomerTypeID",
+        label: "CustomerTypeID",
+        isVisible: true,
+        bootstrapFormGroup: 12,
+        controlType: controlType.Radio,
+        radioGroup: [
+            {
+                Value: "B",
+                Text: "B2B"
+            },
+            {
+                Value : "C",
+                Text: "B2C"
+            },
+            {
+                Value : "M",
+                Text: "B2M"
+            }
+        ],
+        directiveName: directiveList.AlphaNumeric
     },
     {
         fieldName: "CustomerName",

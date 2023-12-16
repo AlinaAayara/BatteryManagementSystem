@@ -24,6 +24,7 @@ export class SharedDataService {
   public isLargeScreen = false;
   public isMediumScreen = false;
   public currentUser: CurrentUser;
+  public customerInfoEdit = new Subject<any>();
 
   constructor(
     private _httpClient: HttpClient,

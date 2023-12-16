@@ -12,6 +12,20 @@
                                 <div
                                     class="col-{{field?.bootstrapFormGroup == undefined ? 12 : field?.bootstrapFormGroup}}">
 
+                                    <ng-container
+                                        *ngIf="(field?.controlType) == undefined ? 'Textbox' : (field?.controlType) === 'Radio'">
+                                        <div class="mt-4 d-flex flex-wrap justify-content-center gap-2">
+                                            <div class="btn-group" role="group"
+                                                aria-label="Basic radio toggle button group">
+                                                <ng-container *ngFor="let group of field.radioGroup">
+                                                    <input type="radio" class="btn-check" id="{{group.Value}}"
+                                                    [value]="group.Value" [formControlName]="field.fieldName">
+                                                    <label class="btn btn-outline-primary"
+                                                        for="{{group.Value}}">{{group.Text}}</label>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </ng-container>
 
                                     <ng-container
                                         *ngIf="(field?.controlType) == undefined ? 'Textbox' : (field?.controlType) === 'Textbox'">
@@ -78,9 +92,9 @@
             </div>
         </div>
         <div class="col-md-8 mb-3">
-            <app-simple-table *ngIf="showDefaultListTable" [SearchResult]="listData" [searchFormName]="searchFormName" (delete)="delete($event)"
-                (edit)="edit($event)"></app-simple-table>
-                <ng-content></ng-content>
+            <app-simple-table *ngIf="showDefaultListTable" [SearchResult]="listData" [searchFormName]="searchFormName"
+                (delete)="delete($event)" (edit)="edit($event)"></app-simple-table>
+            <ng-content></ng-content>
         </div>
     </div>
 </div>

@@ -22,7 +22,7 @@ export class CustomerInfoComponent implements OnInit {
   }
   ngOnInit(): void {
     this.formField = fields;
-    this.getList();
+    //this.getList();
   }
   submit(Data) {
     this.showLoader = true;
@@ -57,5 +57,5 @@ export class CustomerInfoComponent implements OnInit {
       MethodName: "Search_CustomerInfo"
     }
   }
-
+  
 }

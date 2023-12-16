@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { SmartFormService } from 'src/app/Services/SmartForm/smart-form.service';
+import { SharedDataService } from 'src/app/Services/shared-data.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,7 +23,8 @@ export class SmartFormComponent implements OnInit, OnChanges {
 
   constructor(
     private _FormBuilder: FormBuilder,
-    private _smartFormService: SmartFormService
+    private _smartFormService: SmartFormService,
+    private _sharedDataService: SharedDataService
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -50,6 +52,10 @@ export class SmartFormComponent implements OnInit, OnChanges {
     /* fetch list data to render in dropdown */
 
     this.getListDataForDropdown();
+
+    this._sharedDataService.customerInfoEdit.subscribe(res =>{
+      this.edit(res);
+    });
   }
   public formFields() {
     var control = {};
@@ -115,5 +121,9 @@ export class SmartFormComponent implements OnInit, OnChanges {
         });
       }
     })
+  }
+
+  radioClick(e){
+    
   }
 }
