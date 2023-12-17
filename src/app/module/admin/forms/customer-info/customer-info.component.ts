@@ -29,11 +29,14 @@ export class CustomerInfoComponent implements OnInit {
     this.manuallyClearField = false;
     Data.MethodName = "InUp_CustomerInfo";
     this._customerInfoService.AddCustomer(Data).subscribe({
-      next: data => {
+      next: res => {
         this._sharedDataService.success("Customer saved successfully !");
         this.manuallyClearField = true;
         this.getList();
         this.showLoader = false;
+        console.log("Data",res?.[0]);
+        
+        this.emitCustomer(res?.[0]);
       },
       error: error => {
         this.showLoader = false;
@@ -57,5 +60,13 @@ export class CustomerInfoComponent implements OnInit {
       MethodName: "Search_CustomerInfo"
     }
   }
-  
+
+/* This function will emit added customer or seleceted customer
+  1) This will used during sale info
+*/
+  emitCustomer(Customer) {
+    console.log("emitCustomer Customer",Customer);
+    this._sharedDataService.getSelectedCustomer.next(Customer);
+  }
+
 }

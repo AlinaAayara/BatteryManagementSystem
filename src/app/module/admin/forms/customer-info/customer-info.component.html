@@ -8,5 +8,5 @@
 [showLoader] ="showLoader"
 [showDefaultListTable]="false"
 >
-<app-customer-search></app-customer-search>
+<app-customer-search (emitCustomer)="emitCustomer($event)"></app-customer-search>
 </app-smart-form>

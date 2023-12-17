@@ -19,6 +19,7 @@ export class CustomerSearchComponent implements OnInit {
   Object = Object;
   public CustomerTypes = Constant.CUSTOMER_TYPE;
   public CustomerTypeID = "";
+  @Output() public emitCustomer = new EventEmitter();
 
   constructor(
     private route: ActivatedRoute,
@@ -79,5 +80,10 @@ export class CustomerSearchComponent implements OnInit {
   /* manually remove item from search result */
   removeItem(id) {
     this.CustomerList = this.CustomerList.filter((searchid) => { Object.values(searchid)[0] != id });
+  }
+
+  /* This will trigger on customer card selection */
+  selectedCustomer(customer) {
+    this.emitCustomer.emit(customer)
   }
 }

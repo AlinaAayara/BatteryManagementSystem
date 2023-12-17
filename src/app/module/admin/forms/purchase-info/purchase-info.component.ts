@@ -12,7 +12,6 @@ import { IPurchaseProductObject, generatePostRequestBody } from "./fields.";
 })
 export class PurchaseInfoComponent implements OnInit {
   PurchaseInfoForm: FormGroup;
-  PurchaseProductInfoForm: FormGroup;
   public purchaseProductList: any = new Array();
   public serialNoList: any = new Array();
   public partyList: any;

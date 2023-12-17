@@ -37,6 +37,7 @@ import { CustomerSearchComponent } from './module/admin/forms/customer-info/cust
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
+import { SaleInfoComponent } from './module/admin/forms/sale-info/sale-info.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     PartyInfoComponent,
     BasicBranchComponent,
 
-    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent
+    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent
 
 
   ],

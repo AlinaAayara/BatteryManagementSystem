@@ -1,7 +1,9 @@
 export class AppUrl {
     public static URL = {};
+
     public static baseURL = "https://localhost:7147/api/";
     //public static baseURL = "http://gbh.WebAPI.betech.in/";
+
     public static firmInfoURL = "FirmInfo/";
     public static basicUserURL = "BasicUser/";
     public static basicCategoryURL = "BasicCategory/";
@@ -11,6 +13,7 @@ export class AppUrl {
     public static basicBranchURL = "BasicBranch/";
     public static purchaseInfoURL = "PurchaseInfo/";
     public static customerInfoURL ="CustomerInfo/";
+    public static saleInfoURL = "SaleInfo/";
 
     public static API = {
         Login: AppUrl.baseURL + AppUrl.basicUserURL + "authentication",
@@ -39,6 +42,10 @@ export class AppUrl {
         add_customerInfo: AppUrl.baseURL + AppUrl.customerInfoURL + "AddCustomer",
         get_customerInfo: AppUrl.baseURL + AppUrl.customerInfoURL + "GetCustomer",
 
+        add_saleInfo: AppUrl.baseURL + AppUrl.saleInfoURL + "AddSale",
+        get_saleInfo: AppUrl.baseURL + AppUrl.saleInfoURL + "GetSale",
+        get_PurchaseProductInfo_BySerialNo : AppUrl.baseURL + AppUrl.saleInfoURL + "GetPurchaseProductInfoBySerialNo",
+        get_Next_BillNo : AppUrl.baseURL + AppUrl.saleInfoURL + "GetSaleBillNo",
 
     };
 }

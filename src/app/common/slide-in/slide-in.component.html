@@ -1,9 +1,17 @@
-<div id="_dm-settingsContainer" class="_dm-setting-container offcanvas offcanvas-end rounded-start show" tabindex="-1">
-  <button id="_dm-settingsToggler"
-    class="_dm-btn-settings btn btn-sm btn-dark p-2 rounded-0 rounded-start shadow-none" type="button"
-    data-bs-toggle="offcanvas" data-bs-target="#_dm-settingsContainer" aria-label="Customization button"
-    aria-controls="_dm-settingsContainer">
-    <i class="demo-psi-gear fs-1"></i>
-  </button>
- <app-basic-center></app-basic-center>
+<div _ngcontent-vgl-c14="" id="_dm-settingsContainer" style="background-color: #edf1f6;" tabindex="-1"
+  class="_dm-setting-container offcanvas offcanvas-end rounded-start" [class.show]="showSlideIn"
+  [style.visibility]="(showSlideIn) ? 'visible' : 'hidden'" aria-modal="true" role="dialog">
+  <div _ngcontent-vgl-c14="" class="offcanvas-body py-0">
+    <div _ngcontent-vgl-c14="" class="_dm-setting-container__content row">
+      <div class="row">
+        <div class="col-md-1 col-sm-1 offset-md-11 offset-sm-11 mt-1">
+          <button type="button" style="float: right;" class="btn btn-primary" (click)="changeVisability(false)">
+            <i class=" demo-pli-cross fs-5"></i>
+          </button>
+        </div>
+      </div>
+      <ng-content></ng-content>
+    </div>
+  </div>
 </div>
+<div *ngIf="showSlideIn" class="offcanvas-backdrop fade" [class.show]="showSlideIn"></div>

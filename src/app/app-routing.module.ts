@@ -12,6 +12,7 @@ import { PartyInfoComponent } from './module/admin/forms/party-info/party-info.c
 import { BasicBranchComponent } from './module/admin/forms/basic-branch/basic-branch.component';
 import { PurchaseInfoComponent } from './module/admin/forms/purchase-info/purchase-info.component';
 import { CustomerInfoComponent } from './module/admin/forms/customer-info/customer-info.component';
+import { SaleInfoComponent } from './module/admin/forms/sale-info/sale-info.component';
 
 
 const routes: Routes = [
@@ -50,6 +51,9 @@ const routes: Routes = [
           },
           {
             path: 'CustomerInfo', component: CustomerInfoComponent
+          },
+          {
+            path: 'SaleInfo', component: SaleInfoComponent
           }
         ]
       },

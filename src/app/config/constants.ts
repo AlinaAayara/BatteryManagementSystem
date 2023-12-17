@@ -25,6 +25,7 @@ export const Constant = {
             Text: "B2M"
         }
     ],
+    CHOOSE_CUSTOMER: "Choose Customer",
     NOTIFICATION_TIME: 5000,
     NOTIFICATION_TIMEOUT: 2000,
     Months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
@@ -61,4 +62,10 @@ export enum directiveList {
     appDecimaNumber = "appDecimaNumber",
     inputValidator = "inputValidator",
     appTrapFocus = "appTrapFocus"
+}
+
+export enum CustomerTypeID_ToPurchaseProduct {
+    B = "BTBPrice",
+    C = "BTCPrice",
+    M = "BTMPrice"
 }
