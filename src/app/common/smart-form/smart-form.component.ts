@@ -56,6 +56,11 @@ export class SmartFormComponent implements OnInit, OnChanges {
     this._sharedDataService.customerInfoEdit.subscribe(res =>{
       this.edit(res);
     });
+/* this will trigger on party selection from party search page component */
+    this._sharedDataService.partyInfoEdit.subscribe(res =>{
+      this.edit(res);
+    });
+
   }
   public formFields() {
     var control = {};

@@ -26,6 +26,7 @@ export const Constant = {
         }
     ],
     CHOOSE_CUSTOMER: "Choose Customer",
+    CHOOSE_PARTY: "Choose Party",
     NOTIFICATION_TIME: 5000,
     NOTIFICATION_TIMEOUT: 2000,
     Months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",

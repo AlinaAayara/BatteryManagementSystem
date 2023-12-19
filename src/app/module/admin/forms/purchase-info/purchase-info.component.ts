@@ -4,6 +4,7 @@ import { ProductInfoService } from "src/app/Services/ProductInfo/product-info.se
 import { SharedDataService } from "src/app/Services/shared-data.service";
 import { PurchaseInfoService } from "src/app/Services/PurchaseInfo/purchase-info.service";
 import { IPurchaseProductObject, generatePostRequestBody } from "./fields.";
+import { Constant } from "src/app/config/constants";
 
 @Component({
   selector: 'app-purchase-info',
@@ -19,6 +20,9 @@ export class PurchaseInfoComponent implements OnInit {
   public productList: any;
   public isAdd: boolean = true;
   public showLoader: boolean = false;
+  public isPartyInfoSlideIn: boolean = false;
+  public selectedParty: any;
+  public btnChoosePartyText = Constant.CHOOSE_PARTY;
 
   constructor(
     private _FormBuilder: FormBuilder,
@@ -31,6 +35,7 @@ export class PurchaseInfoComponent implements OnInit {
     this.purchaseInfoFormBuilder();
     this.getPartyList();
     this.getCategoryList();
+    this.getSelectedOrAdddedParty();
   }
 
   purchaseInfoFormBuilder() {
@@ -57,6 +62,17 @@ export class PurchaseInfoComponent implements OnInit {
     });
   }
 
+  /* This will trigger when add party or select party using subject */
+  getSelectedOrAdddedParty() {
+    this._sharedDataService.getSelectedParty.subscribe(res => {
+      console.log("getSelectedOrAdddedParty party", res);
+      this.selectedParty = res;
+      this.PurchaseInfoForm.get("PartyID")?.setValue(res?.PartyID);
+      this.showPartyInfoSlideIn(false);
+
+      this.btnChoosePartyText = this.selectedParty?.PartyName;
+    });
+  }
   /* get party list to show dropwon */
   getPartyList() {
     this._purchaseInfoService.getPartyList(this.getPartyListRequestBody()).subscribe({
@@ -220,5 +236,18 @@ export class PurchaseInfoComponent implements OnInit {
     this.purchaseProductList = [];
     this.isAdd = true;
     this.showLoader = false;
+    this.removeSelectedParty();
+    this.PurchaseInfoForm.get("PurchaseDate")?.setValue(this._sharedDataService?.currentUser?.todaysDate);
+  }
+
+  /* function to show party info componet in slide in on cick of choose party button  */
+  showPartyInfoSlideIn(isShow) {
+    this.isPartyInfoSlideIn = isShow;
+  }
+
+   /* remove selected party  */
+   removeSelectedParty() {
+    this.selectedParty = null;
+    this.btnChoosePartyText = Constant.CHOOSE_PARTY;
   }
 }

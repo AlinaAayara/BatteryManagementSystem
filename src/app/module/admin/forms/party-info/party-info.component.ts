@@ -30,6 +30,7 @@ export class PartyInfoComponent implements OnInit {
         this._sharedDataService.success("Party saved successfully !");
         this.manuallyClearField = true;
         this.getList();
+        this.emitParty(data?.[0]);
       },
       error: error => {
         this._sharedDataService.error(error);
@@ -52,5 +53,11 @@ export class PartyInfoComponent implements OnInit {
       MethodName: "Search_PartyInfo"
     }
   }
-
+  /* This function will emit added party or seleceted party
+    1) This will used during purchase info
+  */
+  emitParty(Party) {
+    console.log("emitParty Party", Party);
+    this._sharedDataService.getSelectedParty.next(Party);
+  }
 }

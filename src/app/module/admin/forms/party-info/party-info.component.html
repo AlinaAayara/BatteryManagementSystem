@@ -5,4 +5,7 @@
 [manuallyClearField]="manuallyClearField"
 [listData]="partyList"
 [searchFormName]="'Party List'"
-></app-smart-form>
+[showDefaultListTable]="false"
+>
+<app-party-search (emitParty)="emitParty($event)"></app-party-search>
+</app-smart-form>

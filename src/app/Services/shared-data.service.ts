@@ -26,6 +26,8 @@ export class SharedDataService {
   public currentUser: CurrentUser;
   public customerInfoEdit = new Subject<any>();
   public getSelectedCustomer = new Subject<any>();
+  public getSelectedParty = new Subject<any>();
+  public partyInfoEdit = new Subject<any>();
 
   constructor(
     private _httpClient: HttpClient,

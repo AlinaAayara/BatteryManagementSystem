@@ -1,87 +1,116 @@
 <div class="content__boxed">
     <div class="content__wrap">
-       
+
         <section>
             <form class="row" [formGroup]="PurchaseInfoForm" (ngSubmit)="Submit($event)">
-                <div class="col-md-7 mb-3">
-                    <div class="col-md-12 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Purchase</h5>
-                                <div class="row row-cols-md-auto g-3 align-items-center">
-                                    <!-- <mat-date-range-input [rangePicker]="picker">
-                                        <input matStartDate formControlName="start" placeholder="Start date">
-                                        <input matEndDate formControlName="end" placeholder="End date">
-                                      </mat-date-range-input>
-                                      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-                                      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                                      <mat-date-range-picker #picker></mat-date-range-picker> -->
-                                    <div class="col-12">
-                                        <label for="_dm-inputPassword" class="visually-hidden" [class.text-danger]="((PurchaseInfoForm.get('BillNo')?.touched ||
+                <div class="col-md-7 mb-1">
+                    <div class="row">
+                        <div class="col-md-8 mb-1">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Purchase</h5>
+                                    <div class="row">
+                                        <div class="col-md-3  mb-3">
+                                            <label for="_dm-inputPassword" class="visually-hidden" [class.text-danger]="((PurchaseInfoForm.get('BillNo')?.touched ||
+                                            PurchaseInfoForm.get('BillNo')?.dirty) &&
+                                            PurchaseInfoForm.get('BillNo')?.errors)" [class.text-success]="(PurchaseInfoForm.get('BillNo')?.touched &&
+                                            !PurchaseInfoForm.get('BillNo')?.errors)">Bill No</label>
+                                            <input type="text" class="form-control" id="_dm-inputPassword"
+                                                formControlName="BillNo" placeholder="Bill No" [class.is-invalid]="((PurchaseInfoForm.get('BillNo')?.touched ||
                                         PurchaseInfoForm.get('BillNo')?.dirty) &&
-                                        PurchaseInfoForm.get('BillNo')?.errors)" [class.text-success]="(PurchaseInfoForm.get('BillNo')?.touched &&
-                                        !PurchaseInfoForm.get('BillNo')?.errors)">Bill No</label>
-                                        <input type="text" class="form-control" id="_dm-inputPassword"
-                                            formControlName="BillNo" placeholder="Bill No" [class.is-invalid]="((PurchaseInfoForm.get('BillNo')?.touched ||
-                                    PurchaseInfoForm.get('BillNo')?.dirty) &&
-                                    PurchaseInfoForm.get('BillNo')?.errors)" [class.is-valid]="(PurchaseInfoForm.get('BillNo')?.touched &&
-                                    !PurchaseInfoForm.get('BillNo')?.errors)">
+                                        PurchaseInfoForm.get('BillNo')?.errors)" [class.is-valid]="(PurchaseInfoForm.get('BillNo')?.touched &&
+                                        !PurchaseInfoForm.get('BillNo')?.errors)">
 
-                                        <span style="color:red" class="help-block" *ngIf="((PurchaseInfoForm.get('BillNo')?.touched ||
-                                    PurchaseInfoForm.get('BillNo')?.dirty) &&
-                                    PurchaseInfoForm.get('BillNo')?.errors)">
-                                            Bill no is required.
-                                        </span>
+                                            <span style="color:red" class="help-block" *ngIf="((PurchaseInfoForm.get('BillNo')?.touched ||
+                                        PurchaseInfoForm.get('BillNo')?.dirty) &&
+                                        PurchaseInfoForm.get('BillNo')?.errors)">
+                                                Bill no is required.
+                                            </span>
 
-                                    </div>
-                                    <div class="col-12">
-
-                                        <label for="PartyID" class="visually-hidden" [class.text-danger]="((PurchaseInfoForm.get('PartyID')?.touched ||
-                                    PurchaseInfoForm.get('PartyID')?.dirty) &&
-                                    PurchaseInfoForm.get('PartyID')?.errors)" [class.text-success]="(PurchaseInfoForm.get('PartyID')?.touched &&
-                                    !PurchaseInfoForm.get('PartyID')?.errors)">Party</label>
-                                        <select id="PartyID" class="form-select" aria-label="select transition timing"
-                                            formControlName="PartyID" [class.is-invalid]="((PurchaseInfoForm.get('PartyID')?.touched ||
-                                    PurchaseInfoForm.get('PartyID')?.dirty) &&
-                                    PurchaseInfoForm.get('PartyID')?.errors)" [class.is-valid]="(PurchaseInfoForm.get('PartyID')?.touched &&
-                                    !PurchaseInfoForm.get('PartyID')?.errors)">
-                                            <option value=""> -- Select Party --</option>
-                                            <option *ngFor="let item of partyList" [value]="item.PartyID">
-                                                {{item.PartyName}}
-                                            </option>
-                                        </select>
-                                        <span style="color:red" class="help-block" *ngIf="((PurchaseInfoForm.get('PartyID')?.touched ||
-                                        PurchaseInfoForm.get('PartyID')?.dirty) &&
-                                        PurchaseInfoForm.get('PartyID')?.errors)">
-                                            Party is required.
-                                        </span>
-
-                                    </div>
-                                    <!-- <input matInput [matDatepicker]="picker" placeholder="Input & change events"
-                                    (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker></mat-datepicker> -->
-                                    <div class="col-12">
-                                        <label for="PurchaseDate" class="visually-hidden" [class.text-danger]="((PurchaseInfoForm.get('PurchaseDate')?.touched ||
-                                    PurchaseInfoForm.get('PurchaseDate')?.dirty) &&
-                                    PurchaseInfoForm.get('PurchaseDate')?.errors)" [class.text-success]="(
-                                    !PurchaseInfoForm.get('PurchaseDate')?.errors)">Date</label>
-                                        <input id="PurchaseDate" type="text" formControlName="PurchaseDate"
-                                            [class.is-invalid]="((PurchaseInfoForm.get('PurchaseDate')?.touched ||
-                                    PurchaseInfoForm.get('PurchaseDate')?.dirty) &&
-                                    PurchaseInfoForm.get('PurchaseDate')?.errors)" [class.is-valid]="(
-                                    !PurchaseInfoForm.get('PurchaseDate')?.errors)" class="form-control"
-                                            placeholder="Date">
-                                        <span style="color:red" class="help-block" *ngIf="((PurchaseInfoForm.get('PurchaseDate')?.touched ||
+                                        </div>
+                                        <div class="col-md-5  mb-3">
+                                            <button type="button" class="btn btn-primary"
+                                                (click)="showPartyInfoSlideIn(true)">
+                                                <i class=" demo-pli-mail-send fs-5 me-2"></i> {{btnChoosePartyText}}
+                                            </button>
+                                            <span style="color:red" class="help-block"
+                                                *ngIf="((
+                                                                                        PurchaseInfoForm.get('PartyID')?.dirty) &&
+                                                                                        PurchaseInfoForm.get('PartyID')?.errors)">
+                                                Please choose party.
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4  mb-3">
+                                            <label for="PurchaseDate" class="visually-hidden" [class.text-danger]="((PurchaseInfoForm.get('PurchaseDate')?.touched ||
                                         PurchaseInfoForm.get('PurchaseDate')?.dirty) &&
-                                        PurchaseInfoForm.get('PurchaseDate')?.errors)">
-                                            Date is required.
-                                        </span>
+                                        PurchaseInfoForm.get('PurchaseDate')?.errors)" [class.text-success]="(
+                                        !PurchaseInfoForm.get('PurchaseDate')?.errors)">Date</label>
+                                            <input id="PurchaseDate" type="text" formControlName="PurchaseDate"
+                                                [class.is-invalid]="((PurchaseInfoForm.get('PurchaseDate')?.touched ||
+                                        PurchaseInfoForm.get('PurchaseDate')?.dirty) &&
+                                        PurchaseInfoForm.get('PurchaseDate')?.errors)" [class.is-valid]="(
+                                        !PurchaseInfoForm.get('PurchaseDate')?.errors)" class="form-control"
+                                                placeholder="Date">
+                                            <span style="color:red" class="help-block" *ngIf="((PurchaseInfoForm.get('PurchaseDate')?.touched ||
+                                            PurchaseInfoForm.get('PurchaseDate')?.dirty) &&
+                                            PurchaseInfoForm.get('PurchaseDate')?.errors)">
+                                                Date is required.
+                                            </span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div *ngIf="selectedParty?.PartyID" class="col-sm-12 col-md-6 col-xl-12 mb-1">
+                                <div class="tab-base">
+                                    <ul class="nav nav-callout justify-content-end" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" data-bs-toggle="tab"
+                                                data-bs-target="#_dm-coRevTabsBaseHome" type="button" role="tab"
+                                                aria-controls="home" aria-selected="true">Detail</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#_dm-coRevTabsBaseProfile" type="button" role="tab"
+                                                aria-controls="profile" aria-selected="false">More info</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" type="button" role="tab"
+                                                (click)="removeSelectedParty()"><i
+                                                    class="demo-pli-cross fs-5"></i></button>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content" style="padding: 0.50rem 0.50rem;">
+                                        <div id="_dm-coRevTabsBaseHome" class="tab-pane fade show active"
+                                            role="tabpanel" aria-labelledby="home-tab">
+                                            <div class="d-flex align-items-center position-relative pb-3">
+                                                <div class="flex-shrink-0">
+                                                    <img class="img-md rounded-circle"
+                                                        src="../../assets/img/profile-photos/3.png"
+                                                        alt="Profile Picture" loading="lazy">
+                                                </div>
+                                                <div class="flex-grow-1 ms-3">
+                                                    <a
+                                                        class="h5 stretched-link btn-link">{{selectedParty?.PartyName}}</a>
+                                                    <p class="text-muted m-0">{{selectedParty?.ContactNo}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="_dm-coRevTabsBaseProfile" class="tab-pane fade" role="tabpanel"
+                                            aria-labelledby="profile-tab">
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-12 mb-3" formGroupName="purchaseProductInfo">
                         <div class="card h-100">
                             <div class="card-body">
@@ -243,4 +272,6 @@
         </section>
     </div>
 </div>
-<app-slide-in></app-slide-in>
+<app-slide-in [showSlideIn]="isPartyInfoSlideIn" (visibleChange)="showPartyInfoSlideIn($event)">
+    <app-party-info></app-party-info>
+</app-slide-in>
