@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { HttpService } from 'src/app/Services/Http/http.service';
 import { HomeService } from 'src/app/Services/home/home.service';
 import { SharedDataService } from 'src/app/Services/shared-data.service';
@@ -15,7 +16,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public isFirstTimeClicked: boolean = false;
   @ViewChild('root') rootDiv: ElementRef;
   public currentUser: CurrentUser;
+  public isShowAdvanceSearch: boolean = false;
+  /* this id will be getting from query string to identify which sub menu is */
+  public subMenuID = "";
+  public AdvanceSearchText = "";
+  public AdvanceSearchTextString = "";
   constructor(
+    private route: ActivatedRoute,
     private _httpService: HttpService,
     private _homeService: HomeService,
     private _sharedDataService: SharedDataService
@@ -26,6 +33,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   }
   ngOnInit(): void {
+    this.subMenuID = this.route.snapshot.queryParamMap.get('id') ?? "";
     this._homeService.getCurrentUser().subscribe({
       next: data => {
         this._sharedDataService.currentUser = data;
@@ -53,8 +61,19 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   }
 
-  logout(){
+  logout() {
     this._sharedDataService.logout();
+  }
+
+  openAdvanceSearch() {
+    this.isShowAdvanceSearch = true;
+    this.AdvanceSearchTextString = this.AdvanceSearchText;
+    this.AdvanceSearchText = "";
+  }
+
+  /* function to show party info componet in slide in on cick of choose party button  */
+  showPartyInfoSlideIn(isShow) {
+    this.isShowAdvanceSearch = isShow;
   }
 }
 

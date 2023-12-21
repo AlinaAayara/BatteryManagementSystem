@@ -52,11 +52,12 @@
               </label>
 
               <form class="searchbox searchbox--auto-expand searchbox--hide-btn input-group">
-                <input id="header-search-input" class="searchbox__input form-control bg-transparent" type="search"
-                  placeholder="Type for search . . ." aria-label="Search">
+                <input id="header-search-input" name="AdvanceSearchText" class="searchbox__input form-control bg-transparent" type="search"
+                  placeholder="Type for search . . ." [(ngModel)]="AdvanceSearchText"  aria-label="Search">
                 <div class="searchbox__backdrop">
                   <button class="searchbox__btn header__btn btn btn-icon rounded shadow-none border-0 btn-sm"
-                    type="button" id="button-addon2">
+                  (click)="openAdvanceSearch()"
+                    type="submit" id="button-addon2">
                     <i class="demo-pli-magnifi-glass"></i>
                   </button>
                 </div>
@@ -1082,5 +1083,6 @@
   </div>
 </body>
 
-<!-- <app-slide-in>
-</app-slide-in> -->
+<app-slide-in *ngIf="isShowAdvanceSearch" [showSlideIn]="isShowAdvanceSearch" (visibleChange)="showPartyInfoSlideIn($event)">
+  <app-advance-customer-search [AdvanceSearchTextString]="AdvanceSearchTextString"></app-advance-customer-search>
+</app-slide-in>

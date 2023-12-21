@@ -46,7 +46,11 @@ export const Constant = {
         CREDIT_CATE_DATE: /^(0[1-9]|1[0-2])\/([0-9]{2})$/,
         ALPHA_NUMERIC_PRE_AUTH_CODE: /[a-zA-Z0-9]/g,
         DECIMAL: /[^0-9.]/
-    }
+    },
+
+    ADVANCE_SEARCH_TAB: 
+        ["PurchaseInfo","SaleInfo","WarrantyInfo"]
+    
 }
 export enum controlType {
     Textbox = "Textbox",

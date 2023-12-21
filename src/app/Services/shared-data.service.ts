@@ -90,6 +90,19 @@ export class SharedDataService {
     });
     return filterSubMenu;
   }
+  /* used in advance search coponent to get current ID (submenu id from url as query string) submenu details  */
+  getCurrentActiveForm(id) {
+    let subMenu: any;
+    this.currentUser?.menu?.forEach((m) => {
+      m?.subMenu?.forEach((sub) => {
+        if (sub?.subMenuID == id) {
+          subMenu = sub;
+        }
+      }
+      )
+    });
+    return subMenu;
+  }
 
   deleteRecord(Data: any): Observable<any> {
     return this._httpClient.post<any[]>(AppUrl.API.delete_record, Data, {
@@ -109,8 +122,28 @@ export class SharedDataService {
     localStorage.clear();
   }
 
-  logout(){
+  logout() {
     this.clearThingsOnLogout();
     this._router.navigate(["Login"]);
+  }
+
+  requestBodyForAdvanceSearch(subMenuUrl, CustomerName, CustomerTypeID) {
+    let obj: any = {};
+    switch (subMenuUrl) {
+      case "PurchaseInfo":
+        CustomerName = [null, undefined, ""].includes(CustomerName) ? "" : CustomerName;
+        obj.requestBody = {
+          MethodName: "Sel_AdvanceSearch_PurchaseInfo",
+          CustomerName: CustomerName,
+          Mode: "0"
+        };
+        obj.Url = AppUrl.API.get_purchaseInfo;
+    }
+    return obj;
+  }
+  advacneSearchPOST(Url: string, Data: any): Observable<any> {
+    return this._httpClient.post<any[]>(Url, Data, {
+      headers: { 'content-type': 'application/json' }
+    });
   }
 }

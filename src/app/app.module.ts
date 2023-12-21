@@ -39,6 +39,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SaleInfoComponent } from './module/admin/forms/sale-info/sale-info.component';
 import { PartySearchComponent } from './module/admin/forms/party-info/party-search/party-search.component';
+import { AdvanceCustomerSearchComponent } from './module/admin/forms/customer-info/advance-customer-search/advance-customer-search.component';
+import { PurchaseSearchComponent } from './module/admin/forms/purchase-info/purchase-search/purchase-search.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,7 @@ import { PartySearchComponent } from './module/admin/forms/party-info/party-sear
     PartyInfoComponent,
     BasicBranchComponent,
 
-    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent
+    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent
 
 
   ],

@@ -3,54 +3,108 @@
         <section>
             <form class="row" [formGroup]="SaleInfoForm" (ngSubmit)="Submit($event)">
                 <div class="col-md-7 mb-1">
-                    <div class="col-md-12 mb-1">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Sale</h5>
-                                <div class="row row-cols-md-auto g-3 align-items-center">
-                                    <div class="col-8">
-                                        <label for="_dm-inputPassword" class="visually-hidden" [class.text-danger]="((SaleInfoForm.get('BillNo')?.touched ||
+
+                    <div class="row">
+                        <div class="col-md-8 mb-1">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Sale</h5>
+                                    <div class="row">
+
+                                        <div class="col-md-3  mb-3">
+                                            <label for="_dm-inputPassword" class="visually-hidden" [class.text-danger]="((SaleInfoForm.get('BillNo')?.touched ||
+                                            SaleInfoForm.get('BillNo')?.dirty) &&
+                                            SaleInfoForm.get('BillNo')?.errors)" [class.text-success]="(SaleInfoForm.get('BillNo')?.touched &&
+                                            !SaleInfoForm.get('BillNo')?.errors)">Bill No</label>
+                                            <input type="text" class="form-control" id="_dm-inputPassword"
+                                                formControlName="BillNo" placeholder="Bill No" [class.is-invalid]="((SaleInfoForm.get('BillNo')?.touched ||
                                         SaleInfoForm.get('BillNo')?.dirty) &&
-                                        SaleInfoForm.get('BillNo')?.errors)" [class.text-success]="(SaleInfoForm.get('BillNo')?.touched &&
-                                        !SaleInfoForm.get('BillNo')?.errors)">Bill No</label>
-                                        <input type="text" class="form-control" id="_dm-inputPassword"
-                                            formControlName="BillNo" placeholder="Bill No" [class.is-invalid]="((SaleInfoForm.get('BillNo')?.touched ||
-                                    SaleInfoForm.get('BillNo')?.dirty) &&
-                                    SaleInfoForm.get('BillNo')?.errors)" [class.is-valid]="(SaleInfoForm.get('BillNo')?.touched &&
-                                    !SaleInfoForm.get('BillNo')?.errors)">
-                                        <span style="color:red" class="help-block" *ngIf="((SaleInfoForm.get('BillNo')?.touched ||
-                                    SaleInfoForm.get('BillNo')?.dirty) &&
-                                    SaleInfoForm.get('BillNo')?.errors)">
-                                            Bill no is required.
-                                        </span>
-
-                                    </div>
-                                    <div class="col-12">
-                                        <button type="button" class="btn btn-primary"
-                                            (click)="showCustomerInfoSlideIn(true)">
-                                            <i class=" demo-pli-mail-send fs-5 me-2"></i> {{btnChooseCustomerText}}
-                                        </button>
-                                        <span style="color:red" class="help-block" *ngIf="((
-                                        SaleInfoForm.get('CustomerID')?.dirty) &&
-                                        SaleInfoForm.get('CustomerID')?.errors)">
-                                            Please choose customer.
-                                        </span>
-
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="BillDate" class="visually-hidden" [class.text-danger]="((SaleInfoForm.get('BillDate')?.touched ||
-                                    SaleInfoForm.get('BillDate')?.dirty) &&
-                                    SaleInfoForm.get('BillDate')?.errors)" [class.text-success]="(
-                                    !SaleInfoForm.get('BillDate')?.errors)">Date</label>
-                                        <input id="BillDate" type="text" formControlName="BillDate" [class.is-invalid]="((SaleInfoForm.get('BillDate')?.touched ||
-                                    SaleInfoForm.get('BillDate')?.dirty) &&
-                                    SaleInfoForm.get('BillDate')?.errors)" [class.is-valid]="(
-                                    !SaleInfoForm.get('BillDate')?.errors)" class="form-control" placeholder="Date">
-                                        <span style="color:red" class="help-block" *ngIf="((SaleInfoForm.get('BillDate')?.touched ||
+                                        SaleInfoForm.get('BillNo')?.errors)" [class.is-valid]="(SaleInfoForm.get('BillNo')?.touched &&
+                                        !SaleInfoForm.get('BillNo')?.errors)">
+                                            <span style="color:red" class="help-block" *ngIf="((SaleInfoForm.get('BillNo')?.touched ||
+                                        SaleInfoForm.get('BillNo')?.dirty) &&
+                                        SaleInfoForm.get('BillNo')?.errors)">
+                                                Bill no is required.
+                                            </span>
+    
+                                        </div>
+                                        <div class="col-md-5  mb-3">
+                                            <button type="button" class="btn btn-primary"
+                                                (click)="showCustomerInfoSlideIn(true)">
+                                                <i class=" demo-pli-mail-send fs-5"></i> {{btnChooseCustomerText}}
+                                            </button>
+                                            <span style="color:red" class="help-block" *ngIf="((
+                                            SaleInfoForm.get('CustomerID')?.dirty) &&
+                                            SaleInfoForm.get('CustomerID')?.errors)">
+                                                Please choose customer.
+                                            </span>
+    
+                                        </div>
+                                        <div class="col-md-4  mb-3">
+                                            <label for="BillDate" class="visually-hidden" [class.text-danger]="((SaleInfoForm.get('BillDate')?.touched ||
                                         SaleInfoForm.get('BillDate')?.dirty) &&
-                                        SaleInfoForm.get('BillDate')?.errors)">
-                                            Date is required.
-                                        </span>
+                                        SaleInfoForm.get('BillDate')?.errors)" [class.text-success]="(
+                                        !SaleInfoForm.get('BillDate')?.errors)">Date</label>
+                                            <input id="BillDate" type="text" formControlName="BillDate" [class.is-invalid]="((SaleInfoForm.get('BillDate')?.touched ||
+                                        SaleInfoForm.get('BillDate')?.dirty) &&
+                                        SaleInfoForm.get('BillDate')?.errors)" [class.is-valid]="(
+                                        !SaleInfoForm.get('BillDate')?.errors)" class="form-control" placeholder="Date">
+                                            <span style="color:red" class="help-block" *ngIf="((SaleInfoForm.get('BillDate')?.touched ||
+                                            SaleInfoForm.get('BillDate')?.dirty) &&
+                                            SaleInfoForm.get('BillDate')?.errors)">
+                                                Date is required.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div *ngIf="selectedCustomer?.CustomerID" class="col-sm-12 col-md-6 col-xl-12 mb-1">
+                                <div class="tab-base">
+                                    <ul class="nav nav-callout justify-content-end" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" data-bs-toggle="tab"
+                                                data-bs-target="#_dm-coRevTabsBaseHome" type="button" role="tab"
+                                                aria-controls="home" aria-selected="true">Detail</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#_dm-coRevTabsBaseProfile" type="button" role="tab"
+                                                aria-controls="profile" aria-selected="false">More info</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" type="button" role="tab"
+                                                (click)="removeSelectedCustomer()"><i class="demo-pli-cross fs-5"></i></button>
+                                        </li>
+                                    </ul>
+        
+                                    <div class="tab-content" style="padding: 0.50rem 0.50rem;">
+                                        <div id="_dm-coRevTabsBaseHome" class="tab-pane fade show active" role="tabpanel"
+                                            aria-labelledby="home-tab">
+                                            <div class="d-flex align-items-center position-relative pb-3">
+                                                <div class="flex-shrink-0">
+                                                    <img class="img-md rounded-circle"
+                                                        src="../../assets/img/profile-photos/3.png" alt="Profile Picture"
+                                                        loading="lazy">
+                                                </div>
+                                                <div class="flex-grow-1 ms-3">
+                                                    <a class="h5 stretched-link btn-link">{{selectedCustomer?.CustomerName}}</a>
+                                                    <p class="text-muted m-0">{{selectedCustomer?.ContactNo}}</p>
+                                                    <p class="h5 stretched-link btn-link">{{selectedCustomer?.CustomerType}}</p>
+                                                </div>
+                                                <!-- <p class="flex-grow-1 ms-3">{{selectedCustomer?.Address}}<br>
+                                                    {{selectedCustomer?.VehiclelNo}}<br>
+                                                    {{selectedCustomer?.VehicleName}}</p> -->
+                                            </div>
+                                        </div>
+                                        <div id="_dm-coRevTabsBaseProfile" class="tab-pane fade" role="tabpanel"
+                                            aria-labelledby="profile-tab">
+                                            <p class="flex-grow-1 ms-3">{{selectedCustomer?.Address}}<br>
+                                                {{selectedCustomer?.VehiclelNo}}<br>
+                                                {{selectedCustomer?.VehicleName}}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -145,51 +199,6 @@
 
                 </div>
                 <div class="col-md-5 mb-1">
-                    <div *ngIf="selectedCustomer?.CustomerID" class="col-sm-12 col-md-12 col-xl-12 mb-1">
-                        <div class="tab-base">
-                            <ul class="nav nav-callout justify-content-end" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" data-bs-toggle="tab"
-                                        data-bs-target="#_dm-coRevTabsBaseHome" type="button" role="tab"
-                                        aria-controls="home" aria-selected="true">Detail</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" data-bs-toggle="tab"
-                                        data-bs-target="#_dm-coRevTabsBaseProfile" type="button" role="tab"
-                                        aria-controls="profile" aria-selected="false">More info</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" type="button" role="tab"
-                                        (click)="removeSelectedCustomer()"><i class="demo-pli-cross fs-5"></i></button>
-                                </li>
-                            </ul>
-
-                            <div class="tab-content" style="padding: 0.50rem 0.50rem;">
-                                <div id="_dm-coRevTabsBaseHome" class="tab-pane fade show active" role="tabpanel"
-                                    aria-labelledby="home-tab">
-                                    <div class="d-flex align-items-center position-relative pb-3">
-                                        <div class="flex-shrink-0">
-                                            <img class="img-md rounded-circle"
-                                                src="../../assets/img/profile-photos/3.png" alt="Profile Picture"
-                                                loading="lazy">
-                                        </div>
-                                        <div class="flex-grow-1 ms-3">
-                                            <a class="h5 stretched-link btn-link">{{selectedCustomer?.CustomerName}}</a>
-                                            <p class="text-muted m-0">{{selectedCustomer?.ContactNo}}</p>
-                                            <p class="h5 stretched-link btn-link">{{selectedCustomer?.CustomerType}}</p>
-                                        </div>
-                                        <p class="flex-grow-1 ms-3">{{selectedCustomer?.Address}}<br>
-                                            {{selectedCustomer?.VehiclelNo}}<br>
-                                            {{selectedCustomer?.VehicleName}}</p>
-                                    </div>
-                                </div>
-                                <div id="_dm-coRevTabsBaseProfile" class="tab-pane fade" role="tabpanel"
-                                    aria-labelledby="profile-tab">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="card ">
                         <div class="card-body">
                             <div class="row mb-1">
