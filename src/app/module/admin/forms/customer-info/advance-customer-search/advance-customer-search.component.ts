@@ -4,6 +4,7 @@ import { CustomerInfoService } from "src/app/Services/CustomerInfo/customer-info
 import { ActivatedRoute } from "@angular/router";
 import { Constant } from "src/app/config/constants";
 import { AdvanceSerachPurchaseInfo } from "src/app/core/models/advance-serach-purchase-info";
+import { AdvanceSerachSaleInfo } from "src/app/core/models/advance-search-sale-info";
 
 @Component({
   selector: "app-advance-customer-search",
@@ -23,6 +24,7 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
   @Output() public emitCustomer = new EventEmitter();
   public activeTab: any = null;
   public ActivePurchaseInfoList: AdvanceSerachPurchaseInfo[];
+  public ActiveSaleInfoList: AdvanceSerachSaleInfo[];
   @Input() public AdvanceSearchTextString;
   @Output() public closeSlideInPopup = new EventEmitter();
 
@@ -65,7 +67,6 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
   serchCustomer() {
     const subMenuURL = this?.activeTab?.subMenuURL;
     const obj = this._sharedDataService.requestBodyForAdvanceSearch(subMenuURL, this.CustomerName, this.CustomerTypeID);
-
     this._sharedDataService.advacneSearchPOST(obj?.Url, obj?.requestBody).subscribe({
       next: data => {
         this.setTabData(data);
@@ -83,6 +84,12 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
         this.ActivePurchaseInfoList = new Array<AdvanceSerachPurchaseInfo>();
         data.forEach(item => {
           this.ActivePurchaseInfoList.push(new AdvanceSerachPurchaseInfo(item));
+        });7
+        break;
+      case "SaleInfo":
+        this.ActiveSaleInfoList = new Array<AdvanceSerachSaleInfo>();
+        data.forEach(item => {
+          this.ActiveSaleInfoList.push(new AdvanceSerachSaleInfo(item));
         });
     }
   }

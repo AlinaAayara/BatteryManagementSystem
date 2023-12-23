@@ -1,0 +1,100 @@
+<div class="accordion" id="_dm-gapAccordion">
+    <div class="accordion-item" *ngFor="let item of ActiveSaleInfoList">
+        <div class="accordion-header" id="_Sale_{{item.SaleID}}">
+            <button class="accordion-button bg-secondary text-white shadow-none collapsed" type="button"
+                data-bs-toggle="collapse" [attr.data-bs-target]="'#_Sale_Collapse_'+ item.SaleID" aria-expanded="false"
+                aria-controls="_dm-gapAccCollapseOne">
+                <div class="row col-lg-12">
+                    <div class="col-lg-2 col-md-2 col-sm-3">Bill No. - {{item.BillNo}} </div>
+                    <div class="col-lg-2 col-md-2 col-sm-3">Date - {{item.BillDate}} </div>
+                    <div class="offset-lg-7 offset-md-7 offset-sm-5 col-lg-1 col-md-1 col-sm-1">
+                        <i class="demo-pli-trash fs-5" (click)="delete(item.SaleID)"></i>
+                        <i class="demo-pli-pencil fs-5" (click)="edit(item)" style="margin-left: 1rem"></i>
+                    </div>
+                </div>
+            </button>
+        </div>
+        <div id="_Sale_Collapse_{{item.SaleID}}" class="accordion-collapse bg-secondary text-white collapse"
+            aria-labelledby="_dm-gapAccHeadingOne" data-bs-parent="#_dm-gapAccordion" style="">
+            <div class="accordion-body row">
+                <div class="col-md-4">
+                    <div *ngIf="item?.CustomerInfo?.CustomerID" class="col-sm-12 col-md-6 col-xl-12 mb-1">
+                        <div class="tab-base">
+                            <ul class="nav nav-callout justify-content-end" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" data-bs-toggle="tab"
+                                    [attr.data-bs-target]="'#home_'+ item.SaleID" type="button" role="tab"
+                                        aria-controls="home" aria-selected="true">Detail</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" data-bs-toggle="tab"
+                                    [attr.data-bs-target]="'#more_'+ item.SaleID" type="button" role="tab"
+                                        aria-controls="profile" aria-selected="false">More info</button>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" style="padding: 0.50rem 0.50rem;">
+                                <div id="home_{{item.SaleID}}" class="tab-pane fade show active" role="tabpanel"
+                                    aria-labelledby="home-tab">
+                                    <div class="d-flex align-items-center position-relative pb-3">
+                                        <div class="flex-shrink-0">
+                                            <img class="img-md rounded-circle"
+                                                src="../../assets/img/profile-photos/3.png" alt="Profile Picture"
+                                                loading="lazy">
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <a
+                                                class="h5 stretched-link btn-link">{{item?.CustomerInfo?.CustomerName}}</a>
+                                            <p class="text-muted m-0">{{item?.CustomerInfo?.ContactNo}}</p>
+                                            <p class="h5 stretched-link btn-link">{{item?.CustomerInfo?.CustomerType}}
+                                            </p>{{item?.CustomerInfo?.Address}}
+                                        </div>
+                                        <!-- <p class="flex-grow-1 ms-3">{{selectedCustomer?.Address}}<br>
+                                            {{selectedCustomer?.VehiclelNo}}<br>
+                                            {{selectedCustomer?.VehicleName}}</p> -->
+                                    </div>
+                                </div>
+                                <div id="more_{{item.SaleID}}" class="tab-pane fade" role="tabpanel"
+                                    aria-labelledby="profile-tab">
+                                    <p class="flex-grow-1 ms-3">{{item?.CustomerInfo?.Address}}<br>
+                                        {{item?.CustomerInfo?.VehiclelNo}}<br>
+                                        {{item?.CustomerInfo?.VehicleName}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="table-responsive">
+                        <table class="table" style="background: white;">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Amp</th>
+                                    <th>Serial No</th>
+                                    <th>Price</th>
+                                    <th>Guarantee</th>
+                                    <th>Guarantee End Date</th>
+                                    <th>Warranty</th>
+                                    <th>Warranty End Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let prod of item.SaleProductInfo">
+                                    <td>{{prod.ProductName}}</td>
+                                    <td>{{prod.Amp}}</td>
+                                    <td>{{prod.SerialNo}}</td>
+                                    <td>{{prod.SalePrice}}</td>
+                                    <td>{{prod.GuaranteePeriod}}</td>
+                                    <td>{{prod.GuaranteeEndDate}}</td>
+                                    <td>{{prod.WarrantyPeriod}}</td>
+                                    <td>{{prod.WarrantyEndDate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

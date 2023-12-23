@@ -41,8 +41,8 @@
                     </li>
                     <li *ngIf="activeTab == null || activeTab?.subMenuURL == 'SaleInfo'" class="nav-item"
                         role="presentation">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#_advance_search_sale_info"
-                            type="button" role="tab" aria-controls="contact" aria-selected="false">Sale</button>
+                        <button class="nav-link" [class.active]="activeTab?.subMenuURL == 'SaleInfo'" data-bs-toggle="tab" data-bs-target="#_advance_search_sale_info"
+                            type="button" role="tab" aria-controls="contact" [attr.aria-selected]="activeTab?.subMenuURL == 'SaleInfo'">Sale</button>
                     </li>
                     <li *ngIf="activeTab == null || activeTab?.subMenuURL == 'WarrantyInfo'" class="nav-item"
                         role="presentation">
@@ -77,12 +77,13 @@
                         </div>
                     </div>
                     <div *ngIf="activeTab == null || activeTab?.subMenuURL == 'SaleInfo'" id="_advance_search_sale_info"
-                        class="tab-pane fade" role="tabpanel" aria-labelledby="profile-tab">
-                        <h5 class="card-title">Sale detail</h5>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                            there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the
-                            Semantics, a large language ocean. A small river named Duden flows by their place and
-                            supplies it with the necessary regelialia.</p>
+                        class="tab-pane fade show active" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="col-lg-12">
+                            <app-sale-search
+                                [ActiveSaleInfoList]="ActiveSaleInfoList"
+                                (closeSlideIn)="closeSlideIn($event)">
+                            </app-sale-search>
+                        </div>
                     </div>
                     <div *ngIf="activeTab == null || activeTab?.subMenuURL == 'WarrantyInfo'"
                         id="_advance_search_warranty_info" class="tab-pane fade" role="tabpanel"

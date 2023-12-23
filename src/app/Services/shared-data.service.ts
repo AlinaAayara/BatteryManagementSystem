@@ -29,6 +29,7 @@ export class SharedDataService {
   public getSelectedParty = new Subject<any>();
   public partyInfoEdit = new Subject<any>();
   public purchaseInfoEdit = new Subject<any>();
+  public saleInfoEdit = new Subject<any>();
 
   constructor(
     private _httpClient: HttpClient,
@@ -139,6 +140,16 @@ export class SharedDataService {
           Mode: "0"
         };
         obj.Url = AppUrl.API.get_purchaseInfo;
+        break;
+      case "SaleInfo":
+        CustomerName = [null, undefined, ""].includes(CustomerName) ? "" : CustomerName;
+        obj.requestBody = {
+          MethodName: "Sel_AdvanceSearch_SaleInfo",
+          CustomerName: CustomerName,
+          Mode: "0"
+        };
+        obj.Url = AppUrl.API.get_saleInfo;
+        break;
     }
     return obj;
   }

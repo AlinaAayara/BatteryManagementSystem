@@ -30,6 +30,7 @@ export class SaleInfoComponent implements OnInit {
     this.getSelectedOrAdddedCustomer();
 
     this.getBillNo();
+    this.edit();
   }
   SaleInfoFormBuilder() {
     this.SaleInfoForm = this._FormBuilder.group({
@@ -58,13 +59,17 @@ export class SaleInfoComponent implements OnInit {
   /* This will trigger when add customer or select customer using subject */
   getSelectedOrAdddedCustomer() {
     this._sharedDataService.getSelectedCustomer.subscribe(res => {
-      this.selectedCustomer = res;
-      this.SaleInfoForm.get("CustomerID")?.setValue(res?.CustomerID);
-      this.showCustomerInfoSlideIn(false);
-
-      this.btnChooseCustomerText = this.selectedCustomer?.CustomerName;
-      this.getSalePriceByCusomerTypeID();
+      this.showCustomerModel(res);
     });
+  }
+
+  showCustomerModel(res) {
+    this.selectedCustomer = res;
+    this.SaleInfoForm.get("CustomerID")?.setValue(res?.CustomerID);
+    this.showCustomerInfoSlideIn(false);
+
+    this.btnChooseCustomerText = this.selectedCustomer?.CustomerName;
+    this.getSalePriceByCusomerTypeID();
   }
 
   /* function to get Max bill no+1 
@@ -150,7 +155,7 @@ export class SaleInfoComponent implements OnInit {
   /* This will trigger On final save button  */
   Submit(e) {
     this.showLoader = true;
-    this._saleInfoService.AddSale(generatePostRequestBody(this.SaleInfoForm.value)).subscribe({
+    this._saleInfoService.AddSale(generatePostRequestBody(this.SaleInfoForm.value, this.isAdd ? "0" : "1")).subscribe({
       next: data => {
         this.showLoader = false;
         this._sharedDataService.success("Completed successfully !");
@@ -163,7 +168,7 @@ export class SaleInfoComponent implements OnInit {
     });
 
   }
-  
+
 
   /* update sale total values like totalAmount, Total Quanity etc. 
   1) on product addition , deletion  
@@ -213,5 +218,32 @@ export class SaleInfoComponent implements OnInit {
     this.showLoader = false;
     this.SaleInfoForm.get("BillDate")?.setValue(this._sharedDataService?.currentUser?.todaysDate);
     this.getBillNo();
+  }
+
+  /* this function will trigger when click on edit button on sale info search page */
+  edit() {
+    this._sharedDataService.saleInfoEdit.subscribe(item => {
+      this.showCustomerModel(item?.CustomerInfo);
+      this.SaleInfoForm.patchValue(item);
+
+      this.isAdd = false;
+      this.SaleInfoForm.get("CustomerID")?.setValue(item?.CustomerInfo?.CustomerID);
+      this.SaleInfoForm.get("SaleProductList")?.setValue(item?.SaleProductInfo ?? []);
+      this.updateTotalValues();
+      // let SerialNo: any = [];
+
+      // item?.PurchaseProductInfo?.forEach(prod => {
+      //   item?.PurchaseProductInfo?.forEach(serial => {
+      //     if (prod.PurchaseID == serial.PurchaseID) {
+      //       serial.Quantity = 1;
+      //       SerialNo.push(serial.SerialNo);
+      //     }
+      //   });
+      //   prod.SerialNoList = SerialNo;
+      //   SerialNo = [];
+      // })
+      // this.saleProductList = item?.PurchaseProductInfo ?? [];
+      // this.PurchaseInfoForm.get("PurchaseProductList")?.setValue(this.purchaseProductList);
+    });
   }
 }
