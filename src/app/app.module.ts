@@ -44,6 +44,7 @@ import { PurchaseSearchComponent } from './module/admin/forms/advance-customer-s
 import { SaleSearchComponent } from './module/admin/forms/advance-customer-search/sale-search/sale-search.component';
 import { WarrantyInfoComponent } from './module/admin/forms/warranty-info/warranty-info.component';
 import { WarrantySearchComponent } from './module/admin/forms/advance-customer-search/warranty-search/warranty-search.component';
+import { SaleReturnInfoComponent } from './module/admin/forms/sale-return-info/sale-return-info.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,7 @@ import { WarrantySearchComponent } from './module/admin/forms/advance-customer-s
     PartyInfoComponent,
     BasicBranchComponent,
 
-    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent, WarrantyInfoComponent, WarrantySearchComponent
+    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent, WarrantyInfoComponent, WarrantySearchComponent, SaleReturnInfoComponent
 
 
   ],

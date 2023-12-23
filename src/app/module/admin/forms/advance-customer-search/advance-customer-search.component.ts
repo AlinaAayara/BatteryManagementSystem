@@ -54,7 +54,7 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.id = this.route.snapshot.queryParamMap.get("id");
     /* if we use advance search for warranty form(8) then it that we should show sale tab active (7). So that we can choose which battery we want to replace*/
-    this.id = (this.id == "8" && this.IsAccessedFromFormPage) ? "7" : this.id;
+    this.id = (["8", "9"].includes(this.id) && this.IsAccessedFromFormPage) ? "7" : this.id;
     this.setActiveTab();
   }
 
@@ -71,7 +71,12 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
 
   serchCustomer() {
     const subMenuURL = this?.activeTab?.subMenuURL;
-    const obj = this._sharedDataService.requestBodyForAdvanceSearch(subMenuURL, this.CustomerName, this.CustomerTypeID);
+    /* SubMenu ID condition is used here bcoz if we access this component in sales retunr , then it will not show already return sale product */
+    const SubMenuID = this.route.snapshot.queryParamMap.get("id");
+    const IsSaleReturn = (SubMenuID == "9" && this.IsAccessedFromFormPage) ? "0" : "";
+    //--===========================================================================--
+
+    const obj = this._sharedDataService.requestBodyForAdvanceSearch(subMenuURL, this.CustomerName, this.CustomerTypeID, IsSaleReturn);
     this._sharedDataService.advacneSearchPOST(obj?.Url, obj?.requestBody).subscribe({
       next: data => {
         this.setTabData(data);

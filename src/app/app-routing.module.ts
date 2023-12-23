@@ -14,6 +14,7 @@ import { PurchaseInfoComponent } from './module/admin/forms/purchase-info/purcha
 import { CustomerInfoComponent } from './module/admin/forms/customer-info/customer-info.component';
 import { SaleInfoComponent } from './module/admin/forms/sale-info/sale-info.component';
 import { WarrantyInfoComponent } from './module/admin/forms/warranty-info/warranty-info.component';
+import { SaleReturnInfoComponent } from './module/admin/forms/sale-return-info/sale-return-info.component';
 
 
 const routes: Routes = [
@@ -58,6 +59,9 @@ const routes: Routes = [
           },
           {
             path: 'WarrantyInfo', component: WarrantyInfoComponent
+          },
+          {
+            path: 'SaleReturnInfo', component: SaleReturnInfoComponent
           }
         ]
       },
