@@ -39,9 +39,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SaleInfoComponent } from './module/admin/forms/sale-info/sale-info.component';
 import { PartySearchComponent } from './module/admin/forms/party-info/party-search/party-search.component';
-import { AdvanceCustomerSearchComponent } from './module/admin/forms/customer-info/advance-customer-search/advance-customer-search.component';
-import { PurchaseSearchComponent } from './module/admin/forms/purchase-info/purchase-search/purchase-search.component';
-import { SaleSearchComponent } from './module/admin/forms/sale-info/sale-search/sale-search.component';
+import { AdvanceCustomerSearchComponent } from './module/admin/forms/advance-customer-search/advance-customer-search.component';
+import { PurchaseSearchComponent } from './module/admin/forms/advance-customer-search/purchase-search/purchase-search.component';
+import { SaleSearchComponent } from './module/admin/forms/advance-customer-search/sale-search/sale-search.component';
+import { WarrantyInfoComponent } from './module/admin/forms/warranty-info/warranty-info.component';
+import { WarrantySearchComponent } from './module/admin/forms/advance-customer-search/warranty-search/warranty-search.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,7 @@ import { SaleSearchComponent } from './module/admin/forms/sale-info/sale-search/
     PartyInfoComponent,
     BasicBranchComponent,
 
-    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent
+    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent, WarrantyInfoComponent, WarrantySearchComponent
 
 
   ],

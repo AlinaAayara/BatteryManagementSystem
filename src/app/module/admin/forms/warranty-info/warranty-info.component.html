@@ -1,0 +1,266 @@
+<div class="content__boxed">
+    <div class="content__wrap">
+        <section>
+            <form class="row" [formGroup]="WarrantyInfoForm" (ngSubmit)="Submit($event)">
+                <div class="col-md-12 mb-1">
+
+                    <div class="row">
+                        <div class="col-md-4 mb-1">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Warranty Replacement</h5>
+                                    <div class="row">
+                                        <div class="col-md-5  mb-3">
+                                            <label for="ReplacementDate" class="visually-hidden" [class.text-danger]="((WarrantyInfoForm.get('ReplacementDate')?.touched ||
+                                        WarrantyInfoForm.get('ReplacementDate')?.dirty) &&
+                                        WarrantyInfoForm.get('ReplacementDate')?.errors)" [class.text-success]="(
+                                        !WarrantyInfoForm.get('ReplacementDate')?.errors)">Date</label>
+                                            <input id="ReplacementDate" type="text" formControlName="ReplacementDate"
+                                                [class.is-invalid]="((WarrantyInfoForm.get('ReplacementDate')?.touched ||
+                                        WarrantyInfoForm.get('ReplacementDate')?.dirty) &&
+                                        WarrantyInfoForm.get('ReplacementDate')?.errors)" [class.is-valid]="(
+                                        !WarrantyInfoForm.get('ReplacementDate')?.errors)" class="form-control"
+                                                placeholder="Date">
+                                            <span style="color:red" class="help-block" *ngIf="((WarrantyInfoForm.get('ReplacementDate')?.touched ||
+                                            WarrantyInfoForm.get('ReplacementDate')?.dirty) &&
+                                            WarrantyInfoForm.get('ReplacementDate')?.errors)">
+                                                Date is required.
+                                            </span>
+                                        </div>
+                                        <div class="col-md-7  mb-3">
+                                            <button type="button" class="btn btn-primary"
+                                                (click)="showCustomerInfoSlideIn(true)">
+                                                <i class=" demo-pli-mail-send fs-5"></i> {{btnChooseCustomerText}}
+                                            </button>
+                                            <span style="color:red" class="help-block" *ngIf="((
+                                            WarrantyInfoForm.get('CustomerID')?.dirty) &&
+                                            WarrantyInfoForm.get('CustomerID')?.errors)">
+                                                Please choose customer.
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div *ngIf="selectedCustomer?.CustomerID" class="col-sm-12 col-md-6 col-xl-12 mb-1">
+                                <div class="tab-base">
+                                    <ul class="nav nav-callout justify-content-end" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" data-bs-toggle="tab"
+                                                data-bs-target="#_dm-coRevTabsBaseHome" type="button" role="tab"
+                                                aria-controls="home" aria-selected="true">Detail</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#_dm-coRevTabsBaseProfile" type="button" role="tab"
+                                                aria-controls="profile" aria-selected="false">More info</button>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content" style="padding: 0.50rem 0.50rem;">
+                                        <div id="_dm-coRevTabsBaseHome" class="tab-pane fade show active"
+                                            role="tabpanel" aria-labelledby="home-tab">
+                                            <div class="d-flex align-items-center position-relative pb-3">
+                                                <div class="flex-shrink-0">
+                                                    <img class="img-md rounded-circle"
+                                                        src="../../assets/img/profile-photos/3.png"
+                                                        alt="Profile Picture" loading="lazy">
+                                                </div>
+                                                <div class="flex-grow-1 ms-3">
+                                                    <a
+                                                        class="h5 stretched-link btn-link">{{selectedCustomer?.CustomerName}}</a>
+                                                    <p class="text-muted m-0">{{selectedCustomer?.ContactNo}}</p>
+                                                    <p class="h5 stretched-link btn-link">
+                                                        {{selectedCustomer?.CustomerType}}</p>
+                                                </div>
+                                                <!-- <p class="flex-grow-1 ms-3">{{selectedCustomer?.Address}}<br>
+                                                    {{selectedCustomer?.VehiclelNo}}<br>
+                                                    {{selectedCustomer?.VehicleName}}</p> -->
+                                            </div>
+                                        </div>
+                                        <div id="_dm-coRevTabsBaseProfile" class="tab-pane fade" role="tabpanel"
+                                            aria-labelledby="profile-tab">
+                                            <p class="flex-grow-1 ms-3">{{selectedCustomer?.Address}}<br>
+                                                {{selectedCustomer?.VehiclelNo}}<br>
+                                                {{selectedCustomer?.VehicleName}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div *ngIf="SaleProductInfo?.length" class="table-responsive">
+                                <table class="table" style="background: white;">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Amp</th>
+                                            <th>Serial No</th>
+                                            <th>Price</th>
+                                            <th>Guarantee</th>
+                                            <th>Guarantee End Date</th>
+                                            <th>Warranty</th>
+                                            <th>Warranty End Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let prod of SaleProductInfo">
+                                            <td>{{prod.ProductName}}</td>
+                                            <td>{{prod.Amp}}</td>
+                                            <td>{{prod.SerialNo}}</td>
+                                            <td>{{prod.SalePrice}}</td>
+                                            <td>{{prod.GuaranteePeriod}}</td>
+                                            <td>{{prod.GuaranteeEndDate}}</td>
+                                            <td>{{prod.WarrantyPeriod}}</td>
+                                            <td>{{prod.WarrantyEndDate}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-1">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <h5 class="card-title">Product</h5>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input id="id_SerialNo" formControlName="NewSerialNo" type="text"
+                                                class="form-control" placeholder="Scan OR enter serial no"
+                                                (blur)="getProductDetailBySerialNo()">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-1"
+                            *ngFor="let item of WarrantyInfoForm.get('SaleProductList')?.value ?? []">
+                            <div class="tab-base">
+                                <ul class="nav nav-callout justify-content-end" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" data-bs-toggle="tab"
+                                            [attr.data-bs-target]="'#home_'+ item.PurchaseProductID" type="button"
+                                            role="tab" aria-controls="home" aria-selected="true">Detail</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" data-bs-toggle="tab"
+                                            [attr.data-bs-target]="'#more_'+ item.PurchaseProductID" type="button"
+                                            role="tab" aria-controls="profile" aria-selected="false">More info</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" type="button" role="tab"
+                                            (click)="removeSaleProduct(item)"><i
+                                                class="demo-pli-cross fs-5"></i></button>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div id="home_{{item.PurchaseProductID}}" class="tab-pane fade show active"
+                                        role="tabpanel" aria-labelledby="home-tab">
+                                        <h5 class="card-title">{{item.ProductName}} -
+                                            <span>{{item.SerialNo}}</span>
+                                        </h5>
+                                    </div>
+                                    <div id="more_{{item.PurchaseProductID}}" class="tab-pane fade" role="tabpanel"
+                                        aria-labelledby="profile-tab">
+                                        <h5 class="card-title">{{item.ProductName}} -
+                                            <span>{{item.SerialNo}}</span>
+                                        </h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Purchase Bill No.</th>
+                                                        <th>{{item.BillNo}}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Purchase Date</th>
+                                                        <th>{{item.PurchaseDate}}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Current Stock</th>
+                                                        <th>{{item.CurrentStock}}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Guarantee Period</th>
+                                                        <th>{{item.GuaranteePeriod}}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Warranty Period</th>
+                                                        <th>{{item.WarrantyPeriod}}</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7 mb-3">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <h5 class="card-title">Final</h5>
+                                    <div class="row mb-1">
+                                        <label for="SalePrice" class="col-sm-3 col-form-label">Sale Price</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" formControlName="SalePrice" class="form-control"
+                                                id="SalePrice">
+                                        </div>
+                                        <label for="FinalPrice" class="col-sm-3 col-form-label">Final Price</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" formControlName="FinalPrice" class="form-control"
+                                                id="FinalPrice" [disabled]="true">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <label for="DiscountPercentage" class="col-sm-3 col-form-label">Discount
+                                            %</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" formControlName="DiscountPercentage" class="form-control"
+                                                (change)="calculateDiscuntAmount()" id="DiscountPercentage">
+                                        </div>
+                                        <label for="DiscountAmount" class="col-sm-3 col-form-label">Discount
+                                            Amount</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" formControlName="DiscountAmount" class="form-control"
+                                                id="DiscountAmount">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="mt-4 d-grid gap-2 d-md-block">
+                                            <button type="submit" class="btn btn-primary" [disabled]="WarrantyInfoForm.invalid || ((this.WarrantyInfoForm.get('SaleProductList')?.value ?? []).length==0 
+                                                || !selectedCustomer?.CustomerID
+                                                || showLoader)">
+                                                <ng-container *ngIf="showLoader">
+                                                    <span class="spinner-border spinner-border-sm"></span>
+                                                    Loading..
+                                                </ng-container>
+                                                <ng-container *ngIf="!showLoader">
+                                                    {{isAdd?'Save':'Update'}}
+                                                </ng-container>
+
+                                            </button>
+                                            |
+                                            <button type="button" class="btn btn-danger"
+                                                (click)="clearWarranty()">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+<app-slide-in [showSlideIn]="isCustomerInfoSlideIn" (visibleChange)="showCustomerInfoSlideIn($event)">
+    <app-advance-customer-search [AdvanceSearchTextString]="''" [IsAccessedFromFormPage]="true"
+        (closeSlideInPopup)="isCustomerInfoSlideIn = $event"></app-advance-customer-search>
+</app-slide-in>

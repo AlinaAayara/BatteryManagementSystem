@@ -14,6 +14,7 @@ export class AppUrl {
     public static purchaseInfoURL = "PurchaseInfo/";
     public static customerInfoURL ="CustomerInfo/";
     public static saleInfoURL = "SaleInfo/";
+    public static warrantyInfoURL = "WarrantyInfo/";
 
     public static API = {
         Login: AppUrl.baseURL + AppUrl.basicUserURL + "authentication",
@@ -47,6 +48,10 @@ export class AppUrl {
         
         get_PurchaseProductInfo_BySerialNo : AppUrl.baseURL + AppUrl.saleInfoURL + "GetPurchaseProductInfoBySerialNo",
         get_Next_BillNo : AppUrl.baseURL + AppUrl.saleInfoURL + "GetSaleBillNo",
+
+        add_warrantyInfo: AppUrl.baseURL + AppUrl.warrantyInfoURL + "AddWarranty",
+        get_warrantyInfo: AppUrl.baseURL + AppUrl.warrantyInfoURL + "GetWarranty",
+        
 
     };
 }

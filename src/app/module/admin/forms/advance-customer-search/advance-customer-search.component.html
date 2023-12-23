@@ -46,8 +46,8 @@
                     </li>
                     <li *ngIf="activeTab == null || activeTab?.subMenuURL == 'WarrantyInfo'" class="nav-item"
                         role="presentation">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#_advance_search_warranty_info"
-                            type="button" role="tab" aria-controls="profile" aria-selected="false">Warranty</button>
+                        <button class="nav-link" [class.active]="activeTab?.subMenuURL == 'WarrantyInfo'" data-bs-toggle="tab" data-bs-target="#_advance_search_warranty_info"
+                            type="button" role="tab" aria-controls="contact" [attr.aria-selected]="activeTab?.subMenuURL == 'WarrantyInfo'">Warranty</button>
                     </li>
                     <li *ngIf="activeTab == null || activeTab?.subMenuURL == 'SaleReturnInfo'" class="nav-item"
                         role="presentation">
@@ -85,13 +85,14 @@
                             </app-sale-search>
                         </div>
                     </div>
-                    <div *ngIf="activeTab == null || activeTab?.subMenuURL == 'WarrantyInfo'"
-                        id="_advance_search_warranty_info" class="tab-pane fade" role="tabpanel"
-                        aria-labelledby="contact-tab">
-                        <h5 class="card-title">Warranty Detail</h5>
-                        <p>The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz
-                            graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs
-                            vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox.</p>
+                    <div *ngIf="activeTab == null || activeTab?.subMenuURL == 'WarrantyInfo'" id="_advance_search_warranty_info"
+                        class="tab-pane fade show active" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="col-lg-12">
+                            <app-warranty-search
+                                [ActiveWarrantyInfoList]="ActiveWarrantyInfoList"
+                                (closeSlideIn)="closeSlideIn($event)">
+                            </app-warranty-search>
+                        </div>
                     </div>
                     <div *ngIf="activeTab == null || activeTab?.subMenuURL == 'SaleReturnInfo'"
                         id="_advance_search_sales_return_info" class="tab-pane fade" role="tabpanel"

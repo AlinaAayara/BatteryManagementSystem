@@ -124,7 +124,8 @@ export class SaleInfoComponent implements OnInit {
   public getSerialNoDetailRequestBody(SerialNo) {
     return {
       MethodName: "Sel_PurchaseProductInfo_BySerialNo",
-      SerialNo: SerialNo
+      SerialNo: SerialNo,
+      SaleID : this.SaleInfoForm.get("SaleID")?.value ?? ""
     }
   }
 
@@ -230,20 +231,6 @@ export class SaleInfoComponent implements OnInit {
       this.SaleInfoForm.get("CustomerID")?.setValue(item?.CustomerInfo?.CustomerID);
       this.SaleInfoForm.get("SaleProductList")?.setValue(item?.SaleProductInfo ?? []);
       this.updateTotalValues();
-      // let SerialNo: any = [];
-
-      // item?.PurchaseProductInfo?.forEach(prod => {
-      //   item?.PurchaseProductInfo?.forEach(serial => {
-      //     if (prod.PurchaseID == serial.PurchaseID) {
-      //       serial.Quantity = 1;
-      //       SerialNo.push(serial.SerialNo);
-      //     }
-      //   });
-      //   prod.SerialNoList = SerialNo;
-      //   SerialNo = [];
-      // })
-      // this.saleProductList = item?.PurchaseProductInfo ?? [];
-      // this.PurchaseInfoForm.get("PurchaseProductList")?.setValue(this.purchaseProductList);
     });
   }
 }

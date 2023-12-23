@@ -30,6 +30,7 @@ export class SharedDataService {
   public partyInfoEdit = new Subject<any>();
   public purchaseInfoEdit = new Subject<any>();
   public saleInfoEdit = new Subject<any>();
+  public warrantyInfoEdit = new Subject<any>();
 
   constructor(
     private _httpClient: HttpClient,
@@ -149,6 +150,15 @@ export class SharedDataService {
           Mode: "0"
         };
         obj.Url = AppUrl.API.get_saleInfo;
+        break;
+      case "WarrantyInfo":
+        CustomerName = [null, undefined, ""].includes(CustomerName) ? "" : CustomerName;
+        obj.requestBody = {
+          MethodName: "Sel_AdvanceSearch_WarrantyInfo",
+          CustomerName: CustomerName,
+          Mode: "0"
+        };
+        obj.Url = AppUrl.API.get_warrantyInfo;
         break;
     }
     return obj;

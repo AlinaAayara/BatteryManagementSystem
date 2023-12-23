@@ -5,6 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Constant } from "src/app/config/constants";
 import { AdvanceSerachPurchaseInfo } from "src/app/core/models/advance-serach-purchase-info";
 import { AdvanceSerachSaleInfo } from "src/app/core/models/advance-search-sale-info";
+import { AdvanceSearchWarrantyInfo } from "src/app/core/models/advance-search-warranty-info";
 
 @Component({
   selector: "app-advance-customer-search",
@@ -25,8 +26,10 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
   public activeTab: any = null;
   public ActivePurchaseInfoList: AdvanceSerachPurchaseInfo[];
   public ActiveSaleInfoList: AdvanceSerachSaleInfo[];
+  public ActiveWarrantyInfoList: AdvanceSearchWarrantyInfo[];
   @Input() public AdvanceSearchTextString;
   @Output() public closeSlideInPopup = new EventEmitter();
+  @Input() IsAccessedFromFormPage = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -50,6 +53,8 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
   }
   ngOnInit(): void {
     this.id = this.route.snapshot.queryParamMap.get("id");
+    /* if we use advance search for warranty form(8) then it that we should show sale tab active (7). So that we can choose which battery we want to replace*/
+    this.id = (this.id == "8" && this.IsAccessedFromFormPage) ? "7" : this.id;
     this.setActiveTab();
   }
 
@@ -84,13 +89,20 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
         this.ActivePurchaseInfoList = new Array<AdvanceSerachPurchaseInfo>();
         data.forEach(item => {
           this.ActivePurchaseInfoList.push(new AdvanceSerachPurchaseInfo(item));
-        });7
+        }); 7
         break;
       case "SaleInfo":
         this.ActiveSaleInfoList = new Array<AdvanceSerachSaleInfo>();
         data.forEach(item => {
           this.ActiveSaleInfoList.push(new AdvanceSerachSaleInfo(item));
         });
+        break;
+      case "WarrantyInfo":
+        this.ActiveWarrantyInfoList = new Array<AdvanceSearchWarrantyInfo>();
+        data.forEach(item => {
+          this.ActiveWarrantyInfoList.push(new AdvanceSearchWarrantyInfo(item));
+        });
+        break;
     }
   }
 

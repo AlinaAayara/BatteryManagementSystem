@@ -13,6 +13,7 @@ import { BasicBranchComponent } from './module/admin/forms/basic-branch/basic-br
 import { PurchaseInfoComponent } from './module/admin/forms/purchase-info/purchase-info.component';
 import { CustomerInfoComponent } from './module/admin/forms/customer-info/customer-info.component';
 import { SaleInfoComponent } from './module/admin/forms/sale-info/sale-info.component';
+import { WarrantyInfoComponent } from './module/admin/forms/warranty-info/warranty-info.component';
 
 
 const routes: Routes = [
@@ -54,6 +55,9 @@ const routes: Routes = [
           },
           {
             path: 'SaleInfo', component: SaleInfoComponent
+          },
+          {
+            path: 'WarrantyInfo', component: WarrantyInfoComponent
           }
         ]
       },
