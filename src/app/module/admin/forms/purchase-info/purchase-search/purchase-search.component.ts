@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from "@angular/core";
+import { SharedDataService } from "src/app/Services/shared-data.service";
 import { AdvanceSerachPurchaseInfo } from "src/app/core/models/advance-serach-purchase-info";
 
 @Component({
@@ -6,7 +7,14 @@ import { AdvanceSerachPurchaseInfo } from "src/app/core/models/advance-serach-pu
   templateUrl: "./purchase-search.component.html",
   styleUrls: ["./purchase-search.component.css"]
 })
-export class PurchaseSearchComponent implements OnChanges {
+export class PurchaseSearchComponent implements OnInit, OnChanges {
+  @Output() closeSlideIn = new EventEmitter();
+  constructor(private _sharedDataService: SharedDataService) {
+
+  }
+  ngOnInit(): void {
+
+  }
   @Input() ActivePurchaseInfoList: AdvanceSerachPurchaseInfo[];
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -14,7 +22,11 @@ export class PurchaseSearchComponent implements OnChanges {
       this.ActivePurchaseInfoList = changes["ActivePurchaseInfoList"]?.currentValue;
     }
   }
-delete(e){
-console.log("e",e.target.className =="demo-pli-trash fs-5")
+  delete(purchaseID) {
+  }
+
+  edit(item) {
+    this._sharedDataService.purchaseInfoEdit.next(item);
+    this.closeSlideIn.emit(false);
   }
 }

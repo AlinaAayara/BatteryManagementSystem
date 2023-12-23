@@ -57,7 +57,6 @@ export class PartyInfoComponent implements OnInit {
     1) This will used during purchase info
   */
   emitParty(Party) {
-    console.log("emitParty Party", Party);
     this._sharedDataService.getSelectedParty.next(Party);
   }
 }

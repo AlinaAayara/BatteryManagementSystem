@@ -1084,5 +1084,5 @@
 </body>
 
 <app-slide-in *ngIf="isShowAdvanceSearch" [showSlideIn]="isShowAdvanceSearch" (visibleChange)="showPartyInfoSlideIn($event)">
-  <app-advance-customer-search [AdvanceSearchTextString]="AdvanceSearchTextString"></app-advance-customer-search>
+  <app-advance-customer-search [AdvanceSearchTextString]="AdvanceSearchTextString" (closeSlideInPopup)="isShowAdvanceSearch = $event"></app-advance-customer-search>
 </app-slide-in>

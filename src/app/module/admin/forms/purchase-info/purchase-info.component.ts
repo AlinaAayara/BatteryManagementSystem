@@ -36,6 +36,7 @@ export class PurchaseInfoComponent implements OnInit {
     this.getPartyList();
     this.getCategoryList();
     this.getSelectedOrAdddedParty();
+    this.edit();
   }
 
   purchaseInfoFormBuilder() {
@@ -65,14 +66,18 @@ export class PurchaseInfoComponent implements OnInit {
   /* This will trigger when add party or select party using subject */
   getSelectedOrAdddedParty() {
     this._sharedDataService.getSelectedParty.subscribe(res => {
-      console.log("getSelectedOrAdddedParty party", res);
-      this.selectedParty = res;
-      this.PurchaseInfoForm.get("PartyID")?.setValue(res?.PartyID);
-      this.showPartyInfoSlideIn(false);
-
-      this.btnChoosePartyText = this.selectedParty?.PartyName;
+      this.showPartyModel(res);
     });
   }
+
+  showPartyModel(res) {
+    this.selectedParty = res;
+    this.PurchaseInfoForm.get("PartyID")?.setValue(res?.PartyID);
+    this.showPartyInfoSlideIn(false);
+
+    this.btnChoosePartyText = this.selectedParty?.PartyName;
+  }
+
   /* get party list to show dropwon */
   getPartyList() {
     this._purchaseInfoService.getPartyList(this.getPartyListRequestBody()).subscribe({
@@ -135,7 +140,7 @@ export class PurchaseInfoComponent implements OnInit {
   /* This will trigger On final save button  */
   Submit(e) {
     this.showLoader = true;
-    this._purchaseInfoService.AddPurchase(generatePostRequestBody(this.PurchaseInfoForm.value)).subscribe({
+    this._purchaseInfoService.AddPurchase(generatePostRequestBody(this.PurchaseInfoForm.value, this.isAdd ? "0" : "1")).subscribe({
       next: data => {
         this.showLoader = false;
         this._sharedDataService.success("Purchase saved successfully !");
@@ -245,9 +250,34 @@ export class PurchaseInfoComponent implements OnInit {
     this.isPartyInfoSlideIn = isShow;
   }
 
-   /* remove selected party  */
-   removeSelectedParty() {
+  /* remove selected party  */
+  removeSelectedParty() {
     this.selectedParty = null;
     this.btnChoosePartyText = Constant.CHOOSE_PARTY;
+  }
+  /* this function will trigger when click on edit button on purchase info search page */
+  edit() {
+    this._sharedDataService.purchaseInfoEdit.subscribe(item => {
+      this.showPartyModel(item?.PartyInfo);
+      this.PurchaseInfoForm.patchValue(item);
+
+      this.isAdd = false;
+      this.PurchaseInfoForm.get("PartyID")?.setValue(item?.PartyInfo?.PartyID);
+
+      let SerialNo: any = [];
+
+      item?.PurchaseProductInfo?.forEach(prod => {
+        item?.PurchaseProductInfo?.forEach(serial => {
+          if (prod.PurchaseID == serial.PurchaseID) {
+            serial.Quantity = 1;
+            SerialNo.push(serial.SerialNo);
+          }
+        });
+        prod.SerialNoList = SerialNo;
+        SerialNo = [];
+      })
+      this.purchaseProductList = item?.PurchaseProductInfo ?? [];
+      this.PurchaseInfoForm.get("PurchaseProductList")?.setValue(this.purchaseProductList);
+    });
   }
 }

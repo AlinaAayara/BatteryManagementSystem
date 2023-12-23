@@ -49,7 +49,7 @@ export interface IPurchaseProductObject {
     SerialNoList: []
 }
 
-export function generatePostRequestBody(data: any) {
+export function generatePostRequestBody(data: any, mode: string) {
     let body: any = {};
     body.PurchaseID = data?.PurchaseID;
     body.PartyID = data?.PartyID;
@@ -59,7 +59,7 @@ export function generatePostRequestBody(data: any) {
     body.TotalAmount = data?.TotalAmount;
     body.TotalPaidAmount = data?.TotalPaidAmount;
     body.PurchaseProductList = Array();
-    body.Mode = "0";
+    body.Mode = mode;
     body.MethodName = "InUp_PurchaseInfo";
     data?.PurchaseProductList?.forEach(product => {
         product?.SerialNoList?.forEach(srno => {
@@ -69,7 +69,7 @@ export function generatePostRequestBody(data: any) {
                 Price: product?.Price / product?.Quantity,
                 Mode: "0",
                 MethodName: "InUp_PurchaseProductInfo",
-                PurchaseID:""
+                PurchaseID: ""
             }
             body.PurchaseProductList.push(obj);
         })

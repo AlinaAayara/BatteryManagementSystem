@@ -58,7 +58,6 @@ export class SaleInfoComponent implements OnInit {
   /* This will trigger when add customer or select customer using subject */
   getSelectedOrAdddedCustomer() {
     this._sharedDataService.getSelectedCustomer.subscribe(res => {
-      console.log("getSelectedOrAdddedCustomer Customer", res);
       this.selectedCustomer = res;
       this.SaleInfoForm.get("CustomerID")?.setValue(res?.CustomerID);
       this.showCustomerInfoSlideIn(false);

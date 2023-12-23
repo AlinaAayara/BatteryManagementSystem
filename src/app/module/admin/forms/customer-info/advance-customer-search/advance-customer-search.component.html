@@ -36,8 +36,8 @@
                     </li>
                     <li *ngIf="activeTab == null || activeTab?.subMenuURL == 'PurchaseInfo'" class="nav-item"
                         role="presentation">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#_advance_search_purchase_info"
-                            type="button" role="tab" aria-controls="profile" aria-selected="false">Purchase</button>
+                        <button class="nav-link" [class.active]="activeTab?.subMenuURL == 'PurchaseInfo'" data-bs-toggle="tab" data-bs-target="#_advance_search_purchase_info"
+                            type="button" role="tab" aria-controls="profile" [attr.aria-selected]="activeTab?.subMenuURL == 'PurchaseInfo'">Purchase</button>
                     </li>
                     <li *ngIf="activeTab == null || activeTab?.subMenuURL == 'SaleInfo'" class="nav-item"
                         role="presentation">
@@ -67,11 +67,13 @@
                             sections.</p>
                     </div>
                     <div *ngIf="activeTab == null || activeTab?.subMenuURL == 'PurchaseInfo'"
-                        id="_advance_search_purchase_info" class="tab-pane fade" role="tabpanel"
+                        id="_advance_search_purchase_info" class="tab-pane fade show active" role="tabpanel"
                         aria-labelledby="profile-tab">
                         <div class="col-lg-12">
                             <app-purchase-search
-                                [ActivePurchaseInfoList]="ActivePurchaseInfoList"></app-purchase-search>
+                                [ActivePurchaseInfoList]="ActivePurchaseInfoList"
+                                (closeSlideIn)="closeSlideIn($event)">
+                            </app-purchase-search>
                         </div>
                     </div>
                     <div *ngIf="activeTab == null || activeTab?.subMenuURL == 'SaleInfo'" id="_advance_search_sale_info"

@@ -24,6 +24,7 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
   public activeTab: any = null;
   public ActivePurchaseInfoList: AdvanceSerachPurchaseInfo[];
   @Input() public AdvanceSearchTextString;
+  @Output() public closeSlideInPopup = new EventEmitter();
 
   constructor(
     private route: ActivatedRoute,
@@ -39,7 +40,7 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
         setTimeout(() => {
           this.serchCustomer();
         }, 1000);
-        
+
       }
     }
 
@@ -59,7 +60,6 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
     this.activeTab = Constant.ADVANCE_SEARCH_TAB.includes(this.activeTab?.subMenuURL) ? this.activeTab : null;
     this.isWrite = this.activeTab?.isWrite;
     this.isDelete = this.activeTab?.isDelete;
-    console.log("activeTab", this.activeTab);
   }
 
   serchCustomer() {
@@ -84,7 +84,6 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
         data.forEach(item => {
           this.ActivePurchaseInfoList.push(new AdvanceSerachPurchaseInfo(item));
         });
-        console.log("ActivePurchaseInfoList", this.ActivePurchaseInfoList);
     }
   }
 
@@ -120,5 +119,9 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
   /* This will trigger on customer card selection */
   selectedCustomer(customer) {
     this.emitCustomer.emit(customer);
+  }
+
+  closeSlideIn(isclose) {
+    this.closeSlideInPopup.emit(isclose);
   }
 }
