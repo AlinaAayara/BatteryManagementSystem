@@ -29,7 +29,7 @@ export class BasicCategoryComponent implements OnInit {
         placeholder: "Category Name",
         label: "Category Name",
         isVisible: true,
-        directiveName: directiveList.AlphaOnly
+        directiveName: directiveList.AlphaNumeric
       },
       {
         fieldName: "CategoryID",

@@ -45,10 +45,10 @@ export class PurchaseInfoComponent implements OnInit {
       PartyID: ["", Validators.required],
       PurchaseDate: [this._sharedDataService?.currentUser?.todaysDate, Validators.required],
       BillNo: ["", Validators.required],
-      TotalQuantity: [0],
-      TotalAmount: [0],
+      TotalQuantity: [{ value: 0, disabled: true }],
+      TotalAmount: [{ value: 0, disabled: true }],
       TotalPaidAmount: [""],
-      PendingAmount: [0],
+      PendingAmount: [{ value: 0, disabled: true }],
       purchaseProductInfo: this._FormBuilder.group(
         {
           PurchaseID: [""],

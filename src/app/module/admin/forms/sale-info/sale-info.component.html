@@ -20,7 +20,7 @@
                                                 formControlName="BillNo" placeholder="Bill No" [class.is-invalid]="((SaleInfoForm.get('BillNo')?.touched ||
                                         SaleInfoForm.get('BillNo')?.dirty) &&
                                         SaleInfoForm.get('BillNo')?.errors)" [class.is-valid]="(SaleInfoForm.get('BillNo')?.touched &&
-                                        !SaleInfoForm.get('BillNo')?.errors)">
+                                        !SaleInfoForm.get('BillNo')?.errors)" NumberOnly [directiveName]="'NumberOnly'">
                                             <span style="color:red" class="help-block" *ngIf="((SaleInfoForm.get('BillNo')?.touched ||
                                         SaleInfoForm.get('BillNo')?.dirty) &&
                                         SaleInfoForm.get('BillNo')?.errors)">

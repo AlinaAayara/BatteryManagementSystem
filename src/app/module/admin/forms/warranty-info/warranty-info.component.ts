@@ -44,9 +44,9 @@ export class WarrantyInfoComponent implements OnInit {
       OldSerialNo: ["", Validators.required],
       NewSerialNo: ["", Validators.required],
       DiscountPercentage: [0],
-      DiscountAmount: [0],
+      DiscountAmount: [{ value: 0, disabled: true }],
       SalePrice: [0],
-      FinalPrice: [0],
+      FinalPrice: [{ value: 0, disabled: true }],
       SaleProductList: [[], Validators.required]
     });
   }

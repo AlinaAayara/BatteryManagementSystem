@@ -38,13 +38,13 @@ export class SaleInfoComponent implements OnInit {
       CustomerID: ["", Validators.required],
       BillDate: [this._sharedDataService?.currentUser?.todaysDate, Validators.required],
       BillNo: ["", Validators.required],
-      TotalQuantity: [0],
-      TotalAmount: [0],
+      TotalQuantity: [{ value: 0, disabled: true }],
+      TotalAmount: [{ value: 0, disabled: true }],
       OldBatteryCount: [""],
       TotalOldBatteryAmount: [""],
-      FinalAmount: [0],
+      FinalAmount: [{ value: 0, disabled: true }],
       TotalPaidAmount: [""],
-      PendingAmount: [0],
+      PendingAmount: [{ value: 0, disabled: true }],
       IsSaleReturn: [0],
       SaleProductInfo: this._FormBuilder.group(
         {
