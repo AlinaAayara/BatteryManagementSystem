@@ -15,6 +15,7 @@ import { CustomerInfoComponent } from './module/admin/forms/customer-info/custom
 import { SaleInfoComponent } from './module/admin/forms/sale-info/sale-info.component';
 import { WarrantyInfoComponent } from './module/admin/forms/warranty-info/warranty-info.component';
 import { SaleReturnInfoComponent } from './module/admin/forms/sale-return-info/sale-return-info.component';
+import { OldBatteryInfoComponent } from './module/admin/forms/old-battery-info/old-battery-info.component';
 
 
 const routes: Routes = [
@@ -62,6 +63,9 @@ const routes: Routes = [
           },
           {
             path: 'SaleReturnInfo', component: SaleReturnInfoComponent
+          },
+          {
+            path: 'OldBatteryInfo', component: OldBatteryInfoComponent
           }
         ]
       },

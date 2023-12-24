@@ -25,9 +25,19 @@ export const Constant = {
             Text: "B2M"
         }
     ],
+    SALE_OR_PURCHASE_TYPE: [
+        {
+            Value: "S",
+            Text: "Sale"
+        },
+        {
+            Value: "P",
+            Text: "Purchase"
+        }
+    ],
     CHOOSE_CUSTOMER: "Choose Customer",
     CHOOSE_PARTY: "Choose Party",
-    CHOOSE_SOLD_PRODUCT:"Choose Sold Product",
+    CHOOSE_SOLD_PRODUCT: "Choose Sold Product",
     NOTIFICATION_TIME: 5000,
     NOTIFICATION_TIMEOUT: 2000,
     Months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
@@ -49,9 +59,9 @@ export const Constant = {
         DECIMAL: /[^0-9.]/
     },
 
-    ADVANCE_SEARCH_TAB: 
-        ["PurchaseInfo","SaleInfo","WarrantyInfo"]
-    
+    ADVANCE_SEARCH_TAB:
+        ["PurchaseInfo", "SaleInfo", "WarrantyInfo"]
+
 }
 export enum controlType {
     Textbox = "Textbox",

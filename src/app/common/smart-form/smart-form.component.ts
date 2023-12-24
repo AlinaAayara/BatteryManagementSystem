@@ -65,7 +65,8 @@ export class SmartFormComponent implements OnInit, OnChanges {
   public formFields() {
     var control = {};
     for (let field of this.formField) {
-      control[field?.fieldName] = [field?.defaultValue, field?.validation]
+      const defaultValue = field?.isDateControl ? this._sharedDataService.currentUser.todaysDate : field?.defaultValue;
+      control[field?.fieldName] = [defaultValue, field?.validation]
     }
     return control;
   }
