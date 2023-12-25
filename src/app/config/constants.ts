@@ -77,7 +77,8 @@ export enum directiveList {
     appAutofocus = "appAutofocus",
     appDecimaNumber = "appDecimaNumber",
     inputValidator = "inputValidator",
-    appTrapFocus = "appTrapFocus"
+    appTrapFocus = "appTrapFocus",
+    DateOnly = "DateOnly"
 }
 
 export enum CustomerTypeID_ToPurchaseProduct {

@@ -48,7 +48,8 @@
                                             <input id="BillDate" type="text" formControlName="BillDate" [class.is-invalid]="((SaleInfoForm.get('BillDate')?.touched ||
                                         SaleInfoForm.get('BillDate')?.dirty) &&
                                         SaleInfoForm.get('BillDate')?.errors)" [class.is-valid]="(
-                                        !SaleInfoForm.get('BillDate')?.errors)" class="form-control" placeholder="Date">
+                                        !SaleInfoForm.get('BillDate')?.errors)" class="form-control" placeholder="Date"
+                                        appDate>
                                             <span style="color:red" class="help-block" *ngIf="((SaleInfoForm.get('BillDate')?.touched ||
                                             SaleInfoForm.get('BillDate')?.dirty) &&
                                             SaleInfoForm.get('BillDate')?.errors)">

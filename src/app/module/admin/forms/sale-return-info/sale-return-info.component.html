@@ -20,7 +20,8 @@
                                         SaleReturnInfoForm.get('SaleReturnDate')?.dirty) &&
                                         SaleReturnInfoForm.get('SaleReturnDate')?.errors)" [class.is-valid]="(
                                         !SaleReturnInfoForm.get('SaleReturnDate')?.errors)" class="form-control"
-                                                placeholder="Date">
+                                                placeholder="Date"
+                                                appDate>
                                             <span style="color:red" class="help-block" *ngIf="((SaleReturnInfoForm.get('SaleReturnDate')?.touched ||
                                             SaleReturnInfoForm.get('SaleReturnDate')?.dirty) &&
                                             SaleReturnInfoForm.get('SaleReturnDate')?.errors)">

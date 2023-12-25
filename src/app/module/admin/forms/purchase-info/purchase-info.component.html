@@ -50,7 +50,8 @@
                                         PurchaseInfoForm.get('PurchaseDate')?.dirty) &&
                                         PurchaseInfoForm.get('PurchaseDate')?.errors)" [class.is-valid]="(
                                         !PurchaseInfoForm.get('PurchaseDate')?.errors)" class="form-control"
-                                                placeholder="Date">
+                                                placeholder="Date"
+                                                appDate>
                                             <span style="color:red" class="help-block" *ngIf="((PurchaseInfoForm.get('PurchaseDate')?.touched ||
                                             PurchaseInfoForm.get('PurchaseDate')?.dirty) &&
                                             PurchaseInfoForm.get('PurchaseDate')?.errors)">

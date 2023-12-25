@@ -20,7 +20,8 @@
                                         WarrantyInfoForm.get('ReplacementDate')?.dirty) &&
                                         WarrantyInfoForm.get('ReplacementDate')?.errors)" [class.is-valid]="(
                                         !WarrantyInfoForm.get('ReplacementDate')?.errors)" class="form-control"
-                                                placeholder="Date">
+                                                placeholder="Date"
+                                                appDate>
                                             <span style="color:red" class="help-block" *ngIf="((WarrantyInfoForm.get('ReplacementDate')?.touched ||
                                             WarrantyInfoForm.get('ReplacementDate')?.dirty) &&
                                             WarrantyInfoForm.get('ReplacementDate')?.errors)">
