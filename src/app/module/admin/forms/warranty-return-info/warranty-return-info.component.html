@@ -1,0 +1,117 @@
+<div class="content__boxed">
+    <div class="content__wrap">
+        <section>
+            <div class="row">
+                <div class="col-md-12 mb-1">
+                    <div class="row">
+                        <div class="col-md-5 mb-1">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Warranty Return</h5>
+                                    <div class="row mb-1">
+                                        <div class="col-md-5">
+                                            <input id="FromDate" type="text" [(ngModel)]="FromDate" class="form-control"
+                                                placeholder="Date" appDate>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input id="ToDate" type="text" [(ngModel)]="ToDate" class="form-control"
+                                                placeholder="Date" appDate>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-primary"
+                                                (click)="getWarrantyReturn()">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="row" [formGroup]="WarrantyReturnInfoForm" (ngSubmit)="Submit($event)">
+                        <div class="col-md-5 mb-1">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col-md-12">
+                                            <div *ngIf="WarrentyReturnInfoList?.length" class="table-responsive">
+                                                <table class="table" style="background: white;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Select</th>
+                                                            <th>Party</th>
+                                                            <th>Product</th>
+                                                            <th>Amp</th>
+                                                            <th>Serial No</th>
+                                                            <th>Replacement Date</th>
+                                                            <th>Purchase Bill No.</th>
+                                                            <th>Purchase Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let prod of WarrentyReturnInfoList; let i = index">
+                                                            <td>
+                                                                <input name="elem{{ i }}" id="elem{{ i }}"
+                                                                    [(ngModel)]="prod.Checked" type="checkbox"
+                                                                    [checked]="prod.Checked"
+                                                                    (click)="checkElement($event, i)"/>
+                                                            </td>
+                                                            <td>{{prod.PartyName}}</td>
+                                                            <td>{{prod.ProductName}}</td>
+                                                            <td>{{prod.Amp}}</td>
+                                                            <td>{{prod.OldSerialNo}}</td>
+                                                            <td>{{prod.ReplacementDate}}</td>
+                                                            <td>{{prod.BillNo}}</td>
+                                                            <td>{{prod.PurchaseDate}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-md-5  mb-3">
+                                            <label for="ReturnToCompanyDate" class="visually-hidden"
+                                                [class.text-danger]="((WarrantyReturnInfoForm.get('ReturnToCompanyDate')?.touched ||
+                                        WarrantyReturnInfoForm.get('ReturnToCompanyDate')?.dirty) &&
+                                        WarrantyReturnInfoForm.get('ReturnToCompanyDate')?.errors)"
+                                                [class.text-success]="(
+                                        !WarrantyReturnInfoForm.get('ReturnToCompanyDate')?.errors)">Date</label>
+                                            <input id="ReturnToCompanyDate" type="text"
+                                                formControlName="ReturnToCompanyDate" [class.is-invalid]="((WarrantyReturnInfoForm.get('ReturnToCompanyDate')?.touched ||
+                                        WarrantyReturnInfoForm.get('ReturnToCompanyDate')?.dirty) &&
+                                        WarrantyReturnInfoForm.get('ReturnToCompanyDate')?.errors)" [class.is-valid]="(
+                                        !WarrantyReturnInfoForm.get('ReturnToCompanyDate')?.errors)"
+                                                class="form-control" placeholder="Date" appDate>
+                                            <span style="color:red" class="help-block" *ngIf="((WarrantyReturnInfoForm.get('ReturnToCompanyDate')?.touched ||
+                                            WarrantyReturnInfoForm.get('ReturnToCompanyDate')?.dirty) &&
+                                            WarrantyReturnInfoForm.get('ReturnToCompanyDate')?.errors)">
+                                                Date is required.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="mt-4 d-grid gap-2 d-md-block">
+                                            <button type="submit" class="btn btn-primary"
+                                                [disabled]="(WarrantyReturnInfoForm.invalid || showLoader)">
+                                                <ng-container *ngIf="showLoader">
+                                                    <span class="spinner-border spinner-border-sm"></span>
+                                                    Loading..
+                                                </ng-container>
+                                                <ng-container *ngIf="!showLoader">
+                                                    {{isAdd?'Save':'Update'}}
+                                                </ng-container>
+
+                                            </button>
+                                            |
+                                            <button type="button" class="btn btn-danger"
+                                                (click)="clearSaleReturn()">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

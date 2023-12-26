@@ -16,6 +16,7 @@ import { SaleInfoComponent } from './module/admin/forms/sale-info/sale-info.comp
 import { WarrantyInfoComponent } from './module/admin/forms/warranty-info/warranty-info.component';
 import { SaleReturnInfoComponent } from './module/admin/forms/sale-return-info/sale-return-info.component';
 import { OldBatteryInfoComponent } from './module/admin/forms/old-battery-info/old-battery-info.component';
+import { WarrantyReturnInfoComponent } from './module/admin/forms/warranty-return-info/warranty-return-info.component';
 
 
 const routes: Routes = [
@@ -66,6 +67,9 @@ const routes: Routes = [
           },
           {
             path: 'OldBatteryInfo', component: OldBatteryInfoComponent
+          },
+          {
+            path: 'WarrantyReturnInfo', component: WarrantyReturnInfoComponent
           }
         ]
       },
