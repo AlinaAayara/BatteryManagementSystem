@@ -17,6 +17,7 @@ import { WarrantyInfoComponent } from './module/admin/forms/warranty-info/warran
 import { SaleReturnInfoComponent } from './module/admin/forms/sale-return-info/sale-return-info.component';
 import { OldBatteryInfoComponent } from './module/admin/forms/old-battery-info/old-battery-info.component';
 import { WarrantyReturnInfoComponent } from './module/admin/forms/warranty-return-info/warranty-return-info.component';
+import { BasicGroupComponent } from './module/admin/forms/basic-group/basic-group.component';
 
 
 const routes: Routes = [
@@ -70,6 +71,9 @@ const routes: Routes = [
           },
           {
             path: 'WarrantyReturnInfo', component: WarrantyReturnInfoComponent
+          },
+          {
+            path: 'BasicGroup', component: BasicGroupComponent
           }
         ]
       },

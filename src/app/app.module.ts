@@ -48,6 +48,7 @@ import { SaleReturnInfoComponent } from './module/admin/forms/sale-return-info/s
 import { OldBatteryInfoComponent } from './module/admin/forms/old-battery-info/old-battery-info.component';
 import { DateDirective } from './core/directives/date.directive';
 import { WarrantyReturnInfoComponent } from './module/admin/forms/warranty-return-info/warranty-return-info.component';
+import { BasicGroupComponent } from './module/admin/forms/basic-group/basic-group.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,7 @@ import { WarrantyReturnInfoComponent } from './module/admin/forms/warranty-retur
     PartyInfoComponent,
     BasicBranchComponent,
 
-    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent, WarrantyInfoComponent, WarrantySearchComponent, SaleReturnInfoComponent, OldBatteryInfoComponent, DateDirective, WarrantyReturnInfoComponent
+    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent, WarrantyInfoComponent, WarrantySearchComponent, SaleReturnInfoComponent, OldBatteryInfoComponent, DateDirective, WarrantyReturnInfoComponent, BasicGroupComponent
 
 
   ],

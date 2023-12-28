@@ -1,0 +1,79 @@
+<div class="content__boxed">
+    <div class="content__wrap">
+
+        <section>
+            <form class="row" [formGroup]="BasicGroupForm" (ngSubmit)="Submit($event)">
+                <div class="col-md-12 mb-1">
+                    <div class="row">
+                        <div class="col-md-8 mb-1">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Add Group</h5>
+                                    <div class="row">
+                                        <div class="col-md-3  mb-3">
+                                            <label for="_dm-inputPassword" class="visually-hidden" [class.text-danger]="((BasicGroupForm.get('GroupName')?.touched ||
+                                            BasicGroupForm.get('GroupName')?.dirty) &&
+                                            BasicGroupForm.get('GroupName')?.errors)" [class.text-success]="(BasicGroupForm.get('GroupName')?.touched &&
+                                            !BasicGroupForm.get('GroupName')?.errors)">Group Name</label>
+                                            <input type="text" class="form-control" id="_dm-inputPassword"
+                                                formControlName="GroupName" placeholder="Group Name" [class.is-invalid]="((BasicGroupForm.get('GroupName')?.touched ||
+                                        BasicGroupForm.get('GroupName')?.dirty) &&
+                                        BasicGroupForm.get('GroupName')?.errors)" [class.is-valid]="(BasicGroupForm.get('GroupName')?.touched &&
+                                        !BasicGroupForm.get('GroupName')?.errors)" NumberOnly
+                                                [directiveName]="'NumberOnly'">
+
+                                            <span style="color:red" class="help-block" *ngIf="((BasicGroupForm.get('GroupName')?.touched ||
+                                        BasicGroupForm.get('GroupName')?.dirty) &&
+                                        BasicGroupForm.get('GroupName')?.errors)">
+                                                Group Name is required.
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1" *ngIf="BasicGroupForm.get('BasicSubGroupList')?.value?.length">
+                    <div class="col-md-3 mb-1"
+                        *ngFor="let prod of BasicGroupForm.get('BasicSubGroupList')?.value?.[0]?.basicMenu">
+                        <div class="card">
+                            <div class="card-header toolbar">
+                                <div class="toolbar-start">
+                                    <h5 class="m-0">{{prod.menuName}}</h5>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table class="table" style="background: white;">
+                                    <thead>
+                                        <tr>
+                                            <th>Sub Menu Name</th>
+                                            <th>Write</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let sub of prod.basicSubGroup; let i = index">
+                                            <td>{{sub.subMenuName}}</td>
+                                            <td>
+                                                <input name="elem{{ i }}" id="elem{{ i }}" [(ngModel)]="sub.isWrite"
+                                                    type="checkbox" [checked]="sub.isWrite"
+                                                    (click)="checkElement('isWrite', i)" />
+                                            </td>
+                                            <td> <input name="elem{{ i }}" id="elem{{ i }}" [(ngModel)]="sub.isDelete"
+                                                    type="checkbox" [checked]="sub.isDelete"
+                                                    (click)="checkElement('isDelete', i)" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
