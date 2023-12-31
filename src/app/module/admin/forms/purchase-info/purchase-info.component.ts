@@ -47,7 +47,7 @@ export class PurchaseInfoComponent implements OnInit {
       BillNo: ["", Validators.required],
       TotalQuantity: [{ value: 0, disabled: true }],
       TotalAmount: [{ value: 0, disabled: true }],
-      TotalPaidAmount: [""],
+      TotalPaidAmount: [0],
       PendingAmount: [{ value: 0, disabled: true }],
       purchaseProductInfo: this._FormBuilder.group(
         {
@@ -140,7 +140,7 @@ export class PurchaseInfoComponent implements OnInit {
   /* This will trigger On final save button  */
   Submit(e) {
     this.showLoader = true;
-    this._purchaseInfoService.AddPurchase(generatePostRequestBody(this.PurchaseInfoForm.value, this.isAdd ? "0" : "1")).subscribe({
+    this._purchaseInfoService.AddPurchase(generatePostRequestBody(this.PurchaseInfoForm.getRawValue(), this.isAdd ? "0" : "1")).subscribe({
       next: data => {
         this.showLoader = false;
         this._sharedDataService.success("Purchase saved successfully !");
@@ -215,7 +215,7 @@ export class PurchaseInfoComponent implements OnInit {
       TotalAmount: TotalAmount,
       PendingAmount: PendingAmount
     })
-
+    
   }
 
   /* remove item from list it will trigger from front end purchase product table upon click on delete button */
@@ -258,6 +258,7 @@ export class PurchaseInfoComponent implements OnInit {
   /* this function will trigger when click on edit button on purchase info search page */
   edit() {
     this._sharedDataService.purchaseInfoEdit.subscribe(item => {
+      this.purchaseProductList = [];
       this.showPartyModel(item?.PartyInfo);
       this.PurchaseInfoForm.patchValue(item);
 
@@ -268,15 +269,23 @@ export class PurchaseInfoComponent implements OnInit {
 
       item?.PurchaseProductInfo?.forEach(prod => {
         item?.PurchaseProductInfo?.forEach(serial => {
-          if (prod.PurchaseID == serial.PurchaseID) {
-            serial.Quantity = 1;
+          if (prod.ProductID == serial.ProductID) {
             SerialNo.push(serial.SerialNo);
           }
         });
+        prod.Quantity = SerialNo?.length;
         prod.SerialNoList = SerialNo;
+        prod.SerialNo = SerialNo?.join(",");
         SerialNo = [];
+      });
+
+
+      item?.PurchaseProductInfo.forEach(prod => {
+        const isExists = this.purchaseProductList.filter(p => p.ProductID === prod.ProductID);
+        if (isExists.length == 0) {
+          this.purchaseProductList.push(prod);
+        }
       })
-      this.purchaseProductList = item?.PurchaseProductInfo ?? [];
       this.PurchaseInfoForm.get("PurchaseProductList")?.setValue(this.purchaseProductList);
     });
   }

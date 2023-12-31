@@ -9,6 +9,7 @@ import { AdvanceSerachPurchaseInfo } from "src/app/core/models/advance-serach-pu
 })
 export class PurchaseSearchComponent implements OnInit, OnChanges {
   @Output() closeSlideIn = new EventEmitter();
+  public isPrint = false;
   constructor(private _sharedDataService: SharedDataService) {
 
   }
@@ -28,5 +29,9 @@ export class PurchaseSearchComponent implements OnInit, OnChanges {
   edit(item) {
     this._sharedDataService.purchaseInfoEdit.next(item);
     this.closeSlideIn.emit(false);
+  }
+
+  print(item) {
+    this._sharedDataService.openReportSlideIn.next("MethodName=Rpt_PurchaseInfo&PurchaseID="+item.PurchaseID);
   }
 }

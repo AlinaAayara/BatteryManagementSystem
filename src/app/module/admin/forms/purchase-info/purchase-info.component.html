@@ -19,7 +19,7 @@
                                                 formControlName="BillNo" placeholder="Bill No" [class.is-invalid]="((PurchaseInfoForm.get('BillNo')?.touched ||
                                         PurchaseInfoForm.get('BillNo')?.dirty) &&
                                         PurchaseInfoForm.get('BillNo')?.errors)" [class.is-valid]="(PurchaseInfoForm.get('BillNo')?.touched &&
-                                        !PurchaseInfoForm.get('BillNo')?.errors)" NumberOnly [directiveName]="'NumberOnly'" >
+                                        !PurchaseInfoForm.get('BillNo')?.errors)" >
 
                                             <span style="color:red" class="help-block" *ngIf="((PurchaseInfoForm.get('BillNo')?.touched ||
                                         PurchaseInfoForm.get('BillNo')?.dirty) &&

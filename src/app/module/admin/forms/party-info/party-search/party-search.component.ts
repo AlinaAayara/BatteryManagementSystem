@@ -30,6 +30,7 @@ export class PartySearchComponent implements OnInit {
     this.id = this.route.snapshot.queryParamMap.get('id');
     this.isWrite = this._sharedDataService.checkWriteDeleteAccess(this.id, Constant.ISWRITE);
     this.isDelete = this._sharedDataService.checkWriteDeleteAccess(this.id, Constant.ISDELETE);
+    this.searchParty();
   }
 
   searchParty() {

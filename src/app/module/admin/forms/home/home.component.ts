@@ -21,6 +21,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public subMenuID = "";
   public AdvanceSearchText = "";
   public AdvanceSearchTextString = "";
+  public isOpenReportViewerSlideIn = false;
+  public queryString: string;
   constructor(
     private route: ActivatedRoute,
     private _httpService: HttpService,
@@ -49,6 +51,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
         })
       }
     });
+
+    this.openReportSlideIn();
   }
 
   setSideBarActive(isBtnClick: boolean) {
@@ -74,6 +78,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
   /* function to show party info componet in slide in on cick of choose party button  */
   showPartyInfoSlideIn(isShow) {
     this.isShowAdvanceSearch = isShow;
+  }
+  /* function will trigger on click of print button */
+  openReportSlideIn() {
+    this._sharedDataService.openReportSlideIn.subscribe(data => {
+      this.isOpenReportViewerSlideIn = true;
+      this.queryString = data;
+    })
+  }
+  /* function will close the Report Viewer Slide in */
+  hideReportSlideIn(isShow) {
+    this.isOpenReportViewerSlideIn = isShow;
   }
 }
 

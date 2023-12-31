@@ -31,6 +31,7 @@ export class SharedDataService {
   public purchaseInfoEdit = new Subject<any>();
   public saleInfoEdit = new Subject<any>();
   public warrantyInfoEdit = new Subject<any>();
+  public openReportSlideIn = new Subject<any>();
 
   constructor(
     private _httpClient: HttpClient,

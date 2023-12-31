@@ -18,6 +18,8 @@ export class AppUrl {
     public static oldBatteryInfoURL = "OldBatteryInfo/";
     public static basicGroupURL = "BasicGroup/";
 
+    public static reportViewerURL = "ReportViewer/ViewReport"
+
     public static API = {
         Login: AppUrl.baseURL + AppUrl.basicUserURL + "authentication",
         get_current_user: AppUrl.baseURL + AppUrl.basicUserURL + "GetCurrentUser",
@@ -61,6 +63,8 @@ export class AppUrl {
 
         add_basicGroup: AppUrl.baseURL + AppUrl.basicGroupURL + "AddGroup",
         get_basicGroup: AppUrl.baseURL + AppUrl.basicGroupURL + "GetGroup",
+
+        reportViewer : AppUrl.baseURL + AppUrl.reportViewerURL
         
 
     };
