@@ -66,7 +66,7 @@ export function generatePostRequestBody(data: any, mode: string) {
             let obj = {
                 ProductID: product?.ProductID,
                 SerialNo: srno,
-                Price: product?.Price / product?.Quantity,
+                Price: product?.Price,
                 Mode: "0",
                 MethodName: "InUp_PurchaseProductInfo",
                 PurchaseID: ""

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from 'src/app/Services/Http/http.service';
 import { HomeService } from 'src/app/Services/home/home.service';
@@ -89,6 +89,26 @@ export class HomeComponent implements OnInit, AfterViewInit {
   /* function will close the Report Viewer Slide in */
   hideReportSlideIn(isShow) {
     this.isOpenReportViewerSlideIn = isShow;
+  }
+  @HostListener("document:keydown", ["$event"])
+  handleKeyboardEvent(e: KeyboardEvent) {
+    if ((e?.which == 13 || e?.keyCode == 13) && (e?.target as HTMLElement)?.classList?.contains("enter-focus")) {
+      let textBoxList = document?.getElementsByClassName("enter-focus")!;
+      let arry = Array?.from(textBoxList)?.filter((el: any) => !el?.disabled)
+      let currentBoxNumber = arry?.findIndex(x => x === e?.target);
+      if (textBoxList?.[currentBoxNumber + 1] != null) {
+        let nextBox = textBoxList?.[currentBoxNumber + 1] as HTMLElement;
+        nextBox?.focus();
+        //e?.preventDefault();
+        return true;
+      }
+      else {
+        let nextBox = textBoxList?.[0] as HTMLElement;
+        nextBox?.focus();
+        //this.nextBox.select();
+        e?.preventDefault();
+      }
+    }
   }
 }
 

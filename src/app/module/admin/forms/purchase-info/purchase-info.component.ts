@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ProductInfoService } from "src/app/Services/ProductInfo/product-info.service";
 import { SharedDataService } from "src/app/Services/shared-data.service";
@@ -23,6 +23,8 @@ export class PurchaseInfoComponent implements OnInit {
   public isPartyInfoSlideIn: boolean = false;
   public selectedParty: any;
   public btnChoosePartyText = Constant.CHOOSE_PARTY;
+  @ViewChild("scanControl") scanControl: ElementRef;
+  @ViewChild("priceControl") priceControl: ElementRef;
 
   constructor(
     private _FormBuilder: FormBuilder,
@@ -56,7 +58,8 @@ export class PurchaseInfoComponent implements OnInit {
           ProductID: [""],
           SerialNo: [""],
           Price: [],
-          Quantity: [{ value: 0, disabled: true }]
+          Quantity: [{ value: 0, disabled: true }],
+          TotalAmount: [{ value: 0, disabled: true }]
         }
       ),
       PurchaseProductList: [Validators.required],
@@ -157,18 +160,26 @@ export class PurchaseInfoComponent implements OnInit {
   }
   /* This will trigger On Add Product button. It will insert into Array */
   SubmitPurchaseProduct() {
-    let purchaseProductInfoData = this.PurchaseInfoForm.get("purchaseProductInfo")?.value;
+    let purchaseProductInfoData = this.PurchaseInfoForm.get("purchaseProductInfo")?.getRawValue();
     const isValid = this.checkPurchaseProductInfoValidation(purchaseProductInfoData);
     if (isValid) {
       this.AddPurchaseProduct(purchaseProductInfoData);
     }
   }
   /* This will create array based on Serial no input string, in which you have comma seperated serial no */
-  separateSerialNo() {
+  separateSerialNo(event) {
     let serialNo = this.PurchaseInfoForm.get("purchaseProductInfo")?.value?.SerialNo;
+    const separateByComma = serialNo?.replace(/,\s*$/, "")?.replace(/\s/g, "")?.split(',');
     if (serialNo?.length > 0) {
-      this.serialNoList = serialNo?.replace(/,\s*$/, "")?.split(',');
-      this.PurchaseInfoForm.get("purchaseProductInfo")?.get("Quantity")?.setValue(this.serialNoList?.length);
+      this.serialNoList = [...this.serialNoList, ...separateByComma];
+      this.calculatePurchaseProductTotal();
+    }
+    if (serialNo?.length > 0) {
+      this.PurchaseInfoForm.get("purchaseProductInfo")?.get("SerialNo")?.setValue("");
+      this.scanControl.nativeElement.focus();
+    }
+    else {
+      this.priceControl.nativeElement.focus();
     }
   }
   /* This will add product object into array and clear the product from controls (child) */
@@ -190,7 +201,7 @@ export class PurchaseInfoComponent implements OnInit {
     } else if (["", null, undefined].includes(data.ProductID)) {
       this._sharedDataService.NotieError("Please select product");
       return false;
-    } else if (["", null, undefined].includes(data.SerialNo)) {
+    } else if (this.serialNoList?.length === 0) {
       this._sharedDataService.NotieError("Please enter / scan serial no");
       return false;
     } else if (["", null, undefined].includes(data.Price)) {
@@ -208,7 +219,7 @@ export class PurchaseInfoComponent implements OnInit {
     let PendingAmount = 0;
 
     TotalQuantity = this.purchaseProductList?.reduce((n, { Quantity }) => n + Quantity, 0);
-    TotalAmount = this.purchaseProductList?.reduce((n, { Price }) => (n) + parseFloat(Price), 0);
+    TotalAmount = this.purchaseProductList?.reduce((n, { TotalAmount }) => (n) + parseFloat(TotalAmount), 0);
     TotalPaidAmount = this.PurchaseInfoForm.get("TotalPaidAmount")?.value || 0;
     PendingAmount = TotalAmount - TotalPaidAmount;
 
@@ -298,5 +309,20 @@ export class PurchaseInfoComponent implements OnInit {
     if (this.PurchaseInfoForm.get("Print")) {
       this._sharedDataService.openReportSlideIn.next("MethodName=Rpt_PurchaseInfo&PurchaseID=" + data?.[0]?.PurchaseID);
     }
+  }
+
+  /* function will trigger on product slection to get purchase price */
+
+  setPurchasePrice() {
+    let ProductID = this.PurchaseInfoForm.get("purchaseProductInfo")?.value?.ProductID;
+    let selectProduct = this.productList.filter(prod => prod.ProductID == ProductID);
+    this.PurchaseInfoForm.get("purchaseProductInfo")?.get("Price")?.setValue(selectProduct?.[0]?.PurchasePrice);
+    this.calculatePurchaseProductTotal();
+  }
+
+  calculatePurchaseProductTotal() {
+    let purchaseAmount = this.PurchaseInfoForm.get("purchaseProductInfo")?.value?.Price ?? 0;
+    this.PurchaseInfoForm.get("purchaseProductInfo")?.get("Quantity")?.setValue(this.serialNoList?.length);
+    this.PurchaseInfoForm.get("purchaseProductInfo")?.get("TotalAmount")?.setValue(this.serialNoList?.length * purchaseAmount);
   }
 }
