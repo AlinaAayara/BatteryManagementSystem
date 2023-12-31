@@ -59,7 +59,8 @@ export class PurchaseInfoComponent implements OnInit {
           Quantity: [{ value: 0, disabled: true }]
         }
       ),
-      PurchaseProductList: [Validators.required]
+      PurchaseProductList: [Validators.required],
+      Print: [false]
     });
   }
 
@@ -144,6 +145,7 @@ export class PurchaseInfoComponent implements OnInit {
       next: data => {
         this.showLoader = false;
         this._sharedDataService.success("Purchase saved successfully !");
+        this.printPurchaseInvoice(data)
         this.clearPurchase();
       },
       error: error => {
@@ -215,7 +217,7 @@ export class PurchaseInfoComponent implements OnInit {
       TotalAmount: TotalAmount,
       PendingAmount: PendingAmount
     })
-    
+
   }
 
   /* remove item from list it will trigger from front end purchase product table upon click on delete button */
@@ -288,5 +290,13 @@ export class PurchaseInfoComponent implements OnInit {
       })
       this.PurchaseInfoForm.get("PurchaseProductList")?.setValue(this.purchaseProductList);
     });
+  }
+
+  /* print recently submited purchase */
+
+  printPurchaseInvoice(data) {
+    if (this.PurchaseInfoForm.get("Print")) {
+      this._sharedDataService.openReportSlideIn.next("MethodName=Rpt_PurchaseInfo&PurchaseID=" + data?.[0]?.PurchaseID);
+    }
   }
 }

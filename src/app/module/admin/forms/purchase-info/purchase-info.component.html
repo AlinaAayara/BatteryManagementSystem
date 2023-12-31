@@ -19,7 +19,7 @@
                                                 formControlName="BillNo" placeholder="Bill No" [class.is-invalid]="((PurchaseInfoForm.get('BillNo')?.touched ||
                                         PurchaseInfoForm.get('BillNo')?.dirty) &&
                                         PurchaseInfoForm.get('BillNo')?.errors)" [class.is-valid]="(PurchaseInfoForm.get('BillNo')?.touched &&
-                                        !PurchaseInfoForm.get('BillNo')?.errors)" >
+                                        !PurchaseInfoForm.get('BillNo')?.errors)">
 
                                             <span style="color:red" class="help-block" *ngIf="((PurchaseInfoForm.get('BillNo')?.touched ||
                                         PurchaseInfoForm.get('BillNo')?.dirty) &&
@@ -50,8 +50,7 @@
                                         PurchaseInfoForm.get('PurchaseDate')?.dirty) &&
                                         PurchaseInfoForm.get('PurchaseDate')?.errors)" [class.is-valid]="(
                                         !PurchaseInfoForm.get('PurchaseDate')?.errors)" class="form-control"
-                                                placeholder="Date"
-                                                appDate>
+                                                placeholder="Date" appDate>
                                             <span style="color:red" class="help-block" *ngIf="((PurchaseInfoForm.get('PurchaseDate')?.touched ||
                                             PurchaseInfoForm.get('PurchaseDate')?.dirty) &&
                                             PurchaseInfoForm.get('PurchaseDate')?.errors)">
@@ -152,7 +151,8 @@
                                             <div class="col-6  mb-3">
                                                 <label for="_dm-Price" class="form-label">Price</label>
                                                 <input id="_dm-Price" formControlName="Price" type="text"
-                                                    class="form-control" placeholder="Price" NumberOnly [directiveName]="'appDecimaNumber'">
+                                                    class="form-control" placeholder="Price" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'">
                                             </div>
                                         </div>
                                         <div class="col-12  mb-3">
@@ -209,8 +209,8 @@
                                         <div class="row">
                                             <label for="TotalQuantity" class="col-sm-4 col-form-label">Total Qty</label>
                                             <div class="col-sm-8">
-                                                <input type="text" formControlName="TotalQuantity" class="form-control" NumberOnly [directiveName]="'appDecimaNumber'"
-                                                    id="TotalQuantity">
+                                                <input type="text" formControlName="TotalQuantity" class="form-control"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'" id="TotalQuantity">
                                             </div>
                                         </div>
                                     </div>
@@ -219,8 +219,8 @@
                                             <label for="TotalAmount" class="col-sm-4 col-form-label">Total
                                                 Amount</label>
                                             <div class="col-sm-8">
-                                                <input type="text" formControlName="TotalAmount" class="form-control" NumberOnly [directiveName]="'appDecimaNumber'"
-                                                    id="TotalAmount">
+                                                <input type="text" formControlName="TotalAmount" class="form-control"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'" id="TotalAmount">
                                             </div>
                                         </div>
                                     </div>
@@ -230,9 +230,9 @@
                                         <div class="row">
                                             <label for="TotalPaidAmount" class="col-sm-4 form-label">Paid Amount</label>
                                             <div class="col-sm-8">
-                                                <input id="TotalPaidAmount" formControlName="TotalPaidAmount" NumberOnly [directiveName]="'appDecimaNumber'"
-                                                    type="text" class="form-control" placeholder="Paid Amount"
-                                                    (blur)="updateTotalValues()">
+                                                <input id="TotalPaidAmount" formControlName="TotalPaidAmount" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'" type="text" class="form-control"
+                                                    placeholder="Paid Amount" (blur)="updateTotalValues()">
                                             </div>
                                         </div>
                                     </div>
@@ -240,12 +240,23 @@
                                         <div class="row">
                                             <label for="Pending" class="col-sm-4 col-form-label">Pending Amount</label>
                                             <div class="col-sm-8">
-                                                <input id="Pending" type="text" class="form-control" NumberOnly [directiveName]="'appDecimaNumber'"
-                                                    formControlName="PendingAmount" placeholder="Pending">
+                                                <input id="Pending" type="text" class="form-control" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'" formControlName="PendingAmount"
+                                                    placeholder="Pending">
                                             </div>
                                         </div>
                                     </div>
 
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-10 offset-sm-2">
+                                        <div class="form-check">
+                                            <input id="_dm-rememberCheck3" class="form-check-input" formControlName="Print" type="checkbox">
+                                            <label for="_dm-rememberCheck3" class="form-check-label">
+                                                <b>Print</b>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="mt-4 d-grid gap-2 d-md-block">
                                     <button type="submit" class="btn btn-primary"
