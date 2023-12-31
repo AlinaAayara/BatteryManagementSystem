@@ -17,6 +17,7 @@ export class AppUrl {
     public static warrantyInfoURL = "WarrantyInfo/";
     public static oldBatteryInfoURL = "OldBatteryInfo/";
     public static basicGroupURL = "BasicGroup/";
+    public static basicAmpURL = "BasicAmp/";
 
     public static reportViewerURL = "ReportViewer/ViewReport"
 
@@ -63,6 +64,9 @@ export class AppUrl {
 
         add_basicGroup: AppUrl.baseURL + AppUrl.basicGroupURL + "AddGroup",
         get_basicGroup: AppUrl.baseURL + AppUrl.basicGroupURL + "GetGroup",
+
+        add_basic_amp: AppUrl.baseURL + AppUrl.basicAmpURL + "AddAmp",
+        get_basic_amp: AppUrl.baseURL + AppUrl.basicAmpURL + "GetAmp",
 
         reportViewer : AppUrl.baseURL + AppUrl.reportViewerURL
         

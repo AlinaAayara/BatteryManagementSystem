@@ -10,7 +10,7 @@ export const fields = [
         placeholder: "CategoryID",
         label: "Category",
         isVisible: true,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: 6,
         controlType: controlType.Dropdown,
         listData: {
             fetchURL: AppUrl.API.get_basic_category,
@@ -23,6 +23,27 @@ export const fields = [
             defaultSelectedText: "Select Category"
         },
         directiveName: null
+    },
+    {
+        fieldName: "AmpID",
+        validation: [Validators.required],
+        defaultValue: "",
+        placeholder: "Amp",
+        label: "Amp",
+        isVisible: true,
+        bootstrapFormGroup: 6,
+        controlType: controlType.Dropdown,
+        listData: {
+            fetchURL: AppUrl.API.get_basic_category,
+            requestBody: {
+                MethodName: "Search_BasicAmp"
+            },
+            textField: "Amp",
+            valueField: "AmpID",
+            defaultValue: "",
+            defaultSelectedText: "Select Amp"
+        },
+        directiveName: directiveList.NumberOnly
     },
     {
         fieldName: "ProductID",
@@ -47,15 +68,15 @@ export const fields = [
         directiveName: directiveList.AlphaNumeric
     },
     {
-        fieldName: "Amp",
+        fieldName: "PurchasePrice",
         validation: [Validators.required],
         defaultValue: "",
-        placeholder: "Amp",
-        label: "Amp",
+        placeholder: "Purchase Price",
+        label: "Purchase Price",
         isVisible: true,
         bootstrapFormGroup: 6,
         controlType: controlType.Textbox,
-        directiveName: directiveList.NumberOnly
+        directiveName: directiveList.appDecimaNumber
     },
     {
         fieldName: "BTBPrice",

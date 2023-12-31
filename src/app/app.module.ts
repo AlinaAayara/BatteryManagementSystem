@@ -50,6 +50,7 @@ import { DateDirective } from './core/directives/date.directive';
 import { WarrantyReturnInfoComponent } from './module/admin/forms/warranty-return-info/warranty-return-info.component';
 import { BasicGroupComponent } from './module/admin/forms/basic-group/basic-group.component';
 import { ReportViewerComponent } from './module/admin/reports/report-viewer/report-viewer.component';
+import { BasicAmpComponent } from './module/admin/forms/basic-amp/basic-amp.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,7 @@ import { ReportViewerComponent } from './module/admin/reports/report-viewer/repo
     PartyInfoComponent,
     BasicBranchComponent,
 
-    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent, WarrantyInfoComponent, WarrantySearchComponent, SaleReturnInfoComponent, OldBatteryInfoComponent, DateDirective, WarrantyReturnInfoComponent, BasicGroupComponent, ReportViewerComponent
+    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent, WarrantyInfoComponent, WarrantySearchComponent, SaleReturnInfoComponent, OldBatteryInfoComponent, DateDirective, WarrantyReturnInfoComponent, BasicGroupComponent, ReportViewerComponent, BasicAmpComponent
 
 
   ],

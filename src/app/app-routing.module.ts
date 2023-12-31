@@ -19,6 +19,7 @@ import { OldBatteryInfoComponent } from './module/admin/forms/old-battery-info/o
 import { WarrantyReturnInfoComponent } from './module/admin/forms/warranty-return-info/warranty-return-info.component';
 import { BasicGroupComponent } from './module/admin/forms/basic-group/basic-group.component';
 import { ReportViewerComponent } from './module/admin/reports/report-viewer/report-viewer.component';
+import { BasicAmpComponent } from './module/admin/forms/basic-amp/basic-amp.component';
 
 
 const routes: Routes = [
@@ -78,6 +79,9 @@ const routes: Routes = [
           },
           {
             path: 'ReportViewer', component: ReportViewerComponent
+          },
+          {
+            path: 'BasicAmp', component: BasicAmpComponent
           }
         ]
       },
