@@ -37,7 +37,7 @@ export class SaleInfoComponent implements OnInit {
       SaleID: [""],
       CustomerID: ["", Validators.required],
       BillDate: [this._sharedDataService?.currentUser?.todaysDate, Validators.required],
-      BillNo: ["", Validators.required],
+      BillNo: [{ value: "", disabled: true }, Validators.required],
       TotalQuantity: [{ value: 0, disabled: true }],
       TotalAmount: [{ value: 0, disabled: true }],
       OldBatteryCount: [""],
@@ -52,7 +52,8 @@ export class SaleInfoComponent implements OnInit {
           SalePrice: []
         }
       ),
-      SaleProductList: [[], Validators.required]
+      SaleProductList: [[], Validators.required],
+      Print: [false]
     });
   }
 
@@ -125,7 +126,7 @@ export class SaleInfoComponent implements OnInit {
     return {
       MethodName: "Sel_PurchaseProductInfo_BySerialNo",
       SerialNo: SerialNo,
-      SaleID : this.SaleInfoForm.get("SaleID")?.value ?? ""
+      SaleID: this.SaleInfoForm.get("SaleID")?.value ?? ""
     }
   }
 
@@ -156,10 +157,11 @@ export class SaleInfoComponent implements OnInit {
   /* This will trigger On final save button  */
   Submit(e) {
     this.showLoader = true;
-    this._saleInfoService.AddSale(generatePostRequestBody(this.SaleInfoForm.value, this.isAdd ? "0" : "1")).subscribe({
+    this._saleInfoService.AddSale(generatePostRequestBody(this.SaleInfoForm.getRawValue(), this.isAdd ? "0" : "1")).subscribe({
       next: data => {
         this.showLoader = false;
         this._sharedDataService.success("Completed successfully !");
+        this.printSaleInvoice(data)
         this.clearSale();
       },
       error: error => {
@@ -190,6 +192,7 @@ export class SaleInfoComponent implements OnInit {
     TotalOldBatteryAmount = this.SaleInfoForm.get("TotalOldBatteryAmount")?.value || 0;
     FinalAmount = TotalAmount - TotalOldBatteryAmount;
     TotalPaidAmount = this.SaleInfoForm.get("TotalPaidAmount")?.value || 0;
+    TotalPaidAmount = FinalAmount;
     PendingAmount = FinalAmount - TotalPaidAmount;
 
     this.SaleInfoForm.patchValue({
@@ -232,5 +235,13 @@ export class SaleInfoComponent implements OnInit {
       this.SaleInfoForm.get("SaleProductList")?.setValue(item?.SaleProductInfo ?? []);
       this.updateTotalValues();
     });
+  }
+
+  /* print recently submited purchase */
+
+  printSaleInvoice(data) {
+    if (this.SaleInfoForm.get("Print")) {
+      this._sharedDataService.openReportSlideIn.next("MethodName=Rpt_SaleInfo&SaleID=" + data?.[0]?.SaleID);
+    }
   }
 }

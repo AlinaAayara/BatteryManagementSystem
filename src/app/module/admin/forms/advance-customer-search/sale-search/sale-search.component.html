@@ -9,7 +9,8 @@
                     <div class="col-lg-2 col-md-2 col-sm-3">Date - {{item.BillDate}} </div>
                     <div class="offset-lg-7 offset-md-7 offset-sm-5 col-lg-1 col-md-1 col-sm-1">
                         <i class="demo-pli-trash fs-5" (click)="delete(item.SaleID)"></i>
-                        <i class="demo-pli-pencil fs-5" (click)="edit(item)" style="margin-left: 1rem"></i>
+                        <i class="demo-pli-pencil fs-5" (click)="edit(item)" style="margin-left: 0.5rem"></i>
+                        <i class="demo-pli-printer fs-5"(click)="print(item)"  style="margin-left: 0.5rem"></i>
                     </div>
                 </div>
             </button>

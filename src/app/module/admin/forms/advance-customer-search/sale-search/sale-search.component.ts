@@ -29,4 +29,8 @@ export class SaleSearchComponent implements OnInit, OnChanges {
     this._sharedDataService.saleInfoEdit.next(item);
     this.closeSlideIn.emit(false);
   }
+
+  print(item) {
+    this._sharedDataService.openReportSlideIn.next("MethodName=Rpt_SaleInfo&SaleID="+item.SaleID);
+  }
 }
