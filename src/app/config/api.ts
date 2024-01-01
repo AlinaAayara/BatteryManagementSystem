@@ -18,6 +18,7 @@ export class AppUrl {
     public static oldBatteryInfoURL = "OldBatteryInfo/";
     public static basicGroupURL = "BasicGroup/";
     public static basicAmpURL = "BasicAmp/";
+    public static basicPaymentModeURL = "BasicPaymentMode/";
 
     public static reportViewerURL = "ReportViewer/ViewReport"
 
@@ -67,6 +68,9 @@ export class AppUrl {
 
         add_basic_amp: AppUrl.baseURL + AppUrl.basicAmpURL + "AddAmp",
         get_basic_amp: AppUrl.baseURL + AppUrl.basicAmpURL + "GetAmp",
+
+        add_basicPaymentMode: AppUrl.baseURL + AppUrl.basicPaymentModeURL + "AddPaymentMode",
+        get_basicPaymentMode: AppUrl.baseURL + AppUrl.basicPaymentModeURL + "GetPaymentMode",
 
         reportViewer : AppUrl.baseURL + AppUrl.reportViewerURL
         

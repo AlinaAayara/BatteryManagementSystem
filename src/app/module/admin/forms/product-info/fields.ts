@@ -64,8 +64,7 @@ export const fields = [
         label: "Product Name",
         isVisible: true,
         bootstrapFormGroup: 6,
-        controlType: controlType.Textbox,
-        directiveName: directiveList.AlphaNumeric
+        controlType: controlType.Textbox
     },
     {
         fieldName: "PurchasePrice",

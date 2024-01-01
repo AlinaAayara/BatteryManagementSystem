@@ -306,7 +306,7 @@ export class PurchaseInfoComponent implements OnInit {
   /* print recently submited purchase */
 
   printPurchaseInvoice(data) {
-    if (this.PurchaseInfoForm.get("Print")) {
+    if (this.PurchaseInfoForm.get("Print")?.value) {
       this._sharedDataService.openReportSlideIn.next("MethodName=Rpt_PurchaseInfo&PurchaseID=" + data?.[0]?.PurchaseID);
     }
   }

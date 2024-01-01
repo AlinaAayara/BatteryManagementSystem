@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SharedDataService } from "src/app/Services/shared-data.service";
 import { SaleInfoService } from "src/app/Services/SaleInfo/sale-info.service";
@@ -17,6 +17,9 @@ export class SaleInfoComponent implements OnInit {
   public isCustomerInfoSlideIn: boolean = false;
   public selectedCustomer: any;
   public btnChooseCustomerText = Constant.CHOOSE_CUSTOMER;
+  public ampList: any;
+  public paymentModeList: any;
+  @ViewChild("scanControl") scanControl: ElementRef;
 
   constructor(
     private _FormBuilder: FormBuilder,
@@ -31,6 +34,9 @@ export class SaleInfoComponent implements OnInit {
 
     this.getBillNo();
     this.edit();
+
+    this.getAmpList();
+    this.getPaymentModeList();
   }
   SaleInfoFormBuilder() {
     this.SaleInfoForm = this._FormBuilder.group({
@@ -53,10 +59,48 @@ export class SaleInfoComponent implements OnInit {
         }
       ),
       SaleProductList: [[], Validators.required],
-      Print: [false]
+      Print: [false],
+      AmpID: ["", Validators.required],
+      PaymentModeID: ["", Validators.required],
+      Remark: [""]
     });
   }
 
+  /* get payment mode list to show dropwon */
+  getPaymentModeList() {
+    this._saleInfoService.getPaymentModeList(this.getPaymentModeListRequestBody()).subscribe({
+      next: data => {
+        this.paymentModeList = data;
+      },
+      error: error => {
+        this.paymentModeList = [];
+      }
+    });
+  }
+  /* request body for payment mode list dropdown api call */
+  public getPaymentModeListRequestBody() {
+    return {
+      MethodName: "Search_BasicPaymentMode"
+    }
+  }
+
+  /* get amp list to show dropwon */
+  getAmpList() {
+    this._saleInfoService.getAmpList(this.getAmpListRequestBody()).subscribe({
+      next: data => {
+        this.ampList = data;
+      },
+      error: error => {
+        this.ampList = [];
+      }
+    });
+  }
+  /* request body for amp list dropdown api call */
+  public getAmpListRequestBody() {
+    return {
+      MethodName: "Search_BasicAmp"
+    }
+  }
   /* This will trigger when add customer or select customer using subject */
   getSelectedOrAdddedCustomer() {
     this._sharedDataService.getSelectedCustomer.subscribe(res => {
@@ -99,8 +143,8 @@ export class SaleInfoComponent implements OnInit {
   }
 
   /* after scan of  serial no  this will get all product related details from database base on entered SERIAL NO*/
-  getProductDetailBySerialNo() {
-    let SerialNo = this.SaleInfoForm.get("SaleProductInfo")?.value?.SerialNo;
+  getProductDetailBySerialNo(SerialNo) {
+    //let SerialNo = this.SaleInfoForm.get("SaleProductInfo")?.value?.SerialNo;
     if (["", undefined, null].includes(SerialNo)) {
       return;
     }
@@ -120,6 +164,24 @@ export class SaleInfoComponent implements OnInit {
         document?.getElementById("id_SerialNo")?.focus();
       }
     });
+  }
+
+  /* This will create array based on Serial no input string, in which you have comma seperated serial no */
+  separateSerialNo() {
+    let serialNo = this.SaleInfoForm.get("SaleProductInfo")?.value?.SerialNo;
+    if (["", undefined, null].includes(serialNo)) {
+      return;
+    }
+    const separateByComma = serialNo?.replace(/,\s*$/, "")?.replace(/\s/g, "")?.split(',');
+    if (separateByComma?.length > 0) {
+      separateByComma.forEach(serial => {
+        this.getProductDetailBySerialNo(serial);
+      })
+    }
+    if (separateByComma?.length > 0) {
+      this.SaleInfoForm.get("SaleProductInfo")?.get("SerialNo")?.setValue("");
+      this.scanControl.nativeElement.focus();
+    }
   }
   /* request body for Serial no api call */
   public getSerialNoDetailRequestBody(SerialNo) {
@@ -227,20 +289,25 @@ export class SaleInfoComponent implements OnInit {
   /* this function will trigger when click on edit button on sale info search page */
   edit() {
     this._sharedDataService.saleInfoEdit.subscribe(item => {
+      this.getAmpList();
+      this.getPaymentModeList();
       this.showCustomerModel(item?.CustomerInfo);
-      this.SaleInfoForm.patchValue(item);
+      setTimeout(() => {
+        this.SaleInfoForm.patchValue(item);
 
-      this.isAdd = false;
-      this.SaleInfoForm.get("CustomerID")?.setValue(item?.CustomerInfo?.CustomerID);
-      this.SaleInfoForm.get("SaleProductList")?.setValue(item?.SaleProductInfo ?? []);
-      this.updateTotalValues();
+        this.isAdd = false;
+        this.SaleInfoForm.get("CustomerID")?.setValue(item?.CustomerInfo?.CustomerID);
+        this.SaleInfoForm.get("SaleProductList")?.setValue(item?.SaleProductInfo ?? []);
+        this.updateTotalValues();
+      }, 1000);
+
     });
   }
 
   /* print recently submited purchase */
 
   printSaleInvoice(data) {
-    if (this.SaleInfoForm.get("Print")) {
+    if (this.SaleInfoForm.get("Print")?.value) {
       this._sharedDataService.openReportSlideIn.next("MethodName=Rpt_SaleInfo&SaleID=" + data?.[0]?.SaleID);
     }
   }

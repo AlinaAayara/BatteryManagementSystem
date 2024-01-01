@@ -17,6 +17,9 @@ export class AdvanceSerachSaleInfo {
     public TotalOldBatteryAmount = "";
     public OldBatteryCount = "";
     public CustomerInfo: CustomerInfo;
+    public PaymentModeID: "";
+    public Remark: "";
+    public AmpID: "";
     public SaleProductInfo = Array<SaleProductInfo>();
 
     constructor(sale: any = {}) {
@@ -34,6 +37,9 @@ export class AdvanceSerachSaleInfo {
         this.VehicleName = sale?.vehicleName || "";
         this.CustomerTypeID = sale?.customerTypeID || "";
         this.CustomerType = sale?.customerType || "";
+        this.PaymentModeID = sale?.paymentModeID || "";
+        this.Remark = sale?.remark || "";
+        this.AmpID = sale?.ampID || "";
         this.VehiclelNo = sale?.vehiclelNo || "";
 
         if (sale && sale?.saleProductInfo && sale?.saleProductInfo?.length) {
