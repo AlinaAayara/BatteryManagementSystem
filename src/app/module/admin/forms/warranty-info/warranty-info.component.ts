@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SharedDataService } from "src/app/Services/shared-data.service";
 import { SaleInfoService } from "src/app/Services/SaleInfo/sale-info.service";
 import { Constant, CustomerTypeID_ToPurchaseProduct } from "src/app/config/constants";
-import { SaleProductInfo } from "src/app/core/models/advance-search-sale-info";
+import { AdvanceSerachSaleInfo, SaleProductInfo } from "src/app/core/models/advance-search-sale-info";
 import { WarrantyInfoService } from "src/app/Services/WarrantyInfo/warranty-info.service";
 
 
@@ -37,17 +37,29 @@ export class WarrantyInfoComponent implements OnInit {
   SaleInfoFormBuilder() {
     this.WarrantyInfoForm = this._FormBuilder.group({
       WarrantyID: [""],
-      CustomerID: ["", Validators.required],
       ReplacementDate: [this._sharedDataService?.currentUser?.todaysDate, Validators.required],
-      SaleID: ["", Validators.required],
-      SaleProductID: ["", Validators.required],
-      OldSerialNo: ["", Validators.required],
-      NewSerialNo: ["", Validators.required],
-      DiscountPercentage: [0],
       DiscountAmount: [{ value: 0, disabled: true }],
-      SalePrice: [0],
       FinalPrice: [{ value: 0, disabled: true }],
-      SaleProductList: [[], Validators.required]
+      WarrantyProductList: [[], Validators.required],
+      WarrantyProductInfo: this._FormBuilder.group(
+        {
+          WarrantyProductID: [""],
+          WarrantyID: [""],
+          WarrantyType: [""],
+          CustomerID: [""],
+          SaleID: [""],
+          OldSerialNo: [""],
+          NewSerialNo: [""],
+          DiscountPercentage: [""],
+          DiscountAmount: [""],
+          SalePrice: [""],
+          FinalPrice: [""],
+          IsReturnToCompany: [""],
+          ReturnToCompanyDate: [""],
+          OldProduct: [],
+          NewProduct: []
+        }
+      ),
     });
   }
 
@@ -78,22 +90,23 @@ export class WarrantyInfoComponent implements OnInit {
   }
 
   /* after scan of  serial no  this will get all product related details from database base on entered SERIAL NO*/
-  getProductDetailBySerialNo() {
-    let SerialNo = this.WarrantyInfoForm.get("NewSerialNo")?.value;
+  getNewProductDetailBySerialNo() {
+    let SerialNo = this.WarrantyInfoForm.get("WarrantyProductInfo")?.value?.NewSerialNo;
     if (["", undefined, null].includes(SerialNo)) {
       return;
     }
 
     this._saleInfoService.getSerialNoDetail(this.getSerialNoDetailRequestBody(SerialNo)).subscribe({
       next: data => {
-        let SaleProductList: [any] = this.WarrantyInfoForm.get("SaleProductList")?.value ?? [];
-        SaleProductList.push(data?.[0]);
-        this.WarrantyInfoForm.get("SaleProductList")?.setValue(SaleProductList);
-        this.getSalePriceByCusomerTypeID();
-        this.calculateDiscuntAmount();
+        this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("NewProduct")?.setValue(data?.[0]);
+        // let NewProduct: [any] = this.WarrantyInfoForm.get("WarrantyProductList")?.value ?? [];
+        // WarrantyProductList.push(data?.[0]);
+        // this.WarrantyInfoForm.get("WarrantyProductList")?.setValue(WarrantyProductList);
+        // this.getSalePriceByCusomerTypeID();
+        // this.calculateDiscuntAmount();
       },
       error: error => {
-        this.WarrantyInfoForm.get("SerialNo")?.setValue("");
+        this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("NewProduct")?.setValue("");
         this._sharedDataService.NotieError(error.error);
         document?.getElementById("id_SerialNo")?.focus();
       }
@@ -114,15 +127,15 @@ export class WarrantyInfoComponent implements OnInit {
    */
 
   getSalePriceByCusomerTypeID() {
-    let SaleProductList: [any] = this.WarrantyInfoForm.get("SaleProductList")?.value ?? [];
-    if (SaleProductList?.length > 0 && this.selectedCustomer?.CustomerTypeID) {
+    let WarrantyProductList: [any] = this.WarrantyInfoForm.get("WarrantyProductList")?.value ?? [];
+    if (WarrantyProductList?.length > 0 && this.selectedCustomer?.CustomerTypeID) {
       const CustomerTypeID = CustomerTypeID_ToPurchaseProduct[this.selectedCustomer?.CustomerTypeID];
 
-      SaleProductList.forEach(prod => {
+      WarrantyProductList.forEach(prod => {
         prod.SalePrice = prod[CustomerTypeID],
           this.WarrantyInfoForm.get("SalePrice")?.setValue(prod[CustomerTypeID]);
       });
-      this.WarrantyInfoForm.get("SaleProductList")?.setValue(SaleProductList);
+      this.WarrantyInfoForm.get("WarrantyProductList")?.setValue(WarrantyProductList);
     }
   }
 
@@ -132,7 +145,7 @@ export class WarrantyInfoComponent implements OnInit {
     let Data = this.WarrantyInfoForm.value;
     Data.MethodName = "InUp_WarrantyInfo";
     Data.Mode = this.isAdd ? "0" : "1";
-    delete (Data.SaleProductList);
+    delete (Data.WarrantyProductList);
     this._warrantyInfoService.AddWarranty(Data).subscribe({
       next: data => {
         this.showLoader = false;
@@ -147,14 +160,23 @@ export class WarrantyInfoComponent implements OnInit {
   }
 
   /* remove item from list it will trigger from front end purchase product table upon click on delete button */
-  removeSaleProduct(item) {
-    let SaleProductList: any[] = this.WarrantyInfoForm.get("SaleProductList")?.value ?? [];
-    SaleProductList = SaleProductList?.filter((itm) => item != itm);
-    this.WarrantyInfoForm.get("SaleProductList")?.setValue(SaleProductList);
-    this.calculateDiscuntAmount();
+  removeNewProduct(item) {
+    this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("NewSerialNo")?.setValue("");
+    this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("NewProduct")?.setValue("");
+    // let WarrantyProductList: any[] = this.WarrantyInfoForm.get("WarrantyProductList")?.value ?? [];
+    // WarrantyProductList = WarrantyProductList?.filter((itm) => item != itm);
+    // this.WarrantyInfoForm.get("WarrantyProductList")?.setValue(WarrantyProductList);
+    // this.calculateDiscuntAmount();
   }
 
-
+/* remove item from list it will trigger from front end Sale product table upon click on delete button */
+removeOldProduct(item) {
+  this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("OldSerialNo")?.setValue("");
+  this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("OldProduct")?.setValue("");
+  this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("CustomerID")?.setValue("");
+  this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("SaleID")?.setValue("");
+  this.selectedCustomer = "";
+}
   /* clear purchase whole form on save or on clear */
   clearWarranty() {
     this.WarrantyInfoForm.reset();
@@ -186,8 +208,39 @@ export class WarrantyInfoComponent implements OnInit {
       this.WarrantyInfoForm.patchValue(item);
       this.isAdd = false;
       this.WarrantyInfoForm.get("CustomerID")?.setValue(item?.CustomerInfo?.CustomerID);
-      this.WarrantyInfoForm.get("SaleProductList")?.setValue(item?.SaleProductInfo ?? []);
+      this.WarrantyInfoForm.get("WarrantyProductList")?.setValue(item?.SaleProductInfo ?? []);
       this.calculateDiscuntAmount();
+    });
+  }
+
+  openPurchaseInvoice(PurchaseID) {
+    this._sharedDataService.openReportSlideIn.next("MethodName=Rpt_PurchaseInfo&PurchaseID=" + PurchaseID);
+  }
+  openSaleInvoice(SaleID) {
+    this._sharedDataService.openReportSlideIn.next("MethodName=Rpt_SaleInfo&SaleID=" + SaleID);
+  }
+  /* function will trigger on Old Serial No change to get sale details related to serial no*/
+  getOldProductDetailBySerialNo() {
+    let SerialNo = this.WarrantyInfoForm.get("WarrantyProductInfo")?.value?.OldSerialNo;
+    if (["", undefined, null].includes(SerialNo)) {
+      return;
+    }
+    const obj = this._sharedDataService.requestBodyForAdvanceSearch("SaleInfo", SerialNo, "", "0");
+    this._sharedDataService.advacneSearchPOST(obj?.Url, obj?.requestBody).subscribe({
+      next: data => {
+        let saleProductInfo = data?.[0]?.saleProductInfo?.filter(serial => serial?.serialNo === SerialNo)?.[0];
+        data[0].saleProductInfo = [saleProductInfo];
+        let OldProduct = (new AdvanceSerachSaleInfo(data?.[0]));
+        this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("OldProduct")?.setValue(OldProduct);
+        this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("CustomerID")?.setValue(OldProduct?.CustomerID);
+        this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("SaleID")?.setValue(OldProduct?.SaleID);
+
+        this.showCustomerModel(OldProduct);
+        this.showSaleModel(OldProduct);
+      },
+      error: error => {
+        this._sharedDataService.error(error)
+      }
     });
   }
 }
