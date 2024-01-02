@@ -20,6 +20,7 @@ import { WarrantyReturnInfoComponent } from './module/admin/forms/warranty-retur
 import { BasicGroupComponent } from './module/admin/forms/basic-group/basic-group.component';
 import { ReportViewerComponent } from './module/admin/reports/report-viewer/report-viewer.component';
 import { BasicAmpComponent } from './module/admin/forms/basic-amp/basic-amp.component';
+import { ReportsComponent } from './module/admin/reports/reports/reports.component';
 
 
 const routes: Routes = [
@@ -82,6 +83,9 @@ const routes: Routes = [
           },
           {
             path: 'BasicAmp', component: BasicAmpComponent
+          },
+          {
+            path: 'Reports', component: ReportsComponent
           }
         ]
       },

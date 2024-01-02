@@ -1,0 +1,21 @@
+<div class="content__boxed">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Search</h5>
+            <div class="row g-3 align-items-center">
+                <div class="d-flex flex-wrap justify-content-center gap-2 mb-1">
+                    <div class="btn-group" role="group"
+                        aria-label="Basic radio toggle button group">
+                        <ng-container *ngFor="let report of reportList">
+                            <input type="radio" class="btn-check" id="Search_{{report.value}}"
+                            [value]="report.value" [(ngModel)]="ReportID" (change)="viewReport()">
+                            <label class="btn btn-outline-primary"
+                                for="Search_{{report.value}}">{{report.reportName}}</label>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>

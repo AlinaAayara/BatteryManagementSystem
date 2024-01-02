@@ -18,7 +18,7 @@ export class CustomerSearchComponent implements OnInit {
   public isDelete: boolean = false;
   Object = Object;
   public CustomerTypes = Constant.CUSTOMER_TYPE;
-  public CustomerTypeID = "";
+  public CustomerTypeID = "B";
   @Output() public emitCustomer = new EventEmitter();
 
   constructor(
@@ -32,7 +32,7 @@ export class CustomerSearchComponent implements OnInit {
     this.id = this.route.snapshot.queryParamMap.get('id');
     this.isWrite = this._sharedDataService.checkWriteDeleteAccess(this.id, Constant.ISWRITE);
     this.isDelete = this._sharedDataService.checkWriteDeleteAccess(this.id, Constant.ISDELETE);
-    //this.serchCustomer();
+    this.serchCustomer();
   }
 
   serchCustomer() {
