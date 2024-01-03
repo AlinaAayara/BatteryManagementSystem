@@ -250,24 +250,30 @@
                                 </div>
                             </div>
                             <div class="row mb-1">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <label for="OldBatteryCount"
-                                            class="col-sm-4 col-form-label">OldBatteryCount</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" formControlName="OldBatteryCount" class="form-control"
-                                                id="OldBatteryCount">
-                                        </div>
-                                    </div>
+                                <div class="col-md-4">
+                                    <input type="text" formControlName="OldBatteryCount" class="form-control"
+                                        placeholder="Old Battery Count" id="OldBatteryCount"
+                                        (blur)="updateTotalValues()">
                                 </div>
+                                <div class="col-md-4">
+                                    <input type="text" formControlName="OldBatteryPurchasePrice" class="form-control"
+                                        placeholder="Purchase Price" id="OldBatteryPurchasePrice"
+                                        (blur)="updateTotalValues()">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" formControlName="TotalOldBatteryAmount" class="form-control"
+                                        placeholder="Total Old Battery Amount" id="TotalOldBatteryAmount"
+                                        (blur)="updateTotalValues()">
+                                </div>
+                            </div>
+                            <div class="row mb-1">
                                 <div class="col-md-6">
                                     <div class="row">
-                                        <label for="TotalOldBatteryAmount"
-                                            class="col-sm-4 col-form-label">TotalOldBatteryAmount</label>
+                                        <label for="DiscountAmount" class="col-sm-4 col-form-label">Disc Amount</label>
                                         <div class="col-sm-8">
-                                            <input type="text" formControlName="TotalOldBatteryAmount"
-                                                class="form-control" id="TotalOldBatteryAmount"
-                                                (change)="updateTotalValues()">
+                                            <input type="text" formControlName="DiscountAmount" class="form-control"
+                                            placeholder="Discount Amount"
+                                                id="DiscountAmount" (blur)="updateTotalValues()">
                                         </div>
                                     </div>
                                 </div>
@@ -288,7 +294,7 @@
                                         <div class="col-sm-8">
                                             <input id="TotalPaidAmount" formControlName="TotalPaidAmount" type="text"
                                                 class="form-control" placeholder="Paid Amount"
-                                                (change)="updateTotalValues()">
+                                                (blur)="updateTotalValues()">
                                         </div>
                                     </div>
                                 </div>

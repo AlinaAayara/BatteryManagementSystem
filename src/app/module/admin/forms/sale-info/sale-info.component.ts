@@ -46,9 +46,11 @@ export class SaleInfoComponent implements OnInit {
       BillNo: [{ value: "", disabled: true }, Validators.required],
       TotalQuantity: [{ value: 0, disabled: true }],
       TotalAmount: [{ value: 0, disabled: true }],
-      OldBatteryCount: [""],
-      TotalOldBatteryAmount: [""],
+      OldBatteryPurchasePrice: [0],
+      OldBatteryCount: [1],
+      TotalOldBatteryAmount: [{ value: 0, disabled: true }],
       FinalAmount: [{ value: 0, disabled: true }],
+      DiscountAmount: [0],
       TotalPaidAmount: [""],
       PendingAmount: [{ value: 0, disabled: true }],
       IsSaleReturn: [0],
@@ -154,9 +156,13 @@ export class SaleInfoComponent implements OnInit {
         let SaleProductList: [any] = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
         SaleProductList.push(data?.[0]);
         this.SaleInfoForm.get("SaleProductList")?.setValue(SaleProductList);
+        this.SaleInfoForm.get("AmpID")?.setValue(data?.[0]?.AmpID);
+        this.SaleInfoForm.get("OldBatteryPurchasePrice")?.setValue(data?.[0]?.PurchasePrice);
+
         this.getSalePriceByCusomerTypeID();
         this.updateTotalValues();
         this.SaleInfoForm.get("SaleProductInfo")?.get("SerialNo")?.setValue("");
+        this.updateTotalValues();
       },
       error: error => {
         this.SaleInfoForm.get("SaleProductInfo")?.get("SerialNo")?.setValue("");
@@ -248,11 +254,16 @@ export class SaleInfoComponent implements OnInit {
     let SaleProductList: [any] = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
     let OldBatteryCount = 0
     let TotalOldBatteryAmount = 0;
+    let OldBatteryPurchasePrice = 0;
+    let DiscountAmount = 0;
 
     TotalQuantity = SaleProductList.length;
     TotalAmount = SaleProductList?.reduce((n, { SalePrice }) => (n) + parseFloat(SalePrice), 0);
-    TotalOldBatteryAmount = this.SaleInfoForm.get("TotalOldBatteryAmount")?.value || 0;
-    FinalAmount = TotalAmount - TotalOldBatteryAmount;
+    OldBatteryPurchasePrice = this.SaleInfoForm.get("OldBatteryPurchasePrice")?.value || 0;
+    OldBatteryCount = this.SaleInfoForm.get("OldBatteryCount")?.value || 0;
+    TotalOldBatteryAmount = (OldBatteryCount ?? 0) * (OldBatteryPurchasePrice ?? 0);
+    DiscountAmount = this.SaleInfoForm.get("DiscountAmount")?.value || 0;
+    FinalAmount = TotalAmount - DiscountAmount - TotalOldBatteryAmount;
     TotalPaidAmount = this.SaleInfoForm.get("TotalPaidAmount")?.value || 0;
     TotalPaidAmount = FinalAmount;
     PendingAmount = FinalAmount - TotalPaidAmount;
@@ -262,7 +273,9 @@ export class SaleInfoComponent implements OnInit {
       TotalAmount: TotalAmount,
       FinalAmount: FinalAmount,
       PendingAmount: PendingAmount,
-      TotalPaidAmount: TotalPaidAmount
+      TotalPaidAmount: TotalPaidAmount,
+      TotalOldBatteryAmount: TotalOldBatteryAmount,
+      DiscountAmount: DiscountAmount
     })
 
   }

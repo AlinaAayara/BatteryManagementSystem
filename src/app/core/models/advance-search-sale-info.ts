@@ -21,6 +21,8 @@ export class AdvanceSerachSaleInfo {
     public Remark: "";
     public AmpID: "";
     public SaleProductInfo = Array<SaleProductInfo>();
+    public DiscountAmount: "";
+    public OldBatteryPurchasePrice: "";
 
     constructor(sale: any = {}) {
         this.SaleID = sale?.saleID || "";
@@ -41,6 +43,8 @@ export class AdvanceSerachSaleInfo {
         this.Remark = sale?.remark || "";
         this.AmpID = sale?.ampID || "";
         this.VehiclelNo = sale?.vehiclelNo || "";
+        this.DiscountAmount = sale?.discountAmount || "";
+        this.OldBatteryPurchasePrice = sale?.oldBatteryPurchasePrice || "";
 
         if (sale && sale?.saleProductInfo && sale?.saleProductInfo?.length) {
             sale?.saleProductInfo?.forEach((party: any) => {
@@ -98,6 +102,10 @@ export class SaleProductInfo {
     public GuaranteePeriod = "";
     public SchemePoint = "";
     public CategoryName = "";
+    public AmpID = "";
+    public PurchasePrice = "";
+    public OldBatterySalePrice = "";
+
     constructor(saleProduct: any = {}) {
         this.SaleProductID = saleProduct?.saleProductID || "";
         this.SaleID = saleProduct?.saleID || "";
@@ -116,5 +124,8 @@ export class SaleProductInfo {
         this.GuaranteePeriod = saleProduct?.guaranteePeriod || "";
         this.SchemePoint = saleProduct?.schemePoint || "";
         this.CategoryName = saleProduct?.categoryName || "";
+        this.AmpID = saleProduct?.ampID || "";
+        this.PurchasePrice = saleProduct?.purchasePrice || "";
+        this.OldBatterySalePrice = saleProduct?.oldBatterySalePrice || "";
     }
 }

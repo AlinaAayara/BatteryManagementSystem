@@ -9,9 +9,11 @@ export function generatePostRequestBody(data: any, mode :string) {
     body.BillNo = data?.BillNo;
     //body.TotalQuantity = data?.TotalQuantity;
     body.TotalAmount = data?.TotalAmount;
+    body.OldBatteryPurchasePrice = data?.OldBatteryPurchasePrice;
     body.OldBatteryCount = data?.OldBatteryCount;
     body.TotalOldBatteryAmount = data?.TotalOldBatteryAmount;
     body.FinalAmount = data?.FinalAmount;
+    body.DiscountAmount = data?.DiscountAmount;
     body.TotalPaidAmount = data?.TotalPaidAmount;
     body.IsSaleReturn = data?.IsSaleReturn;
     body.AmpID = data?.AmpID;

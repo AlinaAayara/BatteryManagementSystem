@@ -84,7 +84,7 @@ export const fields = [
         placeholder: "B2B Price",
         label: "B2B Price",
         isVisible: true,
-        bootstrapFormGroup: 3,
+        bootstrapFormGroup: 4,
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     },
@@ -95,7 +95,7 @@ export const fields = [
         placeholder: "B2C Price",
         label: "B2C Price",
         isVisible: true,
-        bootstrapFormGroup: 3,
+        bootstrapFormGroup: 4,
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     },
@@ -106,21 +106,21 @@ export const fields = [
         placeholder: "B2M Price",
         label: "B2M Price",
         isVisible: true,
-        bootstrapFormGroup: 3,
+        bootstrapFormGroup: 4,
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     },
-    {
-        fieldName: "OldBatteryPrice",
-        validation: null,
-        defaultValue: "",
-        placeholder: "Price",
-        label: "Old Battery",
-        isVisible: true,
-        bootstrapFormGroup: 3,
-        controlType: controlType.Textbox,
-        directiveName: directiveList.appDecimaNumber
-    },
+    // {
+    //     fieldName: "OldBatteryPrice",
+    //     validation: null,
+    //     defaultValue: "",
+    //     placeholder: "Price",
+    //     label: "Old Battery",
+    //     isVisible: true,
+    //     bootstrapFormGroup: 3,
+    //     controlType: controlType.Textbox,
+    //     directiveName: directiveList.appDecimaNumber
+    // },
     {
         fieldName: "WarrantyPeriod",
         validation: [Validators.required],

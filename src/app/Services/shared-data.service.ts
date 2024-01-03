@@ -170,4 +170,20 @@ export class SharedDataService {
       headers: { 'content-type': 'application/json' }
     });
   }
+
+  /* function will return isShowOnMenuBar based submenu */
+  getIsShowOnMenuBar(currentUser, isShowOnMenuBar) {
+    let subMenuList: any = [];
+    currentUser?.menu?.forEach(menu => {
+      menu?.subMenu?.forEach(sub => {
+        if (sub.isShowOnMenuBar == isShowOnMenuBar) {
+          subMenuList.push(sub);
+        }
+      })
+      menu.subMenu = subMenuList;
+      subMenuList = [];
+    });
+    //currentUser.menu = menuList;
+    return currentUser;
+  }
 }

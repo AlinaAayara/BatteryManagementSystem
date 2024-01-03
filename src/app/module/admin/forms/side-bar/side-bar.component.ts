@@ -16,13 +16,14 @@ export class SideBarComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes?.['currentUser']) {
-      this.currentUser = changes['currentUser']?.currentValue;
+      this.currentUser = this._sharedDataService.getIsShowOnMenuBar(changes['currentUser']?.currentValue, "1");
     }
   }
   ngOnInit(): void {
-    this.currentUser = this?._sharedDataService?.currentUser;
+    this.currentUser = this._sharedDataService.getIsShowOnMenuBar(this?._sharedDataService?.currentUser, "1");
   }
-  logout(){
+
+  logout() {
     this._sharedDataService.logout();
   }
 }
