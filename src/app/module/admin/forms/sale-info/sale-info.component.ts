@@ -265,7 +265,7 @@ export class SaleInfoComponent implements OnInit {
     DiscountAmount = this.SaleInfoForm.get("DiscountAmount")?.value || 0;
     FinalAmount = TotalAmount - DiscountAmount - TotalOldBatteryAmount;
     TotalPaidAmount = this.SaleInfoForm.get("TotalPaidAmount")?.value || 0;
-    TotalPaidAmount = FinalAmount;
+    TotalPaidAmount = (TotalPaidAmount <= FinalAmount) && (this.SaleInfoForm.get("TotalPaidAmount")?.dirty) ? TotalPaidAmount : FinalAmount;
     PendingAmount = FinalAmount - TotalPaidAmount;
 
     this.SaleInfoForm.patchValue({

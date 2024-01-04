@@ -19,6 +19,7 @@ export class AppUrl {
     public static basicGroupURL = "BasicGroup/";
     public static basicAmpURL = "BasicAmp/";
     public static basicPaymentModeURL = "BasicPaymentMode/";
+    public static saleReturnInfoURL = "SaleReturnInfo/";
 
     public static reportViewerURL = "ReportViewer/ViewReport"
 
@@ -51,7 +52,6 @@ export class AppUrl {
 
         add_saleInfo: AppUrl.baseURL + AppUrl.saleInfoURL + "AddSale",
         get_saleInfo: AppUrl.baseURL + AppUrl.saleInfoURL + "GetSale",
-        saleReturn: AppUrl.baseURL + AppUrl.saleInfoURL + "SaleReturn",
         
         get_PurchaseProductInfo_BySerialNo : AppUrl.baseURL + AppUrl.saleInfoURL + "GetPurchaseProductInfoBySerialNo",
         get_Next_BillNo : AppUrl.baseURL + AppUrl.saleInfoURL + "GetSaleBillNo",
@@ -71,6 +71,9 @@ export class AppUrl {
 
         add_basicPaymentMode: AppUrl.baseURL + AppUrl.basicPaymentModeURL + "AddPaymentMode",
         get_basicPaymentMode: AppUrl.baseURL + AppUrl.basicPaymentModeURL + "GetPaymentMode",
+
+        add_saleReturnInfo: AppUrl.baseURL + AppUrl.saleReturnInfoURL + "AddSaleReturn",
+        get_saleReturnInfo: AppUrl.baseURL + AppUrl.saleReturnInfoURL + "GetSaleReturn",
 
         reportViewer : AppUrl.baseURL + AppUrl.reportViewerURL
         

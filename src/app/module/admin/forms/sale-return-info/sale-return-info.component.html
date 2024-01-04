@@ -20,25 +20,25 @@
                                         SaleReturnInfoForm.get('SaleReturnDate')?.dirty) &&
                                         SaleReturnInfoForm.get('SaleReturnDate')?.errors)" [class.is-valid]="(
                                         !SaleReturnInfoForm.get('SaleReturnDate')?.errors)" class="form-control"
-                                                placeholder="Date"
-                                                appDate>
+                                                placeholder="Date" appDate>
                                             <span style="color:red" class="help-block" *ngIf="((SaleReturnInfoForm.get('SaleReturnDate')?.touched ||
                                             SaleReturnInfoForm.get('SaleReturnDate')?.dirty) &&
                                             SaleReturnInfoForm.get('SaleReturnDate')?.errors)">
                                                 Date is required.
                                             </span>
                                         </div>
-                                        <div class="col-md-7  mb-3">
-                                            <button type="button" class="btn btn-primary"
-                                                (click)="showCustomerInfoSlideIn(true)">
-                                                <i class=" demo-pli-mail-send fs-5"></i> {{btnChooseCustomerText}}
-                                            </button>
+                                    </div>
+                                    <div class="row mb-1" formGroupName="SaleReturnProductInfo">
+                                        <div class="col-sm-12">
+                                            <input type="text" formControlName="SerialNo"
+                                                class="form-control enter-focus" placeholder="Scan OR enter serial no"
+                                                id="SerialNo" (blur)="separateSerialNo()" #scanControl>
                                         </div>
                                     </div>
                                     <div class="row mb-1">
                                         <div class="col-sm-12">
-                                            <input type="text" formControlName="ReturnRemark" class="form-control"
-                                                placeholder="Enter remark" id="ReturnRemark">
+                                            <input type="text" formControlName="ReturnRemark" class="form-control enter-focus"
+                                                placeholder="Enter remark" id="ReturnRemark" #remarkControl>
                                         </div>
                                     </div>
                                     <div class="row mb-1">
@@ -110,10 +110,11 @@
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <div *ngIf="SaleProductInfo?.length" class="table-responsive">
+                            <div *ngIf="(this.SaleReturnInfoForm.get('SaleReturnProductList')?.value ?? [])?.length" class="table-responsive">
                                 <table class="table" style="background: white;">
                                     <thead>
                                         <tr>
+                                            <th>Remove</th>
                                             <th>Product</th>
                                             <th>Amp</th>
                                             <th>Serial No</th>
@@ -125,7 +126,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let prod of SaleProductInfo">
+                                        <tr *ngFor="let prod of this.SaleReturnInfoForm.get('SaleReturnProductList')?.value ?? []">
+                                            <td><button type="button" class="btn btn-danger" value="Delete" (click)="removeSaleProduct(prod)"><i class="demo-pli-trash fs-5"></i></button></td>
                                             <td>{{prod.ProductName}}</td>
                                             <td>{{prod.Amp}}</td>
                                             <td>{{prod.SerialNo}}</td>
@@ -145,7 +147,3 @@
         </section>
     </div>
 </div>
-<app-slide-in [showSlideIn]="isCustomerInfoSlideIn" (visibleChange)="showCustomerInfoSlideIn($event)">
-    <app-advance-customer-search [AdvanceSearchTextString]="''" [IsAccessedFromFormPage]="true"
-        (closeSlideInPopup)="isCustomerInfoSlideIn = $event"></app-advance-customer-search>
-</app-slide-in>

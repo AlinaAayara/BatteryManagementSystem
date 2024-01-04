@@ -12,8 +12,8 @@ export class SaleReturnInfoService {
     private _httpClient: HttpClient
   ) { }
 
-  SaleReturn(body): Observable<any> {
-    return this._httpClient.post<any[]>(AppUrl.API.saleReturn, body, {
+  AddSaleReturn(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.add_saleReturnInfo, body, {
       headers: { 'content-type': 'application/json' }
     });
   }

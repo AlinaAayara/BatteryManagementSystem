@@ -131,7 +131,7 @@ export class SharedDataService {
     this._router.navigate(["Login"]);
   }
 
-  requestBodyForAdvanceSearch(subMenuUrl, CustomerName, CustomerTypeID, IsSaleReturn) {
+  requestBodyForAdvanceSearch(subMenuUrl, CustomerName, CustomerTypeID, serialNo) {
     let obj: any = {};
     switch (subMenuUrl) {
       case "PurchaseInfo":
@@ -148,7 +148,7 @@ export class SharedDataService {
         obj.requestBody = {
           MethodName: "Sel_AdvanceSearch_SaleInfo",
           CustomerName: CustomerName,
-          IsSaleReturn: IsSaleReturn,
+          SerialNo:serialNo,
           Mode: "0"
         };
         obj.Url = AppUrl.API.get_saleInfo;
