@@ -71,12 +71,12 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
 
   serchCustomer() {
     const subMenuURL = this?.activeTab?.subMenuURL;
-    /* SubMenu ID condition is used here bcoz if we access this component in sales retunr , then it will not show already return sale product */
-    const SubMenuID = this.route.snapshot.queryParamMap.get("id");
-    const IsSaleReturn = (SubMenuID == "9" && this.IsAccessedFromFormPage) ? "0" : "";
-    //--===========================================================================--
+    // /* SubMenu ID condition is used here bcoz if we access this component in sales retunr , then it will not show already return sale product */
+    // const SubMenuID = this.route.snapshot.queryParamMap.get("id");
+    // const IsSaleReturn = (SubMenuID == "9" && this.IsAccessedFromFormPage) ? "0" : "";
+    // //--===========================================================================--
 
-    const obj = this._sharedDataService.requestBodyForAdvanceSearch(subMenuURL, this.CustomerName, this.CustomerTypeID, IsSaleReturn);
+    const obj = this._sharedDataService.requestBodyForAdvanceSearch(subMenuURL, this.CustomerName, this.CustomerTypeID, "");
     this._sharedDataService.advacneSearchPOST(obj?.Url, obj?.requestBody).subscribe({
       next: data => {
         this.setTabData(data);

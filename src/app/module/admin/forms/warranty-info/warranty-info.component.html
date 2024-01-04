@@ -2,9 +2,9 @@
     <div class="content__wrap">
         <section>
             <form class="row" [formGroup]="WarrantyInfoForm" (ngSubmit)="Submit($event)">
-                <div class="col-md-12 mb-1">
+                <div class="col-md-7 mb-1">
                     <div class="row">
-                        <div class="col-md-2 mb-1">
+                        <div class="col-md-3 mb-1">
                             <div class="card h-100">
                                 <div class="card-body">
                                     <h5 class="card-title">Warranty Replacement</h5>
@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-5">
                             <div *ngIf="selectedCustomer?.CustomerID" class="col-sm-12 col-md-6 col-xl-12 mb-1">
                                 <div class="tab-base">
                                     <ul class="nav nav-callout justify-content-end" role="tablist">
@@ -76,85 +76,99 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 mb-1"
-                        *ngIf="this['OldProduct'] = WarrantyInfoForm.get('WarrantyProductInfo')?.value?.OldProduct">
-                        <div class="tab-base">
-                            <ul class="nav nav-callout justify-content-end" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" data-bs-toggle="tab"
-                                        [attr.data-bs-target]="'#home_new_'+ this['OldProduct']?.SaleProductInfo?.[0]?.SaleProductID" type="button"
-                                        role="tab" aria-controls="home" aria-selected="true">Detail</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" data-bs-toggle="tab"
-                                        [attr.data-bs-target]="'#more_new_'+ this['OldProduct']?.SaleProductInfo?.[0]?.SaleProductID" type="button"
-                                        role="tab" aria-controls="profile" aria-selected="false">More info</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" type="button" role="tab"
-                                        (click)="removeOldProduct(this['OldProduct'])"><i
-                                            class="demo-pli-cross fs-5"></i></button>
-                                </li>
-                            </ul>
+                        <div class="col-md-4 mb-1"
+                            *ngIf="this['OldProduct'] = WarrantyInfoForm.get('WarrantyProductInfo')?.value?.OldProduct">
+                            <div class="tab-base">
+                                <ul class="nav nav-callout justify-content-end" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" data-bs-toggle="tab"
+                                            [attr.data-bs-target]="'#home_new_'+ this['OldProduct']?.SaleProductInfo?.[0]?.SaleProductID"
+                                            type="button" role="tab" aria-controls="home"
+                                            aria-selected="true">Detail</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" data-bs-toggle="tab"
+                                            [attr.data-bs-target]="'#more_new_'+ this['OldProduct']?.SaleProductInfo?.[0]?.SaleProductID"
+                                            type="button" role="tab" aria-controls="profile" aria-selected="false">More
+                                            info</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" type="button" role="tab"
+                                            (click)="removeOldProduct(this['OldProduct'])"><i
+                                                class="demo-pli-cross fs-5"></i></button>
+                                    </li>
+                                </ul>
 
-                            <div class="tab-content">
-                                <div id="home_new_{{this['OldProduct']?.SaleProductInfo?.[0]?.SaleProductID}}" class="tab-pane fade show active"
-                                    role="tabpanel" aria-labelledby="home-tab">
-                                    <h5 class="card-title">{{this['OldProduct']?.SaleProductInfo?.[0]?.ProductName}} -
-                                        <span>{{this['OldProduct']?.SaleProductInfo?.[0]?.SerialNo}}</span>
-                                    </h5>
-                                    <p style="cursor: pointer; color: blueviolet; text-decoration: underline;" (click)="openSaleInvoice(this['OldProduct']?.SaleID)">Sales Bill No. : {{this['OldProduct']?.BillNo}}</p>
-                                </div>
-                                <div id="more_new_{{this['OldProduct'].SaleProductInfo?.[0]?.SaleProductID}}" class="tab-pane fade" role="tabpanel"
-                                    aria-labelledby="profile-tab">
-                                    <h5 class="card-title">{{this['OldProduct']?.SaleProductInfo?.[0]?.ProductName}} -
-                                        <span>{{this['OldProduct']?.SaleProductInfo?.[0]?.SerialNo}}</span>
-                                    </h5>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Sale Bill No.</th>
-                                                    <th>{{this['OldProduct']?.BillNo}}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Sale Date</th>
-                                                    <th>{{this['OldProduct']?.BillDate}}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Guarantee Period</th>
-                                                    <th>{{this['OldProduct']?.SaleProductInfo?.[0]?.GuaranteePeriod}}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Guarantee End On</th>
-                                                    <th>{{this['OldProduct']?.SaleProductInfo?.[0]?.GuaranteeEndDate}}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Warranty Period</th>
-                                                    <th>{{this['OldProduct']?.SaleProductInfo?.[0]?.WarrantyPeriod}}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Warranty End On</th>
-                                                    <th>{{this['OldProduct']?.SaleProductInfo?.[0]?.WarrantyEndDate}}</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
+                                <div class="tab-content">
+                                    <div id="home_new_{{this['OldProduct']?.SaleProductInfo?.[0]?.SaleProductID}}"
+                                        class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
+                                        <h5 class="card-title">{{this['OldProduct']?.SaleProductInfo?.[0]?.ProductName}}
+                                            -
+                                            <span>{{this['OldProduct']?.SaleProductInfo?.[0]?.SerialNo}}</span>
+                                        </h5>
+                                        <p style="cursor: pointer; color: blueviolet; text-decoration: underline;"
+                                            (click)="openSaleInvoice(this['OldProduct']?.SaleID)">Sales Bill No. :
+                                            {{this['OldProduct']?.BillNo}}</p>
+                                        <p style="cursor: pointer; color: blueviolet; text-decoration: underline;"
+                                            (click)="openPurchaseInvoice(this['OldProduct']?.PurchaseID)">Purchase Bill
+                                            No. : {{this['OldProduct']?.PurchaseBillNo}}</p>
+                                    </div>
+                                    <div id="more_new_{{this['OldProduct'].SaleProductInfo?.[0]?.SaleProductID}}"
+                                        class="tab-pane fade" role="tabpanel" aria-labelledby="profile-tab">
+                                        <h5 class="card-title">{{this['OldProduct']?.SaleProductInfo?.[0]?.ProductName}}
+                                            -
+                                            <span>{{this['OldProduct']?.SaleProductInfo?.[0]?.SerialNo}}</span>
+                                        </h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sale Bill No.</th>
+                                                        <th>{{this['OldProduct']?.BillNo}}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Sale Date</th>
+                                                        <th>{{this['OldProduct']?.BillDate}}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Guarantee Period</th>
+                                                        <th>{{this['OldProduct']?.SaleProductInfo?.[0]?.GuaranteePeriod}}
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Guarantee End On</th>
+                                                        <th>{{this['OldProduct']?.SaleProductInfo?.[0]?.GuaranteeEndDate}}
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Warranty Period</th>
+                                                        <th>{{this['OldProduct']?.SaleProductInfo?.[0]?.WarrantyPeriod}}
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Warranty End On</th>
+                                                        <th>{{this['OldProduct']?.SaleProductInfo?.[0]?.WarrantyEndDate}}
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </div>
+                        </div>
                     </div>
                     <div class="row" formGroupName="WarrantyProductInfo">
-                        <div class="col-md-4 mb-1">
+                        <div class="col-md-8 mb-1">
                             <div class="card ">
                                 <div class="card-body">
                                     <h5 class="card-title">Product</h5>
                                     <div class="row mb-2">
                                         <div class="col-6">
-                                            <input id="id_SerialNo" formControlName="OldSerialNo" type="text"
-                                                class="form-control" placeholder="enter OLD Serial No" (blur)="getOldProductDetailBySerialNo()">
+                                            <input id="id_OldSerialNo" formControlName="OldSerialNo" type="text"
+                                                class="form-control" placeholder="enter OLD Serial No"
+                                                (blur)="getOldProductDetailBySerialNo()">
                                         </div>
                                         <div class="col-6">
                                             <input id="id_SerialNo" formControlName="NewSerialNo" type="text"
@@ -165,19 +179,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 mb-1"
+                        <div class="col-md-4 mb-1"
                             *ngIf="this['NewProduct'] = WarrantyInfoForm.get('WarrantyProductInfo')?.value?.NewProduct">
                             <div class="tab-base">
                                 <ul class="nav nav-callout justify-content-end" role="tablist">
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link active" data-bs-toggle="tab"
-                                            [attr.data-bs-target]="'#home_'+ this['NewProduct']?.PurchaseProductID" type="button"
-                                            role="tab" aria-controls="home" aria-selected="true">Detail</button>
+                                            [attr.data-bs-target]="'#home_'+ this['NewProduct']?.PurchaseProductID"
+                                            type="button" role="tab" aria-controls="home"
+                                            aria-selected="true">Detail</button>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" data-bs-toggle="tab"
-                                            [attr.data-bs-target]="'#more_'+ this['NewProduct']?.PurchaseProductID" type="button"
-                                            role="tab" aria-controls="profile" aria-selected="false">More info</button>
+                                            [attr.data-bs-target]="'#more_'+ this['NewProduct']?.PurchaseProductID"
+                                            type="button" role="tab" aria-controls="profile" aria-selected="false">More
+                                            info</button>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" type="button" role="tab"
@@ -187,15 +203,17 @@
                                 </ul>
 
                                 <div class="tab-content">
-                                    <div id="home_{{this['NewProduct']?.PurchaseProductID}}" class="tab-pane fade show active"
-                                        role="tabpanel" aria-labelledby="home-tab">
+                                    <div id="home_{{this['NewProduct']?.PurchaseProductID}}"
+                                        class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
                                         <h5 class="card-title">{{this['NewProduct']?.ProductName}} -
                                             <span>{{this['NewProduct']?.SerialNo}}</span>
                                         </h5>
-                                        <p style="cursor: pointer; color: blueviolet; text-decoration: underline;" (click)="openPurchaseInvoice(this['NewProduct']?.PurchaseID)">Purchase Bill No. : {{this['NewProduct']?.BillNo}}</p>
+                                        <p style="cursor: pointer; color: blueviolet; text-decoration: underline;"
+                                            (click)="openPurchaseInvoice(this['NewProduct']?.PurchaseID)">Purchase Bill
+                                            No. : {{this['NewProduct']?.BillNo}}</p>
                                     </div>
-                                    <div id="more_{{this['NewProduct'].PurchaseProductID}}" class="tab-pane fade" role="tabpanel"
-                                        aria-labelledby="profile-tab">
+                                    <div id="more_{{this['NewProduct'].PurchaseProductID}}" class="tab-pane fade"
+                                        role="tabpanel" aria-labelledby="profile-tab">
                                         <h5 class="card-title">{{this['NewProduct']?.ProductName}} -
                                             <span>{{this['NewProduct']?.SerialNo}}</span>
                                         </h5>
@@ -232,55 +250,107 @@
                         </div>
                     </div>
                     <div class="row" formGroupName="WarrantyProductInfo">
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-12 mb-3">
                             <div class="card ">
                                 <div class="card-body">
-                                    <h5 class="card-title">Final</h5>
+                                    <h5 class="card-title">Add</h5>
                                     <div class="d-flex flex-wrap justify-content-center gap-2 mb-1">
                                         <div class="btn-group" role="group"
                                             aria-label="Basic radio toggle button group">
                                             <input type="radio" class="btn-check" id="FreeReplacement" [value]="'F'"
-                                                formControlName="WarrantyType">
+                                                formControlName="WarrantyType" (change)="onWarrantyTypeChange()">
                                             <label class="btn btn-outline-primary" for="FreeReplacement">Free
                                                 Replacement</label>
                                             <input type="radio" class="btn-check" id="DiscountReplacement" [value]="'D'"
-                                                formControlName="WarrantyType">
+                                                formControlName="WarrantyType" (change)="onWarrantyTypeChange()">
                                             <label class="btn btn-outline-primary" for="DiscountReplacement">Discount
                                                 Replacement</label>
                                         </div>
                                     </div>
-                                    <div class="row mb-1">
-                                        <label for="SalePrice" class="col-sm-2 col-form-label">Sale Price</label>
-                                        <div class="col-sm-4">
-                                            <input type="text" formControlName="SalePrice" class="form-control"
-                                                id="SalePrice">
-                                        </div>
-                                        <label for="FinalPrice" class="col-sm-2 col-form-label">Final Price</label>
-                                        <div class="col-sm-4">
-                                            <input type="text" formControlName="FinalPrice" class="form-control"
-                                                id="FinalPrice">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-1"
+                                    <ng-container
                                         *ngIf="this.WarrantyInfoForm.get('WarrantyProductInfo')?.value?.WarrantyType === 'D'">
-                                        <label for="DiscountPercentage" class="col-sm-2 col-form-label">Discount
-                                            %</label>
-                                        <div class="col-sm-4">
-                                            <input type="text" formControlName="DiscountPercentage" class="form-control"
-                                                (change)="calculateDiscuntAmount()" id="DiscountPercentage">
+                                        <div class="row mb-1">
+                                            <div class="col-sm-6">
+                                                <input type="text" formControlName="SalePrice" placeholder="Sale Price"
+                                                    (keyup)="calculateDiscuntAmount()" class="form-control"
+                                                    id="SalePrice">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" formControlName="FinalPrice"
+                                                    placeholder="Final Price" class="form-control" id="FinalPrice">
+                                            </div>
                                         </div>
-                                        <label for="DiscountAmount" class="col-sm-2 col-form-label">Discount
-                                            Amount</label>
-                                        <div class="col-sm-4">
-                                            <input type="text" formControlName="DiscountAmount" class="form-control"
-                                                id="DiscountAmount">
+                                        <div class="row mb-1">
+                                            <div class="col-sm-6">
+                                                <input type="text" formControlName="DiscountPercentage"
+                                                    placeholder="Discount %" class="form-control"
+                                                    (keyup)="calculateDiscuntAmount()" id="DiscountPercentage">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" formControlName="DiscountAmount"
+                                                    placeholder="Discount Amount" class="form-control"
+                                                    id="DiscountAmount">
+                                            </div>
+                                        </div>
+                                    </ng-container>
+
+                                    <div class="mt-4 d-grid gap-2 d-md-block">
+                                        <button type="button" class="btn btn-secondary enter-focus"
+                                            (click)="SubmitWarrantyProduct()"> Add</button>
+                                        |
+                                        <button type="button" class="btn btn-danger" (click)="clearWarrantyProduct()">
+                                            Clear</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 mb-1">
+                    <div class="row" formGroupName="WarrantyProductInfo">
+                        <div class="col-md-12 mb-3">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <h5 class="card-title">Final</h5>
+                                    <div class="col-md-12">
+                                        <div *ngIf="(this.WarrantyInfoForm.get('WarrantyProductList')?.value ?? [])?.length"
+                                            class="table-responsive">
+                                            <table class="table" style="background: white;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Remove</th>
+                                                        <th>Warranty Type</th>
+                                                        <th>Old Serial No</th>
+                                                        <th>New Serial No</th>
+                                                        <th>Discount %</th>
+                                                        <th>Discount Amt</th>
+                                                        <th>Sale Price</th>
+                                                        <th>Final Price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr
+                                                        *ngFor="let prod of this.WarrantyInfoForm.get('WarrantyProductList')?.value ?? []">
+                                                        <td><button type="button" class="btn btn-danger" value="Delete"
+                                                                (click)="removeWarrantyProduct(prod)"><i
+                                                                    class="demo-pli-trash fs-5"></i></button></td>
+                                                        <td>{{prod.WarrantyType == 'F' ? 'Free' : 'Discount'}}</td>
+                                                        <td>{{prod.OldSerialNo}}</td>
+                                                        <td>{{prod.NewSerialNo}}</td>
+                                                        <td>{{prod.DiscountPercentage}}</td>
+                                                        <td>{{prod.DiscountAmount}}</td>
+                                                        <td>{{prod.SalePrice}}</td>
+                                                        <td>{{prod.FinalPrice}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                     <div class="row mb-1">
                                         <div class="mt-4 d-grid gap-2 d-md-block">
-                                            <button type="submit" class="btn btn-primary" [disabled]="WarrantyInfoForm.invalid || ((this.WarrantyInfoForm.get('SaleProductList')?.value ?? []).length==0 
-                                                || !selectedCustomer?.CustomerID
-                                                || showLoader)">
+                                            <button type="submit" class="btn btn-primary" [disabled]="WarrantyInfoForm.invalid || (
+                                                showLoader)">
                                                 <ng-container *ngIf="showLoader">
                                                     <span class="spinner-border spinner-border-sm"></span>
                                                     Loading..
@@ -299,6 +369,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </form>
         </section>

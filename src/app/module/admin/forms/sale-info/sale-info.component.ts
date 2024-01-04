@@ -297,6 +297,7 @@ export class SaleInfoComponent implements OnInit {
     this.showLoader = false;
     this.SaleInfoForm.get("BillDate")?.setValue(this._sharedDataService?.currentUser?.todaysDate);
     this.getBillNo();
+    this.SaleInfoForm.get("OldBatteryCount")?.setValue("1");
   }
 
   /* this function will trigger when click on edit button on sale info search page */

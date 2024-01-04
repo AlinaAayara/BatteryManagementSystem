@@ -23,6 +23,11 @@ export class AdvanceSerachSaleInfo {
     public SaleProductInfo = Array<SaleProductInfo>();
     public DiscountAmount: "";
     public OldBatteryPurchasePrice: "";
+    public PurchaseID: "";
+    public PurchaseBillNo: "";
+    public SaleReturnID: "";
+    public SaleReturnDate: "";
+    public ReturnRemark: "";
 
     constructor(sale: any = {}) {
         this.SaleID = sale?.saleID || "";
@@ -45,6 +50,11 @@ export class AdvanceSerachSaleInfo {
         this.VehiclelNo = sale?.vehiclelNo || "";
         this.DiscountAmount = sale?.discountAmount || "";
         this.OldBatteryPurchasePrice = sale?.oldBatteryPurchasePrice || "";
+        this.PurchaseID = sale?.purchaseID || "";
+        this.PurchaseBillNo = sale?.purchaseBillNo || "";
+        this.SaleReturnID = sale?.saleReturnID || "";
+        this.SaleReturnDate = sale?.saleReturnDate || "";
+        this.ReturnRemark = sale?.returnRemark || "";
 
         if (sale && sale?.saleProductInfo && sale?.saleProductInfo?.length) {
             sale?.saleProductInfo?.forEach((party: any) => {

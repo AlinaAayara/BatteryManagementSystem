@@ -15,7 +15,6 @@ export function generatePostRequestBody(data: any, mode :string) {
     body.FinalAmount = data?.FinalAmount;
     body.DiscountAmount = data?.DiscountAmount;
     body.TotalPaidAmount = data?.TotalPaidAmount;
-    body.IsSaleReturn = data?.IsSaleReturn;
     body.AmpID = data?.AmpID;
     body.PaymentModeID = data?.PaymentModeID;
     body.Remark = data?.Remark;
