@@ -62,7 +62,7 @@ export class SaleInfoComponent implements OnInit {
       ),
       SaleProductList: [[], Validators.required],
       Print: [false],
-      AmpID: ["", Validators.required],
+      AmpID: [""],
       PaymentModeID: ["", Validators.required],
       Remark: [""]
     });

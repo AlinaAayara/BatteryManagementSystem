@@ -173,6 +173,7 @@ export class SharedDataService {
 
   /* function will return isShowOnMenuBar based submenu */
   getIsShowOnMenuBar(currentUser, isShowOnMenuBar) {
+    currentUser = JSON.parse(JSON.stringify(currentUser));
     let subMenuList: any = [];
     currentUser?.menu?.forEach(menu => {
       menu?.subMenu?.forEach(sub => {

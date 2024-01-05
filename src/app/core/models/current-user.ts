@@ -45,6 +45,11 @@ export class SubMenu {
     public sequenceNo = "";
     public isWrite = "";
     public isDelete = "";
+    public isShowOnMenuBar = "";
+    public filterCriteria = "";
+    public reportID = "";
+    public reportName = "";
+    public storedProcedureName = "";
     constructor(subMenuInfo: any = {}) {
         this.subMenuID = subMenuInfo?.subMenuID || "";
         this.subMenuName = subMenuInfo?.subMenuName || "";
@@ -52,5 +57,10 @@ export class SubMenu {
         this.sequenceNo = subMenuInfo?.sequenceNo || "";
         this.isWrite = subMenuInfo?.isWrite || "";
         this.isDelete = subMenuInfo?.isDelete || "";
+        this.isShowOnMenuBar = subMenuInfo?.isShowOnMenuBar || "";
+        this.filterCriteria = subMenuInfo?.filterCriteria || "";
+        this.reportID = subMenuInfo?.reportID || "";
+        this.reportName = subMenuInfo?.reportName || "";
+        this.storedProcedureName = subMenuInfo?.storedProcedureName || "";
     }
 }
