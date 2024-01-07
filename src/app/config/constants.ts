@@ -27,12 +27,12 @@ export const Constant = {
     ],
     SALE_OR_PURCHASE_TYPE: [
         {
-            Value: "S",
-            Text: "Sale"
-        },
-        {
             Value: "P",
             Text: "Purchase"
+        },
+        {
+            Value: "S",
+            Text: "Sale"
         }
     ],
     CHOOSE_CUSTOMER: "Choose Customer",
