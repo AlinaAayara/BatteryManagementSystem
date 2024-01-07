@@ -49,6 +49,11 @@ export class WarrantyInfoComponent implements OnInit {
           WarrantyType: ["F"],
           CustomerID: [""],
           SaleID: [""],
+          ProductID: [""],
+          GuaranteePeriod: [""],
+          GuaranteeEndDate: [""],
+          WarrantyPeriod: [""],
+          WarrantyEndDate: [""],
           OldSerialNo: [""],
           NewSerialNo: [""],
           DiscountPercentage: [""],
@@ -160,12 +165,9 @@ export class WarrantyInfoComponent implements OnInit {
   /* this function will trigger when click on edit button on sale info search page */
   edit() {
     this._sharedDataService.warrantyInfoEdit.subscribe(item => {
-      this.showCustomerModel(item);
-      this.showSaleModel(item);
       this.WarrantyInfoForm.patchValue(item);
       this.isAdd = false;
-      this.WarrantyInfoForm.get("CustomerID")?.setValue(item?.CustomerInfo?.CustomerID);
-      this.WarrantyInfoForm.get("WarrantyProductList")?.setValue(item?.SaleProductInfo ?? []);
+      this.WarrantyInfoForm.get("WarrantyProductList")?.setValue(item?.WarrantyProductInfo ?? []);
       this.calculateDiscuntAmount();
     });
   }
@@ -185,7 +187,7 @@ export class WarrantyInfoComponent implements OnInit {
 
     this._saleInfoService.getSerialNoDetail(this.getSerialNoDetailRequestBody(SerialNo)).subscribe({
       next: data => {
-        if(data?.[0]){
+        if (data?.[0]) {
           this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("NewProduct")?.setValue(data?.[0]);
         } else {
           this._sharedDataService.NotieError("Enter valid serial no.");
@@ -205,8 +207,13 @@ export class WarrantyInfoComponent implements OnInit {
     if (["", undefined, null].includes(SerialNo)) {
       return;
     }
-    const obj = this._sharedDataService.requestBodyForAdvanceSearch("SaleInfo", "", "", SerialNo);
-    this._sharedDataService.advacneSearchPOST(obj?.Url, obj?.requestBody).subscribe({
+    const obj = {
+      MethodName: "Sel_SerialNo_ForWarranty",
+      SerialNo: SerialNo,
+      Mode: "0"
+    };
+
+    this._warrantyInfoService.GetOldSerialNo(obj).subscribe({
       next: data => {
         let saleProductInfo = data?.[0]?.saleProductInfo?.filter(serial => (serial?.serialNo === SerialNo && [0, null, undefined, ""].includes(serial.saleReturnID)))?.[0];
         if (saleProductInfo) {
@@ -215,6 +222,11 @@ export class WarrantyInfoComponent implements OnInit {
           this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("OldProduct")?.setValue(OldProduct);
           this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("CustomerID")?.setValue(OldProduct?.CustomerID);
           this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("SaleID")?.setValue(OldProduct?.SaleID);
+          this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("ProductID")?.setValue(saleProductInfo?.productID);
+          this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("GuaranteePeriod")?.setValue(saleProductInfo?.guaranteePeriod);
+          this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("GuaranteeEndDate")?.setValue(saleProductInfo?.guaranteeEndDate);
+          this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("WarrantyPeriod")?.setValue(saleProductInfo?.warrantyPeriod);
+          this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("WarrantyEndDate")?.setValue(saleProductInfo?.warrantyEndDate);
 
           this.showCustomerModel(OldProduct);
           this.showSaleModel(OldProduct);
@@ -222,14 +234,16 @@ export class WarrantyInfoComponent implements OnInit {
         else {
           this._sharedDataService.NotieError("Enter valid serial no.");
           this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("OldSerialNo")?.setValue("");
+          this.clearWarrantyProduct();
         }
       },
       error: error => {
         this.WarrantyInfoForm.get("WarrantyProductInfo")?.get("OldSerialNo")?.setValue("");
         this._sharedDataService.NotieError(error.error);
         document?.getElementById("id_OldSerialNo")?.focus();
+        this.clearWarrantyProduct();
       }
-    });
+    })
   }
 
   /* function will trigger on warranty type radio button change */

@@ -106,7 +106,7 @@
                                             -
                                             <span>{{this['OldProduct']?.SaleProductInfo?.[0]?.SerialNo}}</span>
                                         </h5>
-                                        <p style="cursor: pointer; color: blueviolet; text-decoration: underline;"
+                                        <p *ngIf="this['OldProduct']?.SoldWith === 'SaleInfo'" style="cursor: pointer; color: blueviolet; text-decoration: underline;"
                                             (click)="openSaleInvoice(this['OldProduct']?.SaleID)">Sales Bill No. :
                                             {{this['OldProduct']?.BillNo}}</p>
                                         <p style="cursor: pointer; color: blueviolet; text-decoration: underline;"

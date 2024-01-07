@@ -17,4 +17,10 @@ export class WarrantyInfoService {
       headers: { 'content-type': 'application/json' }
     });
   }
+
+  GetOldSerialNo(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.getOldSerailNo_warrantyInfo, body, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
 }

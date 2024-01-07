@@ -28,6 +28,7 @@ export class AdvanceSerachSaleInfo {
     public SaleReturnID: "";
     public SaleReturnDate: "";
     public ReturnRemark: "";
+    public SoldWith: "";
 
     constructor(sale: any = {}) {
         this.SaleID = sale?.saleID || "";
@@ -55,6 +56,7 @@ export class AdvanceSerachSaleInfo {
         this.SaleReturnID = sale?.saleReturnID || "";
         this.SaleReturnDate = sale?.saleReturnDate || "";
         this.ReturnRemark = sale?.returnRemark || "";
+        this.SoldWith = sale?.soldWith || "";
 
         if (sale && sale?.saleProductInfo && sale?.saleProductInfo?.length) {
             sale?.saleProductInfo?.forEach((party: any) => {
