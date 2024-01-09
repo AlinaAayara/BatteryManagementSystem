@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PurchaseInfoService } from 'src/app/Services/PurchaseInfo/purchase-info.service';
 import { SaleInfoService } from 'src/app/Services/SaleInfo/sale-info.service';
 import { SharedDataService } from 'src/app/Services/shared-data.service';
@@ -10,13 +10,13 @@ import { SubMenu } from 'src/app/core/models/current-user';
   templateUrl: './reports.component.html',
   styleUrls: ['./reports.component.css']
 })
-export class ReportsComponent implements OnInit {
+export class ReportsComponent implements OnInit, OnDestroy {
   public reportList: SubMenu[] = [];;
   public ReportID;
   public categoryList: any;
   public productList: any;
   public partyList: any;
-  public CustomerTypes = Constant.CUSTOMER_TYPE;
+  public CustomerTypes;
   public ampList: any;
   public activeReport: SubMenu;
 
@@ -28,6 +28,7 @@ export class ReportsComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.CustomerTypes = JSON.parse(JSON.stringify(Constant.CUSTOMER_TYPE));
     /* option for select all */
     this.CustomerTypes.push({
       Value: "",
@@ -149,5 +150,9 @@ export class ReportsComponent implements OnInit {
       }
     });
     this._sharedDataService.openReportSlideIn.next(queryString);
+  }
+
+  ngOnDestroy(): void {
+    this.CustomerTypes = Constant.CUSTOMER_TYPE;
   }
 }

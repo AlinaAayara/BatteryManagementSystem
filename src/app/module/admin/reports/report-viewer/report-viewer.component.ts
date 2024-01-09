@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SharedDataService } from 'src/app/Services/shared-data.service';
 import { AppUrl } from 'src/app/config/api';
 
 @Component({
@@ -12,12 +13,13 @@ export class ReportViewerComponent implements OnInit, OnChanges {
   @Input() public queryString: string;
 
   constructor(
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private _sharedDataService: SharedDataService
   ) {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes?.['queryString']) {
-      this.reportUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${AppUrl.API.reportViewer}?${changes['queryString']?.currentValue}`);
+      this.reportUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${AppUrl.API.reportViewer}?FirmID=${this._sharedDataService.currentUser.firmID}&${changes['queryString']?.currentValue}`);
     }
   }
   ngOnInit(): void {
