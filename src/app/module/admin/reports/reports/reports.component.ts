@@ -28,6 +28,13 @@ export class ReportsComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    /* option for select all */
+    this.CustomerTypes.push({
+      Value: "",
+      Text: "All"
+    });
+
+
     this.reportList = [];
     this._sharedDataService.currentUser?.menu?.forEach(menu => {
       menu?.subMenu?.forEach(sub => {

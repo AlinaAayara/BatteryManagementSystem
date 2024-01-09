@@ -71,12 +71,12 @@
                 <div class="row mb-1">
                     <div *ngIf="this['CustomerTypeIDControl']"
                         class="col-md-3 col-sm-12 d-flex flex-wrap justify-content-center gap-2">
-                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <div class="btn-group" role="CustomerTypesgroup" aria-label="CustomerTypes CustomerTypesradio toggle button CustomerTypesgroup">
                             <ng-container *ngFor="let group of CustomerTypes">
-                                <input type="radio" class="btn-check" id="Search_{{group.Value}}" [value]="group.Value"
+                                <input type="radio" class="btn-check" id="Search_{{group.Text}}" [value]="group.Value"
                                     [(ngModel)]="this['CustomerTypeID']">
                                 <label class="btn btn-outline-primary"
-                                    for="Search_{{group.Value}}">{{group.Text}}</label>
+                                    for="Search_{{group.Text}}">{{group.Text}}</label>
                             </ng-container>
                         </div>
                     </div>
