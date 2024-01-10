@@ -142,7 +142,7 @@ export class PurchaseInfoComponent implements OnInit {
   }
 
   /* This will trigger On final save button  */
-  Submit(e) {
+  Submit() {
     this.showLoader = true;
     this._purchaseInfoService.AddPurchase(generatePostRequestBody(this.PurchaseInfoForm.getRawValue(), this.isAdd ? "0" : "1")).subscribe({
       next: data => {
@@ -168,18 +168,58 @@ export class PurchaseInfoComponent implements OnInit {
   }
   /* This will create array based on Serial no input string, in which you have comma seperated serial no */
   separateSerialNo(event) {
+    this.isValidSerialNo();
+  }
+  /* funtion will check is the serial no valid to add menas is it already purchased */
+  isValidSerialNo() {
     let serialNo = this.PurchaseInfoForm.get("purchaseProductInfo")?.value?.SerialNo;
-    const separateByComma = serialNo?.replace(/,\s*$/, "")?.replace(/\s/g, "")?.split(',');
-    if (serialNo?.length > 0) {
-      this.serialNoList = [...this.serialNoList, ...separateByComma];
-      this.calculatePurchaseProductTotal();
+    if ([undefined, "", null].includes(serialNo)) {
+      return;
     }
-    if (serialNo?.length > 0) {
-      this.PurchaseInfoForm.get("purchaseProductInfo")?.get("SerialNo")?.setValue("");
-      this.scanControl.nativeElement.focus();
+    const separateByComma = serialNo?.replace(/,\s*$/, "")?.replace(/\s/g, "");
+    let separateByCommaArray = serialNo?.replace(/,\s*$/, "")?.replace(/\s/g, "")?.split(',');
+
+    const checkAlreadyAdded = this.serialNoList.filter((item) => separateByCommaArray.includes(item));
+
+    if (checkAlreadyAdded?.length > 0) {
+      this._sharedDataService.NotieError(`These Serial No's ${checkAlreadyAdded?.join(",")} are already added`);
+      separateByCommaArray = separateByCommaArray?.filter((item) => !checkAlreadyAdded?.includes(item));
     }
-    else {
-      this.priceControl.nativeElement.focus();
+
+    this._purchaseInfoService.checkSerailNoIsValid(this.isValidSerialNoRequestBody(separateByComma)).subscribe({
+      next: data => {
+        if (data?.length > 0) {
+          data = data.map(item => item = item?.SerialNo);
+
+          this._sharedDataService.NotieError(`These Serial No's ${data?.join(",")} are already exists`);
+
+          separateByCommaArray = separateByCommaArray?.filter((item) => !data?.includes(item));
+        }
+
+        if (separateByCommaArray?.length > 0) {
+          this.serialNoList = [...this.serialNoList, ...separateByCommaArray];
+          this.calculatePurchaseProductTotal();
+        }
+        if (serialNo?.length > 0) {
+          this.PurchaseInfoForm.get("purchaseProductInfo")?.get("SerialNo")?.setValue("");
+          this.scanControl.nativeElement.focus();
+        }
+        else {
+          this.priceControl.nativeElement.focus();
+        }
+
+      },
+      error: error => {
+      }
+    });
+  }
+  /* request body for category list dropdown api call */
+  public isValidSerialNoRequestBody(separateByComma) {
+    return {
+      MethodName: "Sel_SerialNo_ForPurchase",
+      SerialNo: separateByComma,
+      Mode: "0",
+      PurchaseID: this.PurchaseInfoForm.get("PurchaseID")?.value
     }
   }
   /* This will add product object into array and clear the product from controls (child) */
@@ -282,7 +322,7 @@ export class PurchaseInfoComponent implements OnInit {
 
       item?.PurchaseProductInfo?.forEach(prod => {
         item?.PurchaseProductInfo?.forEach(serial => {
-          if (prod.ProductID == serial.ProductID) {
+          if (prod.ProductID == serial.ProductID && !SerialNo.includes(serial.SerialNo)) {
             SerialNo.push(serial.SerialNo);
           }
         });

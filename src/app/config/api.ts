@@ -46,6 +46,7 @@ export class AppUrl {
 
         add_purchaseInfo: AppUrl.baseURL + AppUrl.purchaseInfoURL + "AddPurchase",
         get_purchaseInfo: AppUrl.baseURL + AppUrl.purchaseInfoURL + "GetPurchase",
+        getSerialNoForPurchase_purchaseInfo: AppUrl.baseURL + AppUrl.purchaseInfoURL + "GetSerialNoForPurchase",
 
         add_customerInfo: AppUrl.baseURL + AppUrl.customerInfoURL + "AddCustomer",
         get_customerInfo: AppUrl.baseURL + AppUrl.customerInfoURL + "GetCustomer",

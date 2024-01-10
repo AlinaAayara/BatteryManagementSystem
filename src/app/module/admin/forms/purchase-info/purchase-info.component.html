@@ -2,7 +2,7 @@
     <div class="content__wrap">
 
         <section>
-            <form class="row" [formGroup]="PurchaseInfoForm" (ngSubmit)="Submit($event)">
+            <form class="row" [formGroup]="PurchaseInfoForm">
                 <div class="col-md-7 mb-1">
                     <div class="row">
                         <div class="col-md-8 mb-1">
@@ -274,7 +274,8 @@
                                     </div>
                                 </div>
                                 <div class="mt-4 d-grid gap-2 d-md-block">
-                                    <button type="submit" class="btn btn-primary"
+                                    <button type="button" class="btn btn-primary"
+                                    (click)="Submit()"
                                         [disabled]="PurchaseInfoForm.invalid || purchaseProductList.length==0 || showLoader">
                                         <ng-container *ngIf="showLoader">
                                             <span class="spinner-border spinner-border-sm"></span>
