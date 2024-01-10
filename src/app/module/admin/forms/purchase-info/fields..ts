@@ -58,9 +58,20 @@ export function generatePostRequestBody(data: any, mode: string) {
     body.TotalQuantity = data?.TotalQuantity;
     body.TotalAmount = data?.TotalAmount;
     body.TotalPaidAmount = data?.TotalPaidAmount;
+    body.PurchaseID = data?.PurchaseID;
+    body.GSTMode = data?.GSTMode;
+    body.CGST = data?.CGST;
+    body.CGSTAmount = data?.CGSTAmount;
+    body.SGST = data?.SGST;
+    body.SGSTAmount = data?.SGSTAmount;
+    body.IGST = data?.IGST;
+    body.IGSTAmount = data?.IGSTAmount;
+    body.ApplicableGSTType = data?.ApplicableGSTType;
+
     body.PurchaseProductList = Array();
     body.Mode = mode;
     body.MethodName = "InUp_PurchaseInfo";
+
     data?.PurchaseProductList?.forEach(product => {
         product?.SerialNoList?.forEach(srno => {
             let obj = {

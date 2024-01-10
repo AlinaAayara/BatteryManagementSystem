@@ -4,7 +4,7 @@ import { ProductInfoService } from "src/app/Services/ProductInfo/product-info.se
 import { SharedDataService } from "src/app/Services/shared-data.service";
 import { PurchaseInfoService } from "src/app/Services/PurchaseInfo/purchase-info.service";
 import { IPurchaseProductObject, generatePostRequestBody } from "./fields.";
-import { Constant } from "src/app/config/constants";
+import { APPLICABLE_GST_TYPE, Constant } from "src/app/config/constants";
 
 @Component({
   selector: 'app-purchase-info',
@@ -25,6 +25,8 @@ export class PurchaseInfoComponent implements OnInit {
   public btnChoosePartyText = Constant.CHOOSE_PARTY;
   @ViewChild("scanControl") scanControl: ElementRef;
   @ViewChild("priceControl") priceControl: ElementRef;
+  public basicGST: any;
+  public withOrWithoutGST = Constant.WITH_OR_WITHOUT_GST;
 
   constructor(
     private _FormBuilder: FormBuilder,
@@ -39,11 +41,32 @@ export class PurchaseInfoComponent implements OnInit {
     this.getCategoryList();
     this.getSelectedOrAdddedParty();
     this.edit();
+    this.getGST();
+  }
+
+
+  getGST() {
+    this._sharedDataService.getGST(this.getGSTRequestBody()).subscribe({
+      next: data => {
+        this.basicGST = data?.[0];
+        this.PurchaseInfoForm.get("GSTMode")?.setValue(data?.[0]?.GSTMode);
+      },
+      error: error => {
+      }
+    });
+  }
+
+  getGSTRequestBody() {
+    return {
+      MethodName: "Search_BasicGST",
+      GSTType: 'P'
+    }
   }
 
   purchaseInfoFormBuilder() {
     this.PurchaseInfoForm = this._FormBuilder.group({
       PurchaseID: [""],
+      GSTMode: ["", Validators.required],
       PartyID: ["", Validators.required],
       PurchaseDate: [this._sharedDataService?.currentUser?.todaysDate, Validators.required],
       BillNo: ["", Validators.required],
@@ -63,7 +86,14 @@ export class PurchaseInfoComponent implements OnInit {
         }
       ),
       PurchaseProductList: [Validators.required],
-      Print: [false]
+      Print: [false],
+      CGST: [""],
+      CGSTAmount: [{ value: 0, disabled: true }],
+      SGST: [""],
+      SGSTAmount: [{ value: 0, disabled: true }],
+      IGST: [""],
+      IGSTAmount: [{ value: 0, disabled: true }],
+      ApplicableGSTType: [APPLICABLE_GST_TYPE.I]
     });
   }
 
@@ -257,16 +287,42 @@ export class PurchaseInfoComponent implements OnInit {
     let TotalAmount = 0;
     let TotalPaidAmount = 0;
     let PendingAmount = 0;
+    let CGST = 0;
+    let CGSTAmount = 0;
+    let SGST = 0;
+    let SGSTAmount = 0;
+    let IGST = 0;
+    let IGSTAmount = 0;
 
     TotalQuantity = this.purchaseProductList?.reduce((n, { Quantity }) => n + Quantity, 0);
     TotalAmount = this.purchaseProductList?.reduce((n, { TotalAmount }) => (n) + parseFloat(TotalAmount), 0);
     TotalPaidAmount = this.PurchaseInfoForm.get("TotalPaidAmount")?.value || 0;
     PendingAmount = TotalAmount - TotalPaidAmount;
 
+    if (this.PurchaseInfoForm.get("GSTMode")?.value === "G" && this.PurchaseInfoForm.get("ApplicableGSTType")?.value === APPLICABLE_GST_TYPE.C) {
+      CGST = this.PurchaseInfoForm.get("CGST")?.value || 0;
+      SGST = this.PurchaseInfoForm.get("SGST")?.value || 0;
+      CGSTAmount = ((TotalAmount * CGST) / 100);
+      SGSTAmount = ((TotalAmount * SGST) / 100);
+    }
+    else if (this.PurchaseInfoForm.get("GSTMode")?.value === "G" && this.PurchaseInfoForm.get("ApplicableGSTType")?.value === APPLICABLE_GST_TYPE.I) {
+      IGST = this.PurchaseInfoForm.get("IGST")?.value || 0;
+      IGSTAmount = ((TotalAmount * IGST) / 100);
+    }
+
+
+
     this.PurchaseInfoForm.patchValue({
       TotalQuantity: TotalQuantity,
       TotalAmount: TotalAmount,
-      PendingAmount: PendingAmount
+      PendingAmount: PendingAmount,
+      CGSTAmount: CGSTAmount,
+      SGSTAmount: SGSTAmount,
+      IGSTAmount: IGSTAmount,
+      CGST: CGST,
+      SGST: SGST,
+      IGST: IGST
+
     })
 
   }
@@ -296,6 +352,8 @@ export class PurchaseInfoComponent implements OnInit {
     this.showLoader = false;
     this.removeSelectedParty();
     this.PurchaseInfoForm.get("PurchaseDate")?.setValue(this._sharedDataService?.currentUser?.todaysDate);
+    this.PurchaseInfoForm.get("GSTMode")?.setValue(this.basicGST?.GSTMode);
+    this.PurchaseInfoForm.get("ApplicableGSTType")?.setValue(APPLICABLE_GST_TYPE.C);
   }
 
   /* function to show party info componet in slide in on cick of choose party button  */
@@ -364,5 +422,31 @@ export class PurchaseInfoComponent implements OnInit {
     let purchaseAmount = this.PurchaseInfoForm.get("purchaseProductInfo")?.value?.Price ?? 0;
     this.PurchaseInfoForm.get("purchaseProductInfo")?.get("Quantity")?.setValue(this.serialNoList?.length);
     this.PurchaseInfoForm.get("purchaseProductInfo")?.get("TotalAmount")?.setValue(this.serialNoList?.length * purchaseAmount);
+  }
+
+  onWithOrWithoutGSTChange() {
+    const GSTMode = this.PurchaseInfoForm.get("GSTMode")?.value;
+    if (GSTMode === 'W') {
+      this.PurchaseInfoForm.patchValue({
+        CGST: "",
+        CGSTAmount: "0",
+        SGST: "",
+        SGSTAmount: "0",
+        IGST: "",
+        IGSTAmount: "0"
+      });
+    }
+    else {
+      this.PurchaseInfoForm.patchValue({
+        CGST: this.basicGST?.CGST,
+        CGSTAmount: "0",
+        SGST: this.basicGST?.SGST,
+        SGSTAmount: "0",
+        IGST: this.basicGST?.IGST,
+        IGSTAmount: "0"
+      });
+
+      this.updateTotalValues();
+    }
   }
 }

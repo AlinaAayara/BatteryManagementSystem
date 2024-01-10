@@ -187,4 +187,10 @@ export class SharedDataService {
     //currentUser.menu = menuList;
     return currentUser;
   }
+
+  getGST(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.get_basicGST, body, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
 }

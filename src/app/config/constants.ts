@@ -35,6 +35,16 @@ export const Constant = {
             Text: "Sale"
         }
     ],
+    WITH_OR_WITHOUT_GST: [
+        {
+            Value: "W",
+            Text: "Without GST"
+        },
+        {
+            Value: "G",
+            Text: "With GST"
+        }
+    ],
     CHOOSE_CUSTOMER: "Choose Customer",
     CHOOSE_PARTY: "Choose Party",
     CHOOSE_SOLD_PRODUCT: "Choose Sold Product",
@@ -85,4 +95,9 @@ export enum CustomerTypeID_ToPurchaseProduct {
     B = "BTBPrice",
     C = "BTCPrice",
     M = "BTMPrice"
+}
+
+export enum APPLICABLE_GST_TYPE {
+    C = "CSGT_SGST",
+    I = "IGST"
 }

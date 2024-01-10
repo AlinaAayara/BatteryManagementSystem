@@ -20,6 +20,7 @@ export class AppUrl {
     public static basicAmpURL = "BasicAmp/";
     public static basicPaymentModeURL = "BasicPaymentMode/";
     public static saleReturnInfoURL = "SaleReturnInfo/";
+    public static basicGSTURL = "BasicGST/";
 
     public static reportViewerURL = "ReportViewer/ViewReport"
 
@@ -77,6 +78,11 @@ export class AppUrl {
         add_saleReturnInfo: AppUrl.baseURL + AppUrl.saleReturnInfoURL + "AddSaleReturn",
         get_saleReturnInfo: AppUrl.baseURL + AppUrl.saleReturnInfoURL + "GetSaleReturn",
 
+        add_basicGST: AppUrl.baseURL + AppUrl.basicGSTURL + "AddGST",
+        get_basicGST: AppUrl.baseURL + AppUrl.basicGSTURL + "GetGST",
+
+
+        
         reportViewer : AppUrl.baseURL + AppUrl.reportViewerURL
         
 
