@@ -34,5 +34,15 @@ export const fields = [
         bootstrapFormGroup: 6,
         controlType: controlType.Textbox,
         directiveName: directiveList.NumberOnly
+    },
+    {
+        fieldName: "GSTNo",
+        validation: null,
+        defaultValue: "",
+        placeholder: "GST No",
+        label: "GST No",
+        isVisible: true,
+        bootstrapFormGroup: 12,
+        controlType: controlType.Textbox
     }
 ]

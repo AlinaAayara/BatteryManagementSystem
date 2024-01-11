@@ -101,6 +101,15 @@ export class PurchaseInfoComponent implements OnInit {
   getSelectedOrAdddedParty() {
     this._sharedDataService.getSelectedParty.subscribe(res => {
       this.showPartyModel(res);
+
+      if (!["", undefined, null].includes(res?.GSTNo)) {
+        const StateCode = res?.GSTNo?.substring(0, 2);
+        this.PurchaseInfoForm.get("ApplicableGSTType")?.setValue(
+          StateCode === this.basicGST.StateCode ? APPLICABLE_GST_TYPE.C : APPLICABLE_GST_TYPE.I
+        )
+        this.onWithOrWithoutGSTChange();
+        this.updateTotalValues();
+      }
     });
   }
 

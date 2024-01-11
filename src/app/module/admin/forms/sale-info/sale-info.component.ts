@@ -139,6 +139,15 @@ export class SaleInfoComponent implements OnInit {
   getSelectedOrAdddedCustomer() {
     this._sharedDataService.getSelectedCustomer.subscribe(res => {
       this.showCustomerModel(res);
+
+      if (!["", undefined, null].includes(res?.GSTNo)) {
+        const StateCode = res?.GSTNo?.substring(0, 2);
+        this.SaleInfoForm.get("ApplicableGSTType")?.setValue(
+          StateCode === this.basicGST.StateCode ? APPLICABLE_GST_TYPE.C : APPLICABLE_GST_TYPE.I
+        );
+        this.onWithOrWithoutGSTChange();
+        this.updateTotalValues();
+      }
     });
   }
 
