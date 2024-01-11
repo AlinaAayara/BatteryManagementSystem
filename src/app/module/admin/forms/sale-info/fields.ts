@@ -19,6 +19,15 @@ export function generatePostRequestBody(data: any, mode :string) {
     body.PaymentModeID = data?.PaymentModeID;
     body.Remark = data?.Remark;
 
+    body.GSTMode = data?.GSTMode;
+    body.CGST = data?.CGST;
+    body.CGSTAmount = data?.CGSTAmount;
+    body.SGST = data?.SGST;
+    body.SGSTAmount = data?.SGSTAmount;
+    body.IGST = data?.IGST;
+    body.IGSTAmount = data?.IGSTAmount;
+    body.ApplicableGSTType = data?.ApplicableGSTType;
+    
     body.SaleProductList = Array();
     body.Mode = mode;
     body.MethodName = "InUp_SaleInfo";

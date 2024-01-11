@@ -1,7 +1,7 @@
 <div class="content__boxed">
     <div class="content__wrap">
         <section>
-            <form class="row" [formGroup]="SaleInfoForm" (ngSubmit)="Submit($event)">
+            <form class="row" [formGroup]="SaleInfoForm">
                 <div class="col-md-7 mb-1">
 
                     <div class="row">
@@ -9,8 +9,21 @@
                             <div class="card h-100">
                                 <div class="card-body">
                                     <h5 class="card-title">Sale</h5>
+                                    <div class="row mb-1">
+                                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                                            <div class="btn-group" role="group"
+                                                aria-label="Basic radio toggle button group">
+                                                <ng-container *ngFor="let group of withOrWithoutGST">
+                                                    <input type="radio" class="btn-check" id="{{group.Value}}"
+                                                        [value]="group.Value" [formControlName]="'GSTMode'"
+                                                        (change)="onWithOrWithoutGSTChange()">
+                                                    <label class="btn btn-outline-primary"
+                                                        for="{{group.Value}}">{{group.Text}}</label>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row">
-
                                         <div class="col-md-3  mb-3">
                                             <label for="_dm-inputPassword" class="visually-hidden" [class.text-danger]="((SaleInfoForm.get('BillNo')?.touched ||
                                             SaleInfoForm.get('BillNo')?.dirty) &&
@@ -319,6 +332,55 @@
                                     </div>
                                 </div>
                             </div>
+                            <ng-container *ngIf="this.SaleInfoForm.get('GSTMode')?.value === 'G'">
+                                <div class="row mb-1" *ngIf="this.SaleInfoForm.get('ApplicableGSTType')?.value==='CSGT_SGST'">
+                                    <div class="col-md-3">
+                                        <input id="CGST" formControlName="CGST" NumberOnly
+                                            [directiveName]="'appDecimaNumber'" type="text" class="form-control"
+                                            placeholder="CGST %" (blur)="updateTotalValues()">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input id="CGST" formControlName="CGSTAmount" NumberOnly
+                                            [directiveName]="'appDecimaNumber'" type="text" class="form-control"
+                                            placeholder="CGST Amount" (blur)="updateTotalValues()">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input id="CGST" formControlName="SGST" NumberOnly
+                                            [directiveName]="'appDecimaNumber'" type="text" class="form-control"
+                                            placeholder="SGST %" (blur)="updateTotalValues()">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input id="CGST" formControlName="SGSTAmount" NumberOnly
+                                            [directiveName]="'appDecimaNumber'" type="text" class="form-control"
+                                            placeholder="SGST Amount" (blur)="updateTotalValues()">
+                                    </div>
+                                </div>
+                                <div class="row mb-1"  *ngIf="this.SaleInfoForm.get('ApplicableGSTType')?.value==='IGST'">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label for="IGST" class="col-sm-4 form-label">IGST %</label>
+                                            <div class="col-sm-8">
+                                                <input id="IGST" formControlName="IGST" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'" type="text"
+                                                    class="form-control" placeholder="IGST %"
+                                                    (blur)="updateTotalValues()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label for="IGSTAmount" class="col-sm-4 col-form-label">IGST
+                                                Amount</label>
+                                            <div class="col-sm-8">
+                                                <input id="IGSTAmount" type="text" class="form-control" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'" formControlName="IGSTAmount"
+                                                    placeholder="IGST Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </ng-container>
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
                                     <div class="form-check">
@@ -331,9 +393,10 @@
                                 </div>
                             </div>
                             <div class="mt-4 d-grid gap-2 d-md-block">
-                                <button type="submit" class="btn btn-primary" [disabled]="SaleInfoForm.invalid || ((this.SaleInfoForm.get('SaleProductList')?.value ?? []).length==0 
+                                <button type="button" class="btn btn-primary" [disabled]="SaleInfoForm.invalid || ((this.SaleInfoForm.get('SaleProductList')?.value ?? []).length==0 
                                     || !selectedCustomer?.CustomerID
-                                    || showLoader)">
+                                    || showLoader)"
+                                    (click)="Submit()">
                                     <ng-container *ngIf="showLoader">
                                         <span class="spinner-border spinner-border-sm"></span>
                                         Loading..

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SharedDataService } from "src/app/Services/shared-data.service";
 import { SaleInfoService } from "src/app/Services/SaleInfo/sale-info.service";
 import { generatePostRequestBody } from "./fields";
-import { Constant, CustomerTypeID_ToPurchaseProduct } from "src/app/config/constants";
+import { APPLICABLE_GST_TYPE, Constant, CustomerTypeID_ToPurchaseProduct } from "src/app/config/constants";
 
 @Component({
   selector: 'app-sale-info',
@@ -20,6 +20,8 @@ export class SaleInfoComponent implements OnInit {
   public ampList: any;
   public paymentModeList: any;
   @ViewChild("scanControl") scanControl: ElementRef;
+  public basicGST: any;
+  public withOrWithoutGST = Constant.WITH_OR_WITHOUT_GST;
 
   constructor(
     private _FormBuilder: FormBuilder,
@@ -37,6 +39,7 @@ export class SaleInfoComponent implements OnInit {
 
     this.getAmpList();
     this.getPaymentModeList();
+    this.getGST();
   }
   SaleInfoFormBuilder() {
     this.SaleInfoForm = this._FormBuilder.group({
@@ -64,10 +67,39 @@ export class SaleInfoComponent implements OnInit {
       Print: [false],
       AmpID: [""],
       PaymentModeID: ["", Validators.required],
-      Remark: [""]
+      Remark: [""],
+      GSTMode: ["", Validators.required],
+      CGST: [""],
+      CGSTAmount: [{ value: 0, disabled: true }],
+      SGST: [""],
+      SGSTAmount: [{ value: 0, disabled: true }],
+      IGST: [""],
+      IGSTAmount: [{ value: 0, disabled: true }],
+      ApplicableGSTType: [APPLICABLE_GST_TYPE.C]
+    });
+  }
+  getGST() {
+    this._sharedDataService.getGST(this.getGSTRequestBody()).subscribe({
+      next: data => {
+        this.basicGST = data?.[0];
+        this.SaleInfoForm.patchValue({
+          GSTMode: this.basicGST?.GSTMode,
+          CGST: this.basicGST?.CGST,
+          SGST: this.basicGST?.SGST,
+          IGST: this.basicGST?.IGST
+        });
+      },
+      error: error => {
+      }
     });
   }
 
+  getGSTRequestBody() {
+    return {
+      MethodName: "Search_BasicGST",
+      GSTType: 'S'
+    }
+  }
   /* get payment mode list to show dropwon */
   getPaymentModeList() {
     this._saleInfoService.getPaymentModeList(this.getPaymentModeListRequestBody()).subscribe({
@@ -223,7 +255,7 @@ export class SaleInfoComponent implements OnInit {
   }
 
   /* This will trigger On final save button  */
-  Submit(e) {
+  Submit() {
     this.showLoader = true;
     this._saleInfoService.AddSale(generatePostRequestBody(this.SaleInfoForm.getRawValue(), this.isAdd ? "0" : "1")).subscribe({
       next: data => {
@@ -256,6 +288,12 @@ export class SaleInfoComponent implements OnInit {
     let TotalOldBatteryAmount = 0;
     let OldBatteryPurchasePrice = 0;
     let DiscountAmount = 0;
+    let CGST = 0;
+    let CGSTAmount = 0;
+    let SGST = 0;
+    let SGSTAmount = 0;
+    let IGST = 0;
+    let IGSTAmount = 0;
 
     TotalQuantity = SaleProductList.length;
     TotalAmount = SaleProductList?.reduce((n, { SalePrice }) => (n) + parseFloat(SalePrice), 0);
@@ -268,6 +306,17 @@ export class SaleInfoComponent implements OnInit {
     TotalPaidAmount = (TotalPaidAmount <= FinalAmount) && (this.SaleInfoForm.get("TotalPaidAmount")?.dirty) ? TotalPaidAmount : FinalAmount;
     PendingAmount = FinalAmount - TotalPaidAmount;
 
+    if (this.SaleInfoForm.get("GSTMode")?.value === "G" && this.SaleInfoForm.get("ApplicableGSTType")?.value === APPLICABLE_GST_TYPE.C) {
+      CGST = this.SaleInfoForm.get("CGST")?.value || 0;
+      SGST = this.SaleInfoForm.get("SGST")?.value || 0;
+      CGSTAmount = ((TotalAmount * CGST) / 100);
+      SGSTAmount = ((TotalAmount * SGST) / 100);
+    }
+    else if (this.SaleInfoForm.get("GSTMode")?.value === "G" && this.SaleInfoForm.get("ApplicableGSTType")?.value === APPLICABLE_GST_TYPE.I) {
+      IGST = this.SaleInfoForm.get("IGST")?.value || 0;
+      IGSTAmount = ((TotalAmount * IGST) / 100);
+    }
+
     this.SaleInfoForm.patchValue({
       TotalQuantity: TotalQuantity,
       TotalAmount: TotalAmount,
@@ -275,7 +324,13 @@ export class SaleInfoComponent implements OnInit {
       PendingAmount: PendingAmount,
       TotalPaidAmount: TotalPaidAmount,
       TotalOldBatteryAmount: TotalOldBatteryAmount,
-      DiscountAmount: DiscountAmount
+      DiscountAmount: DiscountAmount,
+      CGSTAmount: CGSTAmount,
+      SGSTAmount: SGSTAmount,
+      IGSTAmount: IGSTAmount,
+      CGST: CGST,
+      SGST: SGST,
+      IGST: IGST
     })
 
   }
@@ -298,6 +353,8 @@ export class SaleInfoComponent implements OnInit {
     this.SaleInfoForm.get("BillDate")?.setValue(this._sharedDataService?.currentUser?.todaysDate);
     this.getBillNo();
     this.SaleInfoForm.get("OldBatteryCount")?.setValue("1");
+    this.SaleInfoForm.get("GSTMode")?.setValue(this.basicGST?.GSTMode);
+    this.SaleInfoForm.get("ApplicableGSTType")?.setValue(APPLICABLE_GST_TYPE.C);
   }
 
   /* this function will trigger when click on edit button on sale info search page */
@@ -323,6 +380,31 @@ export class SaleInfoComponent implements OnInit {
   printSaleInvoice(data) {
     if (this.SaleInfoForm.get("Print")?.value) {
       this._sharedDataService.openReportSlideIn.next("MethodName=Rpt_SaleInfo&SaleID=" + data?.[0]?.SaleID);
+    }
+  }
+  onWithOrWithoutGSTChange() {
+    const GSTMode = this.SaleInfoForm.get("GSTMode")?.value;
+    if (GSTMode === 'W') {
+      this.SaleInfoForm.patchValue({
+        CGST: "",
+        CGSTAmount: "0",
+        SGST: "",
+        SGSTAmount: "0",
+        IGST: "",
+        IGSTAmount: "0"
+      });
+    }
+    else {
+      this.SaleInfoForm.patchValue({
+        CGST: this.basicGST?.CGST,
+        CGSTAmount: "0",
+        SGST: this.basicGST?.SGST,
+        SGSTAmount: "0",
+        IGST: this.basicGST?.IGST,
+        IGSTAmount: "0"
+      });
+
+      this.updateTotalValues();
     }
   }
 }
