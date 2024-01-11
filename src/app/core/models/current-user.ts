@@ -7,7 +7,13 @@ export class CurrentUser {
     public todaysDate = "";
     public menu = Array<Menu>();
     public firmID = "";
-
+    public firmName ="";
+    public contactPerson ="";
+    public firmContactNo ="";
+    public firmAddress ="";
+    public gSTNo ="";
+    public sateCode ="";
+    public stateName="";
     constructor(currentUserInfo: any = {}) {
         this.userID = currentUserInfo?.userID || "";
         this.groupID = currentUserInfo?.groupID || "";
@@ -15,6 +21,13 @@ export class CurrentUser {
         this.todaysDate = currentUserInfo?.todaysDate || "";
         this.name = currentUserInfo?.name || "";
         this.firmID = currentUserInfo?.firmID || "";
+        this.firmName = currentUserInfo?.firmName || "";
+        this.contactPerson = currentUserInfo?.contactPerson || "";
+        this.firmContactNo = currentUserInfo?.firmContactNo || "";
+        this.firmAddress = currentUserInfo?.firmAddress || "";
+        this.gSTNo = currentUserInfo?.gSTNo || "";
+        this.sateCode = currentUserInfo?.sateCode || "";
+        this.stateName = currentUserInfo?.stateName || "";
 
         if (currentUserInfo && currentUserInfo?.menu && currentUserInfo?.menu?.length) {
             currentUserInfo?.menu?.forEach((menuInfo: any) => {
