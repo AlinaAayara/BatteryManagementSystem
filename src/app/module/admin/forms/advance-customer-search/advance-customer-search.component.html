@@ -70,7 +70,7 @@
                         id="_advance_search_purchase_info" class="tab-pane fade show active" role="tabpanel"
                         aria-labelledby="profile-tab">
                         <div class="col-lg-12">
-                            <app-purchase-search
+                            <app-purchase-search (deleteItem)="deleteItem($event)"
                                 [ActivePurchaseInfoList]="ActivePurchaseInfoList"
                                 (closeSlideIn)="closeSlideIn($event)">
                             </app-purchase-search>
@@ -79,7 +79,7 @@
                     <div *ngIf="activeTab == null || activeTab?.subMenuURL == 'SaleInfo'" id="_advance_search_sale_info"
                         class="tab-pane fade show active" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="col-lg-12">
-                            <app-sale-search
+                            <app-sale-search (deleteItem)="deleteItem($event)"
                                 [ActiveSaleInfoList]="ActiveSaleInfoList"
                                 (closeSlideIn)="closeSlideIn($event)">
                             </app-sale-search>
@@ -89,6 +89,7 @@
                         class="tab-pane fade show active" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="col-lg-12">
                             <app-warranty-search
+                            (deleteItem)="deleteItem($event)"
                                 [ActiveWarrantyInfoList]="ActiveWarrantyInfoList"
                                 (closeSlideIn)="closeSlideIn($event)">
                             </app-warranty-search>

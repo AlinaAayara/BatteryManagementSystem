@@ -10,6 +10,7 @@ import { AdvanceSearchWarrantyInfo } from "src/app/core/models/advance-search-wa
 })
 export class WarrantySearchComponent implements OnInit, OnChanges {
   @Output() closeSlideIn = new EventEmitter();
+  @Output() deleteItem = new EventEmitter();
   constructor(private _sharedDataService: SharedDataService) {
 
   }
@@ -24,6 +25,8 @@ export class WarrantySearchComponent implements OnInit, OnChanges {
     }
   }
   delete(saleID) {
+    this.deleteItem.emit(saleID);
+    this.closeSlideIn.emit(false);
   }
 
   edit(item) {

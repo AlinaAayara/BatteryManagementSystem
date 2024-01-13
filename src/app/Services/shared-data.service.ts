@@ -122,6 +122,28 @@ export class SharedDataService {
     notie.alert({ type: 'error', text: msg });
   }
 
+  SwalConfirmDeleteForAdvanceSearch(body: any) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteRecord(body).subscribe({
+          next: data => {
+            this.success("Deleted successfully !");
+          },
+          error: error => {
+            this.error(error)
+          }
+        });
+      }
+    });
+  }
   clearThingsOnLogout() {
     localStorage.clear();
   }

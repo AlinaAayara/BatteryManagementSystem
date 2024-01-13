@@ -9,6 +9,7 @@ import { AdvanceSerachSaleInfo } from "src/app/core/models/advance-search-sale-i
 })
 export class SaleSearchComponent implements OnInit, OnChanges {
   @Output() closeSlideIn = new EventEmitter();
+  @Output() deleteItem = new EventEmitter();
   constructor(private _sharedDataService: SharedDataService) {
 
   }
@@ -23,6 +24,8 @@ export class SaleSearchComponent implements OnInit, OnChanges {
     }
   }
   delete(saleID) {
+    this.deleteItem.emit(saleID);
+    this.closeSlideIn.emit(false);
   }
 
   edit(item) {

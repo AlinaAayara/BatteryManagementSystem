@@ -16,7 +16,7 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
   public AdvanceList;
   public showLoader: boolean = false;
   public CustomerName = "";
-  public id;
+  public subMenuID;
   public isWrite: boolean = false;
   public isDelete: boolean = false;
   Object = Object;
@@ -52,16 +52,16 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
 
   }
   ngOnInit(): void {
-    this.id = this.route.snapshot.queryParamMap.get("id");
+    this.subMenuID = this.route.snapshot.queryParamMap.get("id");
     /* if we use advance search for warranty form(8) then it that we should show sale tab active (7). So that we can choose which battery we want to replace*/
-    this.id = (["8", "9"].includes(this.id) && this.IsAccessedFromFormPage) ? "7" : this.id;
+    //this.id = (["8", "9"].includes(this.id) && this.IsAccessedFromFormPage) ? "7" : this.id;
     this.setActiveTab();
   }
 
   setActiveTab() {
     this.activeTab =
-      !["", null, undefined].includes(this.id) ?
-        this._sharedDataService.getCurrentActiveForm(this.id)
+      !["", null, undefined].includes(this.subMenuID) ?
+        this._sharedDataService.getCurrentActiveForm(this.subMenuID)
         : null;
 
     this.activeTab = Constant.ADVANCE_SEARCH_TAB.includes(this.activeTab?.subMenuURL) ? this.activeTab : null;
@@ -111,16 +111,8 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
     }
   }
 
-  deleteItem(item) {
-    this._sharedDataService.deleteRecord(this.deleteBody(Object.values(item)[0])).subscribe({
-      next: data => {
-        this._sharedDataService.success("Deleted successfully !");
-        this.removeItem(Object.values(item)[0]);
-      },
-      error: error => {
-        this._sharedDataService.error(error)
-      }
-    });;
+  deleteItem(id) {
+    this._sharedDataService.SwalConfirmDeleteForAdvanceSearch(this.deleteBody(id));
   }
 
   editItem(item) {
@@ -130,7 +122,7 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
   /* delete request body */
   deleteBody(id) {
     return {
-      SubMenuID: this.id,
+      SubMenuID: this.subMenuID,
       PrimaryValue: id,
       MethodName: "deleteRecord"
     }

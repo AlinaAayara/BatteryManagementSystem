@@ -9,6 +9,7 @@ import { AdvanceSerachPurchaseInfo } from "src/app/core/models/advance-serach-pu
 })
 export class PurchaseSearchComponent implements OnInit, OnChanges {
   @Output() closeSlideIn = new EventEmitter();
+  @Output() deleteItem = new EventEmitter();
   public isPrint = false;
   constructor(private _sharedDataService: SharedDataService) {
 
@@ -24,6 +25,8 @@ export class PurchaseSearchComponent implements OnInit, OnChanges {
     }
   }
   delete(purchaseID) {
+    this.deleteItem.emit(purchaseID);
+    this.closeSlideIn.emit(false);
   }
 
   edit(item) {
