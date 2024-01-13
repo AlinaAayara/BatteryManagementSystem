@@ -53,8 +53,7 @@
                                     OldBatteryInfoForm.get('AmpID')?.dirty) &&
                                     OldBatteryInfoForm.get('AmpID')?.errors)" [class.is-valid]="(OldBatteryInfoForm.get('AmpID')?.touched &&
                                     !OldBatteryInfoForm.get('AmpID')?.errors)" formControlName="AmpID"
-                                aria-label="select transition timing"
-                                (change)="getPurchasePrice()">
+                                aria-label="select transition timing" (change)="getPurchasePrice()">
                                 <option value=""> -- Select Amp --</option>
                                 <option *ngFor="let item of ampList" [value]="item.AmpID">
                                     {{item.Amp}}
@@ -66,7 +65,7 @@
                                 Amp is required.
                             </span>
                         </div>
-                        <div class="col-lg-6"  *ngIf="OldBatteryInfoForm.get('SaleOrPurchase')?.value == 'P'">
+                        <div class="col-lg-6" *ngIf="OldBatteryInfoForm.get('SaleOrPurchase')?.value == 'P'">
                             <label for="_dm-PurchasePrice" class="form-label" [class.text-danger]="((OldBatteryInfoForm.get('PurchasePrice')?.touched ||
                                     OldBatteryInfoForm.get('PurchasePrice')?.dirty) &&
                                     OldBatteryInfoForm.get('PurchasePrice')?.errors)" [class.text-success]="(OldBatteryInfoForm.get('PurchasePrice')?.touched &&
@@ -76,14 +75,15 @@
                                     OldBatteryInfoForm.get('PurchasePrice')?.dirty) &&
                                     OldBatteryInfoForm.get('PurchasePrice')?.errors)" [class.is-valid]="(OldBatteryInfoForm.get('PurchasePrice')?.touched &&
                                     !OldBatteryInfoForm.get('PurchasePrice')?.errors)" class="form-control"
-                                placeholder="Enter Purchase Price" (keydown)="calculateTotal()" (blur)="calculateTotal()">
+                                placeholder="Enter Purchase Price" (keydown)="calculateTotal()"
+                                (blur)="calculateTotal()">
                             <span style="color:red" class="help-block" *ngIf="((OldBatteryInfoForm.get('PurchasePrice')?.touched ||
                                         OldBatteryInfoForm.get('PurchasePrice')?.dirty) &&
                                         OldBatteryInfoForm.get('PurchasePrice')?.errors)">
-                                        Purchase Price is required.
+                                Purchase Price is required.
                             </span>
                         </div>
-                        <div class="col-lg-6"  *ngIf="OldBatteryInfoForm.get('SaleOrPurchase')?.value == 'P'">
+                        <div class="col-lg-6" *ngIf="OldBatteryInfoForm.get('SaleOrPurchase')?.value == 'P'">
                             <label for="_dm-TotalQuantity" class="form-label" [class.text-danger]="((OldBatteryInfoForm.get('TotalQuantity')?.touched ||
                                     OldBatteryInfoForm.get('TotalQuantity')?.dirty) &&
                                     OldBatteryInfoForm.get('TotalQuantity')?.errors)" [class.text-success]="(OldBatteryInfoForm.get('TotalQuantity')?.touched &&
@@ -93,11 +93,11 @@
                                     OldBatteryInfoForm.get('TotalQuantity')?.dirty) &&
                                     OldBatteryInfoForm.get('TotalQuantity')?.errors)" [class.is-valid]="(OldBatteryInfoForm.get('TotalQuantity')?.touched &&
                                     !OldBatteryInfoForm.get('TotalQuantity')?.errors)" class="form-control"
-                                placeholder="Enter Quantity"  (keydown)="calculateTotal()" (blur)="calculateTotal()">
+                                placeholder="Enter Quantity" (keydown)="calculateTotal()" (blur)="calculateTotal()">
                             <span style="color:red" class="help-block" *ngIf="((OldBatteryInfoForm.get('TotalQuantity')?.touched ||
                                         OldBatteryInfoForm.get('TotalQuantity')?.dirty) &&
                                         OldBatteryInfoForm.get('TotalQuantity')?.errors)">
-                                        Quantity is required.
+                                Quantity is required.
                             </span>
                         </div>
                         <div class="col-lg-6" *ngIf="OldBatteryInfoForm.get('SaleOrPurchase')?.value == 'S'">
@@ -114,7 +114,7 @@
                             <span style="color:red" class="help-block" *ngIf="((OldBatteryInfoForm.get('TotalWeight')?.touched ||
                                         OldBatteryInfoForm.get('TotalWeight')?.dirty) &&
                                         OldBatteryInfoForm.get('TotalWeight')?.errors)">
-                                        Weight is required.
+                                Weight is required.
                             </span>
                         </div>
                         <div class="col-lg-6">
@@ -122,7 +122,8 @@
                                     OldBatteryInfoForm.get('TotalAmount')?.dirty) &&
                                     OldBatteryInfoForm.get('TotalAmount')?.errors)" [class.text-success]="(OldBatteryInfoForm.get('TotalAmount')?.touched &&
                                     !OldBatteryInfoForm.get('TotalAmount')?.errors)">Total Amount</label>
-                            <input id="_dm-inputAddress" type="text" [formControlName]="'TotalAmount'" [class.is-invalid]="((OldBatteryInfoForm.get('TotalAmount')?.touched ||
+                            <input id="_dm-inputAddress" type="text" [formControlName]="'TotalAmount'"
+                                [class.is-invalid]="((OldBatteryInfoForm.get('TotalAmount')?.touched ||
                                     OldBatteryInfoForm.get('TotalAmount')?.dirty) &&
                                     OldBatteryInfoForm.get('TotalAmount')?.errors)" [class.is-valid]="(OldBatteryInfoForm.get('TotalAmount')?.touched &&
                                     !OldBatteryInfoForm.get('TotalAmount')?.errors)" class="form-control"
@@ -130,11 +131,21 @@
                             <span style="color:red" class="help-block" *ngIf="((OldBatteryInfoForm.get('TotalAmount')?.touched ||
                                         OldBatteryInfoForm.get('TotalAmount')?.dirty) &&
                                         OldBatteryInfoForm.get('TotalAmount')?.errors)">
-                                        Total Amount is required.
+                                Total Amount is required.
                             </span>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="form-check">
+                                <input id="_dm-rememberCheck3" class="form-check-input" formControlName="Print"
+                                    type="checkbox">
+                                <label for="_dm-rememberCheck3" class="form-check-label">
+                                    <b>Print</b>
+                                </label>
+                            </div>
+                        </div>
                         <div class="mt-4 d-grid gap-2 d-md-block">
-                            <button type="submit" [disabled]="OldBatteryInfoForm.invalid || showLoader" class="btn btn-primary">
+                            <button type="submit" [disabled]="OldBatteryInfoForm.invalid || showLoader"
+                                class="btn btn-primary">
                                 <ng-container *ngIf="showLoader">
                                     <span class="spinner-border spinner-border-sm"></span>
                                     Loading..
@@ -152,8 +163,8 @@
             </div>
         </div>
         <div class="col-md-8 mb-3">
-            <app-simple-table [SearchResult]="oldBatteryList" [searchFormName]="'Old Battery List'"
-                (delete)="delete($event)" (edit)="edit($event)"></app-simple-table>
+            <app-simple-table [SearchResult]="oldBatteryList" [searchFormName]="'Old Battery List'" [isPrint]="true"
+                (delete)="delete($event)" (edit)="edit($event)" (print)="print($event)"></app-simple-table>
             <ng-content></ng-content>
         </div>
     </div>

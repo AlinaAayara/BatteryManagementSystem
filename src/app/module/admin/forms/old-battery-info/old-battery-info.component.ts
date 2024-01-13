@@ -50,7 +50,8 @@ export class OldBatteryInfoComponent implements OnInit {
       TotalQuantity: ["", Validators.required],
       TotalAmount: ["", Validators.required],
       TotalWeight: [""],
-      PurchasePrice: [""]
+      PurchasePrice: [""],
+      Print: [false],
     });
   }
   /* This will trigger when add customer or select customer using subject */
@@ -90,12 +91,16 @@ export class OldBatteryInfoComponent implements OnInit {
     this.manuallyClearField = false;
     Data.MethodName = "InUp_OldBatteryInfo";
     Data.Mode = this.isAdd ? "0" : "1";
+    delete Data["Print"];
     this._oldBatteryInfoService.AddOldBattery(Data).subscribe({
       next: res => {
         this._sharedDataService.success("Old Battery saved successfully !");
         this.manuallyClearField = true;
         this.getList();
         this.showLoader = false;
+        if (this.OldBatteryInfoForm.get("Print")?.value) {
+          this.print(res?.[0])
+        }
         this.clearField();
       },
       error: error => {
@@ -184,5 +189,9 @@ export class OldBatteryInfoComponent implements OnInit {
   /* search list delete  */
   delete(item) {
     this.getList();
+  }
+
+  print(item) {
+    this._sharedDataService.openReportSlideIn.next("MethodName=Rpt_OldBatteryInfo&OldBatteryID=" + item.OldBatteryID);
   }
 }

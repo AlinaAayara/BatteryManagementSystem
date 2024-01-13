@@ -42,6 +42,7 @@ export class WarrantyInfoComponent implements OnInit {
       DiscountAmount: [{ value: 0, disabled: true }],
       FinalPrice: [{ value: 0, disabled: true }],
       WarrantyProductList: [[], Validators.required],
+      Print: [false],
       WarrantyProductInfo: this._FormBuilder.group(
         {
           WarrantyProductID: [""],
@@ -65,7 +66,7 @@ export class WarrantyInfoComponent implements OnInit {
           OldProduct: [],
           NewProduct: []
         }
-      ),
+      )
     });
   }
 
@@ -111,6 +112,7 @@ export class WarrantyInfoComponent implements OnInit {
       next: data => {
         this.showLoader = false;
         this._sharedDataService.success("saved successfully !");
+        this.printPurchaseInvoice(data);
         this.clearWarranty();
       },
       error: error => {
@@ -309,4 +311,11 @@ export class WarrantyInfoComponent implements OnInit {
     WarrantyProductList = WarrantyProductList?.filter((itm) => item != itm);
     this.WarrantyInfoForm.get("WarrantyProductList")?.setValue(WarrantyProductList);
   }
+    /* print recently submited purchase */
+
+    printPurchaseInvoice(data) {
+      if (this.WarrantyInfoForm.get("Print")?.value) {
+        this._sharedDataService.openReportSlideIn.next("MethodName=Rpt_WarrantyInfo&WarrantyID="+data?.[0]?.WarrantyID);
+      }
+    }
 }

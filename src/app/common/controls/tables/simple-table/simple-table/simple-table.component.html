@@ -8,6 +8,7 @@
                         <tr *ngIf="first">
                             <th *ngIf="isDelete">Delete</th>
                             <th *ngIf="isWrite">Edit</th>
+                            <th *ngIf="isPrint">Invoice</th>
                             <!-- <th *ngFor="let (key, val) of item" *ngIf="key!=ColumnName">{{key}}</th> -->
                             <ng-container *ngFor="let key of Object.keys(item) ; let i = index;let firstKey = first;">
                                 <th *ngIf="key?.substr((key?.length ?? 0) - 2)?.toLowerCase()!= 'id'">{{key}}</th>
@@ -25,6 +26,11 @@
                         <ng-container *ngFor="let key of Object.keys(item); let i = index;let first = first;">
                             <td *ngIf="first && isWrite">
                                 <button type="button" class="btn btn-primary" value="EDIT" (click)="editItem(item)"><i class="demo-pli-pencil fs-5"></i></button>
+                            </td>
+                        </ng-container>
+                        <ng-container *ngFor="let key of Object.keys(item); let i = index;let first = first;">
+                            <td *ngIf="first && isPrint">
+                                <button type="button" class="btn btn-primary" value="PRINT" (click)="printItem(item)"><i class="demo-pli-printer fs-5"></i></button>
                             </td>
                         </ng-container>
                         <ng-container *ngFor="let key of Object.keys(item) ; let i = index;let firstKey = first;">

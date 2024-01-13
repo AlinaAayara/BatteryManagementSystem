@@ -33,4 +33,7 @@ export class WarrantySearchComponent implements OnInit, OnChanges {
     this._sharedDataService.warrantyInfoEdit.next(item);
     this.closeSlideIn.emit(false);
   }
+  print(item) {
+    this._sharedDataService.openReportSlideIn.next("MethodName=Rpt_WarrantyInfo&WarrantyID="+item.WarrantyID);
+  }
 }

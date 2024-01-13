@@ -11,8 +11,10 @@ import { Constant } from 'src/app/config/constants';
 export class SimpleTableComponent implements OnInit, OnChanges {
   @Input() public SearchResult;
   @Input() public searchFormName;
+  @Input() public isPrint = false;
   @Output() public delete = new EventEmitter();
   @Output() public edit = new EventEmitter();
+  @Output() public print = new EventEmitter();
   public id;
   public isWrite: boolean = false;
   public isDelete: boolean = false;
@@ -48,6 +50,10 @@ export class SimpleTableComponent implements OnInit, OnChanges {
 
   editItem(item) {
     this.edit.emit(item);
+  }
+
+  printItem(item) {
+    this.print.emit(item);
   }
 
   /* delete request body */

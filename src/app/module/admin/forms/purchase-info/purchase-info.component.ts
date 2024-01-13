@@ -187,7 +187,7 @@ export class PurchaseInfoComponent implements OnInit {
       next: data => {
         this.showLoader = false;
         this._sharedDataService.success("Purchase saved successfully !");
-        this.printPurchaseInvoice(data)
+        this.printPurchaseInvoice(data);
         this.clearPurchase();
       },
       error: error => {
