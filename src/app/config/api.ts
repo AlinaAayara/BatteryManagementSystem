@@ -1,8 +1,8 @@
 export class AppUrl {
     public static URL = {};
 
-    //public static baseURL = "http://localhost:5213/api/";
-    public static baseURL = "http://gbhwebapi.betech.in/api/";
+    public static baseURL = "http://localhost:5213/api/";
+    //public static baseURL = "http://gbhwebapi.betech.in/api/";
 
     public static reportBaseURL = "http://bmsreportapp.betech.in/reportviewer.aspx"
 
