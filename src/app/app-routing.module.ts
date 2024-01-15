@@ -21,6 +21,7 @@ import { BasicGroupComponent } from './module/admin/forms/basic-group/basic-grou
 import { ReportViewerComponent } from './module/admin/reports/report-viewer/report-viewer.component';
 import { BasicAmpComponent } from './module/admin/forms/basic-amp/basic-amp.component';
 import { ReportsComponent } from './module/admin/reports/reports/reports.component';
+import { PartyTransactionInfoComponent } from './module/admin/forms/party-transaction-info/party-transaction-info.component';
 
 
 const routes: Routes = [
@@ -86,6 +87,9 @@ const routes: Routes = [
           },
           {
             path: 'Reports', component: ReportsComponent
+          },
+          {
+            path: 'PartyTransactionInfo', component: PartyTransactionInfoComponent
           }
         ]
       },

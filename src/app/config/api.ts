@@ -23,6 +23,7 @@ export class AppUrl {
     public static basicPaymentModeURL = "BasicPaymentMode/";
     public static saleReturnInfoURL = "SaleReturnInfo/";
     public static basicGSTURL = "BasicGST/";
+    public static partyTransactionInfoURL = "PartyTransactionInfo/"
 
     //public static reportViewerURL = "ReportViewer/ViewReport"
 
@@ -83,6 +84,8 @@ export class AppUrl {
         add_basicGST: AppUrl.baseURL + AppUrl.basicGSTURL + "AddGST",
         get_basicGST: AppUrl.baseURL + AppUrl.basicGSTURL + "GetGST",
 
+        add_partyTransactionInfo: AppUrl.baseURL + AppUrl.partyTransactionInfoURL + "AddPartyTransaction",
+        get_partyTransactionInfo: AppUrl.baseURL + AppUrl.partyTransactionInfoURL + "GetPartyTransaction",
 
         
         reportViewer : AppUrl.reportBaseURL

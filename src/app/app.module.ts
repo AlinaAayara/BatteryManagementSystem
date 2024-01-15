@@ -53,6 +53,7 @@ import { ReportViewerComponent } from './module/admin/reports/report-viewer/repo
 import { BasicAmpComponent } from './module/admin/forms/basic-amp/basic-amp.component';
 import { EnterFocusDirective } from './core/directives/enter-focus.directive';
 import { ReportsComponent } from './module/admin/reports/reports/reports.component';
+import { PartyTransactionInfoComponent } from './module/admin/forms/party-transaction-info/party-transaction-info.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,7 @@ import { ReportsComponent } from './module/admin/reports/reports/reports.compone
     PartyInfoComponent,
     BasicBranchComponent,
 
-    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent, WarrantyInfoComponent, WarrantySearchComponent, SaleReturnInfoComponent, OldBatteryInfoComponent, DateDirective, WarrantyReturnInfoComponent, BasicGroupComponent, ReportViewerComponent, BasicAmpComponent, EnterFocusDirective, ReportsComponent
+    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent, WarrantyInfoComponent, WarrantySearchComponent, SaleReturnInfoComponent, OldBatteryInfoComponent, DateDirective, WarrantyReturnInfoComponent, BasicGroupComponent, ReportViewerComponent, BasicAmpComponent, EnterFocusDirective, ReportsComponent, PartyTransactionInfoComponent
 
 
   ],
