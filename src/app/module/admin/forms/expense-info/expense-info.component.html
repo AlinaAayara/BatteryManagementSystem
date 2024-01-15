@@ -1,0 +1,98 @@
+<div class="content__wrap">
+    <h2 class="mb-3">Add Expense</h2>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <form class="card-body"  [formGroup]="ExpenseInfoForm" (ngSubmit)="Submit()">
+                    <div class="row mb-1">
+                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                            <div class="btn-group" role="group"
+                                aria-label="Basic radio toggle button group">
+                                <ng-container *ngFor="let group of crDr">
+                                    <input type="radio" class="btn-check" id="{{group.Value}}"
+                                        [value]="group.Value" [formControlName]="'TransactionType'">
+                                    <label class="btn btn-outline-primary"
+                                        for="{{group.Value}}">{{group.Text}}</label>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-lg-6">
+                            <label for="_dm-inputAddress" class="form-label" [class.text-danger]="((ExpenseInfoForm.get('TransactionDate')?.touched ||
+                                    ExpenseInfoForm.get('TransactionDate')?.dirty) &&
+                                    ExpenseInfoForm.get('TransactionDate')?.errors)" [class.text-success]="(ExpenseInfoForm.get('TransactionDate')?.touched &&
+                                    !ExpenseInfoForm.get('TransactionDate')?.errors)">Bill Date</label>
+                            <input id="_dm-inputAddress" type="text" [formControlName]="'TransactionDate'" [class.is-invalid]="((ExpenseInfoForm.get('TransactionDate')?.touched ||
+                                    ExpenseInfoForm.get('TransactionDate')?.dirty) &&
+                                    ExpenseInfoForm.get('TransactionDate')?.errors)" [class.is-valid]="(ExpenseInfoForm.get('TransactionDate')?.touched &&
+                                    !ExpenseInfoForm.get('TransactionDate')?.errors)" class="form-control"
+                                placeholder="Enter Date" appDate (blur)="getList()">
+                            <span style="color:red" class="help-block" *ngIf="((ExpenseInfoForm.get('TransactionDate')?.touched ||
+                                        ExpenseInfoForm.get('TransactionDate')?.dirty) &&
+                                        ExpenseInfoForm.get('TransactionDate')?.errors)">
+                                date is required.
+                            </span>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="_dm-Amount" class="form-label" [class.text-danger]="((ExpenseInfoForm.get('Amount')?.touched ||
+                                    ExpenseInfoForm.get('Amount')?.dirty) &&
+                                    ExpenseInfoForm.get('Amount')?.errors)" [class.text-success]="(ExpenseInfoForm.get('Amount')?.touched &&
+                                    !ExpenseInfoForm.get('Amount')?.errors)">Amount</label>
+                            <input id="_dm-Amount" type="text" [formControlName]="'Amount'"
+                                [class.is-invalid]="((ExpenseInfoForm.get('Amount')?.touched ||
+                                    ExpenseInfoForm.get('Amount')?.dirty) &&
+                                    ExpenseInfoForm.get('Amount')?.errors)" [class.is-valid]="(ExpenseInfoForm.get('Amount')?.touched &&
+                                    !ExpenseInfoForm.get('Amount')?.errors)" class="form-control"
+                                placeholder="Enter Amount" NumberOnly
+                                [directiveName]="'appDecimaNumber'">
+                            <span style="color:red" class="help-block" *ngIf="((ExpenseInfoForm.get('Amount')?.touched ||
+                                        ExpenseInfoForm.get('Amount')?.dirty) &&
+                                        ExpenseInfoForm.get('Amount')?.errors)">
+                                        Amount is required.
+                            </span>
+                        </div>
+                        <!-- <div class="col-lg-6">
+                            <label for="_dm-Balance" class="form-label" >Balance</label>
+                            <input id="_dm-Balance" type="text" [formControlName]="'Balance'"
+                                class="form-control"
+                                placeholder="Balance">
+                        </div> -->
+                        <div class="col-lg-12">
+                            <label for="_dm-Remark" class="form-label" [class.text-danger]="((ExpenseInfoForm.get('Remark')?.touched ||
+                                    ExpenseInfoForm.get('Remark')?.dirty) &&
+                                    ExpenseInfoForm.get('Remark')?.errors)" [class.text-success]="(ExpenseInfoForm.get('Remark')?.touched &&
+                                    !ExpenseInfoForm.get('Remark')?.errors)">Remark</label>
+                            <input id="_dm-Remark" type="text" [formControlName]="'Remark'"
+                                [class.is-invalid]="((ExpenseInfoForm.get('Remark')?.touched ||
+                                    ExpenseInfoForm.get('Remark')?.dirty) &&
+                                    ExpenseInfoForm.get('Remark')?.errors)" [class.is-valid]="(ExpenseInfoForm.get('Remark')?.touched &&
+                                    !ExpenseInfoForm.get('Remark')?.errors)" class="form-control"
+                                placeholder="Enter Remark">
+                        </div>
+                        <div class="mt-4 d-grid gap-2 d-md-block">
+                            <button type="submit" [disabled]="ExpenseInfoForm.invalid || showLoader"
+                                class="btn btn-primary">
+                                <ng-container *ngIf="showLoader">
+                                    <span class="spinner-border spinner-border-sm"></span>
+                                    Loading..
+                                </ng-container>
+                                <ng-container *ngIf="!showLoader">
+                                    {{isAdd?'Save':'Update'}}
+                                </ng-container>
+                            </button>
+                            |
+                            <button type="button" class="btn btn-danger" (click)="clearField()">Clear</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="col-md-8 mb-3">
+            <app-simple-table [SearchResult]="expenseList" [searchFormName]="'Expenses List'"
+                (delete)="delete($event)" (edit)="edit($event)"></app-simple-table>
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

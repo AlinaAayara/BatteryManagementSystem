@@ -25,6 +25,7 @@ export class AppUrl {
     public static basicGSTURL = "BasicGST/";
     public static partyTransactionInfoURL = "PartyTransactionInfo/";
     public static customerTransactionInfoURL = "CustomerTransactionInfo/";
+    public static expenseInfoURL = "ExpenseInfo/";
 
     //public static reportViewerURL = "ReportViewer/ViewReport"
 
@@ -91,7 +92,9 @@ export class AppUrl {
         add_customerTransactionInfo: AppUrl.baseURL + AppUrl.customerTransactionInfoURL + "AddCustomerTransaction",
         get_customerTransactionInfo: AppUrl.baseURL + AppUrl.customerTransactionInfoURL + "GetCustomerTransaction",
 
-        
+        add_expenseInfo: AppUrl.baseURL + AppUrl.expenseInfoURL + "AddExpense",
+        get_expenseInfo: AppUrl.baseURL + AppUrl.expenseInfoURL + "GetExpense",
+
         reportViewer : AppUrl.reportBaseURL
         
 

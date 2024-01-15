@@ -23,6 +23,7 @@ import { BasicAmpComponent } from './module/admin/forms/basic-amp/basic-amp.comp
 import { ReportsComponent } from './module/admin/reports/reports/reports.component';
 import { PartyTransactionInfoComponent } from './module/admin/forms/party-transaction-info/party-transaction-info.component';
 import { CustomerTransactionInfoComponent } from './module/admin/forms/customer-transaction-info/customer-transaction-info.component';
+import { ExpenseInfoComponent } from './module/admin/forms/expense-info/expense-info.component';
 
 
 const routes: Routes = [
@@ -94,6 +95,9 @@ const routes: Routes = [
           },
           {
             path: 'CustomerTransactionInfo', component: CustomerTransactionInfoComponent
+          },
+          {
+            path: 'ExpenseInfo', component: ExpenseInfoComponent
           }
         ]
       },
