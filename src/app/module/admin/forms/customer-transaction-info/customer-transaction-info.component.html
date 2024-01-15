@@ -27,7 +27,7 @@
                                     CustomerTransactionInfoForm.get('TransactionDate')?.dirty) &&
                                     CustomerTransactionInfoForm.get('TransactionDate')?.errors)" [class.is-valid]="(CustomerTransactionInfoForm.get('TransactionDate')?.touched &&
                                     !CustomerTransactionInfoForm.get('TransactionDate')?.errors)" class="form-control"
-                                placeholder="Enter Date" appDate (blur)="getList()">
+                                placeholder="Enter Date" appDate>
                             <span style="color:red" class="help-block" *ngIf="((CustomerTransactionInfoForm.get('TransactionDate')?.touched ||
                                         CustomerTransactionInfoForm.get('TransactionDate')?.dirty) &&
                                         CustomerTransactionInfoForm.get('TransactionDate')?.errors)">
@@ -35,7 +35,7 @@
                             </span>
                         </div>
                         <div class="col-lg-6">
-                            <label for="_dm-inputAddress" class="form-label">Select Party   </label>
+                            <label for="_dm-inputAddress" class="form-label">Select Customer   </label>
                             <button type="button" class="btn btn-primary"
                             (click)="showCustomerInfoSlideIn(true)">
                             <i class=" demo-pli-mail-send fs-5"></i> {{btnChooseCustomerText}}
@@ -44,7 +44,7 @@
                             *ngIf="((
                                 CustomerTransactionInfoForm.get('PartyID')?.dirty) &&
                                 CustomerTransactionInfoForm.get('PartyID')?.errors)">
-                            Please choose party.
+                            Please choose customer.
                         </span>
                         </div>
                         <div class="col-lg-6">

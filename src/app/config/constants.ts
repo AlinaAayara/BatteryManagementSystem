@@ -48,11 +48,11 @@ export const Constant = {
     CR_OR_DR: [
         {
             Value: "CR",
-            Text: "Cr"
+            Text: "Credit"
         },
         {
             Value: "DR",
-            Text: "Dr"
+            Text: "Debit"
         }
     ],
     CHOOSE_CUSTOMER: "Choose Customer",

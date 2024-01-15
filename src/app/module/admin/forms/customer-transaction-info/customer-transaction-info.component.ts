@@ -33,7 +33,6 @@ export class CustomerTransactionInfoComponent implements OnInit {
   ngOnInit(): void {
     this.customerTransactionInfoFormBuilder();
     this.formField = fields;
-    this.getList();
     this.getSelectedOrAdddedCustomer();
   }
 
@@ -57,6 +56,7 @@ export class CustomerTransactionInfoComponent implements OnInit {
       this.CustomerTransactionInfoForm.get("CustomerID")?.setValue(res?.CustomerID);
       if (!["", undefined, null].includes(res?.CustomerID)) {
         this.getCustomerBalance(res?.CustomerID);
+        this.getList();
       }
       this.showCustomerInfoSlideIn(false);
       this.btnChooseCustomerText = res?.CustomerName;
@@ -94,7 +94,7 @@ export class CustomerTransactionInfoComponent implements OnInit {
       next: res => {
         this._sharedDataService.success("saved successfully !");
         this.manuallyClearField = true;
-        this.getList();
+        //this.getList();
         this.showLoader = false;
         this.clearField();
       },
@@ -119,7 +119,7 @@ export class CustomerTransactionInfoComponent implements OnInit {
   public getRequestBody() {
     return {
       MethodName: "Search_CustomerTransactionInfo",
-      TransactionDate: this.CustomerTransactionInfoForm.get("TransactionDate")?.value
+      CustomerID: this.CustomerTransactionInfoForm.get("CustomerID")?.value
     }
   }
 
