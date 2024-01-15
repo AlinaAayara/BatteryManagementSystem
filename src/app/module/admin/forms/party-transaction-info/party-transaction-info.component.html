@@ -44,7 +44,8 @@
                                     PartyTransactionInfoForm.get('Amount')?.dirty) &&
                                     PartyTransactionInfoForm.get('Amount')?.errors)" [class.is-valid]="(PartyTransactionInfoForm.get('Amount')?.touched &&
                                     !PartyTransactionInfoForm.get('Amount')?.errors)" class="form-control"
-                                placeholder="Enter Amount">
+                                placeholder="Enter Amount" NumberOnly
+                                [directiveName]="'appDecimaNumber'">
                             <span style="color:red" class="help-block" *ngIf="((PartyTransactionInfoForm.get('Amount')?.touched ||
                                         PartyTransactionInfoForm.get('Amount')?.dirty) &&
                                         PartyTransactionInfoForm.get('Amount')?.errors)">

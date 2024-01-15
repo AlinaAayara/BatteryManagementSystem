@@ -22,6 +22,7 @@ import { ReportViewerComponent } from './module/admin/reports/report-viewer/repo
 import { BasicAmpComponent } from './module/admin/forms/basic-amp/basic-amp.component';
 import { ReportsComponent } from './module/admin/reports/reports/reports.component';
 import { PartyTransactionInfoComponent } from './module/admin/forms/party-transaction-info/party-transaction-info.component';
+import { CustomerTransactionInfoComponent } from './module/admin/forms/customer-transaction-info/customer-transaction-info.component';
 
 
 const routes: Routes = [
@@ -90,6 +91,9 @@ const routes: Routes = [
           },
           {
             path: 'PartyTransactionInfo', component: PartyTransactionInfoComponent
+          },
+          {
+            path: 'CustomerTransactionInfo', component: CustomerTransactionInfoComponent
           }
         ]
       },

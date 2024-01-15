@@ -45,6 +45,16 @@ export const Constant = {
             Text: "With GST"
         }
     ],
+    CR_OR_DR: [
+        {
+            Value: "CR",
+            Text: "Cr"
+        },
+        {
+            Value: "DR",
+            Text: "Dr"
+        }
+    ],
     CHOOSE_CUSTOMER: "Choose Customer",
     CHOOSE_PARTY: "Choose Party",
     CHOOSE_SOLD_PRODUCT: "Choose Sold Product",

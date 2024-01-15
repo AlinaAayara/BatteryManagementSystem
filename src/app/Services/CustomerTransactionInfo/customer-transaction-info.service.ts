@@ -6,19 +6,19 @@ import { AppUrl } from 'src/app/config/api';
 @Injectable({
   providedIn: 'root'
 })
-export class PartyTransactionInfoService {
+export class CustomerTransactionInfoService {
 
   constructor(
     private _httpClient: HttpClient
   ) { }
 
-  AddPartyTransaction(body): Observable<any> {
-    return this._httpClient.post<any[]>(AppUrl.API.add_partyTransactionInfo, body, {
+  AddCustomerTransaction(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.add_customerTransactionInfo, body, {
       headers: { 'content-type': 'application/json' }
     });
   }
-  GetPartyTransaction(body): Observable<any> {
-    return this._httpClient.post<any[]>(AppUrl.API.get_partyTransactionInfo, body, {
+  GetCustomerTransaction(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.get_customerTransactionInfo, body, {
       headers: { 'content-type': 'application/json' }
     });
   }
