@@ -14,7 +14,7 @@
                                     PartyTransactionInfoForm.get('TransactionDate')?.dirty) &&
                                     PartyTransactionInfoForm.get('TransactionDate')?.errors)" [class.is-valid]="(PartyTransactionInfoForm.get('TransactionDate')?.touched &&
                                     !PartyTransactionInfoForm.get('TransactionDate')?.errors)" class="form-control"
-                                placeholder="Enter Date" appDate (blur)="getList()">
+                                placeholder="Enter Date" appDate>
                             <span style="color:red" class="help-block" *ngIf="((PartyTransactionInfoForm.get('TransactionDate')?.touched ||
                                         PartyTransactionInfoForm.get('TransactionDate')?.dirty) &&
                                         PartyTransactionInfoForm.get('TransactionDate')?.errors)">

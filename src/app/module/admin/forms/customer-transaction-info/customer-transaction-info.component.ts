@@ -94,7 +94,7 @@ export class CustomerTransactionInfoComponent implements OnInit {
       next: res => {
         this._sharedDataService.success("saved successfully !");
         this.manuallyClearField = true;
-        //this.getList();
+        this.getList();
         this.showLoader = false;
         this.clearField();
       },

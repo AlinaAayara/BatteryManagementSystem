@@ -32,7 +32,6 @@ export class PartyTransactionInfoComponent implements OnInit {
   ngOnInit(): void {
     this.partyTransactionInfoFormBuilder();
     this.formField = fields;
-    this.getList();
     this.getSelectedOrAdddedParty();
   }
 
@@ -56,6 +55,7 @@ export class PartyTransactionInfoComponent implements OnInit {
       this.PartyTransactionInfoForm.get("PartyID")?.setValue(res?.PartyID);
       if (!["", undefined, null].includes(res?.PartyID)) {
         this.getPartyBalance(res?.PartyID);
+        this.getList()
       }
       this.showPartyInfoSlideIn(false);
       this.btnChoosePartyText = res?.PartyName;
