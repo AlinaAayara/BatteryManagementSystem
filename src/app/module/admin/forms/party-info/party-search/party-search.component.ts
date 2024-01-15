@@ -3,6 +3,7 @@ import { SharedDataService } from "src/app/Services/shared-data.service";
 import { ActivatedRoute } from "@angular/router";
 import { Constant } from "src/app/config/constants";
 import { PartyInfoService } from "src/app/Services/PartyInfo/party-info.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-party-search',
@@ -50,15 +51,27 @@ export class PartySearchComponent implements OnInit {
     }
   }
   deleteItem(item) {
-    this._sharedDataService.deleteRecord(this.deleteBody(Object.values(item)[0])).subscribe({
-      next: data => {
-        this._sharedDataService.success("Deleted successfully !");
-        this.removeItem(Object.values(item)[0]);
-      },
-      error: error => {
-        this._sharedDataService.error(error)
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._sharedDataService.deleteRecord(this.deleteBody(Object.values(item)[0])).subscribe({
+          next: data => {
+            this._sharedDataService.success("Deleted successfully !");
+            this.removeItem(Object.values(item)[0]);
+          },
+          error: error => {
+            this._sharedDataService.error(error)
+          }
+        });
       }
-    });;
+    });
   }
 
   editItem(item) {
@@ -75,7 +88,7 @@ export class PartySearchComponent implements OnInit {
   }
   /* manually remove item from search result */
   removeItem(id) {
-    this.PartyList = this.PartyList.filter((searchid) => { Object.values(searchid)[0] != id });
+    this.PartyList = this.PartyList.filter((searchid) => { return Object.values(searchid)[0] != id });
   }
 
   /* This will trigger on party card selection */

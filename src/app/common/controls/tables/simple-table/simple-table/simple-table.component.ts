@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { ActivatedRoute } from '@angular/router';
 import { SharedDataService } from 'src/app/Services/shared-data.service';
 import { Constant } from 'src/app/config/constants';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-simple-table',
@@ -37,15 +38,27 @@ export class SimpleTableComponent implements OnInit, OnChanges {
   }
 
   deleteItem(item) {
-    this._sharedDataService.deleteRecord(this.deleteBody(Object.values(item)[0])).subscribe({
-      next: data => {
-        this._sharedDataService.success("Deleted successfully !");
-        this.removeItem(Object.values(item)[0]);
-      },
-      error: error => {
-        this._sharedDataService.error(error)
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._sharedDataService.deleteRecord(this.deleteBody(Object.values(item)[0])).subscribe({
+          next: data => {
+            this._sharedDataService.success("Deleted successfully !");
+            this.removeItem(Object.values(item)[0]);
+          },
+          error: error => {
+            this._sharedDataService.error(error)
+          }
+        });
       }
-    });;
+    });
   }
 
   editItem(item) {
@@ -66,7 +79,7 @@ export class SimpleTableComponent implements OnInit, OnChanges {
   }
   /* manually remove item from search result */
   removeItem(id) {
-    this.SearchResult = this.SearchResult.filter((searchid) => { Object.values(searchid)[0] != id });
+    this.SearchResult = this.SearchResult.filter((searchid) => { return Object.values(searchid)[0] != id });
   }
 
 }

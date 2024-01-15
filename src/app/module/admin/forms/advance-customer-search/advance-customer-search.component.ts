@@ -129,7 +129,7 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
   }
   /* manually remove item from search result */
   removeItem(id) {
-    this.AdvanceList = this.AdvanceList.filter((searchid) => { Object.values(searchid)[0] != id });
+    this.AdvanceList = this.AdvanceList.filter((searchid) => { return Object.values(searchid)[0] != id });
   }
 
   /* This will trigger on customer card selection */
