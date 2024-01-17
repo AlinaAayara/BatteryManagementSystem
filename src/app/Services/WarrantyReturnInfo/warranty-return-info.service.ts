@@ -22,4 +22,10 @@ export class WarrantyReturnInfoService {
       headers: { 'content-type': 'application/json' }
     });
   }
+  
+  ReturnWarrantyForCompanyReturn(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.returnWarrantyForCompanyReturn, body, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
 }

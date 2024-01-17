@@ -42,7 +42,7 @@ export class WarrantyReturnInfoComponent implements OnInit {
     this.WarrantyReturnInfoForm = this._FormBuilder.group({
       ReturnToCompanyDate: [this._sharedDataService?.currentUser?.todaysDate, Validators.required],
       IsReturnToCompany: ["1", Validators.required],
-      WarrantyID: [[], Validators.required]
+      OldSerialNo: [[], Validators.required]
     });
   }
 
@@ -73,8 +73,8 @@ export class WarrantyReturnInfoComponent implements OnInit {
     this.setCheckedWarrantyList();
   }
   setCheckedWarrantyList() {
-    this.WarrantyReturnInfoForm.get("WarrantyID")?.setValue(this.WarrentyReturnInfoList.filter(prod => prod.Checked).map(prod=> prod.WarrantyID));
-    console.log("this.WarrantyID", this.WarrantyReturnInfoForm.get("WarrantyID")?.value);
+    this.WarrantyReturnInfoForm.get("OldSerialNo")?.setValue(this.WarrentyReturnInfoList.filter(prod => prod.Checked).map(prod=> prod.OldSerialNo));
+    console.log("this.OldSerialNo", this.WarrantyReturnInfoForm.get("OldSerialNo")?.value);
   }
   /* function to show customer info componet in slide in on cick of choose customer button  */
   showCustomerInfoSlideIn(isShow) {
@@ -85,10 +85,10 @@ export class WarrantyReturnInfoComponent implements OnInit {
   Submit(e) {
     this.showLoader = true;
     let Data = this.WarrantyReturnInfoForm.value;
-    Data.MethodName = "InUp_WarrantyInfo";
+    Data.MethodName = "InUp_WarrantyProductInfo";
     Data.Mode = "4";
-    Data.WarrantyID = Data.WarrantyID.join(",")
-    this._warrantyReturnInfoService.AddWarranty(Data).subscribe({
+    Data.OldSerialNo = Data.OldSerialNo.join(",")
+    this._warrantyReturnInfoService.ReturnWarrantyForCompanyReturn(Data).subscribe({
       next: data => {
         this.showLoader = false;
         this._sharedDataService.success("Return Completed successfully !");

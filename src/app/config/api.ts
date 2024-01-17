@@ -66,6 +66,8 @@ export class AppUrl {
         add_warrantyInfo: AppUrl.baseURL + AppUrl.warrantyInfoURL + "AddWarranty",
         get_warrantyInfo: AppUrl.baseURL + AppUrl.warrantyInfoURL + "GetWarranty",
         return_warrantyInfo: AppUrl.baseURL + AppUrl.warrantyInfoURL + "GetWarrantyForCompanyReturn",
+        returnWarrantyForCompanyReturn: AppUrl.baseURL + AppUrl.warrantyInfoURL + "ReturnWarrantyForCompanyReturn",
+        
         getOldSerailNo_warrantyInfo: AppUrl.baseURL + AppUrl.warrantyInfoURL + "GetSerialNo_ForWarranty",
 
         add_oldBatteryInfo: AppUrl.baseURL + AppUrl.oldBatteryInfoURL + "AddOldBattery",
