@@ -118,7 +118,7 @@ export class PartyTransactionInfoComponent implements OnInit {
   public getRequestBody() {
     return {
       MethodName: "Search_PartyTransactionInfo",
-      TransactionDate: this.PartyTransactionInfoForm.get("TransactionDate")?.value
+      PartyID: this.PartyTransactionInfoForm.get("PartyID")?.value
     }
   }
 
