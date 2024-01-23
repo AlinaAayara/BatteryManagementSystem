@@ -145,7 +145,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 mb-3"
-                            *ngFor="let item of SaleInfoForm.get('SaleProductList')?.value ?? []">
+                            *ngFor="let item of SaleInfoForm.get('SaleProductList')?.value ?? []; let i= index">
                             <div class="tab-base">
                                 <ul class="nav nav-callout justify-content-end" role="tablist">
                                     <li class="nav-item" role="presentation">
@@ -172,10 +172,45 @@
                                             <span>{{item.SerialNo}}</span>
                                         </h5>
                                         <div class="row">
-                                            <div class="col-12">
-                                                <input id="id_SerialNo" formControlName="SalePrice" type="text"
-                                                    class="form-control" placeholder="Enter price"
-                                                    [value]="item?.SalePrice ?? 0">
+                                            <div class="col-6">
+                                                <table class="table ">
+                                                    <tr>
+                                                        <th>Price</th>
+                                                        <ng-container
+                                                            *ngIf="this.SaleInfoForm.get('GSTMode')?.value === 'G'">
+                                                            <ng-container
+                                                                *ngIf="this.SaleInfoForm.get('ApplicableGSTType')?.value==='CSGT_SGST'">
+                                                                <th>CGST</th>
+                                                                <th>SGST</th>
+                                                            </ng-container>
+                                                            <ng-container
+                                                                *ngIf="this.SaleInfoForm.get('ApplicableGSTType')?.value==='IGST'">
+                                                                <th>IGST</th>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{item?.Price}}</td>
+                                                        <ng-container
+                                                            *ngIf="this.SaleInfoForm.get('GSTMode')?.value === 'G'">
+                                                            <ng-container
+                                                                *ngIf="this.SaleInfoForm.get('ApplicableGSTType')?.value==='CSGT_SGST'">
+                                                                <td>{{item?.CGSTAmount}}</td>
+                                                                <td>{{item?.SGSTAmount}}</td>
+                                                            </ng-container>
+                                                            <ng-container
+                                                                *ngIf="this.SaleInfoForm.get('ApplicableGSTType')?.value==='IGST'">
+                                                                <td>{{item?.IGSTAmount}}</td>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            =
+                                            <div class="col-5">
+                                                <input id="id_SerialNo" type="text" class="form-control"
+                                                    placeholder="Enter price" [value]="item?.SalePrice ?? 0"
+                                                    (change)="updateSalePrice($event, i)">
                                             </div>
                                         </div>
                                     </div>
@@ -285,8 +320,8 @@
                                         <label for="DiscountAmount" class="col-sm-4 col-form-label">Disc Amount</label>
                                         <div class="col-sm-8">
                                             <input type="text" formControlName="DiscountAmount" class="form-control"
-                                            placeholder="Discount Amount"
-                                                id="DiscountAmount" (blur)="updateTotalValues()">
+                                                placeholder="Discount Amount" id="DiscountAmount"
+                                                (blur)="updateTotalValues()">
                                         </div>
                                     </div>
                                 </div>
@@ -321,52 +356,34 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mb-1">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <label for="TotalPaidAmount" class="col-sm-2 form-label">Notes</label>
-                                        <div class="col-sm-10">
-                                            <input id="TotalPaidAmount" formControlName="Remark" type="text"
-                                                class="form-control" placeholder="Notes">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <ng-container *ngIf="this.SaleInfoForm.get('GSTMode')?.value === 'G'">
-                                <div class="row mb-1" *ngIf="this.SaleInfoForm.get('ApplicableGSTType')?.value==='CSGT_SGST'">
-                                    <div class="col-md-3">
-                                        <input id="CGST" formControlName="CGST" NumberOnly
-                                            [directiveName]="'appDecimaNumber'" type="text" class="form-control"
-                                            placeholder="CGST %" (blur)="updateTotalValues()">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input id="CGST" formControlName="CGSTAmount" NumberOnly
-                                            [directiveName]="'appDecimaNumber'" type="text" class="form-control"
-                                            placeholder="CGST Amount" (blur)="updateTotalValues()">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input id="CGST" formControlName="SGST" NumberOnly
-                                            [directiveName]="'appDecimaNumber'" type="text" class="form-control"
-                                            placeholder="SGST %" (blur)="updateTotalValues()">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input id="CGST" formControlName="SGSTAmount" NumberOnly
-                                            [directiveName]="'appDecimaNumber'" type="text" class="form-control"
-                                            placeholder="SGST Amount" (blur)="updateTotalValues()">
-                                    </div>
-                                </div>
-                                <div class="row mb-1"  *ngIf="this.SaleInfoForm.get('ApplicableGSTType')?.value==='IGST'">
+                                <div class="row mb-1"
+                                    *ngIf="this.SaleInfoForm.get('ApplicableGSTType')?.value==='CSGT_SGST'">
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <label for="IGST" class="col-sm-4 form-label">IGST %</label>
+                                            <label for="CGSTAmount" class="col-sm-4 col-form-label">CGST
+                                                Amount</label>
                                             <div class="col-sm-8">
-                                                <input id="IGST" formControlName="IGST" NumberOnly
-                                                    [directiveName]="'appDecimaNumber'" type="text"
-                                                    class="form-control" placeholder="IGST %"
-                                                    (blur)="updateTotalValues()">
+                                                <input id="CGSTAmount" type="text" class="form-control" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'" formControlName="CGSTAmount"
+                                                    placeholder="CGST Amount">
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label for="SGSTAmount" class="col-sm-4 col-form-label">SGST
+                                                Amount</label>
+                                            <div class="col-sm-8">
+                                                <input id="SGSTAmount" type="text" class="form-control" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'" formControlName="SGSTAmount"
+                                                    placeholder="SGST Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-1"
+                                    *ngIf="this.SaleInfoForm.get('ApplicableGSTType')?.value==='IGST'">
                                     <div class="col-md-6">
                                         <div class="row">
                                             <label for="IGSTAmount" class="col-sm-4 col-form-label">IGST
@@ -381,8 +398,19 @@
 
                                 </div>
                             </ng-container>
+                            <div class="row mb-1">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label for="TotalPaidAmount" class="col-sm-2 form-label">Notes</label>
+                                        <div class="col-sm-10">
+                                            <input id="TotalPaidAmount" formControlName="Remark" type="text"
+                                                class="form-control" placeholder="Notes">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row mb-3">
-                                <div class="col-sm-10 offset-sm-2">
+                                <div class="col-sm-2 offset-sm-2">
                                     <div class="form-check">
                                         <input id="_dm-rememberCheck3" class="form-check-input" formControlName="Print"
                                             type="checkbox">
@@ -391,12 +419,22 @@
                                         </label>
                                     </div>
                                 </div>
+                                <div class="col-md-8" *ngIf="this.SaleInfoForm.get('GSTMode')?.value === 'G'">
+                                    <div class="row">
+                                        <label for="TotalTaxableAmount" class="col-sm-6 col-form-label">Total Taxable
+                                            Amount</label>
+                                        <div class="col-sm-6">
+                                            <input id="TotalTaxableAmount" type="text" class="form-control" NumberOnly
+                                                [directiveName]="'appDecimaNumber'" formControlName="TotalTaxableAmount"
+                                                placeholder="Taxable Amount">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="mt-4 d-grid gap-2 d-md-block">
                                 <button type="button" class="btn btn-primary" [disabled]="SaleInfoForm.invalid || ((this.SaleInfoForm.get('SaleProductList')?.value ?? []).length==0 
                                     || !selectedCustomer?.CustomerID
-                                    || showLoader)"
-                                    (click)="Submit()">
+                                    || showLoader)" (click)="Submit()">
                                     <ng-container *ngIf="showLoader">
                                         <span class="spinner-border spinner-border-sm"></span>
                                         Loading..
@@ -404,7 +442,6 @@
                                     <ng-container *ngIf="!showLoader">
                                         {{isAdd?'Save':'Update'}}
                                     </ng-container>
-
                                 </button>
                                 |
                                 <button type="button" class="btn btn-danger" (click)="clearSale()">Clear</button>

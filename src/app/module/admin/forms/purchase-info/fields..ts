@@ -60,11 +60,8 @@ export function generatePostRequestBody(data: any, mode: string) {
     body.TotalPaidAmount = data?.TotalPaidAmount;
     body.PurchaseID = data?.PurchaseID;
     body.GSTMode = data?.GSTMode;
-    body.CGST = data?.CGST;
     body.CGSTAmount = data?.CGSTAmount;
-    body.SGST = data?.SGST;
     body.SGSTAmount = data?.SGSTAmount;
-    body.IGST = data?.IGST;
     body.IGSTAmount = data?.IGSTAmount;
     body.ApplicableGSTType = data?.ApplicableGSTType;
 
@@ -80,7 +77,13 @@ export function generatePostRequestBody(data: any, mode: string) {
                 Price: product?.Price,
                 Mode: "0",
                 MethodName: "InUp_PurchaseProductInfo",
-                PurchaseID: ""
+                PurchaseID: "",
+                CGST: product?.CGST,
+                CGSTAmount: product?.CGSTAmount,
+                SGST: product?.SGST,
+                SGSTAmount: product?.SGSTAmount,
+                IGST: product?.IGST,
+                IGSTAmount: product?.IGSTAmount
             }
             body.PurchaseProductList.push(obj);
         })

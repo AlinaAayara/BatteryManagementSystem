@@ -8,6 +8,8 @@ export class AdvanceSerachPurchaseInfo {
     public TotalPaidAmount = "";
     public PartyName = "";
     public ContactNo = "";
+    public ApplicableGSTType = "";
+    public GSTMode = "";
     public PartyInfo: PartyInfo;
     public PurchaseProductInfo = Array<PurchaseProductInfo>();
 
@@ -20,7 +22,8 @@ export class AdvanceSerachPurchaseInfo {
         this.TotalPaidAmount = purchase?.totalPaidAmount || "";
         this.PartyName = purchase?.partyName || "";
         this.ContactNo = purchase?.contactNo || "";
-        this.PartyInfo = purchase?.partyInfo || "";
+        this.ApplicableGSTType = purchase?.applicableGSTType || "";
+        this.GSTMode = purchase?.gstMode || "";
 
         if (purchase && purchase?.purchaseProductInfo && purchase?.purchaseProductInfo?.length) {
             purchase?.purchaseProductInfo?.forEach((party: any) => {
@@ -39,12 +42,14 @@ export class PartyInfo {
     public ContactNo = "";
     public CreateDate = "";
     public UpdateDate = "";
+    public GSTNo = "";
     constructor(party: any = {}) {
         this.PartyID = party.partyID || "";
         this.PartyName = party.partyName || "";
         this.ContactNo = party.contactNo || "";
         this.CreateDate = party.createDate || "";
-        this.UpdateDate = party.UpdateDate || "";
+        this.UpdateDate = party.updateDate || "";
+        this.GSTNo = party.gstNo || "";
     }
 }
 
@@ -65,6 +70,16 @@ export class PurchaseProductInfo {
     public GuaranteePeriod = "";
     public SchemePoint = "";
     public CategoryName = "";
+    public CGST = "";
+    public CGSTAmount = "";
+    public SGST = "";
+    public TotalCGSTAmount = "";
+    public SGSTAmount = "";
+    public TotalSGSTAmount = "";
+    public IGST = "";
+    public IGSTAmount = "";
+    public TotalIGSTAmount = "";
+    public TotalAmount = "";
     constructor(purchaseProduct: any = {}) {
         this.PurchaseProductID = purchaseProduct?.purchaseProductID || "";
         this.PurchaseID = purchaseProduct?.purchaseID || "";
@@ -82,5 +97,15 @@ export class PurchaseProductInfo {
         this.GuaranteePeriod = purchaseProduct?.guaranteePeriod || "";
         this.SchemePoint = purchaseProduct?.schemePoint || "";
         this.CategoryName = purchaseProduct?.categoryName || "";
+        this.CGST = purchaseProduct?.cgst || "";
+        this.CGSTAmount = purchaseProduct?.cgstAmount || "";
+        this.SGST = purchaseProduct?.sgst || "";
+        this.TotalCGSTAmount = purchaseProduct?.totalCGSTAmount || "";
+        this.SGSTAmount = purchaseProduct?.sgstAmount || "";
+        this.TotalSGSTAmount = purchaseProduct?.totalSGSTAmount || "";
+        this.IGST = purchaseProduct?.igst || "";
+        this.IGSTAmount = purchaseProduct?.igstAmount || "";
+        this.TotalIGSTAmount = purchaseProduct?.totalIGSTAmount || "";
+        this.TotalAmount = purchaseProduct?.totalAmount || "";
     }
 }

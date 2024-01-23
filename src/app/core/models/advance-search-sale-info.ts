@@ -29,6 +29,8 @@ export class AdvanceSerachSaleInfo {
     public SaleReturnDate: "";
     public ReturnRemark: "";
     public SoldWith: "";
+    public ApplicableGSTType = "";
+    public GSTMode = "";
 
     constructor(sale: any = {}) {
         this.SaleID = sale?.saleID || "";
@@ -57,6 +59,8 @@ export class AdvanceSerachSaleInfo {
         this.SaleReturnDate = sale?.saleReturnDate || "";
         this.ReturnRemark = sale?.returnRemark || "";
         this.SoldWith = sale?.soldWith || "";
+        this.ApplicableGSTType = sale?.applicableGSTType || "";
+        this.GSTMode = sale?.gstMode || "";
 
         if (sale && sale?.saleProductInfo && sale?.saleProductInfo?.length) {
             sale?.saleProductInfo?.forEach((party: any) => {
@@ -81,6 +85,7 @@ export class CustomerInfo {
     public VehiclelNo = "";
     public VehicleName = "";
     public CreateDate = "";
+    public GSTNo = "";
     constructor(party: any = {}) {
         this.CustomerID = party.customerID || "";
         this.BranchID = party.branchID || "";
@@ -92,6 +97,7 @@ export class CustomerInfo {
         this.VehiclelNo = party.vehiclelNo || "";
         this.VehicleName = party.vehicleName || "";
         this.CreateDate = party.createDate || "";
+        this.GSTNo = party.gstNo || "";
     }
 }
 
@@ -117,6 +123,16 @@ export class SaleProductInfo {
     public AmpID = "";
     public PurchasePrice = "";
     public OldBatterySalePrice = "";
+    public CGST = "";
+    public CGSTAmount = "";
+    public SGST = "";
+    public TotalCGSTAmount = "";
+    public SGSTAmount = "";
+    public TotalSGSTAmount = "";
+    public IGST = "";
+    public IGSTAmount = "";
+    public TotalIGSTAmount = "";
+    public TotalAmount = "";
 
     constructor(saleProduct: any = {}) {
         this.SaleProductID = saleProduct?.saleProductID || "";
@@ -139,5 +155,15 @@ export class SaleProductInfo {
         this.AmpID = saleProduct?.ampID || "";
         this.PurchasePrice = saleProduct?.purchasePrice || "";
         this.OldBatterySalePrice = saleProduct?.oldBatterySalePrice || "";
+        this.CGST = saleProduct?.cgst || "";
+        this.CGSTAmount = saleProduct?.cgstAmount || "";
+        this.SGST = saleProduct?.sgst || "";
+        this.TotalCGSTAmount = saleProduct?.totalCGSTAmount || "";
+        this.SGSTAmount = saleProduct?.sgstAmount || "";
+        this.TotalSGSTAmount = saleProduct?.totalSGSTAmount || "";
+        this.IGST = saleProduct?.igst || "";
+        this.IGSTAmount = saleProduct?.igstAmount || "";
+        this.TotalIGSTAmount = saleProduct?.totalIGSTAmount || "";
+        this.TotalAmount = saleProduct?.totalAmount || "";
     }
 }

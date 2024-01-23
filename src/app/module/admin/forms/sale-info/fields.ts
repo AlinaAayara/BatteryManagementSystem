@@ -1,7 +1,7 @@
 import { Validators } from "@angular/forms";
 import { AppUrl } from "src/app/config/api";
 import { controlType, directiveList } from "src/app/config/constants";
-export function generatePostRequestBody(data: any, mode :string) {
+export function generatePostRequestBody(data: any, mode: string) {
     let body: any = {};
     body.SaleID = data?.SaleID;
     body.CustomerID = data?.CustomerID;
@@ -18,29 +18,32 @@ export function generatePostRequestBody(data: any, mode :string) {
     body.AmpID = data?.AmpID;
     body.PaymentModeID = data?.PaymentModeID;
     body.Remark = data?.Remark;
-
     body.GSTMode = data?.GSTMode;
-    body.CGST = data?.CGST;
     body.CGSTAmount = data?.CGSTAmount;
-    body.SGST = data?.SGST;
+    // body.SGST = data?.SGST;
     body.SGSTAmount = data?.SGSTAmount;
-    body.IGST = data?.IGST;
+    // body.IGST = data?.IGST;
     body.IGSTAmount = data?.IGSTAmount;
     body.ApplicableGSTType = data?.ApplicableGSTType;
-    
     body.SaleProductList = Array();
     body.Mode = mode;
     body.MethodName = "InUp_SaleInfo";
     data?.SaleProductList?.forEach(product => {
-            let obj = {
-                SaleID: "",
-                ProductID: product?.ProductID,
-                SerialNo: product?.SerialNo,
-                SalePrice:product?.SalePrice,
-                Mode: "0",
-                MethodName: "InUp_SaleProductInfo"
-            }
-            body.SaleProductList.push(obj);
+        let obj = {
+            SaleID: "",
+            ProductID: product?.ProductID,
+            SerialNo: product?.SerialNo,
+            SalePrice: product?.SalePrice,
+            Mode: "0",
+            MethodName: "InUp_SaleProductInfo",
+            CGST: product?.CGST,
+            CGSTAmount: product?.CGSTAmount,
+            SGST: product?.SGST,
+            SGSTAmount: product?.SGSTAmount,
+            IGST: product?.IGST,
+            IGSTAmount: product?.IGSTAmount
+        }
+        body.SaleProductList.push(obj);
     });
     return body;
 }

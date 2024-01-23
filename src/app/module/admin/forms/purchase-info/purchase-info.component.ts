@@ -81,19 +81,28 @@ export class PurchaseInfoComponent implements OnInit {
           ProductID: [""],
           SerialNo: [""],
           Price: [],
+          PurchasePrice: [],
           Quantity: [{ value: 0, disabled: true }],
-          TotalAmount: [{ value: 0, disabled: true }]
+          TotalAmount: [{ value: 0, disabled: true }],
+          CGST: [""],
+          CGSTAmount: [{ value: "", disabled: true }],
+          SGST: [""],
+          SGSTAmount: [{ value: "", disabled: true }],
+          IGST: [""],
+          IGSTAmount: [{ value: "", disabled: true }],
+          TotalGSTAmount: [],
+          TotalCGSTAmount: [],
+          TotalSGSTAmount: [],
+          TotalIGSTAmount: []
         }
       ),
       PurchaseProductList: [Validators.required],
       Print: [false],
-      CGST: [""],
       CGSTAmount: [{ value: 0, disabled: true }],
-      SGST: [""],
       SGSTAmount: [{ value: 0, disabled: true }],
-      IGST: [""],
       IGSTAmount: [{ value: 0, disabled: true }],
-      ApplicableGSTType: [APPLICABLE_GST_TYPE.I]
+      ApplicableGSTType: [APPLICABLE_GST_TYPE.I],
+      TotalTaxableAmount: [{ value: 0, disabled: true }],
     });
   }
 
@@ -274,7 +283,10 @@ export class PurchaseInfoComponent implements OnInit {
 
   /* Manual validation on add button click(child) */
   checkPurchaseProductInfoValidation(data) {
-    if (["", null, undefined].includes(data.CategoryID)) {
+    if (["", null, undefined].includes(this.PurchaseInfoForm.get("PartyID")?.value)) {
+      this._sharedDataService.NotieError("Please choose party");
+      return false;
+    } else if (["", null, undefined].includes(data.CategoryID)) {
       this._sharedDataService.NotieError("Please select category");
       return false;
     } else if (["", null, undefined].includes(data.ProductID)) {
@@ -296,12 +308,10 @@ export class PurchaseInfoComponent implements OnInit {
     let TotalAmount = 0;
     let TotalPaidAmount = 0;
     let PendingAmount = 0;
-    let CGST = 0;
     let CGSTAmount = 0;
-    let SGST = 0;
     let SGSTAmount = 0;
-    let IGST = 0;
     let IGSTAmount = 0;
+    let TotalTaxableAmount = 0;
 
     TotalQuantity = this.purchaseProductList?.reduce((n, { Quantity }) => n + Quantity, 0);
     TotalAmount = this.purchaseProductList?.reduce((n, { TotalAmount }) => (n) + parseFloat(TotalAmount), 0);
@@ -309,17 +319,14 @@ export class PurchaseInfoComponent implements OnInit {
     PendingAmount = TotalAmount - TotalPaidAmount;
 
     if (this.PurchaseInfoForm.get("GSTMode")?.value === "G" && this.PurchaseInfoForm.get("ApplicableGSTType")?.value === APPLICABLE_GST_TYPE.C) {
-      CGST = this.PurchaseInfoForm.get("CGST")?.value || 0;
-      SGST = this.PurchaseInfoForm.get("SGST")?.value || 0;
-      CGSTAmount = ((TotalAmount * CGST) / 100);
-      SGSTAmount = ((TotalAmount * SGST) / 100);
+      CGSTAmount = this.purchaseProductList?.reduce((n, { TotalCGSTAmount }) => (n) + parseFloat(TotalCGSTAmount), 0);
+      SGSTAmount = this.purchaseProductList?.reduce((n, { TotalSGSTAmount }) => (n) + parseFloat(TotalSGSTAmount), 0);
     }
     else if (this.PurchaseInfoForm.get("GSTMode")?.value === "G" && this.PurchaseInfoForm.get("ApplicableGSTType")?.value === APPLICABLE_GST_TYPE.I) {
-      IGST = this.PurchaseInfoForm.get("IGST")?.value || 0;
-      IGSTAmount = ((TotalAmount * IGST) / 100);
+      IGSTAmount = this.purchaseProductList?.reduce((n, { TotalIGSTAmount }) => (n) + parseFloat(TotalIGSTAmount), 0);
     }
 
-
+    TotalTaxableAmount = (CGSTAmount ?? 0) + (SGSTAmount ?? 0) + (IGSTAmount ?? 0);
 
     this.PurchaseInfoForm.patchValue({
       TotalQuantity: TotalQuantity,
@@ -328,9 +335,7 @@ export class PurchaseInfoComponent implements OnInit {
       CGSTAmount: CGSTAmount,
       SGSTAmount: SGSTAmount,
       IGSTAmount: IGSTAmount,
-      CGST: CGST,
-      SGST: SGST,
-      IGST: IGST
+      TotalTaxableAmount: TotalTaxableAmount
 
     })
 
@@ -407,6 +412,7 @@ export class PurchaseInfoComponent implements OnInit {
         }
       })
       this.PurchaseInfoForm.get("PurchaseProductList")?.setValue(this.purchaseProductList);
+      this.updateTotalValues();
     });
   }
 
@@ -424,6 +430,9 @@ export class PurchaseInfoComponent implements OnInit {
     let ProductID = this.PurchaseInfoForm.get("purchaseProductInfo")?.value?.ProductID;
     let selectProduct = this.productList.filter(prod => prod.ProductID == ProductID);
     this.PurchaseInfoForm.get("purchaseProductInfo")?.get("Price")?.setValue(selectProduct?.[0]?.PurchasePrice);
+    this.PurchaseInfoForm.get("purchaseProductInfo")?.get("CGST")?.setValue(selectProduct?.[0]?.CGST);
+    this.PurchaseInfoForm.get("purchaseProductInfo")?.get("SGST")?.setValue(selectProduct?.[0]?.SGST);
+    this.PurchaseInfoForm.get("purchaseProductInfo")?.get("IGST")?.setValue(selectProduct?.[0]?.IGST);
     this.calculatePurchaseProductTotal();
   }
 
@@ -431,30 +440,69 @@ export class PurchaseInfoComponent implements OnInit {
     let purchaseAmount = this.PurchaseInfoForm.get("purchaseProductInfo")?.value?.Price ?? 0;
     this.PurchaseInfoForm.get("purchaseProductInfo")?.get("Quantity")?.setValue(this.serialNoList?.length);
     this.PurchaseInfoForm.get("purchaseProductInfo")?.get("TotalAmount")?.setValue(this.serialNoList?.length * purchaseAmount);
+    this.calculateGST();
   }
 
   onWithOrWithoutGSTChange() {
+    this.calculateGST();
+  }
+
+  calculateGST() {
     const GSTMode = this.PurchaseInfoForm.get("GSTMode")?.value;
+    const ApplicableGSTType = this.PurchaseInfoForm.get("ApplicableGSTType")?.value;
+    const Price = this.PurchaseInfoForm.get("purchaseProductInfo")?.get("Price")?.value ?? 0;
+
+    const CGST = this.PurchaseInfoForm.get("purchaseProductInfo")?.get("CGST")?.value ?? 0;
+    const SGST = this.PurchaseInfoForm.get("purchaseProductInfo")?.get("SGST")?.value ?? 0;
+    const IGST = this.PurchaseInfoForm.get("purchaseProductInfo")?.get("IGST")?.value ?? 0;
+    let CGSTAmount = 0;
+    let SGSTAmount = 0;
+    let IGSTAmount = 0;
+    let PurchasePrice = 0;
+    let TotalGSTAmount = 0;
+    let Quantity = this.PurchaseInfoForm.get("purchaseProductInfo")?.get("Quantity")?.value ?? 0;
+    let TotalCGSTAmount = 0;
+    let TotalSGSTAmount = 0;
+    let TotalIGSTAmount = 0;
+
     if (GSTMode === 'W') {
-      this.PurchaseInfoForm.patchValue({
-        CGST: "",
-        CGSTAmount: "0",
-        SGST: "",
-        SGSTAmount: "0",
-        IGST: "",
-        IGSTAmount: "0"
-      });
+      this.PurchaseInfoForm.get("purchaseProductInfo")?.get("CGSTAmount")?.setValue(0);
+      this.PurchaseInfoForm.get("purchaseProductInfo")?.get("SGSTAmount")?.setValue(0);
+      this.PurchaseInfoForm.get("purchaseProductInfo")?.get("IGSTAmount")?.setValue(0);
+      this.PurchaseInfoForm.get("purchaseProductInfo")?.get("TotalGSTAmount")?.setValue(0);
     }
     else {
-      this.PurchaseInfoForm.patchValue({
-        CGST: this.basicGST?.CGST,
-        CGSTAmount: "0",
-        SGST: this.basicGST?.SGST,
-        SGSTAmount: "0",
-        IGST: this.basicGST?.IGST,
-        IGSTAmount: "0"
-      });
+      if (ApplicableGSTType === APPLICABLE_GST_TYPE.C) {
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("IGST")?.setValue(0);
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("IGSTAmount")?.setValue(0);
+        CGSTAmount = (((Price ?? 0) * (CGST ?? 0)) / 100);
+        SGSTAmount = (((Price ?? 0) * (SGST ?? 0)) / 100);
+        PurchasePrice = (Price ?? 0) - (CGSTAmount ?? 0) - (SGSTAmount ?? 0);
+        TotalCGSTAmount = ((CGSTAmount ?? 0)) * Quantity;
+        TotalSGSTAmount = ((SGSTAmount ?? 0)) * Quantity;
+        TotalGSTAmount = ((CGSTAmount ?? 0) + (SGSTAmount ?? 0)) * Quantity;
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("CGSTAmount")?.setValue(CGSTAmount);
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("SGSTAmount")?.setValue(SGSTAmount);
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("TotalCGSTAmount")?.setValue(TotalCGSTAmount);
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("TotalSGSTAmount")?.setValue(TotalSGSTAmount);
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("PurchasePrice")?.setValue(PurchasePrice);
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("TotalGSTAmount")?.setValue(TotalGSTAmount);
 
+      }
+      else {
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("CGSTAmount")?.setValue(0);
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("SGSTAmount")?.setValue(0);
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("CGST")?.setValue(0);
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("SGST")?.setValue(0);
+        IGSTAmount = (((Price ?? 0) * (IGST ?? 0)) / 100);
+        PurchasePrice = (Price ?? 0) - (IGSTAmount ?? 0);
+        TotalIGSTAmount = ((IGSTAmount ?? 0)) * Quantity;
+        TotalGSTAmount = ((IGSTAmount ?? 0)) * Quantity;
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("IGSTAmount")?.setValue(IGSTAmount);
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("PurchasePrice")?.setValue(PurchasePrice);
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("TotalGSTAmount")?.setValue(TotalGSTAmount);
+        this.PurchaseInfoForm.get("purchaseProductInfo")?.get("TotalIGSTAmount")?.setValue(TotalIGSTAmount);
+      }
       this.updateTotalValues();
     }
   }

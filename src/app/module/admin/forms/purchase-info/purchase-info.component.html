@@ -164,7 +164,7 @@
                                                     class="form-control" placeholder="Quantity">
                                             </div>
                                             <div class="col-4  mb-3">
-                                                <label for="_dm-Price" class="form-label">Price</label>
+                                                <label for="_dm-Price" class="form-label">Purchase Price</label>
                                                 <input id="_dm-Price" formControlName="Price" type="text"
                                                     class="form-control enter-focus" placeholder="Price" NumberOnly
                                                     [directiveName]="'appDecimaNumber'"
@@ -174,6 +174,36 @@
                                                 <label for="_dm-Price" class="form-label">Total</label>
                                                 <input id="_dm-Price" formControlName="TotalAmount" type="text"
                                                     class="form-control enter-focus" placeholder="TotalAmount"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'">
+                                            </div>
+                                        </div>
+                                        <div class="row g-3"
+                                            *ngIf="this.PurchaseInfoForm.get('GSTMode')?.value === 'G'">
+                                            <div class="col-4  mb-3">
+                                                <label for="_dm-Price" class="form-label">Price</label>
+                                                <input id="_dm-Price" formControlName="PurchasePrice" type="text"
+                                                    class="form-control enter-focus" placeholder="Price" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'">
+                                            </div>
+                                            <ng-container
+                                                *ngIf="this.PurchaseInfoForm.get('ApplicableGSTType')?.value==='CSGT_SGST'">
+                                                <div class="col-4  mb-3">
+                                                    <label for="_dm-Price" class="form-label">CGST</label>
+                                                    <input id="_dm-Price" formControlName="CGSTAmount" type="text"
+                                                        class="form-control" placeholder="CGST Amount">
+                                                </div>
+                                                <div class="col-4  mb-3">
+                                                    <label for="_dm-Price" class="form-label">SGST</label>
+                                                    <input id="_dm-Price" formControlName="SGSTAmount" type="text"
+                                                        class="form-control enter-focus" placeholder="SGST Amount"
+                                                        NumberOnly [directiveName]="'appDecimaNumber'">
+                                                </div>
+                                            </ng-container>
+                                            <div class="col-4  mb-3"
+                                                *ngIf="this.PurchaseInfoForm.get('ApplicableGSTType')?.value==='IGST'">
+                                                <label for="_dm-Price" class="form-label">IGST</label>
+                                                <input id="_dm-Price" formControlName="IGSTAmount" type="text"
+                                                    class="form-control enter-focus" placeholder="IGST Amount"
                                                     NumberOnly [directiveName]="'appDecimaNumber'">
                                             </div>
                                         </div>
@@ -277,40 +307,35 @@
 
                                 </div>
                                 <ng-container *ngIf="this.PurchaseInfoForm.get('GSTMode')?.value === 'G'">
-                                    <div class="row mb-1" *ngIf="this.PurchaseInfoForm.get('ApplicableGSTType')?.value==='CSGT_SGST'">
-                                        <div class="col-md-3">
-                                            <input id="CGST" formControlName="CGST" NumberOnly
-                                                [directiveName]="'appDecimaNumber'" type="text" class="form-control"
-                                                placeholder="CGST %" (blur)="updateTotalValues()">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input id="CGST" formControlName="CGSTAmount" NumberOnly
-                                                [directiveName]="'appDecimaNumber'" type="text" class="form-control"
-                                                placeholder="CGST Amount" (blur)="updateTotalValues()">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input id="CGST" formControlName="SGST" NumberOnly
-                                                [directiveName]="'appDecimaNumber'" type="text" class="form-control"
-                                                placeholder="SGST %" (blur)="updateTotalValues()">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input id="CGST" formControlName="SGSTAmount" NumberOnly
-                                                [directiveName]="'appDecimaNumber'" type="text" class="form-control"
-                                                placeholder="SGST Amount" (blur)="updateTotalValues()">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-1"  *ngIf="this.PurchaseInfoForm.get('ApplicableGSTType')?.value==='IGST'">
+                                    <div class="row mb-1"
+                                        *ngIf="this.PurchaseInfoForm.get('ApplicableGSTType')?.value==='CSGT_SGST'">
                                         <div class="col-md-6">
                                             <div class="row">
-                                                <label for="IGST" class="col-sm-4 form-label">IGST %</label>
+                                                <label for="CGSTAmount" class="col-sm-4 col-form-label">CGST
+                                                    Amount</label>
                                                 <div class="col-sm-8">
-                                                    <input id="IGST" formControlName="IGST" NumberOnly
+                                                    <input id="CGST" formControlName="CGSTAmount" NumberOnly
                                                         [directiveName]="'appDecimaNumber'" type="text"
-                                                        class="form-control" placeholder="IGST %"
+                                                        class="form-control" placeholder="CGST Amount"
                                                         (blur)="updateTotalValues()">
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label for="SGSTAmount" class="col-sm-4 col-form-label">SGST
+                                                    Amount</label>
+                                                <div class="col-sm-8">
+                                                    <input id="CGST" formControlName="SGSTAmount" NumberOnly
+                                                        [directiveName]="'appDecimaNumber'" type="text"
+                                                        class="form-control" placeholder="SGST Amount"
+                                                        (blur)="updateTotalValues()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-1"
+                                        *ngIf="this.PurchaseInfoForm.get('ApplicableGSTType')?.value==='IGST'">
                                         <div class="col-md-6">
                                             <div class="row">
                                                 <label for="IGSTAmount" class="col-sm-4 col-form-label">IGST
@@ -327,13 +352,25 @@
                                 </ng-container>
 
                                 <div class="row mb-3">
-                                    <div class="col-sm-10 offset-sm-2">
+                                    <div class="col-sm-2 offset-sm-2">
                                         <div class="form-check">
                                             <input id="_dm-rememberCheck3" class="form-check-input"
                                                 formControlName="Print" type="checkbox">
                                             <label for="_dm-rememberCheck3" class="form-check-label">
                                                 <b>Print</b>
                                             </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8" *ngIf="this.PurchaseInfoForm.get('GSTMode')?.value === 'G'">
+                                        <div class="row">
+                                            <label for="TotalTaxableAmount" class="col-sm-6 col-form-label">Total
+                                                Taxable
+                                                Amount</label>
+                                            <div class="col-sm-6">
+                                                <input id="TotalTaxableAmount" type="text" class="form-control"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'"
+                                                    formControlName="TotalTaxableAmount" placeholder="Taxable Amount">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

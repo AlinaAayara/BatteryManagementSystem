@@ -60,7 +60,13 @@ export class SaleInfoComponent implements OnInit {
       SaleProductInfo: this._FormBuilder.group(
         {
           SerialNo: [""],
-          SalePrice: []
+          SalePrice: [],
+          CGST: [""],
+          CGSTAmount: [{ value: "", disabled: true }],
+          SGST: [""],
+          SGSTAmount: [{ value: "", disabled: true }],
+          IGST: [""],
+          IGSTAmount: [{ value: "", disabled: true }]
         }
       ),
       SaleProductList: [[], Validators.required],
@@ -69,12 +75,10 @@ export class SaleInfoComponent implements OnInit {
       PaymentModeID: ["", Validators.required],
       Remark: [""],
       GSTMode: ["", Validators.required],
-      CGST: [""],
       CGSTAmount: [{ value: 0, disabled: true }],
-      SGST: [""],
       SGSTAmount: [{ value: 0, disabled: true }],
-      IGST: [""],
       IGSTAmount: [{ value: 0, disabled: true }],
+      TotalTaxableAmount: [{ value: 0, disabled: true }],
       ApplicableGSTType: [APPLICABLE_GST_TYPE.C]
     });
   }
@@ -157,7 +161,7 @@ export class SaleInfoComponent implements OnInit {
     this.showCustomerInfoSlideIn(false);
 
     this.btnChooseCustomerText = this.selectedCustomer?.CustomerName;
-    this.getSalePriceByCusomerTypeID();
+    this.getSalePriceByCusomerTypeID(null);
   }
 
   /* function to get Max bill no+1 
@@ -199,8 +203,8 @@ export class SaleInfoComponent implements OnInit {
         this.SaleInfoForm.get("SaleProductList")?.setValue(SaleProductList);
         this.SaleInfoForm.get("AmpID")?.setValue(data?.[0]?.AmpID);
         this.SaleInfoForm.get("OldBatteryPurchasePrice")?.setValue(data?.[0]?.PurchasePrice);
-
-        this.getSalePriceByCusomerTypeID();
+        this.getSalePriceByCusomerTypeID(SerialNo);
+        this.calculateGST();
         this.updateTotalValues();
         this.SaleInfoForm.get("SaleProductInfo")?.get("SerialNo")?.setValue("");
         this.updateTotalValues();
@@ -244,15 +248,13 @@ export class SaleInfoComponent implements OnInit {
   2) On entered serial no 
    */
 
-  getSalePriceByCusomerTypeID() {
+  getSalePriceByCusomerTypeID(SerialNo) {
     let SaleProductList: [any] = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
     if (SaleProductList?.length > 0 && this.selectedCustomer?.CustomerTypeID) {
       const CustomerTypeID = CustomerTypeID_ToPurchaseProduct[this.selectedCustomer?.CustomerTypeID];
-
       SaleProductList.forEach(prod => {
-        prod.SalePrice = prod[CustomerTypeID]
+        prod.SalePrice = SerialNo == prod.SerialNo ? prod[CustomerTypeID] : [null, undefined, ""].includes(SerialNo) ? prod[CustomerTypeID] : prod.SalePrice;
       });
-
       this.SaleInfoForm.get("SaleProductList")?.setValue(SaleProductList);
     }
   }
@@ -297,15 +299,18 @@ export class SaleInfoComponent implements OnInit {
     let TotalOldBatteryAmount = 0;
     let OldBatteryPurchasePrice = 0;
     let DiscountAmount = 0;
-    let CGST = 0;
+    let TotalTaxableAmount = 0;
     let CGSTAmount = 0;
-    let SGST = 0;
     let SGSTAmount = 0;
-    let IGST = 0;
     let IGSTAmount = 0;
 
     TotalQuantity = SaleProductList.length;
     TotalAmount = SaleProductList?.reduce((n, { SalePrice }) => (n) + parseFloat(SalePrice), 0);
+    CGSTAmount = SaleProductList?.reduce((n, { CGSTAmount }) => (n) + parseFloat(CGSTAmount), 0);
+    SGSTAmount = SaleProductList?.reduce((n, { SGSTAmount }) => (n) + parseFloat(SGSTAmount), 0);
+    IGSTAmount = SaleProductList?.reduce((n, { IGSTAmount }) => (n) + parseFloat(IGSTAmount), 0);
+
+    TotalTaxableAmount = (CGSTAmount ?? 0) + (SGSTAmount ?? 0) + (IGSTAmount ?? 0);
     OldBatteryPurchasePrice = this.SaleInfoForm.get("OldBatteryPurchasePrice")?.value || 0;
     OldBatteryCount = this.SaleInfoForm.get("OldBatteryCount")?.value || 0;
     TotalOldBatteryAmount = (OldBatteryCount ?? 0) * (OldBatteryPurchasePrice ?? 0);
@@ -314,17 +319,6 @@ export class SaleInfoComponent implements OnInit {
     TotalPaidAmount = this.SaleInfoForm.get("TotalPaidAmount")?.value || 0;
     TotalPaidAmount = (TotalPaidAmount <= FinalAmount) && (this.SaleInfoForm.get("TotalPaidAmount")?.dirty) ? TotalPaidAmount : FinalAmount;
     PendingAmount = FinalAmount - TotalPaidAmount;
-
-    if (this.SaleInfoForm.get("GSTMode")?.value === "G" && this.SaleInfoForm.get("ApplicableGSTType")?.value === APPLICABLE_GST_TYPE.C) {
-      CGST = this.SaleInfoForm.get("CGST")?.value || 0;
-      SGST = this.SaleInfoForm.get("SGST")?.value || 0;
-      CGSTAmount = ((TotalAmount * CGST) / 100);
-      SGSTAmount = ((TotalAmount * SGST) / 100);
-    }
-    else if (this.SaleInfoForm.get("GSTMode")?.value === "G" && this.SaleInfoForm.get("ApplicableGSTType")?.value === APPLICABLE_GST_TYPE.I) {
-      IGST = this.SaleInfoForm.get("IGST")?.value || 0;
-      IGSTAmount = ((TotalAmount * IGST) / 100);
-    }
 
     this.SaleInfoForm.patchValue({
       TotalQuantity: TotalQuantity,
@@ -337,9 +331,7 @@ export class SaleInfoComponent implements OnInit {
       CGSTAmount: CGSTAmount,
       SGSTAmount: SGSTAmount,
       IGSTAmount: IGSTAmount,
-      CGST: CGST,
-      SGST: SGST,
-      IGST: IGST
+      TotalTaxableAmount: TotalTaxableAmount
     })
 
   }
@@ -392,28 +384,51 @@ export class SaleInfoComponent implements OnInit {
     }
   }
   onWithOrWithoutGSTChange() {
+    this.calculateGST();
+  }
+  calculateGST() {
     const GSTMode = this.SaleInfoForm.get("GSTMode")?.value;
+    const ApplicableGSTType = this.SaleInfoForm.get("ApplicableGSTType")?.value;
+
+    let SaleProductList: any[] = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
+    const CustomerTypeID = CustomerTypeID_ToPurchaseProduct[this.selectedCustomer?.CustomerTypeID];
+
     if (GSTMode === 'W') {
-      this.SaleInfoForm.patchValue({
-        CGST: "",
-        CGSTAmount: "0",
-        SGST: "",
-        SGSTAmount: "0",
-        IGST: "",
-        IGSTAmount: "0"
+      SaleProductList?.forEach(product => {
+        product.CGSTAmount = "0";
+        product.SGSTAmount = "0";
+        product.IGSTAmount = "0";
+        //product.SalePrice = product[CustomerTypeID] ?? product.SalePrice;
       });
     }
     else {
-      this.SaleInfoForm.patchValue({
-        CGST: this.basicGST?.CGST,
-        CGSTAmount: "0",
-        SGST: this.basicGST?.SGST,
-        SGSTAmount: "0",
-        IGST: this.basicGST?.IGST,
-        IGSTAmount: "0"
-      });
+      SaleProductList?.forEach(product => {
+        if (ApplicableGSTType === APPLICABLE_GST_TYPE.C) {
+          //product.SalePrice = product[CustomerTypeID] ?? product.SalePrice;
+          product.IGSTAmount = "0";
+          product.CGSTAmount = (((product?.SalePrice ?? 0) * (product?.CGST ?? 0)) / 100);
+          product.SGSTAmount = (((product?.SalePrice ?? 0) * (product?.SGST ?? 0)) / 100);
+          product.Price = (product?.SalePrice ?? 0) - (product.CGSTAmount ?? 0) - (product.SGSTAmount ?? 0);
 
+        }
+        else {
+          //product.SalePrice = product[CustomerTypeID] ?? product.SalePrice;
+          product.CGSTAmount = "0";
+          product.SGSTAmount = "0";
+          product.IGSTAmount = (((product?.SalePrice ?? 0) * (product?.IGST ?? 0)) / 100);
+          product.Price = (product?.SalePrice ?? 0) - (product.IGSTAmount ?? 0);
+        }
+      });
       this.updateTotalValues();
     }
+    this.SaleInfoForm.get("SaleProductList")?.setValue(SaleProductList);
+  }
+
+  updateSalePrice(event, index) {
+    const salePrice = (event?.target as HTMLInputElement)?.value;
+    let SaleProductList: any[] = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
+    SaleProductList[index].SalePrice = salePrice;
+    this.SaleInfoForm.get("SaleProductList")?.setValue(SaleProductList);
+    this.calculateGST();
   }
 }

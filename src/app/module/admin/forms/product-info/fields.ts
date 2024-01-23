@@ -153,6 +153,39 @@ export const fields = [
         bootstrapFormGroup: 4,
         controlType: controlType.Textbox,
         directiveName: directiveList.NumberOnly
+    },
+    {
+        fieldName: "CGST",
+        validation: null,
+        defaultValue: "",
+        placeholder: "CGST %",
+        label: "CGST %",
+        isVisible: true,
+        bootstrapFormGroup: 4,
+        controlType: controlType.Textbox,
+        directiveName: directiveList.appDecimaNumber
+    },
+    {
+        fieldName: "SGST",
+        validation: null,
+        defaultValue: "",
+        placeholder: "SGST %",
+        label: "SGST %",
+        isVisible: true,
+        bootstrapFormGroup: 4,
+        controlType: controlType.Textbox,
+        directiveName: directiveList.appDecimaNumber
+    },
+    {
+        fieldName: "IGST",
+        validation: null,
+        defaultValue: "",
+        placeholder: "IGST %",
+        label: "IGST %",
+        isVisible: true,
+        bootstrapFormGroup: 4,
+        controlType: controlType.Textbox,
+        directiveName: directiveList.appDecimaNumber
     }
 
 ]
