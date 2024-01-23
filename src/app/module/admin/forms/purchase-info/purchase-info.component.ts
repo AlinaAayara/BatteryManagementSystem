@@ -27,6 +27,8 @@ export class PurchaseInfoComponent implements OnInit {
   @ViewChild("priceControl") priceControl: ElementRef;
   public basicGST: any;
   public withOrWithoutGST = Constant.WITH_OR_WITHOUT_GST;
+  public isTCS = Constant.YES_OR_NO;
+  public defaultTCS = Constant.DEFAULT_TCS;
 
   constructor(
     private _FormBuilder: FormBuilder,
@@ -103,6 +105,9 @@ export class PurchaseInfoComponent implements OnInit {
       IGSTAmount: [{ value: 0, disabled: true }],
       ApplicableGSTType: [APPLICABLE_GST_TYPE.I],
       TotalTaxableAmount: [{ value: 0, disabled: true }],
+      IsTCSApplicable: ["0", Validators.required],
+      TCS: [this.defaultTCS],
+      TCSAmount: [{ value: 0, disabled: true }]
     });
   }
 
@@ -338,7 +343,7 @@ export class PurchaseInfoComponent implements OnInit {
       TotalTaxableAmount: TotalTaxableAmount
 
     })
-
+    this.calculateTCS();
   }
 
   /* remove item from list it will trigger from front end purchase product table upon click on delete button */
@@ -368,6 +373,8 @@ export class PurchaseInfoComponent implements OnInit {
     this.PurchaseInfoForm.get("PurchaseDate")?.setValue(this._sharedDataService?.currentUser?.todaysDate);
     this.PurchaseInfoForm.get("GSTMode")?.setValue(this.basicGST?.GSTMode);
     this.PurchaseInfoForm.get("ApplicableGSTType")?.setValue(APPLICABLE_GST_TYPE.C);
+    this.PurchaseInfoForm.get("IsTCSApplicable")?.setValue("0");
+    this.PurchaseInfoForm.get("TCS")?.setValue(this.defaultTCS);
   }
 
   /* function to show party info componet in slide in on cick of choose party button  */
@@ -505,5 +512,26 @@ export class PurchaseInfoComponent implements OnInit {
       }
       this.updateTotalValues();
     }
+  }
+  onIsTCSApplicable() {
+    if (this.PurchaseInfoForm.get("IsTCSApplicable")?.value == "1") {
+      this.PurchaseInfoForm.get("TCS")?.setValidators([Validators.required]);//setting validation
+      this.PurchaseInfoForm.get("TCS")?.setErrors({ 'required': true });//error message
+      this.calculateTCS();
+    }
+    else {
+      this.PurchaseInfoForm.get("TCS")?.clearValidators();//clear validation
+      this.PurchaseInfoForm.get("TCS")?.setErrors(null);//updating error message
+      this.PurchaseInfoForm.get("TCS")?.setValue(this.defaultTCS);
+      this.PurchaseInfoForm.get("TCSAmount")?.setValue(0);
+    }
+    this.PurchaseInfoForm.updateValueAndValidity();//update validation
+  }
+
+  calculateTCS() {
+    let TotalAmount = this.PurchaseInfoForm.get("TotalAmount")?.value ?? 0;
+    let TCS = this.PurchaseInfoForm.get("TCS")?.value ?? 0;
+    let TCSAmount = (Number((TotalAmount * TCS) / 100).toFixed(2));
+    this.PurchaseInfoForm.get("TCSAmount")?.setValue(TCSAmount ?? 0);
   }
 }

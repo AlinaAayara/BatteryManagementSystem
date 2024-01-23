@@ -374,6 +374,45 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row mb-1">
+                                    <label for="TotalTaxableAmount" class="col-sm-5 col-form-label">Is TCS Applicable</label>
+                                        <div class="col-sm-2">
+                                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                                <div class="btn-group" role="group"
+                                                    aria-label="Basic radio toggle button group">
+                                                    <ng-container *ngFor="let group of isTCS">
+                                                        <input type="radio" class="btn-check" id="{{group.Value}}"
+                                                            [value]="group.Value" [formControlName]="'IsTCSApplicable'"
+                                                            (change)="onIsTCSApplicable()">
+                                                        <label class="btn btn-outline-primary"
+                                                            for="{{group.Value}}">{{group.Text}}</label>
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="row mb-1" *ngIf="this.PurchaseInfoForm.get('IsTCSApplicable')?.value === '1'">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label for="TCS" class="col-sm-4 form-label">TCS %</label>
+                                            <div class="col-sm-8">
+                                                <input id="TCS" formControlName="TCS" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'" type="text" class="form-control"
+                                                    placeholder="TCS %" (blur)="updateTotalValues()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label for="TCSAmount" class="col-sm-4 col-form-label">TCS Amount</label>
+                                            <div class="col-sm-8">
+                                                <input id="TCSAmount" type="text" class="form-control" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'" formControlName="TCSAmount"
+                                                    placeholder="TCSAmount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="mt-4 d-grid gap-2 d-md-block">
                                     <button type="button" class="btn btn-primary" (click)="Submit()"
                                         [disabled]="PurchaseInfoForm.invalid || purchaseProductList.length==0 || showLoader">

@@ -11,6 +11,7 @@ export enum DeviceTypes {
 export const Constant = {
     ISWRITE: "isWrite",
     ISDELETE: "isDelete",
+    DEFAULT_TCS:"0.100",
     CUSTOMER_TYPE: [
         {
             Value: "B",
@@ -53,6 +54,17 @@ export const Constant = {
         {
             Value: "DR",
             Text: "Debit"
+        }
+    ],
+    /* dont change this yes or no used multiple places */
+    YES_OR_NO: [
+        {
+            Value: "1",
+            Text: "Yes"
+        },
+        {
+            Value: "0",
+            Text: "No"
         }
     ],
     CHOOSE_CUSTOMER: "Choose Customer",

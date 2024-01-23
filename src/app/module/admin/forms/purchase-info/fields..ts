@@ -63,6 +63,9 @@ export function generatePostRequestBody(data: any, mode: string) {
     body.CGSTAmount = data?.CGSTAmount;
     body.SGSTAmount = data?.SGSTAmount;
     body.IGSTAmount = data?.IGSTAmount;
+    body.IsTCSApplicable = data?.IsTCSApplicable;
+    body.TCS = data?.TCS;
+    body.TCSAmount = data?.TCSAmount;
     body.ApplicableGSTType = data?.ApplicableGSTType;
 
     body.PurchaseProductList = Array();
