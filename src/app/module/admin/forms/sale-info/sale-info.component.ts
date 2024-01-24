@@ -398,6 +398,7 @@ export class SaleInfoComponent implements OnInit {
         product.CGSTAmount = "0";
         product.SGSTAmount = "0";
         product.IGSTAmount = "0";
+        product.Price = (product?.SalePrice ?? 0);
         //product.SalePrice = product[CustomerTypeID] ?? product.SalePrice;
       });
     }
@@ -419,8 +420,8 @@ export class SaleInfoComponent implements OnInit {
           product.Price = (product?.SalePrice ?? 0) - (product.IGSTAmount ?? 0);
         }
       });
-      this.updateTotalValues();
     }
+    this.updateTotalValues();
     this.SaleInfoForm.get("SaleProductList")?.setValue(SaleProductList);
   }
 
