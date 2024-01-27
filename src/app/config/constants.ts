@@ -39,11 +39,11 @@ export const Constant = {
     WITH_OR_WITHOUT_GST: [
         {
             Value: "W",
-            Text: "Without GST"
+            Text: "WG"
         },
         {
             Value: "G",
-            Text: "With GST"
+            Text: "G"
         }
     ],
     CR_OR_DR: [

@@ -31,7 +31,10 @@ export class AdvanceSerachSaleInfo {
     public SoldWith: "";
     public ApplicableGSTType = "";
     public GSTMode = "";
-
+    public CGSTAmount = "";
+    public SGSTAmount = "";
+    public IGSTAmount = "";
+    public TotalDiscountAmount = "";
     constructor(sale: any = {}) {
         this.SaleID = sale?.saleID || "";
         this.CustomerID = sale?.customerID || "";
@@ -61,6 +64,10 @@ export class AdvanceSerachSaleInfo {
         this.SoldWith = sale?.soldWith || "";
         this.ApplicableGSTType = sale?.applicableGSTType || "";
         this.GSTMode = sale?.gstMode || "";
+        this.CGSTAmount = sale?.cgstAmount || "";
+        this.SGSTAmount = sale?.sgstAmount || "";
+        this.IGSTAmount = sale?.igstAmount || "";
+        this.TotalDiscountAmount = sale?.totalDiscountAmount || "";
 
         if (sale && sale?.saleProductInfo && sale?.saleProductInfo?.length) {
             sale?.saleProductInfo?.forEach((party: any) => {
@@ -133,6 +140,8 @@ export class SaleProductInfo {
     public IGSTAmount = "";
     public TotalIGSTAmount = "";
     public TotalAmount = "";
+    public Discount = "";
+    public DiscountAmount = "";
 
     constructor(saleProduct: any = {}) {
         this.SaleProductID = saleProduct?.saleProductID || "";
@@ -165,5 +174,7 @@ export class SaleProductInfo {
         this.IGSTAmount = saleProduct?.igstAmount || "";
         this.TotalIGSTAmount = saleProduct?.totalIGSTAmount || "";
         this.TotalAmount = saleProduct?.totalAmount || "";
+        this.Discount = saleProduct?.discount || "";
+        this.DiscountAmount = saleProduct?.discountAmount || "";
     }
 }

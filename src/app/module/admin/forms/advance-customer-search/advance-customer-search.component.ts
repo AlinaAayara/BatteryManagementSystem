@@ -41,12 +41,9 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes?.["AdvanceSearchTextString"]) {
       this.CustomerName = changes["AdvanceSearchTextString"]?.currentValue;
-      if (this.CustomerName?.length > 0) {
-        setTimeout(() => {
-          this.serchCustomer();
-        }, 1000);
-
-      }
+      setTimeout(() => {
+        this.serchCustomer();
+      }, 1000);
     }
 
 

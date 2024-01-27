@@ -94,8 +94,16 @@ export class PartyTransactionInfoComponent implements OnInit {
         this._sharedDataService.success("saved successfully !");
         this.manuallyClearField = true;
         this.getList();
+        this.getPartyBalance(this.PartyTransactionInfoForm.get("PartyID")?.value);
         this.showLoader = false;
-        this.clearField();
+        
+        this.isAdd = true;
+        this.showLoader = false;
+        this.PartyTransactionInfoForm.get("TransactionDate")?.setValue(this._sharedDataService?.currentUser?.todaysDate);
+        this.PartyTransactionInfoForm.get("TransactionType")?.setValue("CR");
+        this.PartyTransactionInfoForm.get("Amount")?.setValue("0");
+        this.PartyTransactionInfoForm.get("Remark")?.setValue("");
+        
       },
       error: error => {
         this.showLoader = false;

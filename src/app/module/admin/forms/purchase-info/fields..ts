@@ -67,6 +67,7 @@ export function generatePostRequestBody(data: any, mode: string) {
     body.TCS = data?.TCS;
     body.TCSAmount = data?.TCSAmount;
     body.ApplicableGSTType = data?.ApplicableGSTType;
+    body.TotalDiscountAmount = data?.TotalDiscountAmount;
 
     body.PurchaseProductList = Array();
     body.Mode = mode;
@@ -77,16 +78,15 @@ export function generatePostRequestBody(data: any, mode: string) {
             let obj = {
                 ProductID: product?.ProductID,
                 SerialNo: srno,
-                Price: product?.Price,
-                Mode: "0",
-                MethodName: "InUp_PurchaseProductInfo",
-                PurchaseID: "",
+                Price: product?.PurchasePrice,
                 CGST: product?.CGST,
                 CGSTAmount: product?.CGSTAmount,
                 SGST: product?.SGST,
                 SGSTAmount: product?.SGSTAmount,
                 IGST: product?.IGST,
-                IGSTAmount: product?.IGSTAmount
+                IGSTAmount: product?.IGSTAmount,
+                Discount: product?.Discount,
+                DiscountAmount: product?.DiscountAmount
             }
             body.PurchaseProductList.push(obj);
         })

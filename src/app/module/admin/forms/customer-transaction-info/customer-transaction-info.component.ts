@@ -95,8 +95,16 @@ export class CustomerTransactionInfoComponent implements OnInit {
         this._sharedDataService.success("saved successfully !");
         this.manuallyClearField = true;
         this.getList();
+        this.getCustomerBalance(this.CustomerTransactionInfoForm.get("CustomerID")?.value);
         this.showLoader = false;
-        this.clearField();
+
+        this.isAdd = true;
+        this.showLoader = false;
+        this.CustomerTransactionInfoForm.get("TransactionDate")?.setValue(this._sharedDataService?.currentUser?.todaysDate);
+        this.CustomerTransactionInfoForm.get("TransactionType")?.setValue("CR");
+        this.CustomerTransactionInfoForm.get("Amount")?.setValue("0");
+        this.CustomerTransactionInfoForm.get("Remark")?.setValue("");
+        //this.clearField();
       },
       error: error => {
         this.showLoader = false;

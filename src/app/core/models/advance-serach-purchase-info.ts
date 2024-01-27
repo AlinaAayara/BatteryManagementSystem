@@ -10,6 +10,13 @@ export class AdvanceSerachPurchaseInfo {
     public ContactNo = "";
     public ApplicableGSTType = "";
     public GSTMode = "";
+    public CGSTAmount = "";
+    public SGSTAmount = "";
+    public IGSTAmount = "";
+    public TotalDiscountAmount = "";
+    public IsTCSApplicable = "";
+    public TCS = "";
+    public TCSAmount = "";
     public PartyInfo: PartyInfo;
     public PurchaseProductInfo = Array<PurchaseProductInfo>();
 
@@ -24,6 +31,13 @@ export class AdvanceSerachPurchaseInfo {
         this.ContactNo = purchase?.contactNo || "";
         this.ApplicableGSTType = purchase?.applicableGSTType || "";
         this.GSTMode = purchase?.gstMode || "";
+        this.SGSTAmount = purchase?.sgstAmount || "";
+        this.CGSTAmount = purchase?.cgstAmount || "";
+        this.IGSTAmount = purchase?.igstAmount || "";
+        this.TotalDiscountAmount = purchase?.totalDiscountAmount || "";
+        this.IsTCSApplicable = purchase?.isTCSApplicable || "";
+        this.TCS = purchase?.tcs || "";
+        this.TCSAmount = purchase?.tcsAmount || "";
 
         if (purchase && purchase?.purchaseProductInfo && purchase?.purchaseProductInfo?.length) {
             purchase?.purchaseProductInfo?.forEach((party: any) => {
@@ -80,6 +94,8 @@ export class PurchaseProductInfo {
     public IGSTAmount = "";
     public TotalIGSTAmount = "";
     public TotalAmount = "";
+    public Discount = "";
+    public DiscountAmount = "";
     constructor(purchaseProduct: any = {}) {
         this.PurchaseProductID = purchaseProduct?.purchaseProductID || "";
         this.PurchaseID = purchaseProduct?.purchaseID || "";
@@ -107,5 +123,7 @@ export class PurchaseProductInfo {
         this.IGSTAmount = purchaseProduct?.igstAmount || "";
         this.TotalIGSTAmount = purchaseProduct?.totalIGSTAmount || "";
         this.TotalAmount = purchaseProduct?.totalAmount || "";
+        this.Discount = purchaseProduct?.discount || "";
+        this.DiscountAmount = purchaseProduct?.discountAmount || "";
     }
 }

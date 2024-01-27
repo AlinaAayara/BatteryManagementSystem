@@ -207,6 +207,26 @@
                                                     NumberOnly [directiveName]="'appDecimaNumber'">
                                             </div>
                                         </div>
+                                        <div class="row g-3">
+                                            <div class="col-4  mb-3">
+                                                <label for="_dm-Price" class="form-label">Discount %</label>
+                                                <input id="_dm-Price" formControlName="Discount" type="text"
+                                                    class="form-control" placeholder="Discount %"
+                                                    (change)="calculatePurchaseProductTotal()">
+                                            </div>
+                                            <div class="col-4  mb-3">
+                                                <label for="_dm-Price" class="form-label">Disc Amnt/Pic</label>
+                                                <input id="_dm-Price" formControlName="DiscountAmount" type="text"
+                                                    class="form-control enter-focus" placeholder="Disc Amount"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'">
+                                            </div>
+                                            <div class="col-4  mb-3">
+                                                <label for="_dm-Price" class="form-label">Total Disc Amnt</label>
+                                                <input id="_dm-Price" formControlName="TotalDiscountAmount" type="text"
+                                                    class="form-control enter-focus" placeholder="Total Disc Amount"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'">
+                                            </div>
+                                        </div>
                                         <div class="mt-4 d-grid gap-2 d-md-block">
                                             <button type="button" class="btn btn-secondary enter-focus"
                                                 (click)="SubmitPurchaseProduct()"> Add</button>
@@ -223,8 +243,6 @@
                                             </ng-container>
                                         </div>
                                     </div>
-
-
                                 </div>
 
                             </div>
@@ -234,32 +252,44 @@
                 <div class="col-md-5 mb-3">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="card-title">Added Product</h5>
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Product</th>
-                                            <th>SrNo</th>
-                                            <th>Qty</th>
-                                            <th>Price</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let item of purchaseProductList">
-                                            <th> <input type="button" class="btn btn-danger" value="Delete"
-                                                    (click)="removePurchaseProduct(item)" /></th>
-                                            <td>{{item.ProductName}}</td>
-                                            <td>{{item.SerialNoList.join(",")}}</td>
-                                            <td>{{item.Quantity}}</td>
-                                            <td>{{item.Price}}</td>
-                                            <td>{{item.TotalAmount}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <ng-container *ngIf="purchaseProductList.length>0">
+                                <h5 class="card-title">Added Product</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Product</th>
+                                                <th>SrNo</th>
+                                                <th>Qty</th>
+                                                <th>Price</th>
+                                                <th>Taxable Amount</th>
+                                                <th>Disc %</th>
+                                                <th>Disc Amount</th>
+                                                <th>Total Disc Amnt</th>
+                                                <th>Final Price</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of purchaseProductList">
+                                                <th> <input type="button" class="btn btn-danger" value="Delete"
+                                                        (click)="removePurchaseProduct(item)" /></th>
+                                                <td>{{item.ProductName}}</td>
+                                                <td>{{item.SerialNoList.join(",")}}</td>
+                                                <td>{{item.Quantity}}</td>
+                                                <td>{{item.Price}}</td>
+                                                <td>{{item.TotalGSTAmount}}</td>
+                                                <td>{{item.Discount}}</td>
+                                                <td>{{item.DiscountAmount}}</td>
+                                                <td>{{item.TotalDiscountAmount}}</td>
+                                                <td>{{item.PurchasePrice}}</td>
+                                                <td>{{item.TotalAmount}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </ng-container>
                             <h5 class="card-title">Product</h5>
                             <div>
                                 <div class="row mb-1">
@@ -304,7 +334,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                                 <ng-container *ngIf="this.PurchaseInfoForm.get('GSTMode')?.value === 'G'">
                                     <div class="row mb-1"
@@ -347,10 +376,8 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </ng-container>
-
                                 <div class="row mb-3">
                                     <div class="col-sm-2 offset-sm-2">
                                         <div class="form-check">
@@ -374,24 +401,41 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mb-1">
-                                    <label for="TotalTaxableAmount" class="col-sm-5 col-form-label">Is TCS Applicable</label>
-                                        <div class="col-sm-2">
-                                            <div class="d-flex flex-wrap justify-content-center gap-2">
-                                                <div class="btn-group" role="group"
-                                                    aria-label="Basic radio toggle button group">
-                                                    <ng-container *ngFor="let group of isTCS">
-                                                        <input type="radio" class="btn-check" id="{{group.Value}}"
-                                                            [value]="group.Value" [formControlName]="'IsTCSApplicable'"
-                                                            (change)="onIsTCSApplicable()">
-                                                        <label class="btn btn-outline-primary"
-                                                            for="{{group.Value}}">{{group.Text}}</label>
-                                                    </ng-container>
-                                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <label for="TotalTaxableAmount" class="col-sm-6 col-form-label">Total
+                                                Discount
+                                                Amount</label>
+                                            <div class="col-sm-6">
+                                                <input id="TotalDiscountAmount" type="text" class="form-control"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'"
+                                                    formControlName="TotalDiscountAmount"
+                                                    placeholder="Total Discount Amount">
                                             </div>
                                         </div>
+                                    </div>
                                 </div>
-                                <div class="row mb-1" *ngIf="this.PurchaseInfoForm.get('IsTCSApplicable')?.value === '1'">
+                                <div class="row mb-1">
+                                    <label for="TotalTaxableAmount" class="col-sm-5 col-form-label">Is TCS
+                                        Applicable</label>
+                                    <div class="col-sm-2">
+                                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                                            <div class="btn-group" role="group"
+                                                aria-label="Basic radio toggle button group">
+                                                <ng-container *ngFor="let group of isTCS">
+                                                    <input type="radio" class="btn-check" id="{{group.Value}}"
+                                                        [value]="group.Value" [formControlName]="'IsTCSApplicable'"
+                                                        (change)="onIsTCSApplicable()">
+                                                    <label class="btn btn-outline-primary"
+                                                        for="{{group.Value}}">{{group.Text}}</label>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-1"
+                                    *ngIf="this.PurchaseInfoForm.get('IsTCSApplicable')?.value === '1'">
                                     <div class="col-md-6">
                                         <div class="row">
                                             <label for="TCS" class="col-sm-4 form-label">TCS %</label>

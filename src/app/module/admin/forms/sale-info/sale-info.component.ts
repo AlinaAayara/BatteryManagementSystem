@@ -198,8 +198,21 @@ export class SaleInfoComponent implements OnInit {
 
     this._saleInfoService.getSerialNoDetail(this.getSerialNoDetailRequestBody(SerialNo)).subscribe({
       next: data => {
-        let SaleProductList: [any] = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
-        SaleProductList.push(data?.[0]);
+        let SaleProductList: any = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
+        const isExists = SaleProductList.filter(p => p.ProductID == data?.[0]?.ProductID);
+        if (isExists.length == 0) {
+          data[0].SerialNoList = new Array();
+          data?.[0]?.SerialNoList.push(data?.[0]?.SerialNo);
+          data[0].Quantity = data?.[0]?.SerialNoList?.length;
+          SaleProductList.push(data?.[0]);
+        }
+        else {
+          isExists?.[0]?.SerialNoList.push(data?.[0]?.SerialNo);
+          SaleProductList = SaleProductList.filter(p => p.ProductID != isExists?.[0]?.ProductID);
+          isExists[0].Quantity = isExists?.[0]?.SerialNoList?.length;
+          SaleProductList.push(isExists?.[0]);
+        }
+
         this.SaleInfoForm.get("SaleProductList")?.setValue(SaleProductList);
         this.SaleInfoForm.get("AmpID")?.setValue(data?.[0]?.AmpID);
         this.SaleInfoForm.get("OldBatteryPurchasePrice")?.setValue(data?.[0]?.PurchasePrice);
@@ -207,7 +220,6 @@ export class SaleInfoComponent implements OnInit {
         this.calculateGST();
         this.updateTotalValues();
         this.SaleInfoForm.get("SaleProductInfo")?.get("SerialNo")?.setValue("");
-        this.updateTotalValues();
       },
       error: error => {
         this.SaleInfoForm.get("SaleProductInfo")?.get("SerialNo")?.setValue("");
@@ -220,7 +232,13 @@ export class SaleInfoComponent implements OnInit {
   /* This will create array based on Serial no input string, in which you have comma seperated serial no */
   separateSerialNo() {
     let serialNo = this.SaleInfoForm.get("SaleProductInfo")?.value?.SerialNo;
+    let CustomerID = this.SaleInfoForm.get("CustomerID")?.value;
     if (["", undefined, null].includes(serialNo)) {
+      return;
+    }
+    if (["", undefined, null].includes(CustomerID)) {
+      this.SaleInfoForm.get("SaleProductInfo")?.get("SerialNo")?.setValue("");
+      this._sharedDataService.NotieError("Please choose customer");
       return;
     }
     const separateByComma = serialNo?.replace(/,\s*$/, "")?.replace(/\s/g, "")?.split(',');
@@ -304,18 +322,18 @@ export class SaleInfoComponent implements OnInit {
     let SGSTAmount = 0;
     let IGSTAmount = 0;
 
-    TotalQuantity = SaleProductList.length;
-    TotalAmount = SaleProductList?.reduce((n, { SalePrice }) => (n) + parseFloat(SalePrice), 0);
-    CGSTAmount = SaleProductList?.reduce((n, { CGSTAmount }) => (n) + parseFloat(CGSTAmount), 0);
-    SGSTAmount = SaleProductList?.reduce((n, { SGSTAmount }) => (n) + parseFloat(SGSTAmount), 0);
-    IGSTAmount = SaleProductList?.reduce((n, { IGSTAmount }) => (n) + parseFloat(IGSTAmount), 0);
+    TotalQuantity =  Number((SaleProductList?.reduce((n, { Quantity }) => (n) + parseInt(Quantity), 0)).toFixed(2));
+    TotalAmount = Number((SaleProductList?.reduce((n, { TotalAmount }) => (n) + parseFloat(TotalAmount), 0)).toFixed(2));
+    CGSTAmount = Number((SaleProductList?.reduce((n, { TotalCGSTAmount }) => (n) + parseFloat(TotalCGSTAmount), 0)).toFixed(2));
+    SGSTAmount = Number((SaleProductList?.reduce((n, { TotalSGSTAmount }) => (n) + parseFloat(TotalSGSTAmount), 0)).toFixed(2));
+    IGSTAmount = Number((SaleProductList?.reduce((n, { TotalIGSTAmount }) => (n) + parseFloat(TotalIGSTAmount), 0)).toFixed(2));
 
-    TotalTaxableAmount = (CGSTAmount ?? 0) + (SGSTAmount ?? 0) + (IGSTAmount ?? 0);
+    TotalTaxableAmount = Number((SaleProductList?.reduce((n, { TotalGSTAmount }) => (n) + parseFloat(TotalGSTAmount), 0)).toFixed(2));
     OldBatteryPurchasePrice = this.SaleInfoForm.get("OldBatteryPurchasePrice")?.value || 0;
     OldBatteryCount = this.SaleInfoForm.get("OldBatteryCount")?.value || 0;
-    TotalOldBatteryAmount = (OldBatteryCount ?? 0) * (OldBatteryPurchasePrice ?? 0);
-    DiscountAmount = this.SaleInfoForm.get("DiscountAmount")?.value || 0;
-    FinalAmount = TotalAmount - DiscountAmount - TotalOldBatteryAmount;
+    TotalOldBatteryAmount = Number(((OldBatteryCount ?? 0) * (OldBatteryPurchasePrice ?? 0)).toFixed(2));
+    DiscountAmount = Number((SaleProductList?.reduce((n, { TotalDiscountAmount }) => (n) + parseFloat(TotalDiscountAmount), 0)).toFixed(2));
+    FinalAmount = Number((TotalAmount - TotalOldBatteryAmount).toFixed(2));
     TotalPaidAmount = this.SaleInfoForm.get("TotalPaidAmount")?.value || 0;
     TotalPaidAmount = (TotalPaidAmount <= FinalAmount) && (this.SaleInfoForm.get("TotalPaidAmount")?.dirty) ? TotalPaidAmount : FinalAmount;
     PendingAmount = FinalAmount - TotalPaidAmount;
@@ -364,12 +382,43 @@ export class SaleInfoComponent implements OnInit {
       this.getAmpList();
       this.getPaymentModeList();
       this.showCustomerModel(item?.CustomerInfo);
+      let saleProductList: any = [];
       setTimeout(() => {
         this.SaleInfoForm.patchValue(item);
 
+
+        let SerialNo: any = [];
+
+      item?.SaleProductInfo?.forEach(prod => {
+        item?.SaleProductInfo?.forEach(serial => {
+          if (prod.ProductID == serial.ProductID && !SerialNo.includes(serial.SerialNo)) {
+            SerialNo.push(serial.SerialNo);
+          }
+        });
+        prod.Quantity = SerialNo?.length;
+        prod.SerialNoList = SerialNo;
+        prod.SerialNo = SerialNo?.join(",");
+        SerialNo = [];
+      });
+
+
+      item?.SaleProductInfo.forEach(prod => {
+        const isExists = saleProductList.filter(p => p.ProductID === prod.ProductID);
+        if (isExists.length == 0) {
+          prod.Price = prod.SalePrice;
+          prod.TotalAmount = Number((prod.Price * prod.Quantity).toFixed(2));
+          prod.SalePrice = parseFloat(prod.Price) + (parseFloat(prod.CGSTAmount ?? 0) + parseFloat(prod.SGSTAmount ?? 0) + parseFloat(prod.IGSTAmount ?? 0)) + parseFloat(prod.DiscountAmount ?? 0);
+          prod.TotalGSTAmount = Number(((parseFloat(prod.CGSTAmount ?? 0) + parseFloat(prod.SGSTAmount ?? 0) + parseFloat(prod.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+          prod.TotalDiscountAmount = Number((parseFloat(prod.DiscountAmount ?? 0) * prod.Quantity).toFixed(2));
+          prod.TotalCGSTAmount = Number((((prod.CGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+          prod.TotalSGSTAmount = Number((((prod.SGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+          prod.TotalIGSTAmount = Number((((prod.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+          saleProductList.push(prod);
+        }
+      })
         this.isAdd = false;
         this.SaleInfoForm.get("CustomerID")?.setValue(item?.CustomerInfo?.CustomerID);
-        this.SaleInfoForm.get("SaleProductList")?.setValue(item?.SaleProductInfo ?? []);
+        this.SaleInfoForm.get("SaleProductList")?.setValue(saleProductList ?? []);
         this.updateTotalValues();
       }, 1000);
 
@@ -389,9 +438,7 @@ export class SaleInfoComponent implements OnInit {
   calculateGST() {
     const GSTMode = this.SaleInfoForm.get("GSTMode")?.value;
     const ApplicableGSTType = this.SaleInfoForm.get("ApplicableGSTType")?.value;
-
     let SaleProductList: any[] = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
-    const CustomerTypeID = CustomerTypeID_ToPurchaseProduct[this.selectedCustomer?.CustomerTypeID];
 
     if (GSTMode === 'W') {
       SaleProductList?.forEach(product => {
@@ -407,20 +454,24 @@ export class SaleInfoComponent implements OnInit {
         if (ApplicableGSTType === APPLICABLE_GST_TYPE.C) {
           //product.SalePrice = product[CustomerTypeID] ?? product.SalePrice;
           product.IGSTAmount = "0";
-          product.CGSTAmount = (((product?.SalePrice ?? 0) * (product?.CGST ?? 0)) / 100);
-          product.SGSTAmount = (((product?.SalePrice ?? 0) * (product?.SGST ?? 0)) / 100);
-          product.Price = (product?.SalePrice ?? 0) - (product.CGSTAmount ?? 0) - (product.SGSTAmount ?? 0);
-
+          product.CGSTAmount = Number((((product?.SalePrice ?? 0) * (product?.CGST ?? 0)) / 100).toFixed(2));
+          product.SGSTAmount = Number((((product?.SalePrice ?? 0) * (product?.SGST ?? 0)) / 100).toFixed(2));
+          product.Price = Number(((product?.SalePrice ?? 0) - (product.CGSTAmount ?? 0) - (product.SGSTAmount ?? 0)).toFixed(2));
+          product.TotalCGSTAmount = Number((((product.CGSTAmount ?? 0)) * product.Quantity).toFixed(2));
+          product.TotalSGSTAmount = Number((((product.SGSTAmount ?? 0)) * product.Quantity).toFixed(2));
+          product.TotalGSTAmount = Number((((product.CGSTAmount ?? 0) + (product.SGSTAmount ?? 0)) * product.Quantity).toFixed(2));
         }
         else {
           //product.SalePrice = product[CustomerTypeID] ?? product.SalePrice;
           product.CGSTAmount = "0";
           product.SGSTAmount = "0";
-          product.IGSTAmount = (((product?.SalePrice ?? 0) * (product?.IGST ?? 0)) / 100);
-          product.Price = (product?.SalePrice ?? 0) - (product.IGSTAmount ?? 0);
+          product.IGSTAmount = Number((((product?.SalePrice ?? 0) * (product?.IGST ?? 0)) / 100).toFixed(2));
+          product.Price = Number((product?.SalePrice ?? 0) - (product.IGSTAmount ?? 0).toFixed(2));
+          product.TotalIGSTAmount = Number((((product.IGSTAmount ?? 0)) * product.Quantity).toFixed(2));
         }
       });
     }
+    this.calculateDiscount();
     this.updateTotalValues();
     this.SaleInfoForm.get("SaleProductList")?.setValue(SaleProductList);
   }
@@ -431,5 +482,31 @@ export class SaleInfoComponent implements OnInit {
     SaleProductList[index].SalePrice = salePrice;
     this.SaleInfoForm.get("SaleProductList")?.setValue(SaleProductList);
     this.calculateGST();
+  }
+  onAmpChange() {
+    const AmpID = this.SaleInfoForm.get("AmpID")?.value;
+    if ([undefined, null, ""].includes(AmpID)) {
+      this.SaleInfoForm.get("OldBatteryCount")?.setValue("0");
+      this.SaleInfoForm.get("OldBatteryPurchasePrice")?.setValue("0");
+      this.SaleInfoForm.get("TotalOldBatteryAmount")?.setValue("0");
+      this.updateTotalValues();
+    }
+  }
+  onDiscountChange(event, index) {
+    const Discount = (event?.target as HTMLInputElement)?.value;
+    let SaleProductList: any[] = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
+    SaleProductList[index].Discount = Discount;
+    this.calculateGST();
+    this.updateTotalValues();
+  }
+  calculateDiscount() {
+    let SaleProductList: any[] = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
+    SaleProductList?.forEach(prod => {
+      prod.DiscountAmount = Number(((parseFloat(prod.Price ?? 0) * parseFloat(prod.Discount ?? 0)) / 100).toFixed(2));
+      prod.TotalDiscountAmount = Number((parseFloat(prod.DiscountAmount ?? 0) * parseInt(prod.Quantity ?? 0)).toFixed(2));
+      prod.Price = Number((parseFloat(prod.Price ?? 0) - parseFloat(prod.DiscountAmount ?? 0)).toFixed(2));
+      prod.TotalAmount = Number((parseFloat(prod.Price ?? 0) * parseInt(prod.Quantity ?? 0)).toFixed(2));
+    });
+    this.SaleInfoForm.get("SaleProductList")?.setValue(SaleProductList);
   }
 }

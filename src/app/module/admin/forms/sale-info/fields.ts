@@ -29,21 +29,22 @@ export function generatePostRequestBody(data: any, mode: string) {
     body.Mode = mode;
     body.MethodName = "InUp_SaleInfo";
     data?.SaleProductList?.forEach(product => {
-        let obj = {
-            SaleID: "",
-            ProductID: product?.ProductID,
-            SerialNo: product?.SerialNo,
-            SalePrice: product?.SalePrice,
-            Mode: "0",
-            MethodName: "InUp_SaleProductInfo",
-            CGST: product?.CGST,
-            CGSTAmount: product?.CGSTAmount,
-            SGST: product?.SGST,
-            SGSTAmount: product?.SGSTAmount,
-            IGST: product?.IGST,
-            IGSTAmount: product?.IGSTAmount
-        }
-        body.SaleProductList.push(obj);
+        product?.SerialNoList?.forEach(srno => {
+            let obj = {
+                ProductID: product?.ProductID,
+                SerialNo: srno,
+                SalePrice: product?.Price,
+                CGST: product?.CGST,
+                CGSTAmount: product?.CGSTAmount,
+                SGST: product?.SGST,
+                SGSTAmount: product?.SGSTAmount,
+                IGST: product?.IGST,
+                IGSTAmount: product?.IGSTAmount,
+                Discount: product?.Discount,
+                DiscountAmount: product?.DiscountAmount
+            }
+            body.SaleProductList.push(obj);
+        })
     });
     return body;
 }

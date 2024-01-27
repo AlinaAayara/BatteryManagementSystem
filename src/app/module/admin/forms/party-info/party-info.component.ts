@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { SharedDataService } from "src/app/Services/shared-data.service";
 import { fields } from "./fields";
 import { PartyInfoService } from "src/app/Services/PartyInfo/party-info.service";
@@ -8,7 +8,7 @@ import { PartyInfoService } from "src/app/Services/PartyInfo/party-info.service"
   templateUrl: './party-info.component.html',
   styleUrls: ['./party-info.component.css']
 })
-export class PartyInfoComponent implements OnInit {
+export class PartyInfoComponent implements OnInit, OnDestroy {
   formField: any;
   public manuallyClearField: boolean = false;
   public partyList;
@@ -17,6 +17,9 @@ export class PartyInfoComponent implements OnInit {
     private _sharedDataService: SharedDataService
   ) {
 
+  }
+  ngOnDestroy(): void {
+   // this.mySubscription?.unsubscribe();
   }
   ngOnInit(): void {
     this.formField = fields;
