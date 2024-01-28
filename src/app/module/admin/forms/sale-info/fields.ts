@@ -40,8 +40,8 @@ export function generatePostRequestBody(data: any, mode: string) {
                 SGSTAmount: product?.SGSTAmount,
                 IGST: product?.IGST,
                 IGSTAmount: product?.IGSTAmount,
-                Discount: product?.Discount,
-                DiscountAmount: product?.DiscountAmount
+                Discount: product?.Discount ?? 0,
+                DiscountAmount: product?.DiscountAmount ?? 0
             }
             body.SaleProductList.push(obj);
         })
