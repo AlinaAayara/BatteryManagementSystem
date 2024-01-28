@@ -56,7 +56,8 @@
                                             [formControlName]="field.fieldName" [class.is-invalid]="((SmartForm.get(field.fieldName)?.touched ||
                                     SmartForm.get(field.fieldName)?.dirty) &&
                                     SmartForm.get(field.fieldName)?.errors)" [class.is-valid]="(SmartForm.get(field.fieldName)?.touched &&
-                                    !SmartForm.get(field.fieldName)?.errors)">
+                                    !SmartForm.get(field.fieldName)?.errors)"
+                                    (change)=" field?.onChange ? onChange(field) : null">
                                             <option value=""> -- {{field?.listData?.defaultSelectedText}} --</option>
                                             <option *ngFor="let item of this[field.fieldName + 'List']"
                                                 [value]="item[field?.listData?.valueField]">

@@ -20,6 +20,7 @@ export class SmartFormComponent implements OnInit, OnChanges {
   public isAdd: boolean = true;
   @Input() public showLoader: boolean = false;
   @Input() public showDefaultListTable: boolean = true;
+  @Output() changeEmit = new EventEmitter();
 
   constructor(
     private _FormBuilder: FormBuilder,
@@ -53,11 +54,11 @@ export class SmartFormComponent implements OnInit, OnChanges {
 
     this.getListDataForDropdown();
 
-    this._sharedDataService.customerInfoEdit.subscribe(res =>{
+    this._sharedDataService.customerInfoEdit.subscribe(res => {
       this.edit(res);
     });
-/* this will trigger on party selection from party search page component */
-    this._sharedDataService.partyInfoEdit.subscribe(res =>{
+    /* this will trigger on party selection from party search page component */
+    this._sharedDataService.partyInfoEdit.subscribe(res => {
       this.edit(res);
     });
 
@@ -107,6 +108,14 @@ export class SmartFormComponent implements OnInit, OnChanges {
   edit(item) {
     this.setFormValue(item);
     this.isAdd = false;
+
+    setTimeout(() => {
+      for (let field of this.formField) {
+        if (field?.onChange) {
+          this.onChange(field);
+        }
+      }
+    }, 1000);
   }
   /* search list delete  */
   delete(item) {
@@ -117,19 +126,34 @@ export class SmartFormComponent implements OnInit, OnChanges {
 
   getListDataForDropdown() {
     this.formField.filter((field) => {
-      if (field?.listData?.fetchURL) {
-        this._smartFormService.GetDropdownList(field?.listData?.requestBody, field?.listData?.fetchURL).subscribe({
-          next: data => {
-            this[field.fieldName + 'List'] = data;
-          },
-          error: error => {
-          }
-        });
-      }
+      this.loadListData(field);
     })
   }
 
-  radioClick(e){
-    
+  radioClick(e) {
+
+  }
+  loadListData(field) {
+    if (field?.listData?.fetchURL) {
+      this._smartFormService.GetDropdownList(field?.listData?.requestBody, field?.listData?.fetchURL).subscribe({
+        next: data => {
+          this[field.fieldName + 'List'] = data;
+        },
+        error: error => {
+        }
+      });
+    }
+  }
+  onChange(field) {
+    const value = this.SmartForm.get(field.fieldName)?.value;
+    const obj = {
+      field: field,
+      value: value
+    }
+    this.changeEmit.emit(obj);
+  }
+
+  manuallySetValue(field) {
+    this.SmartForm.get(field?.fieldName)?.setValue(field?.defaultValue);
   }
 }
