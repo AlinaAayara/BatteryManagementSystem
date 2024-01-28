@@ -1,0 +1,9 @@
+<app-smart-form 
+[formName] ="'Set Price'" 
+[formField]="formField"
+(formData)="submit($event)"
+[manuallyClearField]="manuallyClearField"
+[listData]="priceList"
+[searchFormName]="'Price List'"
+(changeEmit) = "changeEmit($event)"
+></app-smart-form>

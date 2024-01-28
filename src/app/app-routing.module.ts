@@ -28,6 +28,7 @@ import { DistributorInfoComponent } from './module/Manufacturer/forms/distributo
 import { DealerInfoComponent } from './module/Distributor/forms/dealer-info/dealer-info.component';
 import { ManufacturerPriceInfoComponent } from './module/Manufacturer/forms/manufacturer-price-info/manufacturer-price-info.component';
 import { DistributorPriceInfoComponent } from './module/Distributor/forms/distributor-price-info/distributor-price-info.component';
+import { DealerPriceInfoComponent } from './module/Dealer/forms/dealer-price-info/dealer-price-info.component';
 
 
 const routes: Routes = [
@@ -114,6 +115,9 @@ const routes: Routes = [
           },
           {
             path: 'DistributorPriceInfo', component: DistributorPriceInfoComponent
+          },
+          {
+            path: 'DealerPriceInfo', component: DealerPriceInfoComponent
           }
         ]
       },
