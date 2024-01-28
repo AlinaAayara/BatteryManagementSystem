@@ -31,6 +31,9 @@ export class AppUrl {
 
     public static API = {
         Login: AppUrl.baseURL + AppUrl.basicUserURL + "authentication",
+        add_basicuser: AppUrl.baseURL + AppUrl.basicUserURL + "AddUser",
+        get_basicuser: AppUrl.baseURL + AppUrl.basicUserURL + "GetUser",
+
         get_current_user: AppUrl.baseURL + AppUrl.basicUserURL + "GetCurrentUser",
         AddGroup: AppUrl.baseURL + "BasicGroupAndFeature/AddGroup",
         add_firm_info: AppUrl.baseURL + AppUrl.firmInfoURL + "AddFirm",

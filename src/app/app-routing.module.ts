@@ -24,6 +24,8 @@ import { ReportsComponent } from './module/admin/reports/reports/reports.compone
 import { PartyTransactionInfoComponent } from './module/admin/forms/party-transaction-info/party-transaction-info.component';
 import { CustomerTransactionInfoComponent } from './module/admin/forms/customer-transaction-info/customer-transaction-info.component';
 import { ExpenseInfoComponent } from './module/admin/forms/expense-info/expense-info.component';
+import { DistributorInfoComponent } from './module/Manufacturer/forms/distributor-info/distributor-info.component';
+import { DealerInfoComponent } from './module/Distributor/forms/dealer-info/dealer-info.component';
 
 
 const routes: Routes = [
@@ -98,6 +100,13 @@ const routes: Routes = [
           },
           {
             path: 'ExpenseInfo', component: ExpenseInfoComponent
+          },
+          {
+            path: 'DistributorInfo', component: DistributorInfoComponent
+          }
+          ,
+          {
+            path: 'DealerInfo', component: DealerInfoComponent
           }
         ]
       },

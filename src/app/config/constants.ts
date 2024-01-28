@@ -11,7 +11,7 @@ export enum DeviceTypes {
 export const Constant = {
     ISWRITE: "isWrite",
     ISDELETE: "isDelete",
-    DEFAULT_TCS:"0.100",
+    DEFAULT_TCS: "0.100",
     CUSTOMER_TYPE: [
         {
             Value: "B",
@@ -122,4 +122,11 @@ export enum CustomerTypeID_ToPurchaseProduct {
 export enum APPLICABLE_GST_TYPE {
     C = "CSGT_SGST",
     I = "IGST"
+}
+
+export enum BASICGROUP {
+    SuperAdmin = 1,
+    Manufacturer = 2,
+    Distributor = 3,
+    Dealer = 4
 }
