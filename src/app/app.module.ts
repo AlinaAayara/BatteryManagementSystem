@@ -59,6 +59,7 @@ import { ExpenseInfoComponent } from './module/admin/forms/expense-info/expense-
 import { DistributorInfoComponent } from './module/Manufacturer/forms/distributor-info/distributor-info.component';
 import { DealerInfoComponent } from './module/Distributor/forms/dealer-info/dealer-info.component';
 import { ManufacturerPriceInfoComponent } from './module/Manufacturer/forms/manufacturer-price-info/manufacturer-price-info.component';
+import { DistributorPriceInfoComponent } from './module/Distributor/forms/distributor-price-info/distributor-price-info.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,7 @@ import { ManufacturerPriceInfoComponent } from './module/Manufacturer/forms/manu
     PartyInfoComponent,
     BasicBranchComponent,
 
-    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent, WarrantyInfoComponent, WarrantySearchComponent, SaleReturnInfoComponent, OldBatteryInfoComponent, DateDirective, WarrantyReturnInfoComponent, BasicGroupComponent, ReportViewerComponent, BasicAmpComponent, EnterFocusDirective, ReportsComponent, PartyTransactionInfoComponent, CustomerTransactionInfoComponent, ExpenseInfoComponent, DistributorInfoComponent, DealerInfoComponent, ManufacturerPriceInfoComponent
+    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent, WarrantyInfoComponent, WarrantySearchComponent, SaleReturnInfoComponent, OldBatteryInfoComponent, DateDirective, WarrantyReturnInfoComponent, BasicGroupComponent, ReportViewerComponent, BasicAmpComponent, EnterFocusDirective, ReportsComponent, PartyTransactionInfoComponent, CustomerTransactionInfoComponent, ExpenseInfoComponent, DistributorInfoComponent, DealerInfoComponent, ManufacturerPriceInfoComponent, DistributorPriceInfoComponent
 
 
   ],

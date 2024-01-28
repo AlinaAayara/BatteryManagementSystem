@@ -4,11 +4,11 @@ import { controlType, directiveList } from "src/app/config/constants";
 
 export const fields = [
     {
-        fieldName: "ManufacturerPriceID",
+        fieldName: "DistributorPriceID",
         validation: null,
         defaultValue: "",
-        placeholder: "ManufacturerPriceID",
-        label: "ManufacturerPriceID",
+        placeholder: "DistributorPriceID",
+        label: "DistributorPriceID",
         isVisible: false,
         bootstrapFormGroup: 4,
         controlType: controlType.Textbox
