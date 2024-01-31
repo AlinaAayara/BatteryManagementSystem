@@ -402,16 +402,28 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         <div class="row">
                                             <label for="TotalTaxableAmount" class="col-sm-6 col-form-label">Total
                                                 Discount
-                                                Amount</label>
+                                                </label>
                                             <div class="col-sm-6">
                                                 <input id="TotalDiscountAmount" type="text" class="form-control"
                                                     NumberOnly [directiveName]="'appDecimaNumber'"
                                                     formControlName="TotalDiscountAmount"
                                                     placeholder="Total Discount Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label for="FinalAmount" class="col-sm-6 col-form-label">Final Amount
+                                                </label>
+                                            <div class="col-sm-6">
+                                                <input id="FinalAmount" type="text" class="form-control"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'"
+                                                    formControlName="FinalAmount"
+                                                    placeholder="Final Amount">
                                             </div>
                                         </div>
                                     </div>

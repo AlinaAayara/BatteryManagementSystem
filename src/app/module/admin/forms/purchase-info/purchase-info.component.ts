@@ -87,6 +87,7 @@ export class PurchaseInfoComponent implements OnInit {
       TCS: [this.defaultTCS],
       TCSAmount: [{ value: 0, disabled: true }],
       TotalDiscountAmount: [{ value: 0, disabled: true }],
+      FinalAmount : [{ value: 0, disabled: true }],
       purchaseProductInfo: this._FormBuilder.group(
         {
           PurchaseID: [""],
@@ -97,19 +98,19 @@ export class PurchaseInfoComponent implements OnInit {
           PurchasePrice: [],
           Quantity: [{ value: 0, disabled: true }],
           TotalAmount: [{ value: 0, disabled: true }],
-          CGST: [""],
-          CGSTAmount: [{ value: "", disabled: true }],
-          SGST: [""],
-          SGSTAmount: [{ value: "", disabled: true }],
-          IGST: [""],
-          IGSTAmount: [{ value: "", disabled: true }],
+          CGST: ["0"],
+          CGSTAmount: [{ value: "0", disabled: true }],
+          SGST: ["0"],
+          SGSTAmount: [{ value: "0", disabled: true }],
+          IGST: ["0"],
+          IGSTAmount: [{ value: "0", disabled: true }],
           TotalGSTAmount: [],
           TotalCGSTAmount: [],
           TotalSGSTAmount: [],
           TotalIGSTAmount: [],
-          Discount: [""],
-          DiscountAmount: [{ value: "", disabled: true }],
-          TotalDiscountAmount: [{ value: "", disabled: true }]
+          Discount: ["0"],
+          DiscountAmount: [{ value: "0", disabled: true }],
+          TotalDiscountAmount: [{ value: "0", disabled: true }]
         }
       )
     });
@@ -324,13 +325,14 @@ export class PurchaseInfoComponent implements OnInit {
     let TotalTaxableAmount = 0;
     let TotalDiscountAmount = 0;
     let FinalAmount = 0;
+    let TCSAmount = 0;
 
     TotalQuantity = this.purchaseProductList?.reduce((n, { Quantity }) => n + Quantity, 0);
     TotalAmount = Number((this.purchaseProductList?.reduce((n, { TotalAmount }) => (n) + parseFloat(TotalAmount), 0)).toFixed(2));
     TotalDiscountAmount = Number((this.purchaseProductList?.reduce((n, { TotalDiscountAmount }) => (n) + parseFloat(TotalDiscountAmount), 0)).toFixed(2));
     TotalPaidAmount = parseFloat(this.PurchaseInfoForm.get("TotalPaidAmount")?.value ?? 0);
     PendingAmount = Number((TotalAmount - TotalPaidAmount).toFixed(2));
-
+    TCSAmount = this.PurchaseInfoForm.get("IsTCSApplicable")?.value == "1" ? Number((this.PurchaseInfoForm.get("TCSAmount")?.value ?? 0).toFixed(2)) : 0;
     if (this.PurchaseInfoForm.get("GSTMode")?.value === "G" && this.PurchaseInfoForm.get("ApplicableGSTType")?.value === APPLICABLE_GST_TYPE.C) {
       CGSTAmount = Number((this.purchaseProductList?.reduce((n, { TotalCGSTAmount }) => (n) + parseFloat(TotalCGSTAmount), 0)).toFixed(2));
       SGSTAmount = Number((this.purchaseProductList?.reduce((n, { TotalSGSTAmount }) => (n) + parseFloat(TotalSGSTAmount), 0)).toFixed(2));
@@ -340,7 +342,7 @@ export class PurchaseInfoComponent implements OnInit {
     }
 
     TotalTaxableAmount = Number(((CGSTAmount ?? 0) + (SGSTAmount ?? 0) + (IGSTAmount ?? 0)).toFixed(2));
-    //FinalAmount = Number(((CGSTAmount ?? 0) + (SGSTAmount ?? 0) + (IGSTAmount ?? 0)).toFixed(2));
+    FinalAmount = (TotalTaxableAmount ?? 0 ) + TotalAmount + TCSAmount;
 
 
     this.PurchaseInfoForm.patchValue({
@@ -351,10 +353,11 @@ export class PurchaseInfoComponent implements OnInit {
       SGSTAmount: SGSTAmount,
       IGSTAmount: IGSTAmount,
       TotalTaxableAmount: TotalTaxableAmount,
-      TotalDiscountAmount: TotalDiscountAmount
+      TotalDiscountAmount: TotalDiscountAmount,
+      FinalAmount:FinalAmount
 
     })
-    this.calculateTCS();
+    this.onIsTCSApplicable();
   }
 
   /* remove item from list it will trigger from front end purchase product table upon click on delete button */
@@ -454,7 +457,7 @@ export class PurchaseInfoComponent implements OnInit {
 
   setPurchasePrice() {
     let ProductID = this.PurchaseInfoForm.get("purchaseProductInfo")?.value?.ProductID;
-    let selectProduct = this.productList.filter(prod => prod.ProductID == ProductID);
+    let selectProduct = this.productList?.filter(prod => prod.ProductID == ProductID);
     this.PurchaseInfoForm.get("purchaseProductInfo")?.get("Price")?.setValue(selectProduct?.[0]?.PurchasePrice);
     this.PurchaseInfoForm.get("purchaseProductInfo")?.get("CGST")?.setValue(selectProduct?.[0]?.CGST);
     this.PurchaseInfoForm.get("purchaseProductInfo")?.get("SGST")?.setValue(selectProduct?.[0]?.SGST);
@@ -498,13 +501,14 @@ export class PurchaseInfoComponent implements OnInit {
       this.PurchaseInfoForm.get("purchaseProductInfo")?.get("SGSTAmount")?.setValue(0);
       this.PurchaseInfoForm.get("purchaseProductInfo")?.get("IGSTAmount")?.setValue(0);
       this.PurchaseInfoForm.get("purchaseProductInfo")?.get("TotalGSTAmount")?.setValue(0);
+      this.PurchaseInfoForm.get("purchaseProductInfo")?.get("PurchasePrice")?.setValue(Price);
     }
     else {
       if (ApplicableGSTType === APPLICABLE_GST_TYPE.C) {
         this.PurchaseInfoForm.get("purchaseProductInfo")?.get("IGST")?.setValue(0);
         this.PurchaseInfoForm.get("purchaseProductInfo")?.get("IGSTAmount")?.setValue(0);
-        CGSTAmount = Number((((Price ?? 0) * (CGST ?? 0)) / 100).toFixed(2));
-        SGSTAmount = Number((((Price ?? 0) * (SGST ?? 0)) / 100).toFixed(2));
+        CGSTAmount = Number((((Price ?? 0)-((Price ?? 0) *(100  / (100 + ((CGST*2) ?? 0)))))/2).toFixed(2));
+        SGSTAmount = CGSTAmount;
         PurchasePrice = Number(((Price ?? 0) - (CGSTAmount ?? 0) - (SGSTAmount ?? 0)).toFixed(2));
         TotalCGSTAmount = Number((((CGSTAmount ?? 0)) * Quantity).toFixed(2));
         TotalSGSTAmount = Number((((SGSTAmount ?? 0)) * Quantity).toFixed(2));
@@ -522,7 +526,7 @@ export class PurchaseInfoComponent implements OnInit {
         this.PurchaseInfoForm.get("purchaseProductInfo")?.get("SGSTAmount")?.setValue(0);
         this.PurchaseInfoForm.get("purchaseProductInfo")?.get("CGST")?.setValue(0);
         this.PurchaseInfoForm.get("purchaseProductInfo")?.get("SGST")?.setValue(0);
-        IGSTAmount = (((Price ?? 0) * (IGST ?? 0)) / 100);
+        IGSTAmount = Number(((Price ?? 0)-((Price ?? 0) *(100  / (100 + (IGST ?? 0))))).toFixed(2));
         PurchasePrice = (Price ?? 0) - (IGSTAmount ?? 0);
         TotalIGSTAmount = ((IGSTAmount ?? 0)) * Quantity;
         TotalGSTAmount = ((IGSTAmount ?? 0)) * Quantity;

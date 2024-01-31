@@ -454,8 +454,8 @@ export class SaleInfoComponent implements OnInit {
         if (ApplicableGSTType === APPLICABLE_GST_TYPE.C) {
           //product.SalePrice = product[CustomerTypeID] ?? product.SalePrice;
           product.IGSTAmount = "0";
-          product.CGSTAmount = Number((((product?.SalePrice ?? 0) * (product?.CGST ?? 0)) / 100).toFixed(2));
-          product.SGSTAmount = Number((((product?.SalePrice ?? 0) * (product?.SGST ?? 0)) / 100).toFixed(2));
+          product.CGSTAmount = Number((((product?.SalePrice ?? 0)-((product?.SalePrice ?? 0) *(100  / (100 + ((product?.CGST*2) ?? 0)))))/2).toFixed(2));
+          product.SGSTAmount = Number((((product?.SalePrice ?? 0)-((product?.SalePrice ?? 0) *(100  / (100 + ((product?.SGST*2) ?? 0)))))/2).toFixed(2));
           product.Price = Number(((product?.SalePrice ?? 0) - (product.CGSTAmount ?? 0) - (product.SGSTAmount ?? 0)).toFixed(2));
           product.TotalCGSTAmount = Number((((product.CGSTAmount ?? 0)) * product.Quantity).toFixed(2));
           product.TotalSGSTAmount = Number((((product.SGSTAmount ?? 0)) * product.Quantity).toFixed(2));
@@ -465,7 +465,7 @@ export class SaleInfoComponent implements OnInit {
           //product.SalePrice = product[CustomerTypeID] ?? product.SalePrice;
           product.CGSTAmount = "0";
           product.SGSTAmount = "0";
-          product.IGSTAmount = Number((((product?.SalePrice ?? 0) * (product?.IGST ?? 0)) / 100).toFixed(2));
+          product.IGSTAmount = Number(((product?.SalePrice ?? 0)-((product?.SalePrice ?? 0) *(100  / (100 + (product?.IGST ?? 0))))).toFixed(2));
           product.Price = Number((product?.SalePrice ?? 0) - (product.IGSTAmount ?? 0).toFixed(2));
           product.TotalIGSTAmount = Number((((product.IGSTAmount ?? 0)) * product.Quantity).toFixed(2));
         }

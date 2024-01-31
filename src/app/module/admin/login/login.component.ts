@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
 
   public LoginObj() {
     return {
-      Mode: "3",
+      Mode: "4",
       UserName: this.FormLogin.get("UserName")?.value,
       Password: this.FormLogin.get("Password")?.value,
       MethodName: "InUp_BasicUser"
