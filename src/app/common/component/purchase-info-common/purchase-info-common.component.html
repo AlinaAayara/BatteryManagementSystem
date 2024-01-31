@@ -1,0 +1,501 @@
+<div class="content__boxed">
+    <div class="content__wrap">
+
+        <section>
+            <form class="row" [formGroup]="PurchaseInfoForm">
+                <div class="col-md-7 mb-1">
+                    <div class="row">
+                        <div class="col-md-8 mb-1">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Purchase</h5>
+                                    <div class="row mb-1">
+                                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                                            <div class="btn-group" role="group"
+                                                aria-label="Basic radio toggle button group">
+                                                <ng-container *ngFor="let group of withOrWithoutGST">
+                                                    <input type="radio" class="btn-check" id="{{group.Value}}"
+                                                        [value]="group.Value" [formControlName]="'GSTMode'"
+                                                        (change)="onWithOrWithoutGSTChange()">
+                                                    <label class="btn btn-outline-primary"
+                                                        for="{{group.Value}}">{{group.Text}}</label>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3  mb-3">
+                                            <label for="_dm-inputPassword" class="visually-hidden" [class.text-danger]="((PurchaseInfoForm.get('BillNo')?.touched ||
+                                            PurchaseInfoForm.get('BillNo')?.dirty) &&
+                                            PurchaseInfoForm.get('BillNo')?.errors)" [class.text-success]="(PurchaseInfoForm.get('BillNo')?.touched &&
+                                            !PurchaseInfoForm.get('BillNo')?.errors)">Bill No</label>
+                                            <input type="text" class="form-control enter-focus" id="_dm-inputPassword"
+                                                formControlName="BillNo" placeholder="Bill No" [class.is-invalid]="((PurchaseInfoForm.get('BillNo')?.touched ||
+                                        PurchaseInfoForm.get('BillNo')?.dirty) &&
+                                        PurchaseInfoForm.get('BillNo')?.errors)" [class.is-valid]="(PurchaseInfoForm.get('BillNo')?.touched &&
+                                        !PurchaseInfoForm.get('BillNo')?.errors)">
+
+                                            <span style="color:red" class="help-block" *ngIf="((PurchaseInfoForm.get('BillNo')?.touched ||
+                                        PurchaseInfoForm.get('BillNo')?.dirty) &&
+                                        PurchaseInfoForm.get('BillNo')?.errors)">
+                                                Bill no is required.
+                                            </span>
+
+                                        </div>
+                                        <div class="col-md-5  mb-3" *ngIf="userType!='MF'">
+                                            <button type="button" class="btn btn-primary enter-focus"
+                                                (click)="showPartyInfoSlideIn(true)">
+                                                <i class=" demo-pli-mail-send fs-5 me-2"></i>{{btnChoosePartyText}}
+                                            </button>
+                                            <span style="color:red" class="help-block"
+                                                *ngIf="((
+                                                                                        PurchaseInfoForm.get('PartyID')?.dirty) &&
+                                                                                        PurchaseInfoForm.get('PartyID')?.errors)">
+                                                Please choose party.
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4  mb-3">
+                                            <label for="PurchaseDate" class="visually-hidden" [class.text-danger]="((PurchaseInfoForm.get('PurchaseDate')?.touched ||
+                                        PurchaseInfoForm.get('PurchaseDate')?.dirty) &&
+                                        PurchaseInfoForm.get('PurchaseDate')?.errors)" [class.text-success]="(
+                                        !PurchaseInfoForm.get('PurchaseDate')?.errors)">Date</label>
+                                            <input id="PurchaseDate" type="text" formControlName="PurchaseDate"
+                                                [class.is-invalid]="((PurchaseInfoForm.get('PurchaseDate')?.touched ||
+                                        PurchaseInfoForm.get('PurchaseDate')?.dirty) &&
+                                        PurchaseInfoForm.get('PurchaseDate')?.errors)" [class.is-valid]="(
+                                        !PurchaseInfoForm.get('PurchaseDate')?.errors)"
+                                                class="form-control enter-focus" placeholder="Date" appDate>
+                                            <span style="color:red" class="help-block" *ngIf="((PurchaseInfoForm.get('PurchaseDate')?.touched ||
+                                            PurchaseInfoForm.get('PurchaseDate')?.dirty) &&
+                                            PurchaseInfoForm.get('PurchaseDate')?.errors)">
+                                                Date is required.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-sm-12 col-md-6 col-xl-12 mb-1">
+                                <div *ngIf="selectedParty && userType === 'DL'" class="tab-base">
+                                    <ul class="nav nav-callout justify-content-end" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" data-bs-toggle="tab"
+                                                data-bs-target="#_dm-coRevTabsBaseHome" type="button" role="tab"
+                                                aria-controls="home" aria-selected="true">Detail</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#_dm-coRevTabsBaseProfile" type="button" role="tab"
+                                                aria-controls="profile" aria-selected="false">More info</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" type="button" role="tab"
+                                                (click)="removeSelectedParty()"><i
+                                                    class="demo-pli-cross fs-5"></i></button>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content" style="padding: 0.50rem 0.50rem;">
+                                        <div id="_dm-coRevTabsBaseHome" class="tab-pane fade show active"
+                                            role="tabpanel" aria-labelledby="home-tab">
+                                            <div class="d-flex align-items-center position-relative pb-3">
+                                                <div class="flex-shrink-0">
+                                                    <img class="img-md rounded-circle"
+                                                        src="../../assets/img/profile-photos/3.png"
+                                                        alt="Profile Picture" loading="lazy">
+                                                </div>
+                                                <div class="flex-grow-1 ms-3">
+                                                    <a
+                                                        class="h5 stretched-link btn-link">{{selectedParty?.PartyName}}</a>
+                                                    <p class="text-muted m-0">{{selectedParty?.ContactNo}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="_dm-coRevTabsBaseProfile" class="tab-pane fade" role="tabpanel"
+                                            aria-labelledby="profile-tab">
+                                        </div>
+                                    </div>
+                                </div>
+                                <app-distributor-model *ngIf="selectedParty && userType === 'MF'"
+                                    [selectedDistributor]="selectedParty"
+                                    (removeSelectedDistributor)="removeSelectedParty()"></app-distributor-model>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-3" formGroupName="purchaseProductInfo">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Product</h5>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="row g-3">
+                                            <div class="col-md-6  mb-3">
+                                                <label for="_dm-Category" class="form-label">Category</label>
+                                                <select class="form-select enter-focus" formControlName="CategoryID"
+                                                    aria-label="select transition timing" (change)="getProductList()">
+                                                    <option value=""> -- Select Category --</option>
+                                                    <option *ngFor="let item of categoryList" [value]="item.CategoryID">
+                                                        {{item.CategoryName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6  mb-3">
+                                                <label for="_dm-Category" class="form-label">Product</label>
+                                                <select class="form-select enter-focus" formControlName="ProductID"
+                                                    aria-label="select transition timing" (change)="setPurchasePrice()">
+                                                    <option value=""> -- Select Product --</option>
+                                                    <option *ngFor="let item of productList" [value]="item.ProductID">
+                                                        {{item.ProductName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12  mb-3">
+                                            <label for="_dm-inputAddress" class="form-label">Serial No.</label>
+                                            <input id="_dm-inputAddress" formControlName="SerialNo" type="text"
+                                                class="form-control enter-focus" placeholder="Scan"
+                                                (blur)="separateSerialNo($event)" #scanControl>
+                                        </div>
+                                        <div class="row g-3">
+                                            <div class="col-4  mb-3">
+                                                <label for="_dm-Price" class="form-label">Total Qty</label>
+                                                <input id="_dm-Price" formControlName="Quantity" type="text"
+                                                    class="form-control" placeholder="Quantity">
+                                            </div>
+                                            <div class="col-4  mb-3">
+                                                <label for="_dm-Price" class="form-label">Purchase Price</label>
+                                                <input id="_dm-Price" formControlName="Price" type="text"
+                                                    class="form-control enter-focus" placeholder="Price" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'"
+                                                    (change)="calculatePurchaseProductTotal()" #priceControl>
+                                            </div>
+                                            <div class="col-4  mb-3">
+                                                <label for="_dm-Price" class="form-label">Total</label>
+                                                <input id="_dm-Price" formControlName="TotalAmount" type="text"
+                                                    class="form-control enter-focus" placeholder="TotalAmount"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'">
+                                            </div>
+                                        </div>
+                                        <div class="row g-3"
+                                            *ngIf="this.PurchaseInfoForm.get('GSTMode')?.value === 'G'">
+                                            <div class="col-4  mb-3">
+                                                <label for="_dm-Price" class="form-label">Price</label>
+                                                <input id="_dm-Price" formControlName="PurchasePrice" type="text"
+                                                    class="form-control enter-focus" placeholder="Price" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'">
+                                            </div>
+                                            <ng-container
+                                                *ngIf="this.PurchaseInfoForm.get('ApplicableGSTType')?.value==='CSGT_SGST'">
+                                                <div class="col-4  mb-3">
+                                                    <label for="_dm-Price" class="form-label">CGST</label>
+                                                    <input id="_dm-Price" formControlName="CGSTAmount" type="text"
+                                                        class="form-control" placeholder="CGST Amount">
+                                                </div>
+                                                <div class="col-4  mb-3">
+                                                    <label for="_dm-Price" class="form-label">SGST</label>
+                                                    <input id="_dm-Price" formControlName="SGSTAmount" type="text"
+                                                        class="form-control enter-focus" placeholder="SGST Amount"
+                                                        NumberOnly [directiveName]="'appDecimaNumber'">
+                                                </div>
+                                            </ng-container>
+                                            <div class="col-4  mb-3"
+                                                *ngIf="this.PurchaseInfoForm.get('ApplicableGSTType')?.value==='IGST'">
+                                                <label for="_dm-Price" class="form-label">IGST</label>
+                                                <input id="_dm-Price" formControlName="IGSTAmount" type="text"
+                                                    class="form-control enter-focus" placeholder="IGST Amount"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'">
+                                            </div>
+                                        </div>
+                                        <div class="row g-3">
+                                            <div class="col-4  mb-3">
+                                                <label for="_dm-Price" class="form-label">Discount %</label>
+                                                <input id="_dm-Price" formControlName="Discount" type="text"
+                                                    class="form-control" placeholder="Discount %"
+                                                    (change)="calculatePurchaseProductTotal()">
+                                            </div>
+                                            <div class="col-4  mb-3">
+                                                <label for="_dm-Price" class="form-label">Disc Amnt/Pic</label>
+                                                <input id="_dm-Price" formControlName="DiscountAmount" type="text"
+                                                    class="form-control enter-focus" placeholder="Disc Amount"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'">
+                                            </div>
+                                            <div class="col-4  mb-3">
+                                                <label for="_dm-Price" class="form-label">Total Disc Amnt</label>
+                                                <input id="_dm-Price" formControlName="TotalDiscountAmount" type="text"
+                                                    class="form-control enter-focus" placeholder="Total Disc Amount"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'">
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 d-grid gap-2 d-md-block">
+                                            <button type="button" class="btn btn-secondary enter-focus"
+                                                (click)="SubmitPurchaseProduct()"> Add</button>
+                                            |
+                                            <button type="button" class="btn btn-danger"
+                                                (click)="clearPurchaseProduct()">
+                                                Clear</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mt-4 d-flex flex-wrap justify-content-center gap-2">
+                                            <ng-container *ngFor="let srno of serialNoList">
+                                                <button type="button" class="btn btn-warning">{{srno}}</button>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <ng-container *ngIf="purchaseProductList.length>0">
+                                <h5 class="card-title">Added Product</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Product</th>
+                                                <th>SrNo</th>
+                                                <th>Qty</th>
+                                                <th>Price</th>
+                                                <th>Taxable Amount</th>
+                                                <th>Disc %</th>
+                                                <th>Disc Amount</th>
+                                                <th>Total Disc Amnt</th>
+                                                <th>Final Price</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of purchaseProductList">
+                                                <th> <input type="button" class="btn btn-danger" value="Delete"
+                                                        (click)="removePurchaseProduct(item)" /></th>
+                                                <td>{{item.ProductName}}</td>
+                                                <td>{{item.SerialNoList.join(",")}}</td>
+                                                <td>{{item.Quantity}}</td>
+                                                <td>{{item.Price}}</td>
+                                                <td>{{item.TotalGSTAmount}}</td>
+                                                <td>{{item.Discount}}</td>
+                                                <td>{{item.DiscountAmount}}</td>
+                                                <td>{{item.TotalDiscountAmount}}</td>
+                                                <td>{{item.PurchasePrice}}</td>
+                                                <td>{{item.TotalAmount}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </ng-container>
+                            <h5 class="card-title">Product</h5>
+                            <div>
+                                <div class="row mb-1">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label for="TotalQuantity" class="col-sm-4 col-form-label">Total Qty</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" formControlName="TotalQuantity" class="form-control"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'" id="TotalQuantity">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label for="TotalAmount" class="col-sm-4 col-form-label">Total
+                                                Amount</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" formControlName="TotalAmount" class="form-control"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'" id="TotalAmount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label for="TotalPaidAmount" class="col-sm-4 form-label">Paid Amount</label>
+                                            <div class="col-sm-8">
+                                                <input id="TotalPaidAmount" formControlName="TotalPaidAmount" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'" type="text" class="form-control"
+                                                    placeholder="Paid Amount" (blur)="updateTotalValues()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label for="Pending" class="col-sm-4 col-form-label">Pending Amount</label>
+                                            <div class="col-sm-8">
+                                                <input id="Pending" type="text" class="form-control" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'" formControlName="PendingAmount"
+                                                    placeholder="Pending">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-container *ngIf="this.PurchaseInfoForm.get('GSTMode')?.value === 'G'">
+                                    <div class="row mb-1"
+                                        *ngIf="this.PurchaseInfoForm.get('ApplicableGSTType')?.value==='CSGT_SGST'">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label for="CGSTAmount" class="col-sm-4 col-form-label">CGST
+                                                    Amount</label>
+                                                <div class="col-sm-8">
+                                                    <input id="CGST" formControlName="CGSTAmount" NumberOnly
+                                                        [directiveName]="'appDecimaNumber'" type="text"
+                                                        class="form-control" placeholder="CGST Amount"
+                                                        (blur)="updateTotalValues()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label for="SGSTAmount" class="col-sm-4 col-form-label">SGST
+                                                    Amount</label>
+                                                <div class="col-sm-8">
+                                                    <input id="CGST" formControlName="SGSTAmount" NumberOnly
+                                                        [directiveName]="'appDecimaNumber'" type="text"
+                                                        class="form-control" placeholder="SGST Amount"
+                                                        (blur)="updateTotalValues()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-1"
+                                        *ngIf="this.PurchaseInfoForm.get('ApplicableGSTType')?.value==='IGST'">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label for="IGSTAmount" class="col-sm-4 col-form-label">IGST
+                                                    Amount</label>
+                                                <div class="col-sm-8">
+                                                    <input id="IGSTAmount" type="text" class="form-control" NumberOnly
+                                                        [directiveName]="'appDecimaNumber'" formControlName="IGSTAmount"
+                                                        placeholder="IGST Amount">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <div class="row mb-3">
+                                    <div class="col-sm-2 offset-sm-2">
+                                        <div class="form-check">
+                                            <input id="_dm-rememberCheck3" class="form-check-input"
+                                                formControlName="Print" type="checkbox">
+                                            <label for="_dm-rememberCheck3" class="form-check-label">
+                                                <b>Print</b>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8" *ngIf="this.PurchaseInfoForm.get('GSTMode')?.value === 'G'">
+                                        <div class="row">
+                                            <label for="TotalTaxableAmount" class="col-sm-6 col-form-label">Total
+                                                Taxable
+                                                Amount</label>
+                                            <div class="col-sm-6">
+                                                <input id="TotalTaxableAmount" type="text" class="form-control"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'"
+                                                    formControlName="TotalTaxableAmount" placeholder="Taxable Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label for="TotalTaxableAmount" class="col-sm-6 col-form-label">Total
+                                                Discount
+                                                </label>
+                                            <div class="col-sm-6">
+                                                <input id="TotalDiscountAmount" type="text" class="form-control"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'"
+                                                    formControlName="TotalDiscountAmount"
+                                                    placeholder="Total Discount Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label for="FinalAmount" class="col-sm-6 col-form-label">Final Amount
+                                                </label>
+                                            <div class="col-sm-6">
+                                                <input id="FinalAmount" type="text" class="form-control"
+                                                    NumberOnly [directiveName]="'appDecimaNumber'"
+                                                    formControlName="FinalAmount"
+                                                    placeholder="Final Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <label for="TotalTaxableAmount" class="col-sm-5 col-form-label">Is TCS
+                                        Applicable</label>
+                                    <div class="col-sm-2">
+                                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                                            <div class="btn-group" role="group"
+                                                aria-label="Basic radio toggle button group">
+                                                <ng-container *ngFor="let group of isTCS">
+                                                    <input type="radio" class="btn-check" id="{{group.Value}}"
+                                                        [value]="group.Value" [formControlName]="'IsTCSApplicable'"
+                                                        (change)="onIsTCSApplicable()">
+                                                    <label class="btn btn-outline-primary"
+                                                        for="{{group.Value}}">{{group.Text}}</label>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-1"
+                                    *ngIf="this.PurchaseInfoForm.get('IsTCSApplicable')?.value === '1'">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label for="TCS" class="col-sm-4 form-label">TCS %</label>
+                                            <div class="col-sm-8">
+                                                <input id="TCS" formControlName="TCS" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'" type="text" class="form-control"
+                                                    placeholder="TCS %" (blur)="updateTotalValues()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label for="TCSAmount" class="col-sm-4 col-form-label">TCS Amount</label>
+                                            <div class="col-sm-8">
+                                                <input id="TCSAmount" type="text" class="form-control" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'" formControlName="TCSAmount"
+                                                    placeholder="TCSAmount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 d-grid gap-2 d-md-block">
+                                    <button type="button" class="btn btn-primary" (click)="Submit()"
+                                        [disabled]="PurchaseInfoForm.invalid || purchaseProductList.length==0 || showLoader">
+                                        <ng-container *ngIf="showLoader">
+                                            <span class="spinner-border spinner-border-sm"></span>
+                                            Loading..
+                                        </ng-container>
+                                        <ng-container *ngIf="!showLoader">
+                                            {{isAdd?'Save':'Update'}}
+                                        </ng-container>
+                                    </button>
+                                    |
+                                    <button type="button" class="btn btn-danger"
+                                        (click)="clearPurchase()">Clear</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+<app-slide-in [showSlideIn]="isSlideIn" (visibleChange)="showPartyInfoSlideIn($event)">
+    <app-distributor-info *ngIf="userType === 'MF'"></app-distributor-info>
+    <app-dealer-info *ngIf="userType === 'DS'"></app-dealer-info>
+    <app-party-info *ngIf="userType === 'DL'"></app-party-info>
+</app-slide-in>

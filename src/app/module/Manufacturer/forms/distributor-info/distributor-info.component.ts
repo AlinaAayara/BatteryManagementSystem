@@ -55,5 +55,10 @@ export class DistributorInfoComponent implements OnInit {
       GroupID: BASICGROUP.Distributor
     }
   }
-
+  /* This function will emit added distributor or seleceted distributor
+    1) This will used during purchase info
+  */
+    emitDistributor(Distributor) {
+      this._sharedDataService.getSelectedDistributor.next(Distributor);
+    }
 }

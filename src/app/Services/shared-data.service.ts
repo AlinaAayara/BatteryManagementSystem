@@ -27,7 +27,9 @@ export class SharedDataService {
   public customerInfoEdit = new Subject<any>();
   public getSelectedCustomer = new Subject<any>();
   public getSelectedParty = new Subject<any>();
+  public getSelectedDistributor = new Subject<any>();
   public partyInfoEdit = new Subject<any>();
+  public distibutorInfoEdit = new Subject<any>();
   public purchaseInfoEdit = new Subject<any>();
   public saleInfoEdit = new Subject<any>();
   public warrantyInfoEdit = new Subject<any>();
@@ -157,6 +159,7 @@ export class SharedDataService {
     let obj: any = {};
     switch (subMenuUrl) {
       case "PurchaseInfo":
+      case "ManufacturerPurchaseInfo":
         CustomerName = [null, undefined, ""].includes(CustomerName) ? "" : CustomerName;
         obj.requestBody = {
           MethodName: "Sel_AdvanceSearch_PurchaseInfo",

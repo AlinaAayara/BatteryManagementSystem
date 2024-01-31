@@ -69,9 +69,12 @@ export const Constant = {
     ],
     CHOOSE_CUSTOMER: "Choose Customer",
     CHOOSE_PARTY: "Choose Party",
+    CHOOSE_DISTRIBUTOR: "Choose Distributor",
+    CHOOSE_DEALER: "Choose Dealer",
     CHOOSE_SOLD_PRODUCT: "Choose Sold Product",
     NOTIFICATION_TIME: 5000,
     NOTIFICATION_TIMEOUT: 2000,
+    USER_TYPES_ARRAY: ["MF", "DS", "DL"],
     Months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
         "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
     REGEX: {
@@ -92,7 +95,7 @@ export const Constant = {
     },
 
     ADVANCE_SEARCH_TAB:
-        ["PurchaseInfo", "SaleInfo", "WarrantyInfo"]
+        ["PurchaseInfo", "SaleInfo", "WarrantyInfo", "ManufacturerPurchaseInfo"]
 
 }
 export enum controlType {
@@ -129,4 +132,9 @@ export enum BASICGROUP {
     Manufacturer = 2,
     Distributor = 3,
     Dealer = 4
+}
+export enum USER_TYPES {
+    Manufacturer = "MF",
+    Distributor = "DS",
+    Dealer = "DL"
 }

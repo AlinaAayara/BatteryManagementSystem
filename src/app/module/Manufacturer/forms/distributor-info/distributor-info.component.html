@@ -5,4 +5,7 @@
 [manuallyClearField]="manuallyClearField"
 [listData]="distributorList"
 [searchFormName]="'Distributor List'"
-></app-smart-form>
+[showDefaultListTable]="false"
+>
+<app-distributor-search (emitDistributor)="emitDistributor($event)"></app-distributor-search>
+</app-smart-form>
