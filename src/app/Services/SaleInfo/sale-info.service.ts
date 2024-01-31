@@ -37,13 +37,13 @@ export class SaleInfoService {
   }
 
   getAmpList(body): Observable<any> {
-    return this._httpClient.post<any[]>(AppUrl.API.get_Next_BillNo, body, {
+    return this._httpClient.post<any[]>(AppUrl.API.get_basic_amp, body, {
       headers: { 'content-type': 'application/json' }
     });
   }
 
   getPaymentModeList(body): Observable<any> {
-    return this._httpClient.post<any[]>(AppUrl.API.get_Next_BillNo, body, {
+    return this._httpClient.post<any[]>(AppUrl.API.get_basicPaymentMode, body, {
       headers: { 'content-type': 'application/json' }
     });
   }

@@ -169,6 +169,7 @@ export class SharedDataService {
         obj.Url = AppUrl.API.get_purchaseInfo;
         break;
       case "SaleInfo":
+      case "ManufacturerSaleInfo":
         CustomerName = [null, undefined, ""].includes(CustomerName) ? "" : CustomerName;
         obj.requestBody = {
           MethodName: "Sel_AdvanceSearch_SaleInfo",

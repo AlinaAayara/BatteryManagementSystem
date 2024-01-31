@@ -95,7 +95,7 @@ export const Constant = {
     },
 
     ADVANCE_SEARCH_TAB:
-        ["PurchaseInfo", "SaleInfo", "WarrantyInfo", "ManufacturerPurchaseInfo"]
+        ["PurchaseInfo", "SaleInfo", "WarrantyInfo", "ManufacturerPurchaseInfo", "ManufacturerSaleInfo"]
 
 }
 export enum controlType {

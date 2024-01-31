@@ -95,6 +95,7 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
         }); 7
         break;
       case "SaleInfo":
+      case "ManufacturerSaleInfo":
         this.ActiveSaleInfoList = new Array<AdvanceSerachSaleInfo>();
         data.forEach(item => {
           this.ActiveSaleInfoList.push(new AdvanceSerachSaleInfo(item));
