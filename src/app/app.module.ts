@@ -70,6 +70,8 @@ import { SaleInfoCommonComponent } from './common/component/sale-info-common/sal
 import { CustomerModelComponent } from './common/component/customer-model/customer-model.component';
 import { PurchaseInwardInfoCommonComponent } from './common/component/purchase-inward-info-common/purchase-inward-info-common.component';
 import { PurchaseInwardInfoComponent } from './module/Distributor/forms/purchase-inward-info/purchase-inward-info.component';
+import { DistributorSaleInfoComponent } from './module/Distributor/forms/distributor-sale-info/distributor-sale-info.component';
+import { DealerSearchComponent } from './module/Distributor/forms/dealer-info/dealer-search/dealer-search.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,7 +94,7 @@ import { PurchaseInwardInfoComponent } from './module/Distributor/forms/purchase
     PartyInfoComponent,
     BasicBranchComponent,
 
-    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent, WarrantyInfoComponent, WarrantySearchComponent, SaleReturnInfoComponent, OldBatteryInfoComponent, DateDirective, WarrantyReturnInfoComponent, BasicGroupComponent, ReportViewerComponent, BasicAmpComponent, EnterFocusDirective, ReportsComponent, PartyTransactionInfoComponent, CustomerTransactionInfoComponent, ExpenseInfoComponent, DistributorInfoComponent, DealerInfoComponent, ManufacturerPriceInfoComponent, DistributorPriceInfoComponent, DealerPriceInfoComponent, ManufacturerPurchaseInfoComponent, DistributorSearchComponent, DistributorModelComponent, PurchaseInfoCommonComponent, ManufacturerSaleInfoComponent, SaleInfoCommonComponent, CustomerModelComponent, PurchaseInwardInfoCommonComponent, PurchaseInwardInfoComponent
+    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent, WarrantyInfoComponent, WarrantySearchComponent, SaleReturnInfoComponent, OldBatteryInfoComponent, DateDirective, WarrantyReturnInfoComponent, BasicGroupComponent, ReportViewerComponent, BasicAmpComponent, EnterFocusDirective, ReportsComponent, PartyTransactionInfoComponent, CustomerTransactionInfoComponent, ExpenseInfoComponent, DistributorInfoComponent, DealerInfoComponent, ManufacturerPriceInfoComponent, DistributorPriceInfoComponent, DealerPriceInfoComponent, ManufacturerPurchaseInfoComponent, DistributorSearchComponent, DistributorModelComponent, PurchaseInfoCommonComponent, ManufacturerSaleInfoComponent, SaleInfoCommonComponent, CustomerModelComponent, PurchaseInwardInfoCommonComponent, PurchaseInwardInfoComponent, DistributorSaleInfoComponent, DealerSearchComponent
 
 
   ],

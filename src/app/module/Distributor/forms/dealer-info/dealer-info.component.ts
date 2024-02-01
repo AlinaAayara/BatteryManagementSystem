@@ -29,7 +29,7 @@ export class DealerInfoComponent implements OnInit {
     Data.MethodName = "InUp_BasicUser";
     this._DealerInfoService.AddUser(Data).subscribe({
       next: data => {
-        this._sharedDataService.success("Dealer created successfully with Username = "+data?.[0]?.UserName+" and Password ="+data?.[0]?.Password);
+        this._sharedDataService.success("Dealer created successfully with Username = " + data?.[0]?.UserName + " and Password =" + data?.[0]?.Password);
         this.manuallyClearField = true;
         this.getList();
       },
@@ -55,5 +55,10 @@ export class DealerInfoComponent implements OnInit {
       GroupID: BASICGROUP.Dealer
     }
   }
-
+  /* This function will emit added Dealer or seleceted Dealer
+      1) This will used during purchase info
+    */
+  emitDealer(Dealer) {
+    this._sharedDataService.getSelectedDistributor.next(Dealer);
+  }
 }

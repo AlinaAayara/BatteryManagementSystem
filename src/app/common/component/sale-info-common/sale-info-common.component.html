@@ -93,7 +93,7 @@
                             <div *ngIf="selectedCustomer && userType == 'DL'" class="col-sm-12 col-md-6 col-xl-12 mb-1">
                                <app-customer-model [selectedCustomer]="selectedCustomer" (removeSelectedCustomer)="removeSelectedCustomer()"></app-customer-model>
                             </div>
-                            <div *ngIf="selectedCustomer && userType == 'MF'" class="col-sm-12 col-md-6 col-xl-12 mb-1">
+                            <div *ngIf="selectedCustomer && ['MF','DS'].includes(userType)" class="col-sm-12 col-md-6 col-xl-12 mb-1">
                                 <app-distributor-model [selectedDistributor]="selectedCustomer" (removeSelectedDistributor)="removeSelectedCustomer()"></app-distributor-model>
                              </div>
                         </div>

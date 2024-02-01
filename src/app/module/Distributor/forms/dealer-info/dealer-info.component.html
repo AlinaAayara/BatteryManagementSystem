@@ -5,4 +5,7 @@
 [manuallyClearField]="manuallyClearField"
 [listData]="dealerList"
 [searchFormName]="'Dealer List'"
-></app-smart-form>
+[showDefaultListTable]="false"
+>
+<app-dealer-search (emitDealer)="emitDealer($event)"></app-dealer-search>
+</app-smart-form>
