@@ -160,6 +160,7 @@ export class SharedDataService {
     switch (subMenuUrl) {
       case "PurchaseInfo":
       case "ManufacturerPurchaseInfo":
+      case "PurchaseInwardInfo":
         CustomerName = [null, undefined, ""].includes(CustomerName) ? "" : CustomerName;
         obj.requestBody = {
           MethodName: "Sel_AdvanceSearch_PurchaseInfo",

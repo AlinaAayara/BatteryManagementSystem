@@ -31,6 +31,7 @@ import { DistributorPriceInfoComponent } from './module/Distributor/forms/distri
 import { DealerPriceInfoComponent } from './module/Dealer/forms/dealer-price-info/dealer-price-info.component';
 import { ManufacturerPurchaseInfoComponent } from './module/Manufacturer/forms/manufacturer-purchase-info/manufacturer-purchase-info.component';
 import { ManufacturerSaleInfoComponent } from './module/Manufacturer/forms/manufacturer-sale-info/manufacturer-sale-info.component';
+import { PurchaseInwardInfoComponent } from './module/Distributor/forms/purchase-inward-info/purchase-inward-info.component';
 
 
 const routes: Routes = [
@@ -120,13 +121,15 @@ const routes: Routes = [
           },
           {
             path: 'DealerPriceInfo', component: DealerPriceInfoComponent
-          }
-          ,
+          },
           {
             path: 'ManufacturerPurchaseInfo', component: ManufacturerPurchaseInfoComponent
           },
           {
             path: 'ManufacturerSaleInfo', component: ManufacturerSaleInfoComponent
+          },
+          {
+            path: 'PurchaseInwardInfo', component: PurchaseInwardInfoComponent
           }
         ]
       },

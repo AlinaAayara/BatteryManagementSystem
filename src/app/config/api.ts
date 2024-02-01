@@ -26,6 +26,7 @@ export class AppUrl {
     public static partyTransactionInfoURL = "PartyTransactionInfo/";
     public static customerTransactionInfoURL = "CustomerTransactionInfo/";
     public static expenseInfoURL = "ExpenseInfo/";
+    public static purchaseInwardURL = "PurchaseInward/";
 
     //public static reportViewerURL = "ReportViewer/ViewReport"
 
@@ -99,6 +100,9 @@ export class AppUrl {
 
         add_expenseInfo: AppUrl.baseURL + AppUrl.expenseInfoURL + "AddExpense",
         get_expenseInfo: AppUrl.baseURL + AppUrl.expenseInfoURL + "GetExpense",
+
+        add_purchaseinward: AppUrl.baseURL + AppUrl.purchaseInwardURL + "AddPurchaseInward",
+        get_purchaseinward: AppUrl.baseURL + AppUrl.purchaseInwardURL + "GetPurchaseInward",
 
         reportViewer : AppUrl.reportBaseURL
         

@@ -89,6 +89,7 @@ export class AdvanceCustomerSearchComponent implements OnInit, OnChanges {
     switch (subMenuURL) {
       case "PurchaseInfo":
       case "ManufacturerPurchaseInfo":
+      case "PurchaseInwardInfo":
         this.ActivePurchaseInfoList = new Array<AdvanceSerachPurchaseInfo>();
         data.forEach(item => {
           this.ActivePurchaseInfoList.push(new AdvanceSerachPurchaseInfo(item));

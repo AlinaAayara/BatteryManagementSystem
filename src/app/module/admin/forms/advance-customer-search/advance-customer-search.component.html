@@ -34,10 +34,10 @@
                             data-bs-target="#_advance_search_customer_info" type="button" role="tab"
                             aria-controls="home" aria-selected="true">Customer</button>
                     </li>
-                    <li *ngIf="activeTab == null || ['PurchaseInfo','ManufacturerPurchaseInfo'].includes(activeTab?.subMenuURL)" class="nav-item"
+                    <li *ngIf="activeTab == null || ['PurchaseInfo','ManufacturerPurchaseInfo','PurchaseInwardInfo'].includes(activeTab?.subMenuURL)" class="nav-item"
                         role="presentation">
-                        <button class="nav-link" [class.active]="['PurchaseInfo','ManufacturerPurchaseInfo'].includes(activeTab?.subMenuURL)" data-bs-toggle="tab" data-bs-target="#_advance_search_purchase_info"
-                            type="button" role="tab" aria-controls="profile" [attr.aria-selected]="['PurchaseInfo','ManufacturerPurchaseInfo'].includes(activeTab?.subMenuURL)">Purchase</button>
+                        <button class="nav-link" [class.active]="['PurchaseInfo','ManufacturerPurchaseInfo','PurchaseInwardInfo'].includes(activeTab?.subMenuURL)" data-bs-toggle="tab" data-bs-target="#_advance_search_purchase_info"
+                            type="button" role="tab" aria-controls="profile" [attr.aria-selected]="['PurchaseInfo','ManufacturerPurchaseInfo','PurchaseInwardInfo'].includes(activeTab?.subMenuURL)">Purchase</button>
                     </li>
                     <li *ngIf="activeTab == null || ['SaleInfo','ManufacturerSaleInfo'].includes(activeTab?.subMenuURL)" class="nav-item"
                         role="presentation">
@@ -66,7 +66,7 @@
                             little he could see his brown belly, slightly domed and divided by arches into stiff
                             sections.</p>
                     </div>
-                    <div *ngIf="activeTab == null || ['PurchaseInfo','ManufacturerPurchaseInfo'].includes(activeTab?.subMenuURL)"
+                    <div *ngIf="activeTab == null || ['PurchaseInfo','ManufacturerPurchaseInfo','PurchaseInwardInfo'].includes(activeTab?.subMenuURL)"
                         id="_advance_search_purchase_info" class="tab-pane fade show active" role="tabpanel"
                         aria-labelledby="profile-tab">
                         <div class="col-lg-12">
