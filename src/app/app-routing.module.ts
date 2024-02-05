@@ -33,6 +33,7 @@ import { ManufacturerPurchaseInfoComponent } from './module/Manufacturer/forms/m
 import { ManufacturerSaleInfoComponent } from './module/Manufacturer/forms/manufacturer-sale-info/manufacturer-sale-info.component';
 import { PurchaseInwardInfoComponent } from './module/Distributor/forms/purchase-inward-info/purchase-inward-info.component';
 import { DistributorSaleInfoComponent } from './module/Distributor/forms/distributor-sale-info/distributor-sale-info.component';
+import { DistributorTransactionInfoComponent } from './module/Manufacturer/forms/distributor-transaction-info/distributor-transaction-info.component';
 
 
 const routes: Routes = [
@@ -134,6 +135,9 @@ const routes: Routes = [
           },
           {
             path: 'DistributorSaleInfo', component: DistributorSaleInfoComponent
+          },
+          {
+            path: 'DistributorTransactionInfo', component: DistributorTransactionInfoComponent
           }
         ]
       },

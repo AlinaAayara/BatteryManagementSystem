@@ -7,6 +7,7 @@ export class CurrentUser {
     public todaysDate = "";
     public menu = Array<Menu>();
     public firmID = "";
+    public FirmID = "";
     public firmName ="";
     public contactPerson ="";
     public firmContactNo ="";
@@ -14,6 +15,9 @@ export class CurrentUser {
     public gSTNo ="";
     public sateCode ="";
     public stateName="";
+    public UserType="";
+    public UserID = "";
+
     constructor(currentUserInfo: any = {}) {
         this.userID = currentUserInfo?.userID || "";
         this.groupID = currentUserInfo?.groupID || "";
@@ -21,6 +25,7 @@ export class CurrentUser {
         this.todaysDate = currentUserInfo?.todaysDate || "";
         this.name = currentUserInfo?.name || "";
         this.firmID = currentUserInfo?.firmID || "";
+        this.FirmID = currentUserInfo?.firmID || "";
         this.firmName = currentUserInfo?.firmName || "";
         this.contactPerson = currentUserInfo?.contactPerson || "";
         this.firmContactNo = currentUserInfo?.firmContactNo || "";
@@ -28,7 +33,8 @@ export class CurrentUser {
         this.gSTNo = currentUserInfo?.gSTNo || "";
         this.sateCode = currentUserInfo?.sateCode || "";
         this.stateName = currentUserInfo?.stateName || "";
-
+        this.UserType = currentUserInfo?.userType || "";
+        this.UserID = currentUserInfo?.userID || "";
         if (currentUserInfo && currentUserInfo?.menu && currentUserInfo?.menu?.length) {
             currentUserInfo?.menu?.forEach((menuInfo: any) => {
                 this.menu.push(new Menu(menuInfo));

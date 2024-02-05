@@ -145,7 +145,11 @@ export class ReportsComponent implements OnInit, OnDestroy {
     let queryString = "MethodName=" + this.activeReport.reportName;
     let filters = this.activeReport.filterCriteria?.replace(/,\s*$/, "")?.replace(/\s/g, "")?.split(',');
     filters.forEach(control => {
-      if (![undefined, null, ""].includes(this[control])) {
+
+      if (['UserID', 'UserType'].includes(control)) {
+        queryString = `${queryString}&${control}=${this._sharedDataService.currentUser?.[control == 'UserID' ? 'userID' : 'userType']}`
+      }
+      else if (![undefined, null, ""].includes(this[control])) {
         queryString = `${queryString}&${control}=${this[control]}`
       }
     });

@@ -72,6 +72,8 @@ import { PurchaseInwardInfoCommonComponent } from './common/component/purchase-i
 import { PurchaseInwardInfoComponent } from './module/Distributor/forms/purchase-inward-info/purchase-inward-info.component';
 import { DistributorSaleInfoComponent } from './module/Distributor/forms/distributor-sale-info/distributor-sale-info.component';
 import { DealerSearchComponent } from './module/Distributor/forms/dealer-info/dealer-search/dealer-search.component';
+import { DistributorTransactionInfoComponent } from './module/Manufacturer/forms/distributor-transaction-info/distributor-transaction-info.component';
+import { PartyTransactionInfoCommonComponent } from './common/component/party-transaction-info-common/party-transaction-info-common.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,7 +96,7 @@ import { DealerSearchComponent } from './module/Distributor/forms/dealer-info/de
     PartyInfoComponent,
     BasicBranchComponent,
 
-    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent, WarrantyInfoComponent, WarrantySearchComponent, SaleReturnInfoComponent, OldBatteryInfoComponent, DateDirective, WarrantyReturnInfoComponent, BasicGroupComponent, ReportViewerComponent, BasicAmpComponent, EnterFocusDirective, ReportsComponent, PartyTransactionInfoComponent, CustomerTransactionInfoComponent, ExpenseInfoComponent, DistributorInfoComponent, DealerInfoComponent, ManufacturerPriceInfoComponent, DistributorPriceInfoComponent, DealerPriceInfoComponent, ManufacturerPurchaseInfoComponent, DistributorSearchComponent, DistributorModelComponent, PurchaseInfoCommonComponent, ManufacturerSaleInfoComponent, SaleInfoCommonComponent, CustomerModelComponent, PurchaseInwardInfoCommonComponent, PurchaseInwardInfoComponent, DistributorSaleInfoComponent, DealerSearchComponent
+    AlphaNumericDirective, NumberOnlyDirective, AlphaOnlyDirective, AlphaSpaceOnlyDirective, AutofocusDirective, PurchaseInfoComponent, CustomerInfoComponent, CustomerSearchComponent, SaleInfoComponent, PartySearchComponent, AdvanceCustomerSearchComponent, PurchaseSearchComponent, SaleSearchComponent, WarrantyInfoComponent, WarrantySearchComponent, SaleReturnInfoComponent, OldBatteryInfoComponent, DateDirective, WarrantyReturnInfoComponent, BasicGroupComponent, ReportViewerComponent, BasicAmpComponent, EnterFocusDirective, ReportsComponent, PartyTransactionInfoComponent, CustomerTransactionInfoComponent, ExpenseInfoComponent, DistributorInfoComponent, DealerInfoComponent, ManufacturerPriceInfoComponent, DistributorPriceInfoComponent, DealerPriceInfoComponent, ManufacturerPurchaseInfoComponent, DistributorSearchComponent, DistributorModelComponent, PurchaseInfoCommonComponent, ManufacturerSaleInfoComponent, SaleInfoCommonComponent, CustomerModelComponent, PurchaseInwardInfoCommonComponent, PurchaseInwardInfoComponent, DistributorSaleInfoComponent, DealerSearchComponent, DistributorTransactionInfoComponent, PartyTransactionInfoCommonComponent
 
 
   ],
