@@ -67,6 +67,16 @@ export const Constant = {
             Text: "No"
         }
     ],
+    YES_OR_NO_BANK: [
+        {
+            Value: 1,
+            Text: "Is Main Bank, Yes"
+        },
+        {
+            Value: 0,
+            Text: "No"
+        }
+    ],
     CHOOSE_CUSTOMER: "Choose Customer",
     CHOOSE_PARTY: "Choose Party",
     CHOOSE_DISTRIBUTOR: "Choose Distributor",

@@ -1,8 +1,8 @@
 export class AppUrl {
     public static URL = {};
 
-    public static baseURL = "http://localhost:5213/api/";
-    // public static baseURL = "http://gbhwebapi.betech.in/api/";
+    // public static baseURL = "http://localhost:5213/api/";
+    public static baseURL = "http://gbhwebapi.betech.in/api/";
 
     public static reportBaseURL = "http://bmsreportapp.betech.in/reportviewer.aspx"
 
@@ -27,7 +27,7 @@ export class AppUrl {
     public static customerTransactionInfoURL = "CustomerTransactionInfo/";
     public static expenseInfoURL = "ExpenseInfo/";
     public static purchaseInwardURL = "PurchaseInward/";
-
+    public static basicBankURL = "BasicBank/";
     //public static reportViewerURL = "ReportViewer/ViewReport"
 
     public static API = {
@@ -103,6 +103,9 @@ export class AppUrl {
 
         add_purchaseinward: AppUrl.baseURL + AppUrl.purchaseInwardURL + "AddPurchaseInward",
         get_purchaseinward: AppUrl.baseURL + AppUrl.purchaseInwardURL + "GetPurchaseInward",
+
+        add_basicbank: AppUrl.baseURL + AppUrl.basicBankURL + "AddBank",
+        get_basicbank: AppUrl.baseURL + AppUrl.basicBankURL + "GetBank",
 
         reportViewer : AppUrl.reportBaseURL
         
