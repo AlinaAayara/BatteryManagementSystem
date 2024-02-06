@@ -79,15 +79,15 @@ export function generatePostRequestBody(data: any, mode: string) {
             let obj = {
                 ProductID: product?.ProductID,
                 SerialNo: srno,
-                Price: product?.PurchasePrice,
-                CGST: product?.CGST,
-                CGSTAmount: product?.CGSTAmount,
-                SGST: product?.SGST,
-                SGSTAmount: product?.SGSTAmount,
-                IGST: product?.IGST,
-                IGSTAmount: product?.IGSTAmount,
-                Discount: product?.Discount,
-                DiscountAmount: product?.DiscountAmount
+                Price: parseFloat(product?.PurchasePrice),
+                CGST: parseFloat(product?.CGST),
+                CGSTAmount: parseFloat(product?.CGSTAmount),
+                SGST: parseFloat(product?.SGST),
+                SGSTAmount: parseFloat(product?.SGSTAmount),
+                IGST: parseFloat(product?.IGST),
+                IGSTAmount: parseFloat(product?.IGSTAmount),
+                Discount: parseFloat(product?.Discount),
+                DiscountAmount: parseFloat(product?.DiscountAmount)
             }
             body.PurchaseProductList.push(obj);
         })

@@ -34,14 +34,14 @@ export function generatePostRequestBody(data: any, mode: string) {
                 ProductID: product?.ProductID,
                 SerialNo: srno,
                 SalePrice: product?.Price,
-                CGST: product?.CGST,
-                CGSTAmount: product?.CGSTAmount,
-                SGST: product?.SGST,
-                SGSTAmount: product?.SGSTAmount,
-                IGST: product?.IGST,
-                IGSTAmount: product?.IGSTAmount,
-                Discount: product?.Discount ?? 0,
-                DiscountAmount: product?.DiscountAmount ?? 0
+                CGST: parseFloat(product?.CGST),
+                CGSTAmount: parseFloat(product?.CGSTAmount),
+                SGST: parseFloat(product?.SGST),
+                SGSTAmount: parseFloat(product?.SGSTAmount),
+                IGST: parseFloat(product?.IGST),
+                IGSTAmount: parseFloat(product?.IGSTAmount),
+                Discount: parseFloat(product?.Discount) ?? 0,
+                DiscountAmount: parseFloat(product?.DiscountAmount) ?? 0
             }
             body.SaleProductList.push(obj);
         })
