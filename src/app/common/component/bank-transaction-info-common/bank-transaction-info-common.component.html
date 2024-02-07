@@ -1,0 +1,9 @@
+<app-smart-form 
+[formName] ="'Bank Transaction'" 
+[formField]="formField"
+(formData)="submit($event)"
+[manuallyClearField]="manuallyClearField"
+[listData]="transactionList"
+[searchFormName]="'Bank Transaction List'"
+(changeEmit) = "changeEmit($event)"
+></app-smart-form>

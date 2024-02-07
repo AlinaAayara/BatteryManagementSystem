@@ -33,13 +33,24 @@
                                     SmartForm.get(field.fieldName)?.dirty) &&
                                     SmartForm.get(field.fieldName)?.errors)" [class.text-success]="(SmartForm.get(field.fieldName)?.touched &&
                                     !SmartForm.get(field.fieldName)?.errors)">{{field.label}}</label>
-                                        <input id="_dm-inputAddress" type="text" [formControlName]="field.fieldName"
+                                        <input *ngIf="!((field?.isDateControl) == undefined ? false : (field?.isDateControl))" id="_dm-inputAddress" type="text" [formControlName]="field.fieldName"
                                             [class.is-invalid]="((SmartForm.get(field.fieldName)?.touched ||
                                     SmartForm.get(field.fieldName)?.dirty) &&
                                     SmartForm.get(field.fieldName)?.errors)" [class.is-valid]="(SmartForm.get(field.fieldName)?.touched &&
                                     !SmartForm.get(field.fieldName)?.errors)" class="form-control"
                                             placeholder={{field.placeholder}} NumberOnly
-                                            [directiveName]="field?.directiveName == undefined ? null : field?.directiveName">
+                                            [directiveName]="field?.directiveName == undefined ? null : field?.directiveName"
+                                            (change)=" field?.onChange ? onChange(field) : null">
+
+                                            <input *ngIf="((field?.isDateControl) == undefined ? false : (field?.isDateControl))" id="_dm-inputAddress" type="text" [formControlName]="field.fieldName"
+                                            [class.is-invalid]="((SmartForm.get(field.fieldName)?.touched ||
+                                    SmartForm.get(field.fieldName)?.dirty) &&
+                                    SmartForm.get(field.fieldName)?.errors)" [class.is-valid]="(SmartForm.get(field.fieldName)?.touched &&
+                                    !SmartForm.get(field.fieldName)?.errors)" class="form-control"
+                                            placeholder={{field.placeholder}} NumberOnly
+                                            [directiveName]="field?.directiveName == undefined ? null : field?.directiveName"
+                                            (change)=" field?.onChange ? onChange(field) : null" appDate>
+
                                         <span style="color:red" class="help-block" *ngIf="((SmartForm.get(field.fieldName)?.touched ||
                                         SmartForm.get(field.fieldName)?.dirty) &&
                                         SmartForm.get(field.fieldName)?.errors)">

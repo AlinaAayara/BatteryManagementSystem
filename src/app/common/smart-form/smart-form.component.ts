@@ -99,7 +99,7 @@ export class SmartFormComponent implements OnInit, OnChanges {
   public setFormValue(data) {
     var fieldData = {};
     for (let field of this.formField) {
-      fieldData[field.fieldName] = data[field.fieldName]
+      fieldData[field.fieldName] = data[field.fieldName] ?? 0
     }
     this.SmartForm.setValue(fieldData);
   }
