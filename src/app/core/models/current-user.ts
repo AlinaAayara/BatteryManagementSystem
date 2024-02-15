@@ -15,7 +15,7 @@ export class CurrentUser {
     public gSTNo ="";
     public sateCode ="";
     public stateName="";
-    public UserType="";
+    public userType="";
     public UserID = "";
 
     constructor(currentUserInfo: any = {}) {
@@ -33,7 +33,7 @@ export class CurrentUser {
         this.gSTNo = currentUserInfo?.gSTNo || "";
         this.sateCode = currentUserInfo?.sateCode || "";
         this.stateName = currentUserInfo?.stateName || "";
-        this.UserType = currentUserInfo?.userType || "";
+        this.userType = currentUserInfo?.userType || "";
         this.UserID = currentUserInfo?.userID || "";
         if (currentUserInfo && currentUserInfo?.menu && currentUserInfo?.menu?.length) {
             currentUserInfo?.menu?.forEach((menuInfo: any) => {
