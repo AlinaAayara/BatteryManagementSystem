@@ -1,0 +1,133 @@
+<div class="content__boxed">
+    <div class="content__wrap">
+        <section>
+            <div class="row">
+                <div class="col-md-12 mb-1">
+                    <div class="row">
+                        <div class="col-md-5 mb-1">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Purchase Return</h5>
+                                    <div class="row mb-1">
+                                        <div class="col-md-5">
+                                            <input id="FromDate" type="text" [(ngModel)]="FromDate" class="form-control"
+                                                placeholder="Date" appDate>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input id="ToDate" type="text" [(ngModel)]="ToDate" class="form-control"
+                                                placeholder="Date" appDate>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col-md-5">
+                                            <select class="form-select enter-focus" [(ngModel)]="CategoryID"
+                                                aria-label="select transition timing" (change)="getProductList()">
+                                                <option value=""> -- Select Category --</option>
+                                                <option *ngFor="let item of categoryList" [value]="item.CategoryID">
+                                                    {{item.CategoryName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <select class="form-select enter-focus" [(ngModel)]="ProductID"
+                                                aria-label="select transition timing">
+                                                <option value=""> -- Select Product --</option>
+                                                <option *ngFor="let item of productList" [value]="item.ProductID">
+                                                    {{item.ProductName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-primary"
+                                                (click)="getPurchaseReturnSerialNo()">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="row" [formGroup]="PurchaseReturnInfoForm" (ngSubmit)="Submit($event)">
+                        <div class="col-md-5 mb-1">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col-md-12">
+                                            <div *ngIf="SerialNoList?.length" class="table-responsive">
+                                                <table class="table" style="background: white;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Select</th>
+                                                            <th>Product</th>
+                                                            <th>Amp</th>
+                                                            <th>Serial No</th>
+                                                            <th>Purchase Bill No.</th>
+                                                            <th>Purchase Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let prod of SerialNoList; let i = index">
+                                                            <td>
+                                                                <input name="elem{{ i }}" id="elem{{ i }}"
+                                                                    [(ngModel)]="prod.Checked" type="checkbox"
+                                                                    [checked]="prod.Checked"
+                                                                    (click)="checkElement($event, i)"/>
+                                                            </td>
+                                                            <td>{{prod.ProductName}}</td>
+                                                            <td>{{prod.Amp}}</td>
+                                                            <td>{{prod.SerialNo}}</td>
+                                                            <td>{{prod.BillNo}}</td>
+                                                            <td>{{prod.PurchaseDate}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-md-5  mb-3">
+                                            <label for="ReturnToCompanyDate" class="visually-hidden"
+                                                [class.text-danger]="((PurchaseReturnInfoForm.get('ReturnToCompanyDate')?.touched ||
+                                        PurchaseReturnInfoForm.get('ReturnToCompanyDate')?.dirty) &&
+                                        PurchaseReturnInfoForm.get('ReturnToCompanyDate')?.errors)"
+                                                [class.text-success]="(
+                                        !PurchaseReturnInfoForm.get('ReturnToCompanyDate')?.errors)">Date</label>
+                                            <input id="ReturnToCompanyDate" type="text"
+                                                formControlName="ReturnToCompanyDate" [class.is-invalid]="((PurchaseReturnInfoForm.get('ReturnToCompanyDate')?.touched ||
+                                        PurchaseReturnInfoForm.get('ReturnToCompanyDate')?.dirty) &&
+                                        PurchaseReturnInfoForm.get('ReturnToCompanyDate')?.errors)" [class.is-valid]="(
+                                        !PurchaseReturnInfoForm.get('ReturnToCompanyDate')?.errors)"
+                                                class="form-control" placeholder="Date" appDate>
+                                            <span style="color:red" class="help-block" *ngIf="((PurchaseReturnInfoForm.get('ReturnToCompanyDate')?.touched ||
+                                            PurchaseReturnInfoForm.get('ReturnToCompanyDate')?.dirty) &&
+                                            PurchaseReturnInfoForm.get('ReturnToCompanyDate')?.errors)">
+                                                Date is required.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="mt-4 d-grid gap-2 d-md-block">
+                                            <button type="submit" class="btn btn-primary"
+                                                [disabled]="(PurchaseReturnInfoForm.invalid || showLoader)">
+                                                <ng-container *ngIf="showLoader">
+                                                    <span class="spinner-border spinner-border-sm"></span>
+                                                    Loading..
+                                                </ng-container>
+                                                <ng-container *ngIf="!showLoader">
+                                                    {{isAdd?'Save':'Update'}}
+                                                </ng-container>
+
+                                            </button>
+                                            |
+                                            <button type="button" class="btn btn-danger"
+                                                (click)="clearSaleReturn()">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

@@ -241,7 +241,14 @@
                                     <div class="col-6">
                                         <div class="mt-4 d-flex flex-wrap justify-content-center gap-2">
                                             <ng-container *ngFor="let srno of serialNoList">
-                                                <button type="button" class="btn btn-warning">{{srno}}</button>
+                                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                                    <button type="button" class="btn btn-warning">{{srno}}</button>
+                                                    <div class="btn-group" role="group">
+                                                        <button id="btnGroupDrop1" type="button" class="btn btn-warning" (click)="removeSrno(srno)">
+                                                            <i class="demo-pli-trash fs-5"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </ng-container>
                                         </div>
                                     </div>

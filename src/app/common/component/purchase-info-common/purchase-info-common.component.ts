@@ -451,7 +451,7 @@ export class PurchaseInfoCommonComponent implements OnInit, OnChanges {
         });
         prod.Quantity = SerialNo?.length;
         prod.SerialNoList = SerialNo;
-        prod.SerialNo = SerialNo?.join(",");
+        prod.SerialNo = SerialNo?.length > 0 ? SerialNo?.join(",") : "";
         SerialNo = [];
       });
 
@@ -605,5 +605,9 @@ export class PurchaseInfoCommonComponent implements OnInit, OnChanges {
       this.PurchaseInfoForm.get("purchaseProductInfo")?.get("TotalDiscountAmount")?.setValue(TotalDiscountAmount);
       this.PurchaseInfoForm?.get("purchaseProductInfo")?.get("PurchasePrice")?.setValue(PurchasePrice - DiscountAmount);
     }
+  }
+  removeSrno(Srno) {
+    this.serialNoList = this.serialNoList.filter(srno => srno != Srno);
+    this.calculatePurchaseProductTotal();
   }
 }

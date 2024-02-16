@@ -37,6 +37,7 @@ import { DistributorTransactionInfoComponent } from './module/Manufacturer/forms
 import { DealerTransactionInfoComponent } from './module/Distributor/forms/dealer-transaction-info/dealer-transaction-info.component';
 import { BasicBankComponent } from './module/admin/forms/basic-bank/basic-bank.component';
 import { BankTransactionInfoComponent } from './module/admin/forms/bank-transaction-info/bank-transaction-info.component';
+import { PurchaseReturnInfoCommonComponent } from './common/component/purchase-return-info-common/purchase-return-info-common.component';
 
 
 const routes: Routes = [
@@ -150,6 +151,9 @@ const routes: Routes = [
           },
           {
             path: 'BankTransactionInfo', component: BankTransactionInfoComponent
+          },
+          {
+            path: 'PurchaseReturnInfo', component: PurchaseReturnInfoCommonComponent
           }
         ]
       },
