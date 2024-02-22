@@ -22,8 +22,18 @@ export class PurchaseReturnInfoService {
       headers: { 'content-type': 'application/json' }
     });
   }
+  UpdatePurchaseReturn(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.update_PurchaseReturnInfo, body, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
   GetPurchaseReturn(body): Observable<any> {
     return this._httpClient.post<any[]>(AppUrl.API.get_purchaseReturnInfo, body, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
+  selPurchaseReturn(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.sel_purchaseReturn, body, {
       headers: { 'content-type': 'application/json' }
     });
   }

@@ -113,8 +113,10 @@ export class AppUrl {
         get_bankTransactionInfo: AppUrl.baseURL + AppUrl.bankTransactionInfoURL + "GetBankTransaction",
 
         add_purchaseReturnInfo: AppUrl.baseURL + AppUrl.purchaseReturnInfoURL + "AddPurchaseReturnInfo",
+        update_PurchaseReturnInfo: AppUrl.baseURL + AppUrl.purchaseReturnInfoURL + "UpdatePurchaseReturnInfo",
         get_purchaseReturnInfo: AppUrl.baseURL + AppUrl.purchaseReturnInfoURL + "GetPurchaseReturnInfo",
         get_purchaseRReturnSerialNo: AppUrl.baseURL + AppUrl.purchaseReturnInfoURL + "GetPurchaseReturnSerialNo",
+        sel_purchaseReturn: AppUrl.baseURL + AppUrl.purchaseReturnInfoURL + "SelPurchaseReturn",
 
         reportViewer : AppUrl.reportBaseURL
         
