@@ -17,4 +17,9 @@ export class ChartService {
       headers: { 'content-type': 'application/json' }
     });
   }
+  GetPurchaseChart(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.get_purchasechart, body, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
 }

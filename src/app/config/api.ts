@@ -120,6 +120,7 @@ export class AppUrl {
         sel_purchaseReturn: AppUrl.baseURL + AppUrl.purchaseReturnInfoURL + "SelPurchaseReturn",
 
         get_salechart: AppUrl.baseURL + AppUrl.chartURL + "GetSaleChart",
+        get_purchasechart: AppUrl.baseURL + AppUrl.chartURL + "GetPurchaseChart",
 
         reportViewer : AppUrl.reportBaseURL
         

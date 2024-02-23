@@ -4,11 +4,11 @@ import { ChartService } from 'src/app/Services/Chart/chart.service';
 import { SharedDataService } from 'src/app/Services/shared-data.service';
 
 @Component({
-  selector: 'app-sale-chart',
-  templateUrl: './sale-chart.component.html',
-  styleUrls: ['./sale-chart.component.css']
+  selector: 'app-purchase-chart',
+  templateUrl: './purchase-chart.component.html',
+  styleUrls: ['./purchase-chart.component.css']
 })
-export class SaleChartComponent implements OnInit {
+export class PurchaseChartComponent implements OnInit {
   public userType: string;
   public chartList: any[] = [];
   private labeldata: any[] = [];
@@ -43,7 +43,7 @@ export class SaleChartComponent implements OnInit {
   }
   getSaleChartRequestBody() {
     return {
-      MethodName: "Sel_SaleChart"
+      MethodName: "Sel_PurchaseChart"
     }
   }
 
@@ -58,7 +58,7 @@ export class SaleChartComponent implements OnInit {
       data: {
         labels: this.labeldata,
         datasets: [{
-          label: '# Sale',
+          label: '# Purchase',
           data: this.realdata,
           borderColor: "white",
           backgroundColor: "rgba(255,255,255)",
@@ -79,6 +79,6 @@ export class SaleChartComponent implements OnInit {
         }
       }
     };
-    new Chart('saleChart', lineChart);
+    new Chart('purchaseChart', lineChart);
   }
 }
