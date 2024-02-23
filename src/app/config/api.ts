@@ -30,6 +30,7 @@ export class AppUrl {
     public static basicBankURL = "BasicBank/";
     public static bankTransactionInfoURL = "BankTransactionInfo/";
     public static purchaseReturnInfoURL = "PurchaseReturnInfo/";
+    public static chartURL = "Chart/";
     //public static reportViewerURL = "ReportViewer/ViewReport"
 
     public static API = {
@@ -117,6 +118,8 @@ export class AppUrl {
         get_purchaseReturnInfo: AppUrl.baseURL + AppUrl.purchaseReturnInfoURL + "GetPurchaseReturnInfo",
         get_purchaseRReturnSerialNo: AppUrl.baseURL + AppUrl.purchaseReturnInfoURL + "GetPurchaseReturnSerialNo",
         sel_purchaseReturn: AppUrl.baseURL + AppUrl.purchaseReturnInfoURL + "SelPurchaseReturn",
+
+        get_salechart: AppUrl.baseURL + AppUrl.chartURL + "GetSaleChart",
 
         reportViewer : AppUrl.reportBaseURL
         
