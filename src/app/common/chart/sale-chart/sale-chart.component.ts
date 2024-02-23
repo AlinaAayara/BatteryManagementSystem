@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Chart } from 'chart.js/auto';
 import { ChartService } from 'src/app/Services/Chart/chart.service';
 import { SharedDataService } from 'src/app/Services/shared-data.service';
@@ -18,7 +19,8 @@ export class SaleChartComponent implements OnInit {
 
   constructor(
     private _sharedDataService: SharedDataService,
-    private _ChartService: ChartService
+    private _ChartService: ChartService,
+    private router: Router
   ) {
   }
   ngOnInit(): void {
@@ -30,11 +32,11 @@ export class SaleChartComponent implements OnInit {
     this._ChartService.GetSaleChart(this.getSaleChartRequestBody()).subscribe({
       next: data => {
         this.chartList = data;
-        if (this.chartList?.length > 0){
+        if (this.chartList?.length > 0) {
           this.todaysSale = this.chartList?.[0]?.TodaysAmount;
           this.createChart();
         }
-          
+
       },
       error: error => {
         //this._sharedDataService.error(error);
@@ -80,5 +82,23 @@ export class SaleChartComponent implements OnInit {
       }
     };
     new Chart('saleChart', lineChart);
+  }
+
+  navigate() {
+    let id = "";
+    const subMenuURL = this.userType == 'MF' ? 'ManufacturerSaleInfo' : this.userType == 'DS' ? 'DistributorSaleInfo' : 'SaleInfo';
+    this._sharedDataService.currentUser?.menu?.forEach((m) => {
+      m?.subMenu?.forEach((sub) => {
+        if (sub?.subMenuURL == subMenuURL) {
+          id = sub?.subMenuID;
+        }
+      }
+      )
+    });
+    this.router.navigate([`/Home/${subMenuURL}`], {
+      queryParams: {
+        id: id
+      }
+    });
   }
 }

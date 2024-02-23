@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Chart } from 'chart.js/auto';
 import { ChartService } from 'src/app/Services/Chart/chart.service';
 import { SharedDataService } from 'src/app/Services/shared-data.service';
@@ -18,7 +19,8 @@ export class PurchaseChartComponent implements OnInit {
 
   constructor(
     private _sharedDataService: SharedDataService,
-    private _ChartService: ChartService
+    private _ChartService: ChartService,
+    private router: Router
   ) {
   }
   ngOnInit(): void {
@@ -80,5 +82,23 @@ export class PurchaseChartComponent implements OnInit {
       }
     };
     new Chart('purchaseChart', lineChart);
+  }
+
+  navigate() {
+    let id = "";
+    const subMenuURL = this.userType == 'MF' ? 'ManufacturerPurchaseInfo' : this.userType == 'DS' ? 'PurchaseInwardInfo' : 'PurchaseInfo';
+    this._sharedDataService.currentUser?.menu?.forEach((m) => {
+      m?.subMenu?.forEach((sub) => {
+        if (sub?.subMenuURL == subMenuURL) {
+          id = sub?.subMenuID;
+        }
+      }
+      )
+    });
+    this.router.navigate([`/Home/${subMenuURL}`], {
+      queryParams: {
+        id: id
+      }
+    });
   }
 }
