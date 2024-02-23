@@ -121,6 +121,8 @@ export class AppUrl {
 
         get_salechart: AppUrl.baseURL + AppUrl.chartURL + "GetSaleChart",
         get_purchasechart: AppUrl.baseURL + AppUrl.chartURL + "GetPurchaseChart",
+        get_customerbalancechart: AppUrl.baseURL + AppUrl.chartURL + "GetCustomerBalanceChart",
+        get_DSDLPartyBalancechart: AppUrl.baseURL + AppUrl.chartURL + "GetDSDLPartyBalanceChart",
 
         reportViewer : AppUrl.reportBaseURL
         

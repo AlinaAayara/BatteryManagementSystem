@@ -22,4 +22,14 @@ export class ChartService {
       headers: { 'content-type': 'application/json' }
     });
   }
+  GetCustomerBalanceChart(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.get_customerbalancechart, body, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
+  GetDSDLPartyBalance(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.get_DSDLPartyBalancechart, body, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
 }
