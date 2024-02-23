@@ -1085,7 +1085,10 @@
     </div>
   </div>
 </body>
-
+<app-slide-in *ngIf="isShowTimeLine" [showSlideIn]="isShowTimeLine" (visibleChange)="showTimeLineSlideIn($event)">
+  <app-serial-no-time-line [AdvanceSearchTextString]="AdvanceSearchTextString"
+    (closeSlideInPopup)="isShowTimeLine = $event"></app-serial-no-time-line>
+</app-slide-in>
 <app-slide-in *ngIf="isShowAdvanceSearch" [showSlideIn]="isShowAdvanceSearch"
   (visibleChange)="showPartyInfoSlideIn($event)">
   <app-advance-customer-search [AdvanceSearchTextString]="AdvanceSearchTextString"

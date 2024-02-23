@@ -115,6 +115,11 @@ export class SharedDataService {
       headers: { 'content-type': 'application/json' }
     });
   }
+  getSerialNoHistory(Data: any): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.get_serialNoHistory, Data, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
 
   NotieSuccess(msg) {
     notie.alert({ type: 'success', text: msg, time: 2 });

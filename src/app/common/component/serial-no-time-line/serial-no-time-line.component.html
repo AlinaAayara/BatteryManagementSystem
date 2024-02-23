@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <div class="timeline"
+            style="--timeline-dot: var( --bs-purple ); --timeline-line-width: 4px; --timeline-point-gap: 0px; --timeline-point-size: 1rem">
+            <div class="tl-entry" *ngFor="let serialNo of serialNoList;let i= index" [class.active]="i==0">
+                <div class="tl-time">
+                    <div class="tl-time">{{serialNo.BillDate}}</div>
+                </div>
+                <div class="tl-point"></div>
+                <div class="tl-content card bg-info text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">{{serialNo.RelateTo}}</h5>
+                        <p>{{serialNo.PartyName}}</p>
+                        <p style="cursor: pointer; color: blueviolet; text-decoration: underline;"
+                        (click)="openInvoice(serialNo)">Bill No.- {{serialNo.BillNo}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 mb-3" *ngIf="serialNoList.length>0">
+        <div class="timeline"
+            style="--timeline-dot: var( --bs-purple ); --timeline-line-width: 4px; --timeline-point-gap: 0px; --timeline-point-size: 1rem">
+            <div class="tl-entry">
+                <div class="tl-content card bg-warning text-white ">
+                    <div class="card-body ">
+                        <h5 class="card-title">{{serialNoList?.[0]?.SerialNo}}</h5>
+                        <p>Category : {{serialNoList?.[0]?.CategoryName}}</p>
+                        <p>Product : {{serialNoList?.[0]?.ProductName}}</p>
+                        <p>Warranty Period : {{serialNoList?.[0]?.WarrantyPeriod}}</p>
+                        <p>Guarantee Period : {{serialNoList?.[0]?.GuaranteePeriod}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

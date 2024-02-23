@@ -47,6 +47,7 @@ export class AppUrl {
         get_basic_category: AppUrl.baseURL + AppUrl.basicCategoryURL + "GetCategory",
 
         delete_record: AppUrl.baseURL + AppUrl.commonURL + "DeleteRecord",
+        get_serialNoHistory: AppUrl.baseURL + AppUrl.commonURL + "GetSerialNoHistory",
 
         add_product_info: AppUrl.baseURL + AppUrl.productInfoURL + "AddProduct",
         get_product_info: AppUrl.baseURL + AppUrl.productInfoURL + "GetProduct",

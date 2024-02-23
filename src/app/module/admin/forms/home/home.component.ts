@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 export class HomeComponent implements OnInit, AfterViewInit {
   public isSideBarActive: boolean = false;
   public isFirstTimeClicked: boolean = false;
+  public isShowTimeLine: boolean = false;
   @ViewChild('root') rootDiv: ElementRef;
   public currentUser: CurrentUser;
   public isShowAdvanceSearch: boolean = false;
@@ -70,7 +71,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   openAdvanceSearch() {
-    this.isShowAdvanceSearch = true;
+    const subMenuID = this.route.snapshot.queryParamMap.get("id");
+    if ([undefined, "", null].includes(subMenuID)) {
+      this.isShowTimeLine = this.AdvanceSearchText?.length > 0;
+    } else {
+      this.isShowAdvanceSearch = true;
+    }
     this.AdvanceSearchTextString = this.AdvanceSearchText;
     this.AdvanceSearchText = "";
   }
@@ -109,6 +115,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
         e?.preventDefault();
       }
     }
+  }
+  /* function to show party info componet in slide in on cick of choose party button  */
+  showTimeLineSlideIn(isShow) {
+    this.isShowTimeLine = isShow;
   }
 }
 
