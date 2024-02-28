@@ -67,6 +67,7 @@ export class AppUrl {
 
         add_saleInfo: AppUrl.baseURL + AppUrl.saleInfoURL + "AddSale",
         get_saleInfo: AppUrl.baseURL + AppUrl.saleInfoURL + "GetSale",
+        get_saleInfoByID: AppUrl.baseURL + AppUrl.saleInfoURL + "GetSaleByID",
         
         get_PurchaseProductInfo_BySerialNo : AppUrl.baseURL + AppUrl.saleInfoURL + "GetPurchaseProductInfoBySerialNo",
         get_Next_BillNo : AppUrl.baseURL + AppUrl.saleInfoURL + "GetSaleBillNo",

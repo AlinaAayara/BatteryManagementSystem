@@ -29,6 +29,11 @@ export class SaleInfoService {
       headers: { 'content-type': 'application/json' }
     });
   }
+  GetSaleByID(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.get_saleInfoByID, body, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
 
   GetBillNo(body): Observable<any> {
     return this._httpClient.post<any[]>(AppUrl.API.get_Next_BillNo, body, {

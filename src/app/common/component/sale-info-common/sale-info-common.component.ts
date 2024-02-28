@@ -419,60 +419,107 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
     this._sharedDataService.saleInfoEdit.subscribe(item => {
       this.getAmpList();
       this.getPaymentModeList();
+      this.getSaleByID(item?.SaleID);
+      // switch (this.userType) {
+      //   case USER_TYPES.Dealer:
+      //     this.showCustomerModel(item?.CustomerInfo);
+      //     break;
+      //   case USER_TYPES.Manufacturer:
+      //     this.showDistributorModel(item?.CustomerInfo);
+      //     break;
+      // }
 
-      switch (this.userType) {
-        case USER_TYPES.Dealer:
-          this.showCustomerModel(item?.CustomerInfo);
-          break;
-        case USER_TYPES.Manufacturer:
-          this.showDistributorModel(item?.CustomerInfo);
-          break;
-      }
-
-      this.showCustomerModel(item?.CustomerInfo);
-      let saleProductList: any = [];
-      setTimeout(() => {
-        this.SaleInfoForm.patchValue(item);
-
-
-        let SerialNo: any = [];
-
-        item?.SaleProductInfo?.forEach(prod => {
-          item?.SaleProductInfo?.forEach(serial => {
-            if (prod.ProductID == serial.ProductID && !SerialNo.includes(serial.SerialNo)) {
-              SerialNo.push(serial.SerialNo);
-            }
-          });
-          prod.Quantity = SerialNo?.length;
-          prod.SerialNoList = SerialNo;
-          prod.SerialNo = SerialNo?.join(",");
-          SerialNo = [];
-        });
+      // this.showCustomerModel(item?.CustomerInfo);
+      // let saleProductList: any = [];
+      // setTimeout(() => {
+      //   this.SaleInfoForm.patchValue(item);
 
 
-        item?.SaleProductInfo.forEach(prod => {
-          const isExists = saleProductList.filter(p => p.ProductID === prod.ProductID);
-          if (isExists.length == 0) {
-            prod.Price = prod.SalePrice;
-            prod.TotalAmount = Number((prod.Price * prod.Quantity).toFixed(2));
-            prod.SalePrice = parseFloat(prod.Price) + (parseFloat(prod.CGSTAmount ?? 0) + parseFloat(prod.SGSTAmount ?? 0) + parseFloat(prod.IGSTAmount ?? 0)) + parseFloat(prod.DiscountAmount ?? 0);
-            prod.TotalGSTAmount = Number(((parseFloat(prod.CGSTAmount ?? 0) + parseFloat(prod.SGSTAmount ?? 0) + parseFloat(prod.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
-            prod.TotalDiscountAmount = Number((parseFloat(prod.DiscountAmount ?? 0) * prod.Quantity).toFixed(2));
-            prod.TotalCGSTAmount = Number((((prod.CGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
-            prod.TotalSGSTAmount = Number((((prod.SGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
-            prod.TotalIGSTAmount = Number((((prod.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
-            saleProductList.push(prod);
-          }
-        })
-        this.isAdd = false;
-        this.SaleInfoForm.get("CustomerID")?.setValue(item?.CustomerInfo?.CustomerID);
-        this.SaleInfoForm.get("SaleProductList")?.setValue(saleProductList ?? []);
-        this.updateTotalValues();
-      }, 1000);
+      //   let SerialNo: any = [];
+
+      //   item?.SaleProductInfo?.forEach(prod => {
+      //     item?.SaleProductInfo?.forEach(serial => {
+      //       if (prod.ProductID == serial.ProductID && !SerialNo.includes(serial.SerialNo)) {
+      //         SerialNo.push(serial.SerialNo);
+      //       }
+      //     });
+      //     prod.Quantity = SerialNo?.length;
+      //     prod.SerialNoList = SerialNo;
+      //     prod.SerialNo = SerialNo?.join(",");
+      //     SerialNo = [];
+      //   });
+
+
+      //   item?.SaleProductInfo.forEach(prod => {
+      //     const isExists = saleProductList.filter(p => p.ProductID === prod.ProductID);
+      //     if (isExists.length == 0) {
+      //       prod.Price = prod.SalePrice;
+      //       prod.TotalAmount = Number((prod.Price * prod.Quantity).toFixed(2));
+      //       prod.SalePrice = parseFloat(prod.Price) + (parseFloat(prod.CGSTAmount ?? 0) + parseFloat(prod.SGSTAmount ?? 0) + parseFloat(prod.IGSTAmount ?? 0)) + parseFloat(prod.DiscountAmount ?? 0);
+      //       prod.TotalGSTAmount = Number(((parseFloat(prod.CGSTAmount ?? 0) + parseFloat(prod.SGSTAmount ?? 0) + parseFloat(prod.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+      //       prod.TotalDiscountAmount = Number((parseFloat(prod.DiscountAmount ?? 0) * prod.Quantity).toFixed(2));
+      //       prod.TotalCGSTAmount = Number((((prod.CGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+      //       prod.TotalSGSTAmount = Number((((prod.SGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+      //       prod.TotalIGSTAmount = Number((((prod.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+      //       saleProductList.push(prod);
+      //     }
+      //   })
+      //   this.isAdd = false;
+      //   this.SaleInfoForm.get("CustomerID")?.setValue(item?.CustomerInfo?.CustomerID);
+      //   this.SaleInfoForm.get("SaleProductList")?.setValue(saleProductList ?? []);
+      //   this.updateTotalValues();
+      // }, 1000);
 
     });
   }
 
+  getSaleByID(SaleID) {
+    this._saleInfoService.GetSaleByID(this.getSaleByIDRequestBody(SaleID)).subscribe({
+      next: data => {
+        const saleData = data;
+
+        switch (saleData?.UserType) {
+          case USER_TYPES.Dealer:
+            this.showCustomerModel(saleData?.CustomerInfo?.[0]);
+            break;
+          case USER_TYPES.Manufacturer:
+            this.showDistributorModel(saleData?.CustomerInfo?.[0]);
+            break;
+        }
+        this.SaleInfoForm.patchValue(data);
+        saleData.ProductInfo.forEach(prod=>{
+          prod.SerialNoList = prod?.SaleProductInfo?.map(subProd=> subProd?.SerialNo);
+          prod.Quantity = prod?.SaleProductInfo?.length ?? 0;
+          prod.SerialNo = prod.SerialNoList?.join(",");
+
+          prod.Price = prod?.SaleProductInfo?.[0]?.SalePrice;
+          prod.Discount = prod?.SaleProductInfo?.[0]?.Discount;
+          prod.DiscountAmount = prod?.SaleProductInfo?.[0]?.DiscountAmount;
+          prod.TotalAmount = Number((prod.Price * prod.Quantity).toFixed(2));
+          prod.SalePrice = parseFloat(prod.Price) + (parseFloat(prod?.SaleProductInfo?.[0]?.CGSTAmount ?? 0) + parseFloat(prod?.SaleProductInfo?.[0]?.SGSTAmount ?? 0) + parseFloat(prod?.SaleProductInfo?.[0]?.IGSTAmount ?? 0)) + parseFloat(prod?.SaleProductInfo?.[0]?.DiscountAmount ?? 0);
+          prod.TotalGSTAmount = Number(((parseFloat(prod?.SaleProductInfo?.[0]?.CGSTAmount ?? 0) + parseFloat(prod?.SaleProductInfo?.[0]?.SGSTAmount ?? 0) + parseFloat(prod?.SaleProductInfo?.[0]?.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+          prod.TotalDiscountAmount = Number((parseFloat(prod?.SaleProductInfo?.[0]?.DiscountAmount ?? 0) * prod.Quantity).toFixed(2));
+          prod.TotalCGSTAmount = Number((((prod?.SaleProductInfo?.[0]?.CGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+          prod.TotalSGSTAmount = Number((((prod?.SaleProductInfo?.[0]?.SGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+          prod.TotalIGSTAmount = Number((((prod?.SaleProductInfo?.[0]?.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+          
+          this.isAdd = false;
+          this.SaleInfoForm.get("CustomerID")?.setValue(saleData?.CustomerInfo?.[0]?.CustomerID);
+          this.SaleInfoForm.get("SaleProductList")?.setValue(saleData?.ProductInfo ?? []);
+          this.updateTotalValues();
+        })
+      },
+      error: error => {
+        this._sharedDataService.error(error);
+      }
+    });
+  }
+  getSaleByIDRequestBody(SaleID) {
+    return {
+      "MethodName": "Sel_SaleInfo_ByID",
+      "SaleID": SaleID
+    }
+  }
   /* print recently submited purchase */
 
   printSaleInvoice(data) {
