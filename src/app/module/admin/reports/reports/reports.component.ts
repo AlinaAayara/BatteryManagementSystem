@@ -19,6 +19,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
   public CustomerTypes;
   public ampList: any;
   public activeReport: SubMenu;
+  public CurrentUserType:string;
 
   constructor(
     private _sharedDataService: SharedDataService,
@@ -44,6 +45,8 @@ export class ReportsComponent implements OnInit, OnDestroy {
         }
       })
     });
+
+    this.CurrentUserType = this._sharedDataService?.currentUser?.userType;
   }
 
   /* get party list to show dropwon */

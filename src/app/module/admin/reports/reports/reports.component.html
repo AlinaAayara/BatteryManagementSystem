@@ -25,8 +25,7 @@
                 <div class="row mb-1">
                     <div class="col-2" *ngIf="this['BillNoControl']">
                         <input id="id_BillNo" type="text" [(ngModel)]="this['BillNo']" class="form-control  enter-focus"
-                            placeholder="Bill No" NumberOnly
-                            [directiveName]="'NumberOnly'">
+                            placeholder="Bill No" NumberOnly [directiveName]="'NumberOnly'">
                     </div>
                     <div class="col-2" *ngIf="this['FromDateControl']">
                         <input id="id_FromDate" type="text" [(ngModel)]="this['FromDate']"
@@ -41,8 +40,8 @@
 
                 <div class="row mb-1">
                     <div class="col-2" *ngIf="this['SerialNoControl']">
-                        <input id="id_SerialNo" type="text" [(ngModel)]="this['SerialNo']" class="form-control  enter-focus"
-                            placeholder="Serial No">
+                        <input id="id_SerialNo" type="text" [(ngModel)]="this['SerialNo']"
+                            class="form-control  enter-focus" placeholder="Serial No">
                     </div>
                     <div class="col-2" *ngIf="this['PurchaseBillNoControl']">
                         <input id="id_PurchaseBillNo" type="text" [(ngModel)]="this['PurchaseBillNo']"
@@ -59,19 +58,20 @@
                     </div>
                     <div class="col-md-2" *ngIf="this['AmpIDControl']">
                         <select class="form-select enter-focus" [(ngModel)]="this['AmpID']"
-                        aria-label="select transition timing">
-                        <option value=""> -- Select Amp --</option>
-                        <option *ngFor="let item of ampList" [value]="item.AmpID">
-                            {{item.Amp}}
-                        </option>
-                    </select>
+                            aria-label="select transition timing">
+                            <option value=""> -- Select Amp --</option>
+                            <option *ngFor="let item of ampList" [value]="item.AmpID">
+                                {{item.Amp}}
+                            </option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="row mb-1">
-                    <div *ngIf="this['CustomerTypeIDControl']"
+                    <div *ngIf="this['CustomerTypeIDControl'] && CurrentUserType=='DL'"
                         class="col-md-3 col-sm-12 d-flex flex-wrap justify-content-center gap-2">
-                        <div class="btn-group" role="CustomerTypesgroup" aria-label="CustomerTypes CustomerTypesradio toggle button CustomerTypesgroup">
+                        <div class="btn-group" role="CustomerTypesgroup"
+                            aria-label="CustomerTypes CustomerTypesradio toggle button CustomerTypesgroup">
                             <ng-container *ngFor="let group of CustomerTypes">
                                 <input type="radio" class="btn-check" id="Search_{{group.Text}}" [value]="group.Value"
                                     [(ngModel)]="this['CustomerTypeID']">

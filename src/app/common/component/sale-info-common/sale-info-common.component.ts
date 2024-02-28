@@ -270,19 +270,23 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
     if (["", undefined, null].includes(serialNo)) {
       return;
     }
+
     if (["", undefined, null].includes(CustomerID)) {
       this.SaleInfoForm.get("SaleProductInfo")?.get("SerialNo")?.setValue("");
       this._sharedDataService.NotieError("Please choose customer");
       return;
     }
-    const separateByComma = serialNo?.replace(/,\s*$/, "")?.replace(/\s/g, "")?.split(',');
+    let separateByComma = serialNo?.replace(/,\s*$/, "")?.replace(/\s/g, "")?.split(',');
     if (separateByComma?.length > 0) {
-      separateByComma.forEach(serial => {
+      let SaleProductList: any = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
+      SaleProductList = SaleProductList?.map(s => s?.SerialNo);
+      separateByComma = separateByComma?.filter(val => !SaleProductList?.includes(val));
+      separateByComma?.forEach(serial => {
         this.getProductDetailBySerialNo(serial);
       })
     }
+    this.SaleInfoForm.get("SaleProductInfo")?.get("SerialNo")?.setValue("");
     if (separateByComma?.length > 0) {
-      this.SaleInfoForm.get("SaleProductInfo")?.get("SerialNo")?.setValue("");
       this.scanControl.nativeElement.focus();
     }
   }
@@ -302,7 +306,7 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
 
   getSalePriceByCusomerTypeID(SerialNo) {
     let SaleProductList: [any] = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
-    if (SaleProductList?.length > 0 && !["",undefined,null].includes(this.selectedCustomer?.CustomerTypeID)) {
+    if (SaleProductList?.length > 0 && !["", undefined, null].includes(this.selectedCustomer?.CustomerTypeID)) {
       const CustomerTypeID = CustomerTypeID_ToPurchaseProduct[this.selectedCustomer?.CustomerTypeID];
       SaleProductList.forEach(prod => {
         prod.SalePrice = SerialNo == prod.SerialNo ? prod[CustomerTypeID] : [null, undefined, ""].includes(SerialNo) ? prod[CustomerTypeID] : prod.SalePrice;
