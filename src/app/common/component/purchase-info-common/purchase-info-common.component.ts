@@ -428,53 +428,97 @@ export class PurchaseInfoCommonComponent implements OnInit, OnChanges {
   /* this function will trigger when click on edit button on purchase info search page */
   edit() {
     this._sharedDataService.purchaseInfoEdit.subscribe(item => {
-      this.purchaseProductList = [];
+      this.getPurchaseByID(item?.PurchaseID);
+      // this.purchaseProductList = [];
 
-      this.PurchaseInfoForm.patchValue(item);
-      if (this.userType != USER_TYPES.Manufacturer) {
-        this.showPartyModel(item?.PartyInfo);
-        this.PurchaseInfoForm.get("PartyID")?.setValue(item?.PartyInfo?.PartyID);
-      }
-      else {
-        this.PurchaseInfoForm.get("PartyID")?.setValue(0);
-      }
-      this.isAdd = false;
-
-
-      let SerialNo: any = [];
-
-      item?.PurchaseProductInfo?.forEach(prod => {
-        item?.PurchaseProductInfo?.forEach(serial => {
-          if (prod.ProductID == serial.ProductID && !SerialNo.includes(serial.SerialNo)) {
-            SerialNo.push(serial.SerialNo);
-          }
-        });
-        prod.Quantity = SerialNo?.length;
-        prod.SerialNoList = SerialNo;
-        prod.SerialNo = SerialNo?.length > 0 ? SerialNo?.join(",") : "";
-        SerialNo = [];
-      });
+      // this.PurchaseInfoForm.patchValue(item);
+      // if (this.userType != USER_TYPES.Manufacturer) {
+      //   this.showPartyModel(item?.PartyInfo);
+      //   this.PurchaseInfoForm.get("PartyID")?.setValue(item?.PartyInfo?.PartyID);
+      // }
+      // else {
+      //   this.PurchaseInfoForm.get("PartyID")?.setValue(0);
+      // }
+      // this.isAdd = false;
 
 
-      item?.PurchaseProductInfo.forEach(prod => {
-        const isExists = this.purchaseProductList.filter(p => p.ProductID === prod.ProductID);
-        if (isExists.length == 0) {
-          prod.TotalAmount = Number((prod.Price * prod.Quantity).toFixed(2));
-          prod.PurchasePrice = prod.Price;
-          prod.Price = parseFloat(prod.PurchasePrice) + (parseFloat(prod.CGSTAmount ?? 0) + parseFloat(prod.SGSTAmount ?? 0) + parseFloat(prod.IGSTAmount ?? 0)) + parseFloat(prod.DiscountAmount ?? 0);
-          prod.TotalGSTAmount = Number(((parseFloat(prod.CGSTAmount ?? 0) + parseFloat(prod.SGSTAmount ?? 0) + parseFloat(prod.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
-          prod.TotalDiscountAmount = Number((parseFloat(prod.DiscountAmount ?? 0) * prod.Quantity).toFixed(2));
-          prod.TotalCGSTAmount = Number((((prod.CGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
-          prod.TotalSGSTAmount = Number((((prod.SGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
-          prod.TotalIGSTAmount = Number((((prod.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
-          this.purchaseProductList.push(prod);
-        }
-      })
-      this.PurchaseInfoForm.get("PurchaseProductList")?.setValue(this.purchaseProductList);
-      this.updateTotalValues();
+      // let SerialNo: any = [];
+
+      // item?.PurchaseProductInfo?.forEach(prod => {
+      //   item?.PurchaseProductInfo?.forEach(serial => {
+      //     if (prod.ProductID == serial.ProductID && !SerialNo.includes(serial.SerialNo)) {
+      //       SerialNo.push(serial.SerialNo);
+      //     }
+      //   });
+      //   prod.Quantity = SerialNo?.length;
+      //   prod.SerialNoList = SerialNo;
+      //   prod.SerialNo = SerialNo?.length > 0 ? SerialNo?.join(",") : "";
+      //   SerialNo = [];
+      // });
+
+
+      // item?.PurchaseProductInfo.forEach(prod => {
+      //   const isExists = this.purchaseProductList.filter(p => p.ProductID === prod.ProductID);
+      //   if (isExists.length == 0) {
+      //     prod.TotalAmount = Number((prod.Price * prod.Quantity).toFixed(2));
+      //     prod.PurchasePrice = prod.Price;
+      //     prod.Price = parseFloat(prod.PurchasePrice) + (parseFloat(prod.CGSTAmount ?? 0) + parseFloat(prod.SGSTAmount ?? 0) + parseFloat(prod.IGSTAmount ?? 0)) + parseFloat(prod.DiscountAmount ?? 0);
+      //     prod.TotalGSTAmount = Number(((parseFloat(prod.CGSTAmount ?? 0) + parseFloat(prod.SGSTAmount ?? 0) + parseFloat(prod.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+      //     prod.TotalDiscountAmount = Number((parseFloat(prod.DiscountAmount ?? 0) * prod.Quantity).toFixed(2));
+      //     prod.TotalCGSTAmount = Number((((prod.CGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+      //     prod.TotalSGSTAmount = Number((((prod.SGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+      //     prod.TotalIGSTAmount = Number((((prod.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+      //     this.purchaseProductList.push(prod);
+      //   }
+      // })
+      // this.PurchaseInfoForm.get("PurchaseProductList")?.setValue(this.purchaseProductList);
+      // this.updateTotalValues();
     });
   }
 
+  getPurchaseByID(PurchaseID){
+    this._purchaseInfoService.getPurchaseByID(this.getPurchaseByIDRequestBody(PurchaseID)).subscribe({
+      next: data => {
+        const purchaseData = data;
+        this.PurchaseInfoForm.patchValue(purchaseData);
+        if (this.userType != USER_TYPES.Manufacturer) {
+          this.showPartyModel(purchaseData?.PartyInfo?.[0]);
+          this.PurchaseInfoForm.get("PartyID")?.setValue(purchaseData?.PartyInfo?.[0]?.PartyID);
+        }
+        else {
+          this.PurchaseInfoForm.get("PartyID")?.setValue(0);
+        }
+        this.isAdd = false;
+        this.PurchaseInfoForm.get("IsTCSApplicable")?.setValue(purchaseData?.IsTCSApplicable+"");
+        purchaseData.ProductInfo.forEach(prod=>{
+          prod.SerialNoList = prod?.PurchaseProductInfo?.map(subProd=> subProd?.SerialNo);
+          prod.Quantity = prod?.PurchaseProductInfo?.length ?? 0;
+          prod.SerialNo = prod.SerialNoList?.join(",");
+
+          prod.TotalAmount = Number((prod?.PurchaseProductInfo?.[0]?.Price * prod.Quantity).toFixed(2));
+          prod.PurchasePrice = prod?.PurchaseProductInfo?.[0]?.Price;
+          prod.Price = Number((parseFloat(prod?.PurchasePrice) + (parseFloat(prod?.PurchaseProductInfo?.[0]?.CGSTAmount ?? 0) + parseFloat(prod?.PurchaseProductInfo?.[0]?.SGSTAmount ?? 0) + parseFloat(prod?.PurchaseProductInfo?.[0]?.IGSTAmount ?? 0)) + parseFloat(prod?.PurchaseProductInfo?.[0]?.DiscountAmount ?? 0)).toFixed(2));
+          prod.TotalGSTAmount = Number(((parseFloat(prod?.PurchaseProductInfo?.[0]?.CGSTAmount ?? 0) + parseFloat(prod?.PurchaseProductInfo?.[0]?.SGSTAmount ?? 0) + parseFloat(prod?.PurchaseProductInfo?.[0]?.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+          prod.TotalDiscountAmount = Number((parseFloat(prod?.PurchaseProductInfo?.[0]?.DiscountAmount ?? 0) * prod.Quantity).toFixed(2));
+          prod.TotalCGSTAmount = Number((((prod?.PurchaseProductInfo?.[0]?.CGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+          prod.TotalSGSTAmount = Number((((prod?.PurchaseProductInfo?.[0]?.SGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+          prod.TotalIGSTAmount = Number((((prod?.PurchaseProductInfo?.[0]?.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
+        });
+        this.purchaseProductList = purchaseData?.ProductInfo ?? [];
+        this.PurchaseInfoForm.get("PurchaseProductList")?.setValue(purchaseData?.ProductInfo ?? []);
+        this.updateTotalValues();
+      },
+      error: error => {
+        this._sharedDataService.error(error);
+      }
+    });
+  }
+  getPurchaseByIDRequestBody(PurchaseID) {
+    return {
+      "MethodName": "Sel_PurchaseInfo_ByID",
+      "PurchaseID": PurchaseID
+    }
+  }
   /* print recently submited purchase */
 
   printPurchaseInvoice(data) {

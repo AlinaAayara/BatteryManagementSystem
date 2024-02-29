@@ -33,7 +33,11 @@ export class PurchaseInfoService {
       headers: { 'content-type': 'application/json' }
     });
   }
-
+  getPurchaseByID(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.get_purchaseInfoByID, body, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
   checkSerailNoIsValid(body): Observable<any> {
     return this._httpClient.post<any[]>(AppUrl.API.getSerialNoForPurchase_purchaseInfo, body, {
       headers: { 'content-type': 'application/json' }
