@@ -17,6 +17,7 @@ export class CurrentUser {
     public stateName="";
     public userType="";
     public UserID = "";
+    public setting = Array<Setting>();
 
     constructor(currentUserInfo: any = {}) {
         this.userID = currentUserInfo?.userID || "";
@@ -40,6 +41,12 @@ export class CurrentUser {
                 this.menu.push(new Menu(menuInfo));
             });
         }
+        if (currentUserInfo && currentUserInfo?.setting && currentUserInfo?.setting?.length) {
+            currentUserInfo?.setting?.forEach((menuInfo: any) => {
+                this.setting.push(new Setting(menuInfo));
+            });
+        }
+        
     }
 }
 
@@ -56,6 +63,17 @@ export class Menu {
                 this.subMenu.push(new SubMenu(subMenuInfo));
             });
         }
+    }
+}
+
+export class Setting {
+    public settingID = "";
+    public settingName = "";
+    public settingValue = "";
+    constructor(menuInfo: any = {}) {
+        this.settingID = menuInfo?.settingID || "";
+        this.settingName = menuInfo?.settingName || "";
+        this.settingValue = menuInfo?.settingValue || "";
     }
 }
 

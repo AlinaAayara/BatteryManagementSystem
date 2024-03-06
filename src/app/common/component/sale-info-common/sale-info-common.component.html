@@ -376,3 +376,7 @@
     <app-dealer-info *ngIf="userType === 'DS'"></app-dealer-info>
     <app-customer-info *ngIf="userType === 'DL'"></app-customer-info>
 </app-slide-in>
+
+<app-slide-in [showSlideIn]="isOldSerailNoSlideIn" (visibleChange)="showOldSerailNoSlideIn($event)">
+    <app-old-serial-no-list [OldSerialNoList]="OldSerialNoList" (visibleChange)="showOldSerailNoSlideIn($event)" (SelectedOldSerialNoList)="getSelectedOldSerialNoList($event)"></app-old-serial-no-list>
+</app-slide-in>

@@ -12,6 +12,12 @@ export class SaleInfoService {
     private _httpClient: HttpClient
   ) { }
 
+  getOldManufacturingSerialNo(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.get_Old_Manufacturing_Serial_No, body, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
+
   getSerialNoDetail(body): Observable<any> {
     return this._httpClient.post<any[]>(AppUrl.API.get_PurchaseProductInfo_BySerialNo, body, {
       headers: { 'content-type': 'application/json' }

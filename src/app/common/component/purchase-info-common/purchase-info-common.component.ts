@@ -30,6 +30,7 @@ export class PurchaseInfoCommonComponent implements OnInit, OnChanges {
   public isTCS = Constant.YES_OR_NO; c
   public defaultTCS = Constant.DEFAULT_TCS;
   @Input() public userType;
+  public OldManufacturingSerialNoCheck = "0";
 
   constructor(
     private _FormBuilder: FormBuilder,
@@ -52,6 +53,8 @@ export class PurchaseInfoCommonComponent implements OnInit, OnChanges {
     this.edit();
     this.getGST();
     this.setPartyIDZero();
+    /* using this filed to hide & show manufacturing date , purpose of this date is to show old serial no while sale  */
+    this.OldManufacturingSerialNoCheck = this._sharedDataService.currentUser.setting.filter(st => st.settingName == "OldManufacturingSerialNoCheck")?.[0].settingValue;
   }
 
 
@@ -101,6 +104,7 @@ export class PurchaseInfoCommonComponent implements OnInit, OnChanges {
           PurchaseID: [""],
           CategoryID: [""],
           ProductID: [""],
+          ManufacturingDate: [""],
           SerialNo: [""],
           Price: [],
           PurchasePrice: [],
@@ -391,9 +395,11 @@ export class PurchaseInfoCommonComponent implements OnInit, OnChanges {
 
   /* clear purchase product form after add and delete */
   clearPurchaseProduct() {
+    const ManufacturingDate = this.PurchaseInfoForm.get("purchaseProductInfo")?.get("ManufacturingDate")?.value;
     this.PurchaseInfoForm.get("purchaseProductInfo")?.reset();
     this.PurchaseInfoForm.get("purchaseProductInfo")?.get("ProductID")?.setValue("");
     this.PurchaseInfoForm.get("purchaseProductInfo")?.get("CategoryID")?.setValue("");
+    this.PurchaseInfoForm.get("purchaseProductInfo")?.get("ManufacturingDate")?.setValue(ManufacturingDate);
     this.serialNoList = [];
   }
   /* clear purchase whole form on save or on clear */
@@ -410,7 +416,7 @@ export class PurchaseInfoCommonComponent implements OnInit, OnChanges {
     this.PurchaseInfoForm.get("IsTCSApplicable")?.setValue("0");
     this.PurchaseInfoForm.get("TCS")?.setValue(this.defaultTCS);
 
-    if(this.userType === USER_TYPES.Manufacturer){
+    if (this.userType === USER_TYPES.Manufacturer) {
       this.setPartyIDZero();
     }
   }
@@ -476,7 +482,7 @@ export class PurchaseInfoCommonComponent implements OnInit, OnChanges {
     });
   }
 
-  getPurchaseByID(PurchaseID){
+  getPurchaseByID(PurchaseID) {
     this._purchaseInfoService.getPurchaseByID(this.getPurchaseByIDRequestBody(PurchaseID)).subscribe({
       next: data => {
         const purchaseData = data;
@@ -489,9 +495,9 @@ export class PurchaseInfoCommonComponent implements OnInit, OnChanges {
           this.PurchaseInfoForm.get("PartyID")?.setValue(0);
         }
         this.isAdd = false;
-        this.PurchaseInfoForm.get("IsTCSApplicable")?.setValue(purchaseData?.IsTCSApplicable+"");
-        purchaseData.ProductInfo.forEach(prod=>{
-          prod.SerialNoList = prod?.PurchaseProductInfo?.map(subProd=> subProd?.SerialNo);
+        this.PurchaseInfoForm.get("IsTCSApplicable")?.setValue(purchaseData?.IsTCSApplicable + "");
+        purchaseData.ProductInfo.forEach(prod => {
+          prod.SerialNoList = prod?.PurchaseProductInfo?.map(subProd => subProd?.SerialNo);
           prod.Quantity = prod?.PurchaseProductInfo?.length ?? 0;
           prod.SerialNo = prod.SerialNoList?.join(",");
 

@@ -131,6 +131,16 @@
                                 <h5 class="card-title">Product</h5>
                                 <div class="row g-3">
                                     <div class="col-md-6">
+                                        <div class="col-12  mb-3" *ngIf="OldManufacturingSerialNoCheck=='1'">
+                                            <div class="row">
+                                                <label for="ManufacturingDate" class="col-sm-4 col-form-label">MFG.
+                                                    Date</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" formControlName="ManufacturingDate"
+                                                        class="form-control" appDate id="ManufacturingDate">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="row g-3">
                                             <div class="col-md-6  mb-3">
                                                 <label for="_dm-Category" class="form-label">Category</label>
@@ -241,10 +251,12 @@
                                     <div class="col-6">
                                         <div class="mt-4 d-flex flex-wrap justify-content-center gap-2">
                                             <ng-container *ngFor="let srno of serialNoList">
-                                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                                <div class="btn-group" role="group"
+                                                    aria-label="Button group with nested dropdown">
                                                     <button type="button" class="btn btn-warning">{{srno}}</button>
                                                     <div class="btn-group" role="group">
-                                                        <button id="btnGroupDrop1" type="button" class="btn btn-warning" (click)="removeSrno(srno)">
+                                                        <button id="btnGroupDrop1" type="button" class="btn btn-warning"
+                                                            (click)="removeSrno(srno)">
                                                             <i class="demo-pli-trash fs-5"></i>
                                                         </button>
                                                     </div>
@@ -415,7 +427,7 @@
                                         <div class="row">
                                             <label for="TotalTaxableAmount" class="col-sm-6 col-form-label">Total
                                                 Discount
-                                                </label>
+                                            </label>
                                             <div class="col-sm-6">
                                                 <input id="TotalDiscountAmount" type="text" class="form-control"
                                                     NumberOnly [directiveName]="'appDecimaNumber'"
@@ -427,11 +439,10 @@
                                     <div class="col-md-6">
                                         <div class="row">
                                             <label for="FinalAmount" class="col-sm-6 col-form-label">Final Amount
-                                                </label>
+                                            </label>
                                             <div class="col-sm-6">
-                                                <input id="FinalAmount" type="text" class="form-control"
-                                                    NumberOnly [directiveName]="'appDecimaNumber'"
-                                                    formControlName="FinalAmount"
+                                                <input id="FinalAmount" type="text" class="form-control" NumberOnly
+                                                    [directiveName]="'appDecimaNumber'" formControlName="FinalAmount"
                                                     placeholder="Final Amount">
                                             </div>
                                         </div>

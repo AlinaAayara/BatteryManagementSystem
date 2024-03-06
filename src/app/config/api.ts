@@ -72,6 +72,7 @@ export class AppUrl {
         
         get_PurchaseProductInfo_BySerialNo : AppUrl.baseURL + AppUrl.saleInfoURL + "GetPurchaseProductInfoBySerialNo",
         get_Next_BillNo : AppUrl.baseURL + AppUrl.saleInfoURL + "GetSaleBillNo",
+        get_Old_Manufacturing_Serial_No : AppUrl.baseURL + AppUrl.saleInfoURL + "GetOldManufacturingSerialNo",
 
         add_warrantyInfo: AppUrl.baseURL + AppUrl.warrantyInfoURL + "AddWarranty",
         get_warrantyInfo: AppUrl.baseURL + AppUrl.warrantyInfoURL + "GetWarranty",

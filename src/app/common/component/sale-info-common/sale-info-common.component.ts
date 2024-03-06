@@ -15,6 +15,7 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
   public isAdd: boolean = true;
   public showLoader: boolean = false;
   public isCustomerInfoSlideIn: boolean = false;
+  public isOldSerailNoSlideIn: boolean = false;
   public selectedCustomer: any;
   @Input() public btnChooseText;
   public btnChooseCustomerText;
@@ -24,6 +25,8 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
   public basicGST: any;
   public withOrWithoutGST = Constant.WITH_OR_WITHOUT_GST;
   @Input() public userType;
+  public OldManufacturingSerialNoCheck = "0";
+  public OldSerialNoList = [];
 
   constructor(
     private _FormBuilder: FormBuilder,
@@ -51,7 +54,9 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
     this.getAmpList();
     this.getPaymentModeList();
     this.getGST();
-  }
+
+    this.OldManufacturingSerialNoCheck = this._sharedDataService.currentUser.setting.filter(st => st.settingName == "OldManufacturingSerialNoCheck")?.[0].settingValue;
+    }
   SaleInfoFormBuilder() {
     this.SaleInfoForm = this._FormBuilder.group({
       SaleID: [""],
@@ -222,7 +227,9 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
   showCustomerInfoSlideIn(isShow) {
     this.isCustomerInfoSlideIn = isShow;
   }
-
+  showOldSerailNoSlideIn(isShow) {
+    this.isOldSerailNoSlideIn = isShow;
+  }
   /* after scan of  serial no  this will get all product related details from database base on entered SERIAL NO*/
   getProductDetailBySerialNo(SerialNo) {
     //let SerialNo = this.SaleInfoForm.get("SaleProductInfo")?.value?.SerialNo;
@@ -282,12 +289,46 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
       SaleProductList = SaleProductList?.map(s => s?.SerialNo);
       separateByComma = separateByComma?.filter(val => !SaleProductList?.includes(val));
       separateByComma?.forEach(serial => {
-        this.getProductDetailBySerialNo(serial);
-      })
+        if (this.OldManufacturingSerialNoCheck == "1") {
+          this.getOldManufacturingSerialNo(serial);
+        } else {
+          this.getProductDetailBySerialNo(serial);
+        }
+      });
     }
     this.SaleInfoForm.get("SaleProductInfo")?.get("SerialNo")?.setValue("");
     if (separateByComma?.length > 0) {
       this.scanControl.nativeElement.focus();
+    }
+  }
+  public getOldManufacturingSerialNo(SerialNo) {
+    this._saleInfoService.getOldManufacturingSerialNo(this.getOldManufacturingSerialNoRequestBody(SerialNo)).subscribe({
+      next: data => {
+        let OldSerialNoList = data ?? [];
+        if (OldSerialNoList.length > 1) {
+          this.showOldSerailNoSlideIn(true);
+          this.OldSerialNoList = OldSerialNoList;
+        } else {
+          this.getProductDetailBySerialNo(SerialNo);
+        }
+      },
+      error: error => {
+        this.SaleInfoForm.get("SaleProductInfo")?.get("SerialNo")?.setValue("");
+        this._sharedDataService.NotieError(error.error);
+        document?.getElementById("id_SerialNo")?.focus();
+      }
+    });
+  }
+
+  public getSelectedOldSerialNoList(SerialNoList){
+    SerialNoList?.forEach(serial => {
+      this.getProductDetailBySerialNo(serial);
+    });
+  }
+  public getOldManufacturingSerialNoRequestBody(SerialNo) {
+    return {
+      MethodName: "Sel_OldPurchaseProductInfo_BySerialNo",
+      SerialNo: SerialNo
     }
   }
   /* request body for Serial no api call */
@@ -611,7 +652,7 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
       prod.TotalDiscountAmount = Number((parseFloat(prod.DiscountAmount ?? 0) * parseInt(prod.Quantity ?? 0)).toFixed(2));
       //prod.Price = Number((parseFloat(prod.Price ?? 0) - parseFloat(prod.DiscountAmount ?? 0)).toFixed(2));
       //prod.TotalAmount = Number((parseFloat(prod.Price ?? 0) * parseInt(prod.Quantity ?? 0)).toFixed(2));
-      prod.TotalAmount = Number(((parseFloat(prod.SalePrice ?? 0) * (prod?.Quantity ??0))- (parseFloat(prod.TotalDiscountAmount ?? 0))).toFixed(2));
+      prod.TotalAmount = Number(((parseFloat(prod.SalePrice ?? 0) * (prod?.Quantity ?? 0)) - (parseFloat(prod.TotalDiscountAmount ?? 0))).toFixed(2));
     });
     this.SaleInfoForm.get("SaleProductList")?.setValue(SaleProductList);
   }
