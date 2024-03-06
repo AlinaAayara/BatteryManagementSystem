@@ -361,7 +361,10 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
     let IGSTAmount = 0;
 
     TotalQuantity = Number((SaleProductList?.reduce((n, { Quantity }) => (n) + parseInt(Quantity), 0)).toFixed(2));
-    TotalAmount = Number((SaleProductList?.reduce((n, { TotalAmount }) => (n) + parseFloat(TotalAmount), 0)).toFixed(2));
+    SaleProductList?.forEach(prod => {
+      TotalAmount = Number((TotalAmount + (parseFloat(prod.Price) * parseInt(prod.Quantity ?? 0))).toFixed(2));
+    });
+    //TotalAmount = Number((SaleProductList?.reduce((n, { Price }) => (n) + parseFloat(Price), 0)).toFixed(2));
     CGSTAmount = Number((SaleProductList?.reduce((n, { TotalCGSTAmount }) => (n) + parseFloat(TotalCGSTAmount), 0)).toFixed(2));
     SGSTAmount = Number((SaleProductList?.reduce((n, { TotalSGSTAmount }) => (n) + parseFloat(TotalSGSTAmount), 0)).toFixed(2));
     IGSTAmount = Number((SaleProductList?.reduce((n, { TotalIGSTAmount }) => (n) + parseFloat(TotalIGSTAmount), 0)).toFixed(2));
@@ -371,7 +374,8 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
     OldBatteryCount = this.SaleInfoForm.get("OldBatteryCount")?.value || 0;
     TotalOldBatteryAmount = Number(((OldBatteryCount ?? 0) * (OldBatteryPurchasePrice ?? 0)).toFixed(2));
     DiscountAmount = Number((SaleProductList?.reduce((n, { TotalDiscountAmount }) => (n) + parseFloat(TotalDiscountAmount), 0)).toFixed(2));
-    FinalAmount = Number((TotalAmount - TotalOldBatteryAmount).toFixed(2));
+    //FinalAmount = Number((TotalAmount - TotalOldBatteryAmount).toFixed(2));
+    FinalAmount = Number((SaleProductList?.reduce((n, { TotalAmount }) => (n) + parseFloat(TotalAmount), 0) - TotalOldBatteryAmount).toFixed(2));
     TotalPaidAmount = this.SaleInfoForm.get("TotalPaidAmount")?.value || 0;
     TotalPaidAmount = (TotalPaidAmount <= FinalAmount) && (this.SaleInfoForm.get("TotalPaidAmount")?.dirty) ? TotalPaidAmount : FinalAmount;
     PendingAmount = FinalAmount - TotalPaidAmount;
@@ -487,22 +491,22 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
             break;
         }
         this.SaleInfoForm.patchValue(data);
-        saleData.ProductInfo.forEach(prod=>{
-          prod.SerialNoList = prod?.SaleProductInfo?.map(subProd=> subProd?.SerialNo);
+        saleData.ProductInfo.forEach(prod => {
+          prod.SerialNoList = prod?.SaleProductInfo?.map(subProd => subProd?.SerialNo);
           prod.Quantity = prod?.SaleProductInfo?.length ?? 0;
           prod.SerialNo = prod.SerialNoList?.join(",");
 
           prod.Price = prod?.SaleProductInfo?.[0]?.SalePrice;
           prod.Discount = prod?.SaleProductInfo?.[0]?.Discount;
           prod.DiscountAmount = prod?.SaleProductInfo?.[0]?.DiscountAmount;
-          prod.TotalAmount = Number((prod.Price * prod.Quantity).toFixed(2));
           prod.SalePrice = parseFloat(prod.Price) + (parseFloat(prod?.SaleProductInfo?.[0]?.CGSTAmount ?? 0) + parseFloat(prod?.SaleProductInfo?.[0]?.SGSTAmount ?? 0) + parseFloat(prod?.SaleProductInfo?.[0]?.IGSTAmount ?? 0)) + parseFloat(prod?.SaleProductInfo?.[0]?.DiscountAmount ?? 0);
           prod.TotalGSTAmount = Number(((parseFloat(prod?.SaleProductInfo?.[0]?.CGSTAmount ?? 0) + parseFloat(prod?.SaleProductInfo?.[0]?.SGSTAmount ?? 0) + parseFloat(prod?.SaleProductInfo?.[0]?.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
           prod.TotalDiscountAmount = Number((parseFloat(prod?.SaleProductInfo?.[0]?.DiscountAmount ?? 0) * prod.Quantity).toFixed(2));
           prod.TotalCGSTAmount = Number((((prod?.SaleProductInfo?.[0]?.CGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
           prod.TotalSGSTAmount = Number((((prod?.SaleProductInfo?.[0]?.SGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
           prod.TotalIGSTAmount = Number((((prod?.SaleProductInfo?.[0]?.IGSTAmount ?? 0)) * prod.Quantity).toFixed(2));
-          
+          prod.TotalAmount = Number(((prod.Price * prod.Quantity) + (prod?.TotalCGSTAmount ?? 0) + (prod?.TotalSGSTAmount ?? 0) + (prod?.TotalIGSTAmount ?? 0)).toFixed(2));
+
           this.isAdd = false;
           this.SaleInfoForm.get("CustomerID")?.setValue(saleData?.CustomerInfo?.[0]?.CustomerID);
           this.SaleInfoForm.get("SaleProductList")?.setValue(saleData?.ProductInfo ?? []);
@@ -597,10 +601,17 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
   calculateDiscount() {
     let SaleProductList: any[] = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
     SaleProductList?.forEach(prod => {
-      prod.DiscountAmount = Number(((parseFloat(prod.Price ?? 0) * parseFloat(prod.Discount ?? 0)) / 100).toFixed(2));
+      if (!["", undefined, null].includes(prod?.Discount)) {
+        prod.DiscountAmount = Number(((parseFloat(prod.Price ?? 0) * (parseFloat(prod?.Discount ?? 0)) + 0) / 100).toFixed(2));
+      }
+      else {
+        prod.DiscountAmount = 0;
+      }
+
       prod.TotalDiscountAmount = Number((parseFloat(prod.DiscountAmount ?? 0) * parseInt(prod.Quantity ?? 0)).toFixed(2));
-      prod.Price = Number((parseFloat(prod.Price ?? 0) - parseFloat(prod.DiscountAmount ?? 0)).toFixed(2));
-      prod.TotalAmount = Number((parseFloat(prod.Price ?? 0) * parseInt(prod.Quantity ?? 0)).toFixed(2));
+      //prod.Price = Number((parseFloat(prod.Price ?? 0) - parseFloat(prod.DiscountAmount ?? 0)).toFixed(2));
+      //prod.TotalAmount = Number((parseFloat(prod.Price ?? 0) * parseInt(prod.Quantity ?? 0)).toFixed(2));
+      prod.TotalAmount = Number(((parseFloat(prod.SalePrice ?? 0) * (prod?.Quantity ??0))- (parseFloat(prod.TotalDiscountAmount ?? 0))).toFixed(2));
     });
     this.SaleInfoForm.get("SaleProductList")?.setValue(SaleProductList);
   }

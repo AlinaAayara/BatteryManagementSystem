@@ -41,7 +41,8 @@ export function generatePostRequestBody(data: any, mode: string) {
                 IGST: parseFloat(product?.IGST),
                 IGSTAmount: parseFloat(product?.IGSTAmount),
                 Discount: parseFloat(product?.Discount) ?? 0,
-                DiscountAmount: parseFloat(product?.DiscountAmount) ?? 0
+                DiscountAmount: parseFloat(product?.DiscountAmount) ?? 0,
+                SalePriceIncTax: parseFloat(product?.SalePrice) ?? 0
             }
             body.SaleProductList.push(obj);
         })
