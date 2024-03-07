@@ -37,6 +37,8 @@ export class AppUrl {
         Login: AppUrl.baseURL + AppUrl.basicUserURL + "authentication",
         add_basicuser: AppUrl.baseURL + AppUrl.basicUserURL + "AddUser",
         get_basicuser: AppUrl.baseURL + AppUrl.basicUserURL + "GetUser",
+        change_password: AppUrl.baseURL + AppUrl.basicUserURL + "ChangePassword",
+        
 
         get_current_user: AppUrl.baseURL + AppUrl.basicUserURL + "GetCurrentUser",
         AddGroup: AppUrl.baseURL + "BasicGroupAndFeature/AddGroup",

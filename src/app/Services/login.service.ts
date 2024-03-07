@@ -17,4 +17,10 @@ export class LoginService {
       headers: { 'content-type': 'application/json' }
     });
   }
+
+  ChangePassword(Data: any): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.change_password, Data, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
 }

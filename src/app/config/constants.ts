@@ -111,7 +111,8 @@ export const Constant = {
 export enum controlType {
     Textbox = "Textbox",
     Dropdown = "Dropdown",
-    Radio = "Radio"
+    Radio = "Radio",
+    Password = "Password"
 }
 
 export enum directiveList {

@@ -28,6 +28,22 @@
                                     </ng-container>
 
                                     <ng-container
+                                        *ngIf="(field?.controlType) === 'Password'">
+                                        <label for="_dm-inputAddress" class="form-label" [class.text-danger]="((SmartForm.get(field.fieldName)?.touched ||
+                                    SmartForm.get(field.fieldName)?.dirty) &&
+                                    SmartForm.get(field.fieldName)?.errors)" [class.text-success]="(SmartForm.get(field.fieldName)?.touched &&
+                                    !SmartForm.get(field.fieldName)?.errors)">{{field.label}}</label>
+                                        <input *ngIf="!((field?.isDateControl) == undefined ? false : (field?.isDateControl))" id="_dm-inputAddress" type="password" [formControlName]="field.fieldName"
+                                            [class.is-invalid]="((SmartForm.get(field.fieldName)?.touched ||
+                                    SmartForm.get(field.fieldName)?.dirty) &&
+                                    SmartForm.get(field.fieldName)?.errors)" [class.is-valid]="(SmartForm.get(field.fieldName)?.touched &&
+                                    !SmartForm.get(field.fieldName)?.errors)" class="form-control"
+                                            placeholder={{field.placeholder}} NumberOnly
+                                            [directiveName]="field?.directiveName == undefined ? null : field?.directiveName"
+                                            (change)=" field?.onChange ? onChange(field) : null">
+                                    </ng-container>
+
+                                    <ng-container
                                         *ngIf="(field?.controlType) == undefined ? 'Textbox' : (field?.controlType) === 'Textbox'">
                                         <label for="_dm-inputAddress" class="form-label" [class.text-danger]="((SmartForm.get(field.fieldName)?.touched ||
                                     SmartForm.get(field.fieldName)?.dirty) &&

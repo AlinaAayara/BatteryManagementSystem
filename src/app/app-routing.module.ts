@@ -39,6 +39,7 @@ import { BasicBankComponent } from './module/admin/forms/basic-bank/basic-bank.c
 import { BankTransactionInfoComponent } from './module/admin/forms/bank-transaction-info/bank-transaction-info.component';
 import { PurchaseReturnInfoCommonComponent } from './common/component/purchase-return-info-common/purchase-return-info-common.component';
 import { AcceptPurchaseReturnInfoCommonComponent } from './common/component/accept-purchase-return-info-common/accept-purchase-return-info-common.component';
+import { ChangePasswordComponent } from './module/admin/forms/change-password/change-password.component';
 
 
 const routes: Routes = [
@@ -158,6 +159,9 @@ const routes: Routes = [
           },
           {
             path: 'AcceptPurchaseReturnInfo', component: AcceptPurchaseReturnInfoCommonComponent
+          },
+          {
+            path: 'ChangePassword', component: ChangePasswordComponent
           }
         ]
       },
