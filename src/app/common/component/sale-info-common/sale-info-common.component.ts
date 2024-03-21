@@ -632,10 +632,19 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
       this.updateTotalValues();
     }
   }
-  onDiscountChange(event, index) {
+  /* Mode 0 = percentage, 1= discount amount */
+  onDiscountChange(event, index, Mode) {
     const Discount = (event?.target as HTMLInputElement)?.value;
     let SaleProductList: any[] = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
-    SaleProductList[index].Discount = Discount;
+    if(Mode==0){
+      SaleProductList[index].Discount = Discount;
+      SaleProductList[index].DiscountAmount = null;
+    }
+    else{
+      SaleProductList[index].DiscountAmount = Discount;
+      SaleProductList[index].Discount = null;
+    }
+    
     this.calculateGST();
     this.updateTotalValues();
   }
@@ -645,8 +654,8 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
       if (!["", undefined, null].includes(prod?.Discount)) {
         prod.DiscountAmount = Number(((parseFloat(prod.Price ?? 0) * (parseFloat(prod?.Discount ?? 0)) + 0) / 100).toFixed(2));
       }
-      else {
-        prod.DiscountAmount = 0;
+      else if (!["", undefined, null].includes(prod?.DiscountAmount)) {
+        prod.Discount = Number((((parseFloat(prod.DiscountAmount ?? 0) * 100) / (parseFloat(prod?.Price ?? 0)))).toFixed(2));
       }
 
       prod.TotalDiscountAmount = Number((parseFloat(prod.DiscountAmount ?? 0) * parseInt(prod.Quantity ?? 0)).toFixed(2));

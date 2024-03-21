@@ -165,9 +165,13 @@
                                                             [formControlName]="i+'Discount'" class="form-control"
                                                             placeholder="Enter Disc %" [value]="item?.Discount ?? 0"
                                                             NumberOnly [directiveName]="'appDecimaNumber'"
-                                                            (change)="onDiscountChange($event, i)">
+                                                            (change)="onDiscountChange($event, i,0)">
                                                     </td>
-                                                    <td>{{item.DiscountAmount}}</td>
+                                                    <td><input id="id_Discount" type="text"
+                                                        [formControlName]="i+'DiscountAmount'" class="form-control"
+                                                        placeholder="Enter Disc %" [value]="item?.DiscountAmount ?? 0"
+                                                        NumberOnly [directiveName]="'appDecimaNumber'"
+                                                        (change)="onDiscountChange($event, i,1)"></td>
                                                     <td>{{item.TotalDiscountAmount}}</td>
                                                     <td>{{item.TotalGSTAmount}}</td>
                                                     <td>{{item.TotalAmount}}</td>
