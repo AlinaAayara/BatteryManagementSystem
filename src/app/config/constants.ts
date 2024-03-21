@@ -15,15 +15,15 @@ export const Constant = {
     CUSTOMER_TYPE: [
         {
             Value: "B",
-            Text: "B2B"
+            Text: "Dealer"
         },
         {
             Value: "C",
-            Text: "B2C"
+            Text: "Customer"
         },
         {
             Value: "M",
-            Text: "B2M"
+            Text: "Mechanic"
         }
     ],
     SALE_OR_PURCHASE_TYPE: [
