@@ -56,7 +56,7 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
     this.getGST();
 
     this.OldManufacturingSerialNoCheck = this._sharedDataService.currentUser.setting.filter(st => st.settingName == "OldManufacturingSerialNoCheck")?.[0].settingValue;
-    }
+  }
   SaleInfoFormBuilder() {
     this.SaleInfoForm = this._FormBuilder.group({
       SaleID: [""],
@@ -320,7 +320,7 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
     });
   }
 
-  public getSelectedOldSerialNoList(SerialNoList){
+  public getSelectedOldSerialNoList(SerialNoList) {
     SerialNoList?.forEach(serial => {
       this.getProductDetailBySerialNo(serial);
     });
@@ -576,27 +576,30 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
     this.calculateGST();
   }
   calculateGST() {
+    this.calculateDiscount();
     const GSTMode = this.SaleInfoForm.get("GSTMode")?.value;
     const ApplicableGSTType = this.SaleInfoForm.get("ApplicableGSTType")?.value;
     let SaleProductList: any[] = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
 
     if (GSTMode === 'W') {
       SaleProductList?.forEach(product => {
+        const SalePriceExDiscount = Number(((product?.SalePrice ?? 0) - (product.DiscountAmount ?? 0)).toFixed(2));
         product.CGSTAmount = "0";
         product.SGSTAmount = "0";
         product.IGSTAmount = "0";
-        product.Price = (product?.SalePrice ?? 0);
+        product.Price = (SalePriceExDiscount ?? 0);
         //product.SalePrice = product[CustomerTypeID] ?? product.SalePrice;
       });
     }
     else {
       SaleProductList?.forEach(product => {
+        const SalePriceExDiscount = Number(((product?.SalePrice ?? 0) - (product.DiscountAmount ?? 0)).toFixed(2));
         if (ApplicableGSTType === APPLICABLE_GST_TYPE.C) {
           //product.SalePrice = product[CustomerTypeID] ?? product.SalePrice;
           product.IGSTAmount = "0";
-          product.CGSTAmount = Number((((product?.SalePrice ?? 0) - ((product?.SalePrice ?? 0) * (100 / (100 + ((product?.CGST * 2) ?? 0))))) / 2).toFixed(2));
-          product.SGSTAmount = Number((((product?.SalePrice ?? 0) - ((product?.SalePrice ?? 0) * (100 / (100 + ((product?.SGST * 2) ?? 0))))) / 2).toFixed(2));
-          product.Price = Number(((product?.SalePrice ?? 0) - (product.CGSTAmount ?? 0) - (product.SGSTAmount ?? 0)).toFixed(2));
+          product.CGSTAmount = Number((((SalePriceExDiscount ?? 0) - ((SalePriceExDiscount ?? 0) * (100 / (100 + ((product?.CGST * 2) ?? 0))))) / 2).toFixed(2));
+          product.SGSTAmount = Number((((SalePriceExDiscount ?? 0) - ((SalePriceExDiscount ?? 0) * (100 / (100 + ((product?.SGST * 2) ?? 0))))) / 2).toFixed(2));
+          product.Price = Number(((SalePriceExDiscount ?? 0) - (product.CGSTAmount ?? 0) - (product.SGSTAmount ?? 0)).toFixed(2));
           product.TotalCGSTAmount = Number((((product.CGSTAmount ?? 0)) * product.Quantity).toFixed(2));
           product.TotalSGSTAmount = Number((((product.SGSTAmount ?? 0)) * product.Quantity).toFixed(2));
           product.TotalGSTAmount = Number((((product.CGSTAmount ?? 0) + (product.SGSTAmount ?? 0)) * product.Quantity).toFixed(2));
@@ -605,13 +608,12 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
           //product.SalePrice = product[CustomerTypeID] ?? product.SalePrice;
           product.CGSTAmount = "0";
           product.SGSTAmount = "0";
-          product.IGSTAmount = Number(((product?.SalePrice ?? 0) - ((product?.SalePrice ?? 0) * (100 / (100 + (product?.IGST ?? 0))))).toFixed(2));
-          product.Price = Number((product?.SalePrice ?? 0) - (product.IGSTAmount ?? 0).toFixed(2));
+          product.IGSTAmount = Number(((SalePriceExDiscount ?? 0) - ((SalePriceExDiscount ?? 0) * (100 / (100 + (product?.IGST ?? 0))))).toFixed(2));
+          product.Price = Number((SalePriceExDiscount ?? 0) - (product.IGSTAmount ?? 0).toFixed(2));
           product.TotalIGSTAmount = Number((((product.IGSTAmount ?? 0)) * product.Quantity).toFixed(2));
         }
       });
     }
-    this.calculateDiscount();
     this.updateTotalValues();
     this.SaleInfoForm.get("SaleProductList")?.setValue(SaleProductList);
   }
@@ -636,15 +638,15 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
   onDiscountChange(event, index, Mode) {
     const Discount = (event?.target as HTMLInputElement)?.value;
     let SaleProductList: any[] = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
-    if(Mode==0){
+    if (Mode == 0) {
       SaleProductList[index].Discount = Discount;
       SaleProductList[index].DiscountAmount = null;
     }
-    else{
+    else {
       SaleProductList[index].DiscountAmount = Discount;
       SaleProductList[index].Discount = null;
     }
-    
+    this.SaleInfoForm.get("SaleProductList")?.setValue(SaleProductList);
     this.calculateGST();
     this.updateTotalValues();
   }
@@ -652,10 +654,10 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
     let SaleProductList: any[] = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
     SaleProductList?.forEach(prod => {
       if (!["", undefined, null].includes(prod?.Discount)) {
-        prod.DiscountAmount = Number(((parseFloat(prod.Price ?? 0) * (parseFloat(prod?.Discount ?? 0)) + 0) / 100).toFixed(2));
+        prod.DiscountAmount = Number(((parseFloat(prod.SalePrice ?? 0) * (parseFloat(prod?.Discount ?? 0)) + 0) / 100).toFixed(2));
       }
       else if (!["", undefined, null].includes(prod?.DiscountAmount)) {
-        prod.Discount = Number((((parseFloat(prod.DiscountAmount ?? 0) * 100) / (parseFloat(prod?.Price ?? 0)))).toFixed(2));
+        prod.Discount = Number((((parseFloat(prod.DiscountAmount ?? 0) * 100) / (parseFloat(prod?.SalePrice ?? 0)))).toFixed(2));
       }
 
       prod.TotalDiscountAmount = Number((parseFloat(prod.DiscountAmount ?? 0) * parseInt(prod.Quantity ?? 0)).toFixed(2));
