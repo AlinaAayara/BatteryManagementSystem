@@ -532,6 +532,7 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
             break;
         }
         this.SaleInfoForm.patchValue(data);
+        this.SaleInfoForm.get("TotalPaidAmount")?.markAsDirty();
         saleData.ProductInfo.forEach(prod => {
           prod.SerialNoList = prod?.SaleProductInfo?.map(subProd => subProd?.SerialNo);
           prod.Quantity = prod?.SaleProductInfo?.length ?? 0;

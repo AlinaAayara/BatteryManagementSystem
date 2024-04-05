@@ -224,13 +224,14 @@
                                                 <label for="_dm-Price" class="form-label">Discount %</label>
                                                 <input id="_dm-Price" formControlName="Discount" type="text"
                                                     class="form-control" placeholder="Discount %"
-                                                    (change)="calculatePurchaseProductTotal()">
+                                                    (change)="calculatePurchaseProductTotal(0)">
                                             </div>
                                             <div class="col-4  mb-3">
                                                 <label for="_dm-Price" class="form-label">Disc Amnt/Pic</label>
                                                 <input id="_dm-Price" formControlName="DiscountAmount" type="text"
                                                     class="form-control enter-focus" placeholder="Disc Amount"
-                                                    NumberOnly [directiveName]="'appDecimaNumber'">
+                                                    NumberOnly [directiveName]="'appDecimaNumber'"
+                                                    (change)="calculatePurchaseProductTotal(1)">
                                             </div>
                                             <div class="col-4  mb-3">
                                                 <label for="_dm-Price" class="form-label">Total Disc Amnt</label>
