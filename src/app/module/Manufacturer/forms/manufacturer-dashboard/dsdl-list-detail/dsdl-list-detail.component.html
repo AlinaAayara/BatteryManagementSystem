@@ -1,0 +1,50 @@
+<div class="accordion" id="_dm-gapAccordion">
+    <div class="accordion-item" *ngFor="let item of dSDLListDeail">
+        <div class="accordion-header" id="_Purchase_{{item.UserID}}">
+            <button class="accordion-button bg-secondary text-white shadow-none collapsed" type="button"
+                data-bs-toggle="collapse" [attr.data-bs-target]="'#_Purchase_Collapse_'+ item.UserID"
+                aria-expanded="false" aria-controls="_dm-gapAccCollapseOne">
+                <div class="row col-lg-12">
+                    <div class="col-lg-4 col-md-4 col-sm-4">Name : - {{item.Name}} ({{item.UserName}}) </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">Bal : {{item.Balance}} </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">Purchase : {{item.TotalPurchase}} </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">Sale : {{item.TotalSale}} </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">Stock : {{item.Stock}} </div>
+                </div>
+            </button>
+        </div>
+        <div id="_Purchase_Collapse_{{item.UserID}}" class="accordion-collapse bg-secondary text-white collapse"
+            aria-labelledby="_dm-gapAccHeadingOne" data-bs-parent="#_dm-gapAccordion" style="">
+            <div class="accordion-body row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table" style="background: white;">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Code</th>
+                                    <th>Contact No</th>
+                                    <th>Balance</th>
+                                    <th>Purchase</th>
+                                    <th>Sale</th>
+                                    <th>Sock</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let prod of item.DEALER">
+                                    <td>{{prod.Name}}</td>
+                                    <td>{{prod.UserName}}</td>
+                                    <td>{{prod.ContactNo}}</td>
+                                    <td>{{prod.Balance}}</td>
+                                    <td>{{prod.TotalPurchase}}</td>
+                                    <td>{{prod.TotalSale}}</td>
+                                    <td>{{prod.Stock}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

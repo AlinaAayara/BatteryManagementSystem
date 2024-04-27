@@ -32,4 +32,11 @@ export class ChartService {
       headers: { 'content-type': 'application/json' }
     });
   }
+
+  GetDSDLListDeailDashboard(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.get_purchaseInfoByID, body, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
+
 }
