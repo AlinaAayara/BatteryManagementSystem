@@ -176,6 +176,7 @@ export class SharedDataService {
         break;
       case "SaleInfo":
       case "ManufacturerSaleInfo":
+      case "DistributorSaleInfo":
         CustomerName = [null, undefined, ""].includes(CustomerName) ? "" : CustomerName;
         obj.requestBody = {
           MethodName: "Sel_AdvanceSearch_SaleInfo",

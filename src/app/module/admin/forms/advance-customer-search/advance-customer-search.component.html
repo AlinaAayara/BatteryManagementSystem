@@ -76,7 +76,7 @@
                             </app-purchase-search>
                         </div>
                     </div>
-                    <div *ngIf="['SaleInfo','ManufacturerSaleInfo'].includes(activeTab?.subMenuURL)" id="_advance_search_sale_info"
+                    <div *ngIf="['SaleInfo','ManufacturerSaleInfo','DistributorSaleInfo'].includes(activeTab?.subMenuURL)" id="_advance_search_sale_info"
                         class="tab-pane fade show active" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="col-lg-12">
                             <app-sale-search (deleteItem)="deleteItem($event)"
