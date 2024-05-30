@@ -22,7 +22,11 @@ export class PurchaseInfoService {
       headers: { 'content-type': 'application/json' }
     });
   }
-
+  GetBillNo(body): Observable<any> {
+    return this._httpClient.post<any[]>(AppUrl.API.get_Next_PurchaseBillNo, body, {
+      headers: { 'content-type': 'application/json' }
+    });
+  }
   getProductList(body): Observable<any> {
     return this._httpClient.post<any[]>(AppUrl.API.get_product_info, body, {
       headers: { 'content-type': 'application/json' }

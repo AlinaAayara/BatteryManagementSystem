@@ -1,8 +1,8 @@
 export class AppUrl {
     public static URL = {};
 
-    // public static baseURL = "http://localhost:5213/api/";
-    public static baseURL = "http://gbhwebapi.betech.in/api/";
+    public static baseURL = "http://localhost:5213/api/";
+    // public static baseURL = "http://gbhwebapi.betech.in/api/";
 
     public static reportBaseURL = "http://bmsreportapp.betech.in/reportviewer.aspx"
 
@@ -64,6 +64,7 @@ export class AppUrl {
         get_purchaseInfo: AppUrl.baseURL + AppUrl.purchaseInfoURL + "GetPurchase",
         get_purchaseInfoByID: AppUrl.baseURL + AppUrl.purchaseInfoURL + "GetPurchaseByID",
         getSerialNoForPurchase_purchaseInfo: AppUrl.baseURL + AppUrl.purchaseInfoURL + "GetSerialNoForPurchase",
+        get_Next_PurchaseBillNo : AppUrl.baseURL + AppUrl.purchaseInfoURL + "GetPurchaseBillNo",
 
         add_customerInfo: AppUrl.baseURL + AppUrl.customerInfoURL + "AddCustomer",
         get_customerInfo: AppUrl.baseURL + AppUrl.customerInfoURL + "GetCustomer",

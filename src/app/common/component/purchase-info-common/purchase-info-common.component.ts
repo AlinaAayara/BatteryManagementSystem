@@ -53,11 +53,30 @@ export class PurchaseInfoCommonComponent implements OnInit, OnChanges {
     this.edit();
     this.getGST();
     this.setPartyIDZero();
+    this.getBillNo();
     /* using this filed to hide & show manufacturing date , purpose of this date is to show old serial no while sale  */
     this.OldManufacturingSerialNoCheck = this._sharedDataService.currentUser.setting.filter(st => st.settingName == "OldManufacturingSerialNoCheck")?.[0].settingValue;
   }
 
-
+  /* function to get Max bill no+1 
+  1) Initial Load
+  2) After Submit */
+  getBillNo() {
+    this._purchaseInfoService.GetBillNo(this.getBillNoRequestBody()).subscribe({
+      next: data => {
+        this.PurchaseInfoForm.get("OwnBillNo")?.setValue(data?.[0]?.OwnBillNo);
+      },
+      error: error => {
+        this.showLoader = false;
+      }
+    });
+  }
+  /* request body get Bill No api call */
+  public getBillNoRequestBody() {
+    return {
+      MethodName: "Sel_Next_PurchaseOwnNo"
+    }
+  }
   getGST() {
     this._sharedDataService.getGST(this.getGSTRequestBody()).subscribe({
       next: data => {
@@ -79,6 +98,7 @@ export class PurchaseInfoCommonComponent implements OnInit, OnChanges {
   purchaseInfoFormBuilder() {
     this.PurchaseInfoForm = this._FormBuilder.group({
       PurchaseID: [""],
+      OwnBillNo: [{ value: 0, disabled: true }],
       GSTMode: ["", Validators.required],
       PartyID: ["", Validators.required],
       PurchaseDate: [this._sharedDataService?.currentUser?.todaysDate, Validators.required],
@@ -413,7 +433,7 @@ export class PurchaseInfoCommonComponent implements OnInit, OnChanges {
     this.PurchaseInfoForm.get("ApplicableGSTType")?.setValue(APPLICABLE_GST_TYPE.C);
     this.PurchaseInfoForm.get("IsTCSApplicable")?.setValue("0");
     this.PurchaseInfoForm.get("TCS")?.setValue(this.defaultTCS);
-
+    this.getBillNo();
     if (this.userType === USER_TYPES.Manufacturer) {
       this.setPartyIDZero();
     }

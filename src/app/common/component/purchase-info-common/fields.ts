@@ -50,7 +50,6 @@ export interface IPurchaseProductObject {
 }
 
 export function generatePostRequestBody(data: any, mode: string) {
-    console.log("data",data);
     let body: any = {};
     body.PurchaseID = data?.PurchaseID;
     body.PartyID = data?.PartyID;
@@ -69,6 +68,7 @@ export function generatePostRequestBody(data: any, mode: string) {
     body.TCSAmount = data?.TCSAmount;
     body.ApplicableGSTType = data?.ApplicableGSTType;
     body.TotalDiscountAmount = data?.TotalDiscountAmount;
+    body.OwnBillNo = data?.OwnBillNo;
 
     body.PurchaseProductList = Array();
     body.Mode = mode;
@@ -88,7 +88,7 @@ export function generatePostRequestBody(data: any, mode: string) {
                 IGSTAmount: parseFloat(product?.IGSTAmount),
                 Discount: parseFloat(product?.Discount),
                 DiscountAmount: parseFloat(product?.DiscountAmount),
-                ManufacturingDate: product?.ManufacturingDate
+                ManufacturingDate: product?.ManufacturingDate ?? null
             }
             body.PurchaseProductList.push(obj);
         })

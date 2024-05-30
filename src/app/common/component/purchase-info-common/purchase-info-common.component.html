@@ -10,6 +10,25 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Purchase</h5>
                                     <div class="row mb-1">
+                                        <div class="col-md-3  mb-3">
+                                            <label for="_dm-inputPassword" class="visually-hidden" [class.text-danger]="((PurchaseInfoForm.get('OwnBillNo')?.touched ||
+                                            PurchaseInfoForm.get('OwnBillNo')?.dirty) &&
+                                            PurchaseInfoForm.get('OwnBillNo')?.errors)" [class.text-success]="(PurchaseInfoForm.get('OwnBillNo')?.touched &&
+                                            !PurchaseInfoForm.get('OwnBillNo')?.errors)">Bill No</label>
+                                            <input type="text" class="form-control enter-focus" id="_dm-inputPassword"
+                                                formControlName="OwnBillNo" placeholder="Bill No" [class.is-invalid]="((PurchaseInfoForm.get('OwnBillNo')?.touched ||
+                                        PurchaseInfoForm.get('OwnBillNo')?.dirty) &&
+                                        PurchaseInfoForm.get('OwnBillNo')?.errors)" [class.is-valid]="(PurchaseInfoForm.get('OwnBillNo')?.touched &&
+                                        !PurchaseInfoForm.get('OwnBillNo')?.errors)">
+
+                                            <span style="color:red" class="help-block" *ngIf="((PurchaseInfoForm.get('OwnBillNo')?.touched ||
+                                        PurchaseInfoForm.get('OwnBillNo')?.dirty) &&
+                                        PurchaseInfoForm.get('OwnBillNo')?.errors)">
+                                                Bill no is required.
+                                            </span>
+
+                                        </div>
+                                        <div class="col-md-3">
                                         <div class="d-flex flex-wrap justify-content-center gap-2">
                                             <div class="btn-group" role="group"
                                                 aria-label="Basic radio toggle button group">
@@ -22,6 +41,7 @@
                                                 </ng-container>
                                             </div>
                                         </div>
+                                    </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3  mb-3">
