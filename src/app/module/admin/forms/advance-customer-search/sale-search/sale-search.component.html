@@ -10,7 +10,7 @@
                     <div class="offset-lg-7 offset-md-7 offset-sm-5 col-lg-1 col-md-1 col-sm-1">
                         <i class="demo-pli-trash fs-5" (click)="delete(item.SaleID)"></i>
                         <i class="demo-pli-pencil fs-5" (click)="edit(item)" style="margin-left: 0.5rem"></i>
-                        <i class="demo-pli-printer fs-5"(click)="print(item)"  style="margin-left: 0.5rem"></i>
+                        <i class="demo-pli-printer fs-5" (click)="print(item)" style="margin-left: 0.5rem"></i>
                     </div>
                 </div>
             </button>
@@ -24,19 +24,19 @@
                             <ul class="nav nav-callout justify-content-end" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link active" data-bs-toggle="tab"
-                                    [attr.data-bs-target]="'#home_'+ item.SaleID" type="button" role="tab"
+                                        [attr.data-bs-target]="'#home_'+ item.SaleID" type="button" role="tab"
                                         aria-controls="home" aria-selected="true">Detail</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" data-bs-toggle="tab"
-                                    [attr.data-bs-target]="'#more_'+ item.SaleID" type="button" role="tab"
+                                        [attr.data-bs-target]="'#more_'+ item.SaleID" type="button" role="tab"
                                         aria-controls="profile" aria-selected="false">More info</button>
                                 </li>
                             </ul>
 
                             <div class="tab-content" style="padding: 0.50rem 0.50rem;">
-                                <div id="home_{{item.SaleID}}" class="tab-pane fade collapse active show" role="tabpanel"
-                                    aria-labelledby="home-tab">
+                                <div id="home_{{item.SaleID}}" class="tab-pane fade collapse active show"
+                                    role="tabpanel" aria-labelledby="home-tab">
                                     <div class="d-flex align-items-center position-relative pb-3">
                                         <div class="flex-shrink-0">
                                             <img class="img-md rounded-circle"
@@ -48,7 +48,7 @@
                                                 class="h5 stretched-link btn-link">{{item?.CustomerInfo?.CustomerName}}</a>
                                             <p class="text-muted m-0">{{item?.CustomerInfo?.ContactNo}}</p>
                                             <p class="h5 stretched-link btn-link">{{item?.CustomerInfo?.CustomerType}}
-                                            </p>{{item?.CustomerInfo?.Address}}
+                                            </p>
                                         </div>
                                         <!-- <p class="flex-grow-1 ms-3">{{selectedCustomer?.Address}}<br>
                                             {{selectedCustomer?.VehiclelNo}}<br>
@@ -57,9 +57,12 @@
                                 </div>
                                 <div id="more_{{item.SaleID}}" class="tab-pane fade" role="tabpanel"
                                     aria-labelledby="profile-tab">
+                                    <p class="h5">Total Scheme - {{item?.TotalSchemePoint}}
+                                    </p>
                                     <p class="flex-grow-1 ms-3">{{item?.CustomerInfo?.Address}}<br>
                                         {{item?.CustomerInfo?.VehiclelNo}}<br>
                                         {{item?.CustomerInfo?.VehicleName}}</p>
+
                                 </div>
                             </div>
                         </div>

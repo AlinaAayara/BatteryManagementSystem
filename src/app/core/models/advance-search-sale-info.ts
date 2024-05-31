@@ -35,6 +35,7 @@ export class AdvanceSerachSaleInfo {
     public SGSTAmount = "";
     public IGSTAmount = "";
     public TotalDiscountAmount = "";
+    public TotalSchemePoint = 0;
     constructor(sale: any = {}) {
         this.SaleID = sale?.saleID || "";
         this.CustomerID = sale?.customerID || "";
@@ -69,7 +70,10 @@ export class AdvanceSerachSaleInfo {
         this.IGSTAmount = sale?.igstAmount || "";
         this.TotalDiscountAmount = sale?.totalDiscountAmount || "";
 
+
         if (sale && sale?.saleProductInfo && sale?.saleProductInfo?.length) {
+
+            this.TotalSchemePoint = Number((sale?.saleProductInfo?.reduce((n, { schemePoint }) => (n) + parseInt(schemePoint), 0)).toFixed(0));
             sale?.saleProductInfo?.forEach((party: any) => {
                 this.SaleProductInfo.push(new SaleProductInfo(party));
             });
