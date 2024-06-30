@@ -19,7 +19,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
   public CustomerTypes;
   public ampList: any;
   public activeReport: SubMenu;
-  public CurrentUserType:string;
+  public CurrentUserType: string;
 
   constructor(
     private _sharedDataService: SharedDataService,
@@ -123,6 +123,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
     }
   }
   showFilterCriteria(report) {
+    this.hideAllFilterCriteria();
     this.activeReport = report;
     let filters = this.activeReport.filterCriteria?.replace(/,\s*$/, "")?.replace(/\s/g, "")?.split(',');
     filters.forEach(control => {
@@ -144,6 +145,12 @@ export class ReportsComponent implements OnInit, OnDestroy {
     })
   }
 
+  hideAllFilterCriteria() {
+    this._sharedDataService.currentUser.menu.forEach(m => m.subMenu.forEach(sub => sub.filterCriteria?.replace(/,\s*$/, "")?.replace(/\s/g, "")?.split(',').forEach(control => {
+      this[control] = "";
+      this[control + 'Control'] = false
+    })))
+  }
   viewReport() {
     let queryString = "MethodName=" + this.activeReport.reportName;
     let filters = this.activeReport.filterCriteria?.replace(/,\s*$/, "")?.replace(/\s/g, "")?.split(',');

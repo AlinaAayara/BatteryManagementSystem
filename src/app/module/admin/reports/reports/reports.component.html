@@ -118,6 +118,12 @@
                             class="form-control  enter-focus" placeholder="Quantity" NumberOnly
                             [directiveName]="'NumberOnly'">
                     </div>
+
+                    <div class="col-2" *ngIf="this['PriceControl']">
+                        <input id="id_Price" type="text" [(ngModel)]="this['Price']"
+                            class="form-control  enter-focus" placeholder="Price" NumberOnly
+                            [directiveName]="'NumberOnly'">
+                    </div>
                 </div>
 
             </div>
