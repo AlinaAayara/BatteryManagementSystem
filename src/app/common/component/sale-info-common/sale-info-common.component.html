@@ -9,7 +9,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Sale</h5>
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" *ngIf="!isOpenInAndroidApp">
                                             <div class="d-flex flex-wrap justify-content-center gap-2">
                                                 <div class="btn-group" role="group"
                                                     aria-label="Basic radio toggle button group">
@@ -23,7 +23,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2 col-3 col-sm-3 col-sx-3">
                                             <label for="_dm-inputPassword" class="visually-hidden" [class.text-danger]="((SaleInfoForm.get('BillNo')?.touched ||
                                             SaleInfoForm.get('BillNo')?.dirty) &&
                                             SaleInfoForm.get('BillNo')?.errors)" [class.text-success]="(SaleInfoForm.get('BillNo')?.touched &&
@@ -41,7 +41,7 @@
                                             </span>
 
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-5 col-2 col-sm-2 col-sx-2" *ngIf="!isOpenInAndroidApp">
                                             <button type="button" class="btn btn-primary"
                                                 (click)="showCustomerInfoSlideIn(true)">
                                                 <i class=" demo-pli-mail-send fs-5"></i> {{btnChooseCustomerText}}
@@ -53,7 +53,7 @@
                                             </span>
 
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 col-6 col-xs-6 col-sm-6">
                                             <label for="BillDate" class="visually-hidden" [class.text-danger]="((SaleInfoForm.get('BillDate')?.touched ||
                                         SaleInfoForm.get('BillDate')?.dirty) &&
                                         SaleInfoForm.get('BillDate')?.errors)" [class.text-success]="(
@@ -75,10 +75,14 @@
                             </div>
 
                         </div>
+                        <app-smart-form #smartFormComponent *ngIf="isOpenInAndroidApp" [formName]="'Add Customer'" [formField]="customerInfoFormField" (formData)="submitCustomerInfo($event)"
+                            [manuallyClearField]="manuallyClearField"
+                            [searchFormName]="'Customer List'" [showLoader]="showLoader" [showDefaultListTable]="false">
+                        </app-smart-form>
                         <div class="col-md-3" formGroupName="SaleProductInfo">
                             <div class="card ">
                                 <div class="card-body">
-                                    <h5 class="card-title">Product</h5>
+                                    <h5 *ngIf="!isOpenInAndroidApp" class="card-title">Product</h5>
                                     <div class="row">
                                         <div class="col-12">
                                             <input id="id_SerialNo" formControlName="SerialNo" type="text"
@@ -103,7 +107,7 @@
                     </div>
                 </div>
                 <div class="col-md-12 mb-1" *ngIf="SaleInfoForm.get('SaleProductList')?.value?.length">
-                    <div class="card ">
+                   <div class="card " >
                         <div class="card-body">
                             <div class="row" formGroupName="SaleProductInfo">
                                 <div class="col-12">
@@ -114,9 +118,9 @@
                                                     <th></th>
                                                     <th>Product</th>
                                                     <th>SrNo</th>
-                                                    <th>Price</th>
+                                                    <th *ngIf="!isOpenInAndroidApp">Price</th>
                                                     <ng-container
-                                                        *ngIf="this.SaleInfoForm.get('GSTMode')?.value === 'G'">
+                                                        *ngIf="this.SaleInfoForm.get('GSTMode')?.value === 'G' && !isOpenInAndroidApp">
                                                         <ng-container
                                                             *ngIf="this.SaleInfoForm.get('ApplicableGSTType')?.value==='CSGT_SGST'">
                                                             <th>CGST</th>
@@ -127,26 +131,26 @@
                                                             <th>IGST</th>
                                                         </ng-container>
                                                     </ng-container>
-                                                    <th>Qty</th>
+                                                    <th *ngIf="!isOpenInAndroidApp">Qty</th>
                                                     <th>Sale Price</th>
-                                                    <th>Disc %</th>
-                                                    <th>Disc Amount</th>
-                                                    <th>Total Disc Amnt</th>
-                                                    <th>Taxable Amount</th>
+                                                    <th *ngIf="!isOpenInAndroidApp">Disc %</th>
+                                                    <th *ngIf="!isOpenInAndroidApp">Disc Amount</th>
+                                                    <th *ngIf="!isOpenInAndroidApp">Total Disc Amnt</th>
+                                                    <th *ngIf="!isOpenInAndroidApp">Taxable Amount</th>
                                                     <th>Total</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr
                                                     *ngFor="let item of SaleInfoForm.get('SaleProductList')?.value ?? []; let i= index">
-                                                    <th> <input type="button" class="btn btn-danger" value="Delete"
-                                                            (click)="removeSaleProduct(item)" />
+                                                    <th> 
+                                                        <button class="btn btn-danger" (click)="removeSaleProduct(item)"><i class="demo-psi-trash fs-5"></i></button>
                                                     </th>
                                                     <td>{{item.ProductName}}</td>
                                                     <td>{{item.SerialNoList.join(",")}}</td>
-                                                    <td>{{item.Price}}</td>
+                                                    <td *ngIf="!isOpenInAndroidApp">{{item.Price}}</td>
                                                     <ng-container
-                                                        *ngIf="this.SaleInfoForm.get('GSTMode')?.value === 'G'">
+                                                        *ngIf="this.SaleInfoForm.get('GSTMode')?.value === 'G' && !isOpenInAndroidApp">
                                                         <ng-container
                                                             *ngIf="this.SaleInfoForm.get('ApplicableGSTType')?.value==='CSGT_SGST'">
                                                             <td>{{item?.CGSTAmount}}</td>
@@ -157,27 +161,27 @@
                                                             <td>{{item?.IGSTAmount}}</td>
                                                         </ng-container>
                                                     </ng-container>
-                                                    <td>{{item.Quantity}}</td>
+                                                    <td *ngIf="!isOpenInAndroidApp">{{item.Quantity}}</td>
                                                     <td> <input id="id_SalePrice" type="text" [formControlName]='i'
                                                             class="form-control" placeholder="Enter price"
                                                             [value]="item?.SalePrice ?? 0" NumberOnly
                                                             [directiveName]="'appDecimaNumber'"
                                                             (change)="updateSalePrice($event, i)">
                                                     </td>
-                                                    <td><input id="id_Discount" type="text"
+                                                    <td *ngIf="!isOpenInAndroidApp"><input id="id_Discount" type="text"
                                                             [formControlName]="i+'Discount'" class="form-control"
                                                             placeholder="Enter Disc %" [value]="item?.Discount ?? 0"
                                                             NumberOnly [directiveName]="'appDecimaNumber'"
                                                             (change)="onDiscountChange($event, i,0)">
                                                     </td>
-                                                    <td><input id="id_Discount" type="text"
+                                                    <td *ngIf="!isOpenInAndroidApp"><input id="id_Discount" type="text"
                                                             [formControlName]="i+'DiscountAmount'" class="form-control"
                                                             placeholder="Enter Disc %"
                                                             [value]="item?.DiscountAmount ?? 0" NumberOnly
                                                             [directiveName]="'appDecimaNumber'"
                                                             (change)="onDiscountChange($event, i,1)"></td>
-                                                    <td>{{item.TotalDiscountAmount}}</td>
-                                                    <td>{{item.TotalGSTAmount}}</td>
+                                                    <td *ngIf="!isOpenInAndroidApp">{{item.TotalDiscountAmount}}</td>
+                                                    <td *ngIf="!isOpenInAndroidApp">{{item.TotalGSTAmount}}</td>
                                                     <td>{{item.TotalAmount}}</td>
                                                 </tr>
                                             </tbody>
@@ -190,7 +194,7 @@
                 </div>
                 <div class="col-md-12 mb-1">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6" *ngIf="!isOpenInAndroidApp">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row mb-1">
@@ -273,38 +277,40 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="row">
-                                                <label for="TotalQuantity" class="col-sm-4 col-form-label">Total
-                                                    Qty</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" formControlName="TotalQuantity"
-                                                        class="form-control" id="TotalQuantity">
+                                        <ng-container *ngIf="!isOpenInAndroidApp">
+                                            <div class="col-md-4 col-4 col-sm-4 col-md-4">
+                                                <div class="row">
+                                                    <label for="TotalQuantity" class="col-sm-4 col-form-label">Total
+                                                        Qty</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" formControlName="TotalQuantity"
+                                                            class="form-control" id="TotalQuantity">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="row">
-                                                <label for="TotalAmount" class="col-sm-4 col-form-label">Total
-                                                    Amount</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" formControlName="TotalAmount"
-                                                        class="form-control" id="TotalAmount">
+                                            <div class="col-md-4  col-4 col-sm-4 col-md-4">
+                                                <div class="row">
+                                                    <label for="TotalAmount" class="col-sm-4 col-form-label">Total
+                                                        Amount</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" formControlName="TotalAmount"
+                                                            class="form-control" id="TotalAmount">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="row">
-                                                <label for="DiscountAmount" class="col-sm-4 col-form-label">Disc
-                                                    Amount</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" formControlName="DiscountAmount"
-                                                        class="form-control" placeholder="Discount Amount"
-                                                        id="DiscountAmount" (blur)="updateTotalValues()">
+                                            <div class="col-md-4 col-4 col-sm-4 col-md-4">
+                                                <div class="row">
+                                                    <label for="DiscountAmount" class="col-sm-4 col-form-label">Disc
+                                                        Amount</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" formControlName="DiscountAmount"
+                                                            class="form-control" placeholder="Discount Amount"
+                                                            id="DiscountAmount" (blur)="updateTotalValues()">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
+                                        </ng-container>
+                                        <div class="col-md-4  col-4 col-sm-4 col-md-4">
                                             <div class="row">
                                                 <label for="TotalPaidAmount" class="col-sm-4 form-label">Paid
                                                     Amnt</label>
@@ -315,7 +321,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-4  col-4 col-sm-4 col-md-4">
                                             <div class="row">
                                                 <label for="FinalAmount" class="col-sm-4 col-form-label">Final
                                                     Amount</label>
@@ -326,7 +332,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div class="col-md-4  col-4 col-sm-4 col-md-4">
                                             <div class="row">
                                                 <label for="Pending" class="col-sm-4 col-form-label">Pending
                                                     Amount</label>
@@ -336,7 +342,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <ng-container *ngIf="this.SaleInfoForm.get('GSTMode')?.value === 'G'">
+                                        <ng-container
+                                            *ngIf="this.SaleInfoForm.get('GSTMode')?.value === 'G' && !isOpenInAndroidApp">
                                             <ng-container
                                                 *ngIf="this.SaleInfoForm.get('ApplicableGSTType')?.value==='CSGT_SGST'">
                                                 <div class="col-md-4">
@@ -394,7 +401,7 @@
                                         </ng-container>
 
                                         <div class="row mb-1">
-                                            <div class="col-sm-2 offset-sm-1">
+                                            <div class="col-sm-2 offset-sm-1  col-4 col-sm-4 col-md-4">
                                                 <div class="form-check">
                                                     <input id="_dm-rememberCheck3" class="form-check-input"
                                                         formControlName="Print" type="checkbox">
@@ -403,9 +410,9 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-9">
+                                            <div class="col-sm-9  col-8 col-sm-8 col-md-8">
                                                 <div class="row">
-                                                    <label for="TotalPaidAmount"
+                                                    <label for="TotalPaidAmount" *ngIf="!isOpenInAndroidApp"
                                                         class="col-sm-2 form-label">Notes</label>
                                                     <div class="col-sm-10">
                                                         <input id="TotalPaidAmount" formControlName="Remark" type="text"
@@ -414,7 +421,23 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="mt-4 d-grid gap-2 d-md-block">
+                                        <div class="row mb-1" *ngIf="isOpenInAndroidApp">
+                                            <button type="button"
+                                                class="btn btn-primary col-5 col-sm-5 col-md-5 offset-1" [disabled]="SaleInfoForm.invalid || ((this.SaleInfoForm.get('SaleProductList')?.value ?? []).length==0 
+                                                || showLoader)" (click)="Submit()">
+                                                <ng-container *ngIf="showLoader">
+                                                    <span class="spinner-border spinner-border-sm"></span>
+                                                    Loading..
+                                                </ng-container>
+                                                <ng-container *ngIf="!showLoader">
+                                                    {{isAdd?'Save':'Update'}}
+                                                </ng-container>
+                                            </button>
+                                            <button type="button"
+                                                class="btn btn-danger col-5 col-sm-5 col-md-5 offset-1"
+                                                (click)="clearSale()">Clear</button>
+                                        </div>
+                                        <div class="mt-4 d-grid gap-2 d-md-block" *ngIf="!isOpenInAndroidApp">
                                             <button type="button" class="btn btn-primary" [disabled]="SaleInfoForm.invalid || ((this.SaleInfoForm.get('SaleProductList')?.value ?? []).length==0 
                                                 || !selectedCustomer
                                                 || showLoader)" (click)="Submit()">

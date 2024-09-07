@@ -21,6 +21,7 @@ export class SmartFormComponent implements OnInit, OnChanges {
   @Input() public showLoader: boolean = false;
   @Input() public showDefaultListTable: boolean = true;
   @Output() changeEmit = new EventEmitter();
+  public isOpenInAndroidApp = false;
 
   constructor(
     private _FormBuilder: FormBuilder,
@@ -48,6 +49,7 @@ export class SmartFormComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.isOpenInAndroidApp = this._sharedDataService.isOpenInAndroidApp;
     this.SmartForm = this._FormBuilder.group(this.formFields());
 
     /* fetch list data to render in dropdown */

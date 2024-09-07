@@ -9,7 +9,7 @@ export const fields = [
         placeholder: "TransactionType",
         label: "TransactionType",
         isVisible: true,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: controlType.Radio,
         radioGroup: Constant.CR_OR_DR,
         directiveName: directiveList.appDecimaNumber
@@ -21,7 +21,7 @@ export const fields = [
         placeholder: "BankTransactionID",
         label: "BankTransactionID",
         isVisible: false,
-        bootstrapFormGroup: 4,
+        bootstrapFormGroup: "col-md-4",
         controlType: controlType.Textbox
     },
     {
@@ -31,7 +31,7 @@ export const fields = [
         placeholder: "BankID",
         label: "Bank",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Dropdown,
         listData: {
             fetchURL: AppUrl.API.get_basicbank,
@@ -53,7 +53,7 @@ export const fields = [
         placeholder: "Date",
         label: "Date",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.DateOnly,
         isDateControl: true,
@@ -66,7 +66,7 @@ export const fields = [
         placeholder: "Amount",
         label: "Amount",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     },
@@ -77,7 +77,7 @@ export const fields = [
         placeholder: "Balance",
         label: "Balance",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     },
@@ -88,7 +88,7 @@ export const fields = [
         placeholder: "Remark",
         label: "Remark",
         isVisible: true,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: controlType.Textbox
     }
 ]

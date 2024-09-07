@@ -8,7 +8,7 @@ export const fields = [
         placeholder: "OldBatteryID",
         label: "OldBatteryID",
         isVisible: false,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: null
     },
     {
@@ -18,7 +18,7 @@ export const fields = [
         placeholder: "SaleOrPurchase",
         label: "SaleOrPurchase",
         isVisible: true,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: controlType.Radio,
         radioGroup: Constant.SALE_OR_PURCHASE_TYPE,
         directiveName: directiveList.AlphaNumeric
@@ -30,7 +30,7 @@ export const fields = [
         placeholder: "Bill Date",
         label: "Bill Date",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         isDateControl : true
     },
@@ -41,7 +41,7 @@ export const fields = [
         placeholder: "Amp",
         label: "Amp",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.NumberOnly
     },
@@ -52,7 +52,7 @@ export const fields = [
         placeholder: "Total Quantity",
         label: "Total Quantity",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.NumberOnly
     },
@@ -63,7 +63,7 @@ export const fields = [
         placeholder: "Total Amount",
         label: "Total Amount",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.AlphaNumeric
     }

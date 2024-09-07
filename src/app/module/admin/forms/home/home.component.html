@@ -4,7 +4,7 @@
     <section id="content" class="content">
       <router-outlet></router-outlet>
 
-      <footer class="mt-auto">
+      <footer class="mt-auto" *ngIf="!isOpenInAndroidApp">
         <div class="content__boxed">
           <div class="content__wrap py-3 py-md-1 d-flex flex-column flex-md-row align-items-md-center">
             <div class="text-nowrap mb-4 mb-md-0">Copyright &copy; 2023 <a class="ms-1 btn-link fw-bold"> Design &

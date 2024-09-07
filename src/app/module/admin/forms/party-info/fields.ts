@@ -10,7 +10,7 @@ export const fields = [
         placeholder: "PartyID",
         label: "PartyID",
         isVisible: false,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: null
     },
     {
@@ -20,7 +20,7 @@ export const fields = [
         placeholder: "Party Name",
         label: "Party Name",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.AlphaOnly
     },
@@ -31,7 +31,7 @@ export const fields = [
         placeholder: "Contact No",
         label: "Contact No",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.NumberOnly
     },
@@ -42,7 +42,7 @@ export const fields = [
         placeholder: "GST No",
         label: "GST No",
         isVisible: true,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: controlType.Textbox
     }
 ]

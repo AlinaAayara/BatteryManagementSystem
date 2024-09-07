@@ -10,7 +10,7 @@ export const fields = [
         placeholder: "Enter New Password",
         label: "Enter New Password",
         isVisible: true,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: controlType.Password,
         directiveName: directiveList.AlphaNumeric
     },
@@ -21,7 +21,7 @@ export const fields = [
         placeholder: "Re Enter New Password",
         label: "Re Enter New Password",
         isVisible: true,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: controlType.Password,
         directiveName: directiveList.AlphaNumeric
     }

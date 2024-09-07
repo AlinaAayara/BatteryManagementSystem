@@ -4,6 +4,9 @@ import { SharedDataService } from "src/app/Services/shared-data.service";
 import { SaleInfoService } from "src/app/Services/SaleInfo/sale-info.service";
 import { generatePostRequestBody } from "./fields";
 import { APPLICABLE_GST_TYPE, Constant, CustomerTypeID_ToPurchaseProduct, USER_TYPES } from "src/app/config/constants";
+import * as customerInfoField from "../../../module/admin/forms/customer-info/fields";
+import { CustomerInfoService } from "src/app/Services/CustomerInfo/customer-info.service";
+import { SmartFormComponent } from "../../smart-form/smart-form.component";
 
 @Component({
   selector: 'app-sale-info-common',
@@ -22,16 +25,21 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
   public ampList: any;
   public paymentModeList: any;
   @ViewChild("scanControl") scanControl: ElementRef;
+  @ViewChild("smartFormComponent") smartFormComponent: SmartFormComponent;
   public basicGST: any;
   public withOrWithoutGST = Constant.WITH_OR_WITHOUT_GST;
   @Input() public userType;
   public OldManufacturingSerialNoCheck = "0";
   public OldSerialNoList = [];
+  public isOpenInAndroidApp = false;
+  public customerInfoFormField: any;
+  public manuallyClearField: boolean = false;
 
   constructor(
     private _FormBuilder: FormBuilder,
     private _saleInfoService: SaleInfoService,
-    private _sharedDataService: SharedDataService
+    private _sharedDataService: SharedDataService,
+    private _customerInfoService: CustomerInfoService
   ) {
 
   }
@@ -55,7 +63,26 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
     this.getPaymentModeList();
     this.getGST();
 
+    this.isOpenInAndroidApp = this._sharedDataService.isOpenInAndroidApp;
     this.OldManufacturingSerialNoCheck = this._sharedDataService.currentUser.setting.filter(st => st.settingName == "OldManufacturingSerialNoCheck")?.[0].settingValue;
+    this.customerInfoFormField = customerInfoField.fields.filter(f => this.isOpenInAndroidApp && !["CustomerTypeID", "Address", "GSTNo"].includes(f.fieldName));
+  }
+
+  submitCustomerInfo(Data) {
+    // this.showLoader = true;
+    this.manuallyClearField = false;
+    Data.MethodName = "InUp_CustomerInfo";
+    Data.CustomerTypeID = CustomerTypeID_ToPurchaseProduct.C;
+    this._customerInfoService.AddCustomer(Data).subscribe({
+      next: res => {
+        this.SaleInfoForm.get("CustomerID")?.setValue(res?.[0]?.CustomerID);
+        this.SaveSaleInfo();
+      },
+      error: error => {
+        this.showLoader = false;
+        this._sharedDataService.error(error);
+      }
+    });
   }
   SaleInfoFormBuilder() {
     this.SaleInfoForm = this._FormBuilder.group({
@@ -278,7 +305,7 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
       return;
     }
 
-    if (["", undefined, null].includes(CustomerID)) {
+    if (["", undefined, null].includes(CustomerID) && !this.isOpenInAndroidApp) {
       this.SaleInfoForm.get("SaleProductInfo")?.get("SerialNo")?.setValue("");
       this._sharedDataService.NotieError("Please choose customer");
       return;
@@ -365,21 +392,35 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
   /* This will trigger On final save button  */
   Submit() {
     this.showLoader = true;
+    if (this.isOpenInAndroidApp) {
+      if (this.smartFormComponent.SmartForm.invalid) {
+        this._sharedDataService.NotieError("Please add customer detail");
+        return;
+      }
+      this.smartFormComponent.Submit();
+    }
+    else {
+      this.SaveSaleInfo();
+    }
+
+
+  }
+
+  SaveSaleInfo() {
     this._saleInfoService.AddSale(generatePostRequestBody(this.SaleInfoForm.getRawValue(), this.isAdd ? "0" : "1")).subscribe({
       next: data => {
         this.showLoader = false;
         this._sharedDataService.success("Completed successfully !");
         this.printSaleInvoice(data)
         this.clearSale();
+        this.manuallyClearField = true;
       },
       error: error => {
         this.showLoader = false;
         this._sharedDataService.error(error);
       }
     });
-
   }
-
 
   /* update sale total values like totalAmount, Total Quanity etc. 
   1) on product addition , deletion  
@@ -400,6 +441,20 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
     let CGSTAmount = 0;
     let SGSTAmount = 0;
     let IGSTAmount = 0;
+
+    if (this.isOpenInAndroidApp) {
+      this.SaleInfoForm.patchValue({
+        OldBatteryPurchasePrice: 0,
+        OldBatteryCount: 0,
+        TotalOldBatteryAmount: 0,
+        DiscountAmount: 0,
+        PaymentModeID: 1,
+        GSTMode: "W",
+        TotalTaxableAmount: 0,
+        ApplicableGSTType: APPLICABLE_GST_TYPE.C,
+        CustomerID: 0
+      });
+    }
 
     TotalQuantity = Number((SaleProductList?.reduce((n, { Quantity }) => (n) + parseInt(Quantity), 0)).toFixed(2));
     SaleProductList?.forEach(prod => {

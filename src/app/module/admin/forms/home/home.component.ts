@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public AdvanceSearchTextString = "";
   public isOpenReportViewerSlideIn = false;
   public queryString: string;
+  public isOpenInAndroidApp = false;
   constructor(
     private route: ActivatedRoute,
     private _httpService: HttpService,
@@ -37,6 +38,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
   ngOnInit(): void {
     this.subMenuID = this.route.snapshot.queryParamMap.get('id') ?? "";
+    this.isOpenInAndroidApp = this._sharedDataService.isOpenInAndroidApp;
     this._homeService.getCurrentUser().subscribe({
       next: data => {
         this._sharedDataService.currentUser = data;

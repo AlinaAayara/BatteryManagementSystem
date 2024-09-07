@@ -21,7 +21,8 @@ export class CustomerSearchComponent implements OnInit {
   public CustomerTypes = Constant.CUSTOMER_TYPE;
   public CustomerTypeID = "B";
   @Output() public emitCustomer = new EventEmitter();
-
+  public isOpenInAndroidApp = false;
+  
   constructor(
     private route: ActivatedRoute,
     private _customerInfoService: CustomerInfoService,
@@ -30,6 +31,7 @@ export class CustomerSearchComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.isOpenInAndroidApp = this._sharedDataService.isOpenInAndroidApp;
     this.id = this.route.snapshot.queryParamMap.get('id');
     this.isWrite = this._sharedDataService.checkWriteDeleteAccess(this.id, Constant.ISWRITE);
     this.isDelete = this._sharedDataService.checkWriteDeleteAccess(this.id, Constant.ISDELETE);

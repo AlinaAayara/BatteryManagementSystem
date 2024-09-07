@@ -10,7 +10,7 @@ export const fields = [
         placeholder: "BranchID",
         label: "BranchID",
         isVisible: false,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: null
     },
     {
@@ -20,7 +20,7 @@ export const fields = [
         placeholder: "Branch Name",
         label: "Branch Name",
         isVisible: true,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: controlType.Textbox,
         directiveName: directiveList.AlphaOnly
     },
@@ -31,7 +31,7 @@ export const fields = [
         placeholder: "Address",
         label: "Address",
         isVisible: true,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: controlType.Textbox
     }
 ]

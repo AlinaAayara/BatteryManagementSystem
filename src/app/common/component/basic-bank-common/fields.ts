@@ -10,7 +10,7 @@ export const fields = [
         placeholder: "BankID",
         label: "BankID",
         isVisible: false,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: null
     },
     {
@@ -20,7 +20,7 @@ export const fields = [
         placeholder: "Bank Name",
         label: "Bank Name",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox
     },
     {
@@ -30,7 +30,7 @@ export const fields = [
         placeholder: "Account No",
         label: "Account No",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox
     },
     {
@@ -40,7 +40,7 @@ export const fields = [
         placeholder: "Account Name",
         label: "Account Name",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox
     },
     {
@@ -50,7 +50,7 @@ export const fields = [
         placeholder: "IFSC Code",
         label: "IFSC Code",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox
     },
     {
@@ -60,7 +60,7 @@ export const fields = [
         placeholder: "Branch",
         label: "Branch",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox
     },
     {
@@ -70,7 +70,7 @@ export const fields = [
         placeholder: "IsMainBank",
         label: "IsMainBank",
         isVisible: true,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: controlType.Radio,
         radioGroup: Constant.YES_OR_NO_BANK,
         directiveName: directiveList.AlphaNumeric

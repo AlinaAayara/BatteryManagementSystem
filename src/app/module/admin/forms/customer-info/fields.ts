@@ -8,7 +8,7 @@ export const fields = [
         placeholder: "CustomerID",
         label: "CustomerID",
         isVisible: false,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: null
     },
     {
@@ -18,7 +18,7 @@ export const fields = [
         placeholder: "BranchID",
         label: "BranchID",
         isVisible: false,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: null
     }, {
         fieldName: "CustomerTypeID",
@@ -27,7 +27,7 @@ export const fields = [
         placeholder: "CustomerTypeID",
         label: "CustomerTypeID",
         isVisible: true,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12 col-12 col-xs-12 col-sm-12",
         controlType: controlType.Radio,
         radioGroup: Constant.CUSTOMER_TYPE,
         directiveName: directiveList.AlphaNumeric
@@ -39,7 +39,7 @@ export const fields = [
         placeholder: "Customer Name",
         label: "Customer Name",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6 col-6 col-xs-6 col-sm-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.AlphaOnly
     },
@@ -50,7 +50,7 @@ export const fields = [
         placeholder: "Contact No",
         label: "Contact No",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6 col-6 col-xs-6 col-sm-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.NumberOnly
     },
@@ -61,7 +61,7 @@ export const fields = [
         placeholder: "Address",
         label: "Address",
         isVisible: true,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12 col-12 col-xs-12 col-sm-12",
         controlType: controlType.Textbox
     },
     {
@@ -71,7 +71,7 @@ export const fields = [
         placeholder: "Vehiclel No",
         label: "Vehiclel No",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6 col-6 col-xs-6 col-sm-6",
         controlType: controlType.Textbox
     },
     {
@@ -81,7 +81,7 @@ export const fields = [
         placeholder: "Vehicle Name",
         label: "Vehicle Name",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6 col-6 col-xs-6 col-sm-6",
         controlType: controlType.Textbox
     },
     {
@@ -91,7 +91,7 @@ export const fields = [
         placeholder: "GST No",
         label: "GST No",
         isVisible: true,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12 col-4 col-xs-4 col-sm-4",
         controlType: controlType.Textbox
     }
 ]

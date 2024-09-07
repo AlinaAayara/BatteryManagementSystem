@@ -10,7 +10,7 @@ export const fields = [
         placeholder: "AmpID",
         label: "AmpID",
         isVisible: false,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: null
     },
     {
@@ -20,7 +20,7 @@ export const fields = [
         placeholder: "Amp",
         label: "Amp",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     },
@@ -31,7 +31,7 @@ export const fields = [
         placeholder: "Weight",
         label: "Weight",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     },
@@ -42,7 +42,7 @@ export const fields = [
         placeholder: "Sale Price",
         label: "Sale Price",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     },
@@ -53,7 +53,7 @@ export const fields = [
         placeholder: "Purchase Price",
         label: "Purchase Price",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     }
