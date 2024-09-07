@@ -34,6 +34,7 @@ export class SharedDataService {
   public saleInfoEdit = new Subject<any>();
   public warrantyInfoEdit = new Subject<any>();
   public openReportSlideIn = new Subject<any>();
+  public isOpenInAndroidApp = false;
 
   constructor(
     private _httpClient: HttpClient,
@@ -157,7 +158,7 @@ export class SharedDataService {
 
   logout() {
     this.clearThingsOnLogout();
-    this._router.navigate(["Login"]);
+    this._router.navigate(["Login"], this.isOpenInAndroidApp?{ queryParams: { isOpenInAndroidApp: "1" } }:{});
   }
 
   requestBodyForAdvanceSearch(subMenuUrl, CustomerName, CustomerTypeID, serialNo) {
@@ -181,7 +182,7 @@ export class SharedDataService {
         obj.requestBody = {
           MethodName: "Sel_AdvanceSearch_SaleInfo",
           CustomerName: CustomerName,
-          SerialNo:serialNo,
+          SerialNo: serialNo,
           Mode: "0"
         };
         obj.Url = AppUrl.API.get_saleInfo;

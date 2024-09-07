@@ -10,7 +10,7 @@ export const fields = [
         placeholder: "CategoryID",
         label: "Category",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Dropdown,
         listData: {
             fetchURL: AppUrl.API.get_basic_category,
@@ -31,7 +31,7 @@ export const fields = [
         placeholder: "Amp",
         label: "Amp",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Dropdown,
         listData: {
             fetchURL: AppUrl.API.get_basic_category,
@@ -52,7 +52,7 @@ export const fields = [
         placeholder: "ProductID",
         label: "ProductID",
         isVisible: false,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: null,
         directiveName: null
     },
@@ -63,7 +63,7 @@ export const fields = [
         placeholder: "Product Name",
         label: "Product Name",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox
     },
     {
@@ -73,7 +73,7 @@ export const fields = [
         placeholder: "Purchase Price",
         label: "Purchase Price",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     },
@@ -84,7 +84,7 @@ export const fields = [
         placeholder: "Dealer Price",
         label: "Dealer Price",
         isVisible: true,
-        bootstrapFormGroup: 4,
+        bootstrapFormGroup: "col-md-4",
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     },
@@ -95,7 +95,7 @@ export const fields = [
         placeholder: "Customer Price",
         label: "Customer Price",
         isVisible: true,
-        bootstrapFormGroup: 4,
+        bootstrapFormGroup: "col-md-4",
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     },
@@ -106,7 +106,7 @@ export const fields = [
         placeholder: "Mechanic Price",
         label: "Mechanic Price",
         isVisible: true,
-        bootstrapFormGroup: 4,
+        bootstrapFormGroup: "col-md-4",
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     },
@@ -117,7 +117,7 @@ export const fields = [
     //     placeholder: "Price",
     //     label: "Old Battery",
     //     isVisible: true,
-    //     bootstrapFormGroup: 3,
+    //     bootstrapFormGroup: "col-md-3",
     //     controlType: controlType.Textbox,
     //     directiveName: directiveList.appDecimaNumber
     // },
@@ -128,7 +128,7 @@ export const fields = [
         placeholder: "Warranty Period",
         label: "Warranty Period",
         isVisible: true,
-        bootstrapFormGroup: 4,
+        bootstrapFormGroup: "col-md-4",
         controlType: controlType.Textbox,
         directiveName: directiveList.NumberOnly
     },
@@ -139,7 +139,7 @@ export const fields = [
         placeholder: "Guarantee Period",
         label: "Guarantee Period",
         isVisible: true,
-        bootstrapFormGroup: 4,
+        bootstrapFormGroup: "col-md-4",
         controlType: controlType.Textbox,
         directiveName: directiveList.NumberOnly
     },
@@ -150,7 +150,7 @@ export const fields = [
         placeholder: "Scheme Point",
         label: "Scheme Point",
         isVisible: true,
-        bootstrapFormGroup: 4,
+        bootstrapFormGroup: "col-md-4",
         controlType: controlType.Textbox,
         directiveName: directiveList.NumberOnly
     },
@@ -161,7 +161,7 @@ export const fields = [
         placeholder: "CGST %",
         label: "CGST %",
         isVisible: true,
-        bootstrapFormGroup: 4,
+        bootstrapFormGroup: "col-md-4",
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     },
@@ -172,7 +172,7 @@ export const fields = [
         placeholder: "SGST %",
         label: "SGST %",
         isVisible: true,
-        bootstrapFormGroup: 4,
+        bootstrapFormGroup: "col-md-4",
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     },
@@ -183,7 +183,7 @@ export const fields = [
         placeholder: "IGST %",
         label: "IGST %",
         isVisible: true,
-        bootstrapFormGroup: 4,
+        bootstrapFormGroup: "col-md-4",
         controlType: controlType.Textbox,
         directiveName: directiveList.appDecimaNumber
     }

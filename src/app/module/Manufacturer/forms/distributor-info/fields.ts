@@ -10,7 +10,7 @@ export const fields = [
         placeholder: "UserID",
         label: "UserID",
         isVisible: false,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         directiveName: null
     },
     {
@@ -20,7 +20,7 @@ export const fields = [
         placeholder: "GroupID",
         label: "GroupID",
         isVisible: false,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         directiveName: null
     },
     {
@@ -30,7 +30,7 @@ export const fields = [
         placeholder: "Name",
         label: "Name",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         directiveName: directiveList.AlphaOnlyspace
     },
     {
@@ -40,7 +40,7 @@ export const fields = [
         placeholder: "Contact No",
         label: "ContactNo",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.NumberOnly
     },
@@ -51,7 +51,7 @@ export const fields = [
         placeholder: "Password",
         label: "Password",
         isVisible: false,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox
     },
     {
@@ -61,7 +61,7 @@ export const fields = [
         placeholder: "Firm Name",
         label: "Firm Name",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: null
     },
@@ -72,7 +72,7 @@ export const fields = [
         placeholder: "Firm Address",
         label: "Firm Address",
         isVisible: true,
-        bootstrapFormGroup: 12,
+        bootstrapFormGroup: "col-md-12",
         controlType: controlType.Textbox,
         directiveName: null
     },
@@ -83,7 +83,7 @@ export const fields = [
         placeholder: "GST No",
         label: "GST No",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: null
     },
@@ -94,7 +94,7 @@ export const fields = [
         placeholder: "GST Sate Code",
         label: "GST Sate Code",
         isVisible: true,
-        bootstrapFormGroup: 6,
+        bootstrapFormGroup: "col-md-6",
         controlType: controlType.Textbox,
         directiveName: directiveList.NumberOnly
     }

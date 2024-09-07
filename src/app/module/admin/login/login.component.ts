@@ -1,7 +1,7 @@
 declare const require: any;
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'src/app/Services/login.service';
 import { SharedDataService } from 'src/app/Services/shared-data.service';
 import Swal from 'sweetalert2';
@@ -12,14 +12,16 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
   FormLogin: FormGroup;
+  public isOpenInAndroidApp = false;
   constructor(private _FormBuilder: FormBuilder,
     private _Router: Router,
     private _loginService: LoginService,
-    public sharedDataService: SharedDataService
+    public sharedDataService: SharedDataService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
-
+    this.isOpenInAndroidApp = this.sharedDataService.isOpenInAndroidApp = this.route.snapshot.queryParamMap.get('isOpenInAndroidApp') == "1";
     this.FormLogin = this._FormBuilder.group({
       UserName: ["", Validators.required],
       Password: ["", Validators.required]
@@ -30,7 +32,7 @@ export class LoginComponent implements OnInit {
     this._loginService.GetLoginInfo(this.LoginObj()).subscribe({
       next: data => {
         this.sharedDataService.setToken(data.value);
-        this._Router.navigate(['/Home']);
+        this._Router.navigate(this.isOpenInAndroidApp ? ['/Home/SaleInfo'] : ['/Home']);
       },
       error: error => {
         Swal.fire({
