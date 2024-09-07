@@ -64,8 +64,8 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
     this.getGST();
 
     this.isOpenInAndroidApp = this._sharedDataService.isOpenInAndroidApp;
+    this.customerInfoFormField = this.isOpenInAndroidApp ? customerInfoField.fields.filter(f => !["CustomerTypeID", "Address", "GSTNo"].includes(f.fieldName)):customerInfoField.fields;
     this.OldManufacturingSerialNoCheck = this._sharedDataService.currentUser.setting.filter(st => st.settingName == "OldManufacturingSerialNoCheck")?.[0].settingValue;
-    this.customerInfoFormField = customerInfoField.fields.filter(f => this.isOpenInAndroidApp && !["CustomerTypeID", "Address", "GSTNo"].includes(f.fieldName));
   }
 
   submitCustomerInfo(Data) {
