@@ -64,9 +64,17 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
     this.getGST();
 
     this.isOpenInAndroidApp = this._sharedDataService.isOpenInAndroidApp;
-    this.customerInfoFormField = this.isOpenInAndroidApp ? customerInfoField.fields.filter(f => !["CustomerTypeID", "Address", "GSTNo"].includes(f.fieldName)):customerInfoField.fields;
-    this.OldManufacturingSerialNoCheck = this._sharedDataService.currentUser.setting.filter(st => st.settingName == "OldManufacturingSerialNoCheck")?.[0].settingValue;
+    this.customerInfoFormField = this.isOpenInAndroidApp ? customerInfoField.fields.filter(f => !["CustomerTypeID", "Address", "GSTNo"].includes(f.fieldName)) : customerInfoField.fields;
+    this.OldManufacturingSerialNoCheck = this._sharedDataService?.currentUser?.setting?.filter(st => st?.settingName == "OldManufacturingSerialNoCheck")?.[0]?.settingValue;
+
+    //--== set cash as default payment mode for firm =1 i.e. Green Battery, ==-- //
+    if (this._sharedDataService?.currentUser?.firmID == "1") {
+      this.SaleInfoForm?.get("PaymentModeID")?.setValue("1");
+    }
+    //---================================================================--//
+
   }
+
 
   submitCustomerInfo(Data) {
     // this.showLoader = true;
@@ -313,7 +321,8 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
     let separateByComma = serialNo?.replace(/,\s*$/, "")?.replace(/\s/g, "")?.split(',');
     if (separateByComma?.length > 0) {
       let SaleProductList: any = this.SaleInfoForm.get("SaleProductList")?.value ?? [];
-      SaleProductList = SaleProductList?.map(s => s?.SerialNo);
+      SaleProductList = SaleProductList?.map(s => s?.SerialNoList);
+      SaleProductList = SaleProductList.reduce((accumulator, value) => accumulator.concat(value), []);
       separateByComma = separateByComma?.filter(val => !SaleProductList?.includes(val));
       separateByComma?.forEach(serial => {
         if (this.OldManufacturingSerialNoCheck == "1") {
@@ -323,10 +332,13 @@ export class SaleInfoCommonComponent implements OnInit, OnChanges {
         }
       });
     }
-    this.SaleInfoForm.get("SaleProductInfo")?.get("SerialNo")?.setValue("");
-    if (separateByComma?.length > 0) {
-      this.scanControl.nativeElement.focus();
-    }
+    setTimeout(() => {
+      this.SaleInfoForm.get("SaleProductInfo")?.get("SerialNo")?.setValue("");
+      if (separateByComma?.length > 0) {
+        this.scanControl.nativeElement.focus();
+      }
+    }, 1000)
+
   }
   public getOldManufacturingSerialNo(SerialNo) {
     this._saleInfoService.getOldManufacturingSerialNo(this.getOldManufacturingSerialNoRequestBody(SerialNo)).subscribe({

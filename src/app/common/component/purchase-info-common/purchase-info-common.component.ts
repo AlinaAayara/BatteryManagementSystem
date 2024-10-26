@@ -270,7 +270,7 @@ export class PurchaseInfoCommonComponent implements OnInit, OnChanges {
     }
   }
   /* This will create array based on Serial no input string, in which you have comma seperated serial no */
-  separateSerialNo(event) {
+  separateSerialNo() {
     this.isValidSerialNo();
   }
   /* funtion will check is the serial no valid to add menas is it already purchased */

@@ -15,7 +15,7 @@
                                             PurchaseInfoForm.get('OwnBillNo')?.dirty) &&
                                             PurchaseInfoForm.get('OwnBillNo')?.errors)" [class.text-success]="(PurchaseInfoForm.get('OwnBillNo')?.touched &&
                                             !PurchaseInfoForm.get('OwnBillNo')?.errors)">Bill No</label>
-                                            <input type="text" class="form-control enter-focus" id="_dm-inputPassword"
+                                            <input type="text" class="form-control " id="_dm-inputPassword"
                                                 formControlName="OwnBillNo" placeholder="Bill No" [class.is-invalid]="((PurchaseInfoForm.get('OwnBillNo')?.touched ||
                                         PurchaseInfoForm.get('OwnBillNo')?.dirty) &&
                                         PurchaseInfoForm.get('OwnBillNo')?.errors)" [class.is-valid]="(PurchaseInfoForm.get('OwnBillNo')?.touched &&
@@ -49,7 +49,7 @@
                                             PurchaseInfoForm.get('BillNo')?.dirty) &&
                                             PurchaseInfoForm.get('BillNo')?.errors)" [class.text-success]="(PurchaseInfoForm.get('BillNo')?.touched &&
                                             !PurchaseInfoForm.get('BillNo')?.errors)">Bill No</label>
-                                            <input type="text" class="form-control enter-focus" id="_dm-inputPassword"
+                                            <input type="text" class="form-control " id="_dm-inputPassword"
                                                 formControlName="BillNo" placeholder="Bill No" [class.is-invalid]="((PurchaseInfoForm.get('BillNo')?.touched ||
                                         PurchaseInfoForm.get('BillNo')?.dirty) &&
                                         PurchaseInfoForm.get('BillNo')?.errors)" [class.is-valid]="(PurchaseInfoForm.get('BillNo')?.touched &&
@@ -63,7 +63,7 @@
 
                                         </div>
                                         <div class="col-md-5  mb-3" *ngIf="userType!='MF'">
-                                            <button type="button" class="btn btn-primary enter-focus"
+                                            <button type="button" class="btn btn-primary "
                                                 (click)="showPartyInfoSlideIn(true)">
                                                 <i class=" demo-pli-mail-send fs-5 me-2"></i>{{btnChoosePartyText}}
                                             </button>
@@ -84,7 +84,7 @@
                                         PurchaseInfoForm.get('PurchaseDate')?.dirty) &&
                                         PurchaseInfoForm.get('PurchaseDate')?.errors)" [class.is-valid]="(
                                         !PurchaseInfoForm.get('PurchaseDate')?.errors)"
-                                                class="form-control enter-focus" placeholder="Date" appDate>
+                                                class="form-control " placeholder="Date" appDate>
                                             <span style="color:red" class="help-block" *ngIf="((PurchaseInfoForm.get('PurchaseDate')?.touched ||
                                             PurchaseInfoForm.get('PurchaseDate')?.dirty) &&
                                             PurchaseInfoForm.get('PurchaseDate')?.errors)">
@@ -164,7 +164,7 @@
                                         <div class="row g-3">
                                             <div class="col-md-6  mb-3">
                                                 <label for="_dm-Category" class="form-label">Category</label>
-                                                <select class="form-select enter-focus" formControlName="CategoryID"
+                                                <select class="form-select " formControlName="CategoryID"
                                                     aria-label="select transition timing" (change)="getProductList()">
                                                     <option value=""> -- Select Category --</option>
                                                     <option *ngFor="let item of categoryList" [value]="item.CategoryID">
@@ -174,7 +174,7 @@
                                             </div>
                                             <div class="col-md-6  mb-3">
                                                 <label for="_dm-Category" class="form-label">Product</label>
-                                                <select class="form-select enter-focus" formControlName="ProductID"
+                                                <select class="form-select " formControlName="ProductID"
                                                     aria-label="select transition timing" (change)="setPurchasePrice()">
                                                     <option value=""> -- Select Product --</option>
                                                     <option *ngFor="let item of productList" [value]="item.ProductID">
@@ -184,16 +184,19 @@
                                             </div>
                                         </div>
                                         <div class="col-12  mb-3">
-                                            <label for="_dm-inputAddress" class="form-label">Serial No.</label>
-                                            <input id="_dm-inputAddress" formControlName="SerialNo" type="text"
-                                                class="form-control enter-focus" placeholder="Scan"
-                                                (blur)="separateSerialNo($event)" #scanControl>
+                                            <h5 class="card-title">Serial No.</h5>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <input id="id_SerialNo" formControlName="SerialNo" type="text" class="form-control  enter-focus"
+                                                        placeholder="Scan OR enter serial no" (blur)="separateSerialNo()" #scanControl>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row g-3">
                                             <div class="col-4  mb-3">
                                                 <label for="_dm-Price" class="form-label">Total Qty</label>
                                                 <input id="_dm-Price" formControlName="Quantity" type="text"
-                                                    class="form-control" placeholder="Quantity">
+                                                    class="form-control " placeholder="Quantity">
                                             </div>
                                             <div class="col-4  mb-3">
                                                 <label for="_dm-Price" class="form-label">Purchase Price</label>
@@ -205,7 +208,7 @@
                                             <div class="col-4  mb-3">
                                                 <label for="_dm-Price" class="form-label">Total</label>
                                                 <input id="_dm-Price" formControlName="TotalAmount" type="text"
-                                                    class="form-control enter-focus" placeholder="TotalAmount"
+                                                    class="form-control " placeholder="TotalAmount"
                                                     NumberOnly [directiveName]="'appDecimaNumber'">
                                             </div>
                                         </div>
@@ -214,7 +217,7 @@
                                             <div class="col-4  mb-3">
                                                 <label for="_dm-Price" class="form-label">Price</label>
                                                 <input id="_dm-Price" formControlName="PurchasePrice" type="text"
-                                                    class="form-control enter-focus" placeholder="Price" NumberOnly
+                                                    class="form-control " placeholder="Price" NumberOnly
                                                     [directiveName]="'appDecimaNumber'">
                                             </div>
                                             <ng-container
@@ -227,7 +230,7 @@
                                                 <div class="col-4  mb-3">
                                                     <label for="_dm-Price" class="form-label">SGST</label>
                                                     <input id="_dm-Price" formControlName="SGSTAmount" type="text"
-                                                        class="form-control enter-focus" placeholder="SGST Amount"
+                                                        class="form-control " placeholder="SGST Amount"
                                                         NumberOnly [directiveName]="'appDecimaNumber'">
                                                 </div>
                                             </ng-container>
@@ -235,7 +238,7 @@
                                                 *ngIf="this.PurchaseInfoForm.get('ApplicableGSTType')?.value==='IGST'">
                                                 <label for="_dm-Price" class="form-label">IGST</label>
                                                 <input id="_dm-Price" formControlName="IGSTAmount" type="text"
-                                                    class="form-control enter-focus" placeholder="IGST Amount"
+                                                    class="form-control " placeholder="IGST Amount"
                                                     NumberOnly [directiveName]="'appDecimaNumber'">
                                             </div>
                                         </div>
@@ -249,19 +252,19 @@
                                             <div class="col-4  mb-3">
                                                 <label for="_dm-Price" class="form-label">Disc Amnt/Pic</label>
                                                 <input id="_dm-Price" formControlName="DiscountAmount" type="text"
-                                                    class="form-control enter-focus" placeholder="Disc Amount"
+                                                    class="form-control " placeholder="Disc Amount"
                                                     NumberOnly [directiveName]="'appDecimaNumber'"
                                                     (change)="calculatePurchaseProductTotal(1)">
                                             </div>
                                             <div class="col-4  mb-3">
                                                 <label for="_dm-Price" class="form-label">Total Disc Amnt</label>
                                                 <input id="_dm-Price" formControlName="TotalDiscountAmount" type="text"
-                                                    class="form-control enter-focus" placeholder="Total Disc Amount"
+                                                    class="form-control " placeholder="Total Disc Amount"
                                                     NumberOnly [directiveName]="'appDecimaNumber'">
                                             </div>
                                         </div>
                                         <div class="mt-4 d-grid gap-2 d-md-block">
-                                            <button type="button" class="btn btn-secondary enter-focus"
+                                            <button type="button" class="btn btn-secondary "
                                                 (click)="SubmitPurchaseProduct()"> Add</button>
                                             |
                                             <button type="button" class="btn btn-danger"

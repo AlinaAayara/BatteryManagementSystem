@@ -147,7 +147,7 @@
                                                         <button class="btn btn-danger" (click)="removeSaleProduct(item)"><i class="demo-psi-trash fs-5"></i></button>
                                                     </th>
                                                     <td>{{item.ProductName}}</td>
-                                                    <td>{{item.SerialNoList.join(",")}}</td>
+                                                    <td>{{item.SerialNoList?.join(",")}}</td>
                                                     <td *ngIf="!isOpenInAndroidApp">{{item.Price}}</td>
                                                     <ng-container
                                                         *ngIf="this.SaleInfoForm.get('GSTMode')?.value === 'G' && !isOpenInAndroidApp">
