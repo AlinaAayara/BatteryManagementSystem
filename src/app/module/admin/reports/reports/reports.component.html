@@ -1,138 +1,132 @@
-<div class="content__boxed">
-    <div class="card mb-1">
-        <div class="card-body">
-            <h5 class="card-title">Report</h5>
-            <div class="row g-3 align-items-center">
-                <div class="d-flex flex-wrap justify-content-center gap-2 mb-1">
-                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <ng-container *ngFor="let report of reportList">
-                            <input type="radio" class="btn-check" id="Search_{{report.reportID}}"
-                                [value]="report.reportID" [(ngModel)]="ReportID" (change)="showFilterCriteria(report)">
-                            <label class="btn btn-outline-primary"
-                                for="Search_{{report.reportID}}">{{report.subMenuName}}</label>
+<div class="row g-3 align-items-center">
+    <div class="col-md-2  mb-3">
+        <label for="_dm-Category" class="form-label">Report</label>
+        <select class="form-select " [(ngModel)]="ReportID" aria-label="select transition timing"
+            (change)="showFilterCriteria()">
+            <option value=""> -- Select Report --</option>
+            <option *ngFor="let report of reportList" [value]="report.reportID">
+                {{report.subMenuName}}
+            </option>
+        </select>
+    </div>
+    <div class="col-md-10 mb-3" *ngIf="ReportID">
+        <h5 class="card-title">Filter</h5>
+        <div class="row mb-1">
+            <div class="row mb-1">
+                <div class="col-2" *ngIf="this['BillNoControl']">
+                    <input id="id_BillNo" type="text" [(ngModel)]="this['BillNo']" class="form-control  enter-focus"
+                        placeholder="Bill No" NumberOnly [directiveName]="'NumberOnly'">
+                </div>
+                <div class="col-2" *ngIf="this['FromDateControl']">
+                    <input id="id_FromDate" type="text" [(ngModel)]="this['FromDate']" class="form-control  enter-focus"
+                        placeholder="From date" appDate>
+                </div>
+                <div class="col-2" *ngIf="this['ToDateControl']">
+                    <input id="id_ToDate" type="text" [(ngModel)]="this['ToDate']" class="form-control  enter-focus"
+                        placeholder="To date" appDate>
+                </div>
+
+                <div class="col-2" *ngIf="this['SerialNoControl']">
+                    <input id="id_SerialNo" type="text" [(ngModel)]="this['SerialNo']" class="form-control  enter-focus"
+                        placeholder="Serial No">
+                </div>
+                <div class="col-2" *ngIf="this['PurchaseBillNoControl']">
+                    <input id="id_PurchaseBillNo" type="text" [(ngModel)]="this['PurchaseBillNo']"
+                        class="form-control  enter-focus" placeholder="Purchase BillNo">
+                </div>
+                <div class="col-md-2" *ngIf="this['PartyIDControl']">
+                    <select class="form-select enter-focus" [(ngModel)]="this['PartyID']"
+                        aria-label="select transition timing">
+                        <option value=""> -- Select Party --</option>
+                        <option *ngFor="let item of partyList" [value]="item.PartyID">
+                            {{item.PartyName}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="row mb-1">
+                <div class="col-md-2" *ngIf="this['AmpIDControl']">
+                    <select class="form-select enter-focus" [(ngModel)]="this['AmpID']"
+                        aria-label="select transition timing">
+                        <option value=""> -- Select Amp --</option>
+                        <option *ngFor="let item of ampList" [value]="item.AmpID">
+                            {{item.Amp}}
+                        </option>
+                    </select>
+                </div>
+
+                <div *ngIf="this['CustomerTypeIDControl'] && CurrentUserType=='DL'"
+                    class="col-md-3 col-sm-12 d-flex flex-wrap justify-content-center gap-2">
+                    <div class="btn-group" role="CustomerTypesgroup"
+                        aria-label="CustomerTypes CustomerTypesradio toggle button CustomerTypesgroup">
+                        <ng-container *ngFor="let group of CustomerTypes">
+                            <input type="radio" class="btn-check" id="Search_{{group.Text}}" [value]="group.Value"
+                                [(ngModel)]="this['CustomerTypeID']">
+                            <label class="btn btn-outline-primary" for="Search_{{group.Text}}">{{group.Text}}</label>
                         </ng-container>
                     </div>
                 </div>
+                <div class="col-2" *ngIf="this['CustomerNameControl']">
+                    <input id="id_CustomerName" type="text" [(ngModel)]="this['CustomerName']"
+                        class="form-control  enter-focus" placeholder="Customer Name">
+                </div>
+                <div class="col-2" *ngIf="this['ContactNoControl']">
+                    <input id="id_ContactNo" type="text" [(ngModel)]="this['ContactNo']"
+                        class="form-control  enter-focus" placeholder="Contact No" NumberOnly
+                        [directiveName]="'NumberOnly'">
+                </div>
+
+                <div class="col-md-2" *ngIf="this['CategoryIDControl']">
+                    <select class="form-select enter-focus" [(ngModel)]="this['CategoryID']"
+                        aria-label="select transition timing" (change)="getProductList()">
+                        <option value=""> -- Select Category --</option>
+                        <option *ngFor="let item of categoryList" [value]="item.CategoryID">
+                            {{item.CategoryName}}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-2" *ngIf="this['ProductIDControl']">
+                    <select class="form-select enter-focus" [(ngModel)]="this['ProductID']"
+                        aria-label="select transition timing">
+                        <option value=""> -- Select Product --</option>
+                        <option *ngFor="let item of productList" [value]="item.ProductID">
+                            {{item.ProductName}}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-2" *ngIf="this['QuantityControl']">
+                    <input id="id_ContactNo" type="text" [(ngModel)]="this['Quantity']"
+                        class="form-control  enter-focus" placeholder="Quantity" NumberOnly
+                        [directiveName]="'NumberOnly'">
+                </div>
+
+                <div class="col-2" *ngIf="this['PriceControl']">
+                    <input id="id_Price" type="text" [(ngModel)]="this['Price']" class="form-control  enter-focus"
+                        placeholder="Price" NumberOnly [directiveName]="'NumberOnly'">
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row mb-1">
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary" (click)="viewReport()">View
+                </button>
             </div>
         </div>
     </div>
-</div>
-<div class="content__boxed">
-    <div class="card mb-3">
-        <div class="card-body">
-            <h5 class="card-title">Filter</h5>
-            <div class="row mb-1">
-                <div class="row mb-1">
-                    <div class="col-2" *ngIf="this['BillNoControl']">
-                        <input id="id_BillNo" type="text" [(ngModel)]="this['BillNo']" class="form-control  enter-focus"
-                            placeholder="Bill No" NumberOnly [directiveName]="'NumberOnly'">
-                    </div>
-                    <div class="col-2" *ngIf="this['FromDateControl']">
-                        <input id="id_FromDate" type="text" [(ngModel)]="this['FromDate']"
-                            class="form-control  enter-focus" placeholder="From date" appDate>
-                    </div>
-                    <div class="col-2" *ngIf="this['ToDateControl']">
-                        <input id="id_ToDate" type="text" [(ngModel)]="this['ToDate']" class="form-control  enter-focus"
-                            placeholder="To date" appDate>
-                    </div>
-                </div>
-
-
-                <div class="row mb-1">
-                    <div class="col-2" *ngIf="this['SerialNoControl']">
-                        <input id="id_SerialNo" type="text" [(ngModel)]="this['SerialNo']"
-                            class="form-control  enter-focus" placeholder="Serial No">
-                    </div>
-                    <div class="col-2" *ngIf="this['PurchaseBillNoControl']">
-                        <input id="id_PurchaseBillNo" type="text" [(ngModel)]="this['PurchaseBillNo']"
-                            class="form-control  enter-focus" placeholder="Purchase BillNo">
-                    </div>
-                    <div class="col-md-2" *ngIf="this['PartyIDControl']">
-                        <select class="form-select enter-focus" [(ngModel)]="this['PartyID']"
-                            aria-label="select transition timing">
-                            <option value=""> -- Select Party --</option>
-                            <option *ngFor="let item of partyList" [value]="item.PartyID">
-                                {{item.PartyName}}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-md-2" *ngIf="this['AmpIDControl']">
-                        <select class="form-select enter-focus" [(ngModel)]="this['AmpID']"
-                            aria-label="select transition timing">
-                            <option value=""> -- Select Amp --</option>
-                            <option *ngFor="let item of ampList" [value]="item.AmpID">
-                                {{item.Amp}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row mb-1">
-                    <div *ngIf="this['CustomerTypeIDControl'] && CurrentUserType=='DL'"
-                        class="col-md-3 col-sm-12 d-flex flex-wrap justify-content-center gap-2">
-                        <div class="btn-group" role="CustomerTypesgroup"
-                            aria-label="CustomerTypes CustomerTypesradio toggle button CustomerTypesgroup">
-                            <ng-container *ngFor="let group of CustomerTypes">
-                                <input type="radio" class="btn-check" id="Search_{{group.Text}}" [value]="group.Value"
-                                    [(ngModel)]="this['CustomerTypeID']">
-                                <label class="btn btn-outline-primary"
-                                    for="Search_{{group.Text}}">{{group.Text}}</label>
-                            </ng-container>
-                        </div>
-                    </div>
-                    <div class="col-2" *ngIf="this['CustomerNameControl']">
-                        <input id="id_CustomerName" type="text" [(ngModel)]="this['CustomerName']"
-                            class="form-control  enter-focus" placeholder="Customer Name">
-                    </div>
-                    <div class="col-2" *ngIf="this['ContactNoControl']">
-                        <input id="id_ContactNo" type="text" [(ngModel)]="this['ContactNo']"
-                            class="form-control  enter-focus" placeholder="Contact No" NumberOnly
-                            [directiveName]="'NumberOnly'">
-                    </div>
-                </div>
-
-                <div class="row mb-1">
-                    <div class="col-md-2" *ngIf="this['CategoryIDControl']">
-                        <select class="form-select enter-focus" [(ngModel)]="this['CategoryID']"
-                            aria-label="select transition timing" (change)="getProductList()">
-                            <option value=""> -- Select Category --</option>
-                            <option *ngFor="let item of categoryList" [value]="item.CategoryID">
-                                {{item.CategoryName}}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-md-2" *ngIf="this['ProductIDControl']">
-                        <select class="form-select enter-focus" [(ngModel)]="this['ProductID']"
-                            aria-label="select transition timing">
-                            <option value=""> -- Select Product --</option>
-                            <option *ngFor="let item of productList" [value]="item.ProductID">
-                                {{item.ProductName}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row mb-1">
-                    <div class="col-2" *ngIf="this['QuantityControl']">
-                        <input id="id_ContactNo" type="text" [(ngModel)]="this['Quantity']"
-                            class="form-control  enter-focus" placeholder="Quantity" NumberOnly
-                            [directiveName]="'NumberOnly'">
-                    </div>
-
-                    <div class="col-2" *ngIf="this['PriceControl']">
-                        <input id="id_Price" type="text" [(ngModel)]="this['Price']"
-                            class="form-control  enter-focus" placeholder="Price" NumberOnly
-                            [directiveName]="'NumberOnly'">
-                    </div>
-                </div>
-
-            </div>
-            <div class="row mb-1">
-                <div class="col-6">
-                    <button type="submit" class="btn btn-primary" (click)="viewReport()">View
-                    </button>
-                </div>
-            </div>
+    <!-- <div class="d-flex flex-wrap justify-content-center gap-2 mb-1">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <ng-container *ngFor="let report of reportList">
+                <input type="radio" class="btn-check" id="Search_{{report.reportID}}"
+                    [value]="report.reportID" [(ngModel)]="ReportID" (change)="showFilterCriteria(report)">
+                <label class="btn btn-outline-primary"
+                    for="Search_{{report.reportID}}">{{report.subMenuName}}</label>
+            </ng-container>
         </div>
-    </div>
+    </div> -->
 </div>

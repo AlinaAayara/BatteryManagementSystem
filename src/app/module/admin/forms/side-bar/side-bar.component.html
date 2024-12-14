@@ -39,19 +39,18 @@
 
 
             <div class="mainnav__categoriy py-3" *ngFor="let menu of currentUser.menu">
-                <h6 class="mainnav__caption mt-0 px-3 fw-bold">{{menu.menuName}}</h6>
-                <ul class="mainnav__menu nav flex-column">
-
-                    <li class="nav-item has-sub" *ngFor="let subMenu of menu.subMenu">
-                        <a [routerLink]="[''+subMenu.subMenuURL+'']"
-                        [queryParams]="{id: subMenu.subMenuID}"
-                        class="mininav-toggle nav-link collapsed"><i
-                                class="demo-pli-home fs-5 me-2"></i>
-                            <span class="nav-label ms-1">{{subMenu.subMenuName}}</span>
-                        </a>
-                    </li>
-
-                </ul>
+                <ng-container *ngIf="menu.isShowOnMenuBar=='1'">
+                    <h6 class="mainnav__caption mt-0 px-3 fw-bold">{{menu.menuName}}</h6>
+                    <ul class="mainnav__menu nav flex-column">
+            
+                        <li class="nav-item has-sub" *ngFor="let subMenu of menu.subMenu">
+                            <a [routerLink]="[''+subMenu.subMenuURL+'']" [queryParams]="{id: subMenu.subMenuID}"
+                                class="mininav-toggle nav-link collapsed"><i class="demo-pli-home fs-5 me-2"></i>
+                                <span class="nav-label ms-1">{{subMenu.subMenuName}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </ng-container>
             </div>
 
 

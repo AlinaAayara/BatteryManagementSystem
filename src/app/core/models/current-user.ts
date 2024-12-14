@@ -53,11 +53,13 @@ export class CurrentUser {
 export class Menu {
     public menuID = "";
     public menuName = "";
+    public isShowOnMenuBar = "";
     public subMenu = Array<SubMenu>();
     constructor(menuInfo: any = {}) {
         this.menuID = menuInfo.menuID || "";
         this.menuName = menuInfo.menuName || "";
-
+        this.isShowOnMenuBar = menuInfo.isShowOnMenuBar || "";
+        
         if (menuInfo?.subMenu && menuInfo?.subMenu?.length) {
             menuInfo?.subMenu?.forEach((subMenuInfo: any) => {
                 this.subMenu.push(new SubMenu(subMenuInfo));

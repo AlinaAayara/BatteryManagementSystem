@@ -12,7 +12,7 @@ import { SubMenu } from 'src/app/core/models/current-user';
 })
 export class ReportsComponent implements OnInit, OnDestroy {
   public reportList: SubMenu[] = [];;
-  public ReportID;
+  public ReportID = "";
   public categoryList: any;
   public productList: any;
   public partyList: any;
@@ -122,10 +122,10 @@ export class ReportsComponent implements OnInit, OnDestroy {
       MethodName: "Search_BasicAmp"
     }
   }
-  showFilterCriteria(report) {
+  showFilterCriteria() {
     this.hideAllFilterCriteria();
-    this.activeReport = report;
-    let filters = this.activeReport.filterCriteria?.replace(/,\s*$/, "")?.replace(/\s/g, "")?.split(',');
+    this.activeReport = this?.reportList?.filter(report => report?.reportID == this?.ReportID)?.[0];
+    let filters = this.activeReport?.filterCriteria?.replace(/,\s*$/, "")?.replace(/\s/g, "")?.split(',');
     filters.forEach(control => {
       this[control] = "";
       this[control + 'Control'] = true;
